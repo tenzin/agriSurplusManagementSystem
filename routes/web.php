@@ -17,5 +17,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('master');
 // });
 
-Route::get('/',['as'=>'extensiondashboard','uses'=>'PrototypeController@extensiondashboard']);
+Route::get('/',['as'=>'nationaldashboard','uses'=>'DashboardController@national']);
+ Route::get('extension',['as'=>'extension','uses'=>'DashboardController@extension']);
+Route::get('/aggregator',['as'=>'aggregator','uses'=>'DashboardController@aggregator']);
+
+
+
+
 

@@ -61,6 +61,7 @@ $('.select2bs4').select2({
       });
 </script>
 <!-- page script -->
+<!-- 
 <script>
   $(function () {
     /* ChartJS
@@ -244,4 +245,4 @@ $('.select2bs4').select2({
       options: stackedBarChartOptions
     })
   })
-</script>
+</script> -->
