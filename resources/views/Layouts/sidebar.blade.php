@@ -51,7 +51,7 @@
           </li>
         </ul>
       </li>
-      <li class="nav-header"><h5>Extension Officer/Framer</h5></li>
+      <li class="nav-header"><h5>EO || Farmer</h5></li>
       <li class="nav-item">
       <a href="{{route('extension_supply')}}" class="nav-link">
           <i class="nav-icon far fa-calendar-alt"></i>
@@ -98,98 +98,39 @@
             </li>
           </ul>
         </li>
-    
-      <li class="nav-header">MISCELLANEOUS</li>
-      <li class="nav-item">
-        <a href="https://adminlte.io/docs/3.0" class="nav-link">
-          <i class="nav-icon fas fa-file"></i>
-          <p>Documentation</p>
-        </a>
-      </li>
-      <li class="nav-header">MULTI LEVEL EXAMPLE</li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="fas fa-circle nav-icon"></i>
-          <p>Level 1</p>
-        </a>
-      </li>
-      <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-circle"></i>
-          <p>
-            Level 1
-            <i class="right fas fa-angle-left"></i>
-          </p>
-        </a>
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Level 2</p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
+        <li class="nav-header"><h5>CA || NVSC</h5></li>
+
+        <li class="nav-item">
+          <a href="{{route('ca_surplus')}}" class="nav-link">
+              <i class="nav-icon far fa-calendar-alt"></i>
               <p>
-                Level 2
-                <i class="right fas fa-angle-left"></i>
+                Add Surplus Information
+               
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Level 3</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Level 3</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-dot-circle nav-icon"></i>
-                  <p>Level 3</p>
+              <a href="{{route('view_surplus_details')}}" class="nav-link">
+                  <p>View Surplus  Information </p>
                 </a>
               </li>
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Level 2</p>
+          <a href="{{route('ca_surplus_demand')}}" class="nav-link">
+              <i class="nav-icon far fa-image"></i>
+              <p>
+                Demand Product
+              </p>
             </a>
+            <ul>
+              <li class="nav-item">
+              <a href="{{route('view_surplus_demand_details')}}" class="nav-link">
+                  <p>View Demand Information </p>
+                </a>
+              </li>
+            </ul>
           </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="fas fa-circle nav-icon"></i>
-          <p>Level 1</p>
-        </a>
-      </li>
-      <li class="nav-header">LABELS</li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon far fa-circle text-danger"></i>
-          <p class="text">Important</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon far fa-circle text-warning"></i>
-          <p>Warning</p>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon far fa-circle text-info"></i>
-          <p>Informational</p>
-        </a>
-      </li>
     </ul>
   </nav>
   <!-- /.sidebar-menu -->

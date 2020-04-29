@@ -45,5 +45,22 @@ Route::get('view_cultivation_details',['as'=>'view_cultivation_details','uses'=>
 Route::get('viewall_cultivation_details',['as'=>'viewall_cultivation_details','uses'=>'ExtensionUnderCultiavtionController@viewall_cultivation_details']);
 Route::get('addmore_cultivation_details',['as'=>'addmore_cultivation_details','uses'=>'ExtensionUnderCultiavtionController@addmore_cultivation_details']);
 
+//Commercial Aggregator Supply Surplus Information Route
+Route::get('ca_surplus',['as'=>'ca_surplus','uses'=>'CASurplusController@ca_surplus']);
+Route::post('submit_surplus_form',['as'=>'submit_surplus_form','uses'=>'CASurplusController@submit_surplus_form']);
+Route::post('submit_surplus_detail',['as'=>'submit_surplus_detail','uses'=>'CASurplusController@submit_surplus_detail']);
+Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@view_surplus_details']);
+Route::get('viewall_surplus_details',['as'=>'viewall_surplus_details','uses'=>'CASurplusController@viewall_surplus_details']);
+Route::get('addmore_surplus_details',['as'=>'addmore_surplus_details','uses'=>'CASurplusController@addmore_surplus_details']);
+
+//Commercial Aggregator Demand Surplus Information Route
+Route::get('ca_surplus_demand',['as'=>'ca_surplus_demand','uses'=>'CADemandController@ca_surplus_demand']);
+Route::post('submit_surplus_demand_form',['as'=>'submit_surplus_demand_form','uses'=>'CADemandController@submit_surplus_demand_form']);
+Route::post('submit_surplus_demand_detail',['as'=>'submit_surplus_demand_detail','uses'=>'CADemandController@submit_surplus_demand_detail']);
+Route::get('view_surplus_demand_details',['as'=>'view_surplus_demand_details','uses'=>'CADemandController@view_surplus_demand_details']);
+Route::get('viewall_surplus_demand_details',['as'=>'viewall_surplus_demand_details','uses'=>'CADemandController@viewall_surplus_demand_details']);
+Route::get('addmore_surplus_demand_details',['as'=>'addmore_surplus_demand_details','uses'=>'CADemandController@addmore_surplus_demand_details']);
+
+
 
 
