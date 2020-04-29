@@ -78,7 +78,9 @@
                     @endauth
                 </div>
             @endif
-
+            <div class="top-right links">
+            <a href="{{route('login')}}">Login</a>
+            </div>
             <div class="content">
                 <div class="title m-b-md">
                     Laravel
