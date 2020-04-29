@@ -6,8 +6,13 @@ use Illuminate\Http\Request;
 
 class PrototypeController extends Controller
 {
+    
+
     public function extensiondashboard(){
 
-       return view('prototype.extensiondashboard');
+       return view('extension_farmer.extensiondashboard');
     }
+
+    
+
 }
