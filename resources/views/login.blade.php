@@ -29,7 +29,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
       {{-- @include('flash-message') --}}
-    <form method="POST" action="{{ route('extensiondashboard') }}">
+    <form method="POST" action="{{ route('national') }}">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Username" name="username">
