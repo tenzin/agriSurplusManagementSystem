@@ -50,35 +50,7 @@
       </div>
     </div>
      
-    
-    <!-- /.row -->
-    <!-- Main row -->
-    <div class="row">
-      <!-- Left col -->
-      <!-- BAR CHART -->
-        <div class="card card-success">
-            <div class="card-header">
-                <h3 class="card-title">Supply and Demand </h3>
-            </div>
-
-            <div class="card-body">
-                <div class="chart">
-                  <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-            </div>
-        </div>
-       <!-- DONUT CHART -->
-        <div class="card card-danger">
-            <div class="card-header">
-                <h3 class="card-title">Donut Chart</h3>
-            </div>
-              <div class="card-body">
-                <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-              </div>
-            </div>
-        </div> 
-    </div>
-            <section class="content">
+    <section class="content">
                <div class="card card-info">
                    <div class="card-header">
                      <h3 class="card-title">Supply Detail Information</h3>
@@ -86,10 +58,18 @@
                  <!-- /.card-header -->
                    <div class="card-body">
                        <table id="example1" class="table table-bordered table-striped">
+                       <div class="form-group row">
+             <div class="col-md-4">
+                  ProductName:<select class="form-control" name="agency_code" id="agency" >
+                           <option disabled>Please select your ProductName</option>
+                          </select>
+              </div>
+              
+          </div>
                          <thead>
                            <tr>
                              <th>Sl. no</th>
-                             <th>Produce</th>
+                             <th>ProductName</th>
                              <th>Quantity</th>
                              <th>CostPrice</th>
                              <th>Tentitive Pickup Date</th>
@@ -98,6 +78,32 @@
                              <th>Action &nbsp;<span class="fa fa-cogs"></span></th>
                             </tr>
                          </thead>
+                         <tr>
+               <td> 1</td>
+               <td>Potato</td>
+               <td>12</td>
+               <td>50</td>
+               <td>12/05/2020</td>
+               <td>rquiered</td>
+               <td>rquiered</td>
+            </tr>
+            <td> 1</td>
+               <td>Potato</td>
+               <td>12</td>
+               <td>50</td>
+               <td>12/05/2020</td>
+               <td>rquiered</td>
+               <td>rquiered</td>
+            </tr>
+            <td> 1</td>
+               <td>Potato</td>
+               <td>12</td>
+               <td>50</td>
+               <td>12/05/2020</td>
+               <td>rquiered</td>
+               <td>rquiered</td>
+            </tr>
+         
                         </table>
                     </div>
                 </div>  

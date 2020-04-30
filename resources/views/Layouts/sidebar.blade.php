@@ -152,8 +152,50 @@
    <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
           <i class="nav-icon far fa-plus-square"></i>
-          <p> User Management</p>
+          <p>Master Table</p>
         </a>
+
+        <ul class="nav nav-treeview">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Dzongkhag and Thromde</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Geog</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Product Type</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Product Name</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Units</p>
+            </a>
+          </li> 
+          <ul>
+      </nav>
+
+      <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+             <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                   <i class="nav-icon far fa-plus-square"></i>
+                     <p> User Management</p>
+                 </a>
 
         <ul class="nav nav-treeview">
           <li class="nav-item">
@@ -174,11 +216,16 @@
               <p>Permissions</p>
             </a>
           <ul>
-       <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="fas fa-circle nav-icon"></i>
-          <p>Contact Us</p>
-        </a>
-      </li>
-  </nav>
+      </nav>
+  
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item has-treeview">
+              <a href="#" class="nav-link">
+                  <i class="nav-icon far fa-plus-square"></i>
+                 <p>Contact Us</p>
+              </a>
+          </li>
+        </ul>
+      </nav>
 </div>

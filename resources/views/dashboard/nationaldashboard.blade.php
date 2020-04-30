@@ -65,233 +65,246 @@
       <!-- ./col -->
     </div>
 
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Area of Cultivation</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table class="table table-bordered">
+                <div class="form-group row">
+             <div class="col-md-6">
+                  ProductName:<select class="form-control" name="agency_code" id="agency" >
+                           <option disabled>Please select your ProductName</option>
+                          </select>
+              </div>
+              <div class="col-md-6">
+                  Dzongkhag:<select class="form-control" name="date" id="agency" >
+                       <option disabled>Please select your Dzongkhag</option>
+                    </select>
+              </div>
+          </div>
+                  <thead>                  
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Product Name</th>
+                      <th>Quantity</th>
+                      <th>Dzongkhag</th>
+                      <th style="width: 40px">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1.</td>
+                      <td>24</td>
+                      <td>lhuntse</td>
+                      <td>active</td>
+                    </tr>
+                    <tr>
+                      <td>1.</td>
+                      <td>24</td>
+                      <td>lhuntse</td>
+                      <td>active</td>
+                    </tr>
+                    <tr>
+                      <td>1.</td>
+                      <td>24</td>
+                      <td>lhuntse</td>
+                      <td>active</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>    
+            </div>
+            <!-- /.card -->
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Condensed Full Width Table</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table table-sm">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Task</th>
+                      <th>Progress</th>
+                      <th style="width: 40px">Label</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1.</td>
+                      <td>Update software</td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-danger">55%</span></td>
+                    </tr>
+                    <tr>
+                      <td>2.</td>
+                      <td>Clean database</td>
+                      <td>
+                        <div class="progress progress-xs">
+                          <div class="progress-bar bg-warning" style="width: 70%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-warning">70%</span></td>
+                    </tr>
+                    <tr>
+                      <td>3.</td>
+                      <td>Cron job running</td>
+                      <td>
+                        <div class="progress progress-xs progress-striped active">
+                          <div class="progress-bar bg-primary" style="width: 30%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-primary">30%</span></td>
+                    </tr>
+                    <tr>
+                      <td>4.</td>
+                      <td>Fix and squish bugs</td>
+                      <td>
+                        <div class="progress progress-xs progress-striped active">
+                          <div class="progress-bar bg-success" style="width: 90%"></div>
+                        </div>
+                      </td>
+                      <td><span class="badge bg-success">90%</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Bhutan Product</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table">
+                <div class="form-group row">
+                <div class="col-md-4">
+                  ProductName:<select class="form-control" name="agency_code" id="agency" >
+                           <option disabled>Please select your ProductName</option>
+                          </select>
+              </div>
+              <div class="col-md-4">
+                  Product Type:<select class="form-control" name="date" id="agency" >
+                       <option disabled>Please select your Dzongkhag</option>
+                    </select>
+              </div>
+          </div>
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>ProductName</th>
+                      <th>Product Type</th>
+                      <th style="width: 40px">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1.</td>
+                      <td>cabbage</td>
+                      <td>vegetable</td>
+                    </tr>
+                    <tr>
+                      <td>1.</td>
+                      <td>cabbage</td>
+                      <td>vegetable</td>
+                    </tr>
+                    <tr>
+                      <td>1.</td>
+                      <td>cabbage</td>
+                      <td>vegetable</td>
+                    </tr>
+                    <tr>
+                      <td>1.</td>
+                      <td>cabbage</td>
+                      <td>vegetable</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
     
-    <!-- /.row -->
-    <!-- Main row -->
-    <div class="row">
-      <!-- Left col -->
-      <section class="col-lg-7 connectedSortable">
-        <!-- Custom tabs (Charts with tabs)-->
-        <div class="card">
-          <div class="card-header">
-            <h3 class="card-title">
-              <i class="fas fa-chart-pie mr-1"></i>
-              Product Sales
-            </h3>
-            <div class="card-tools">
-              <ul class="nav nav-pills ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link active" href="#revenue-chart" data-toggle="tab">National Level</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#sales-chart" data-toggle="tab">Product Type</a>
-                </li>
-              </ul>
-            </div>
-          </div><!-- /.card-header -->
-          <div class="card-body">
-            <div class="tab-content p-0">
-              <!-- Morris chart - Sales -->
-              <div class="chart tab-pane active" id="revenue-chart"
-                   style="position: relative; height: 300px;">
-                  <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>                         
-               </div>
-              <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>                         
-              </div>  
-            </div>
-          </div><!-- /.card-body -->
-        </div>
-        <!-- /.card -->
 
-        <!-- DIRECT CHAT -->
-        <div class="card direct-chat direct-chat-primary">
-          <!-- /.card-header -->
-          <div class="card-body">
-            <!-- Contacts are loaded here -->
-            <div class="direct-chat-contacts">
-              <ul class="contacts-list">
-                <li>
-                  <a href="#">
-                    <img class="contacts-list-img" src="dist/img/user1-128x128.jpg">
 
-                    <div class="contacts-list-info">
-                      <span class="contacts-list-name">
-                        Count Dracula
-                        <small class="contacts-list-date float-right">2/28/2015</small>
-                      </span>
-                      <span class="contacts-list-msg">How have you been? I was...</span>
-                    </div>
-                    <!-- /.contacts-list-info -->
-                  </a>
-                </li>
-                <!-- End Contact Item -->
-                <li>
-                  <a href="#">
-                    <img class="contacts-list-img" src="dist/img/user7-128x128.jpg">
-
-                    <div class="contacts-list-info">
-                      <span class="contacts-list-name">
-                        Sarah Doe
-                        <small class="contacts-list-date float-right">2/23/2015</small>
-                      </span>
-                      <span class="contacts-list-msg">I will be waiting for...</span>
-                    </div>
-                    <!-- /.contacts-list-info -->
-                  </a>
-                </li>
-                <!-- End Contact Item -->
-                <li>
-                  <a href="#">
-                    <img class="contacts-list-img" src="dist/img/user3-128x128.jpg">
-
-                    <div class="contacts-list-info">
-                      <span class="contacts-list-name">
-                        Nadia Jolie
-                        <small class="contacts-list-date float-right">2/20/2015</small>
-                      </span>
-                      <span class="contacts-list-msg">I'll call you back at...</span>
-                    </div>
-                    <!-- /.contacts-list-info -->
-                  </a>
-                </li>
-                <!-- End Contact Item -->
-                <li>
-                  <a href="#">
-                    <img class="contacts-list-img" src="dist/img/user5-128x128.jpg">
-
-                    <div class="contacts-list-info">
-                      <span class="contacts-list-name">
-                        Nora S. Vans
-                        <small class="contacts-list-date float-right">2/10/2015</small>
-                      </span>
-                      <span class="contacts-list-msg">Where is your new...</span>
-                    </div>
-                    <!-- /.contacts-list-info -->
-                  </a>
-                </li>
-                <!-- End Contact Item -->
-                <li>
-                  <a href="#">
-                    <img class="contacts-list-img" src="dist/img/user6-128x128.jpg">
-
-                    <div class="contacts-list-info">
-                      <span class="contacts-list-name">
-                        John K.
-                        <small class="contacts-list-date float-right">1/27/2015</small>
-                      </span>
-                      <span class="contacts-list-msg">Can I take a look at...</span>
-                    </div>
-                    <!-- /.contacts-list-info -->
-                  </a>
-                </li>
-                <!-- End Contact Item -->
-                <li>
-                  <a href="#">
-                    <img class="contacts-list-img" src="dist/img/user8-128x128.jpg">
-
-                    <div class="contacts-list-info">
-                      <span class="contacts-list-name">
-                        Kenneth M.
-                        <small class="contacts-list-date float-right">1/4/2015</small>
-                      </span>
-                      <span class="contacts-list-msg">Never mind I found...</span>
-                    </div>
-                    <!-- /.contacts-list-info -->
-                  </a>
-                </li>
-                <!-- End Contact Item -->
-              </ul>
-              <!-- /.contacts-list -->
-            </div>
-            <!-- /.direct-chat-pane -->
-          </div>
-          <!-- /.card-body -->
-         
-          <!-- /.card-footer-->
-        </div>
-        <!--/.direct-chat -->
-
-        <!-- TO DO List -->
-        <div class="card">
-          <!-- Add graph -->
-        </div>
-        <!-- /.card -->
-      </section>
-      <!-- /.Left col -->
-      <!-- right col (We are only adding the ID to make the widgets sortable)-->
-      <section class="col-lg-5 connectedSortable">
-
-        <!-- Map card -->
-        <div class="card bg-gradient-primary">
-          <div class="card-body">
-            <div id="world-map" style="height: 250px; width: 100%;"></div>
-          </div>
-          <!-- /.card-body-->
-          <div class="card-footer bg-transparent">
-            <div class="row">
-              <div class="col-4 text-center">
-                <div id="sparkline-1"></div>
-                <div class="text-white">Visitors</div>
+    <!-- ---->
+    <section class="content">
+   <div class="card card-success">
+      <div class="card-header">
+         <h3 class="card-title">Surplus Vs Dzongkhags</h3>
+      </div>
+      <div class="card-body">
+         <table id="example1" class="table table-bordered table-striped">
+         <div class="form-group row">
+             <div class="col-md-3">
+                  ProductName:<select class="form-control" name="agency_code" id="agency" >
+                           <option disabled>Please select your ProductName</option>
+                          </select>
               </div>
-              <!-- ./col -->
-              <div class="col-4 text-center">
-                <div id="sparkline-2"></div>
-                <div class="text-white">Online</div>
+              <div class="col-md-3">
+                  Dzongkhag:<select class="form-control" name="date" id="agency" >
+                       <option disabled>Please select your Date</option>
+                    </select>
               </div>
-              <!-- ./col -->
-              <div class="col-4 text-center">
-                <div id="sparkline-3"></div>
-                <div class="text-white">Sales</div>
+              <div class="col-md-3">
+                  Monthly:<select class="form-control" name="date" id="agency" >
+                       <option disabled>Please select your Month</option>
+                    </select>
               </div>
-              <!-- ./col -->
-            </div>
-            <!-- /.row -->
           </div>
-        </div>
-        <!-- /.card -->
+            <thead>
+               <tr>
+                  <th>Sl. no</th>
+                  <th>Product Name</th>
+                  <th>Quantity</th>
+                  <th>Product Type</th>
+                  <th>Date</th>
+                  <th>Remarks</th>
+                  <th>Action &nbsp;<span class="fa fa-cogs"></span></th>
+               </tr>
+            </thead>
+            <tr>
+               <td> 1</td>
+               <td>Potato</td>
+               <td>12</td>
+               <td>vegetable</td>
+               <td>12/05/2020</td>
+               <td>rquiered</td>
+            </tr>
+            <tr>
+               <td> 1</td>
+               <td>Potato</td>
+               <td>12</td>
+               <td>vegetable</td>
+               <td>12/05/2020</td>
+               <td>rquiered</td>
+            </tr>
+         </table>
+      </div>
+   </div>
+</section>
 
-        <!-- solid sales graph -->
-        <div class="card bg-gradient-info">
-          <div class="card-header border-0">
-            <h3 class="card-title">
-              <i class="fas fa-th mr-1"></i>
-              Product Type Sales Graph
-            </h3>
-          </div>
-          <div class="card-body">
-            <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-          </div>
-          <!-- /.card-body -->
-          <div class="card-footer bg-transparent">
-            <div class="row">
-              <div class="col-4 text-center">
-                <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
-                       data-fgColor="#39CCCC">
-
-                <div class="text-white">Mail-Orders</div>
-              </div>
-              <!-- ./col -->
-              <div class="col-4 text-center">
-                <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
-                       data-fgColor="#39CCCC">
-
-                <div class="text-white">Online</div>
-              </div>
-              <!-- ./col -->
-              <div class="col-4 text-center">
-                <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
-                       data-fgColor="#39CCCC">
-
-                <div class="text-white">In-Store</div>
-              </div>
-              <!-- ./col -->
-            </div>
-            <!-- /.row -->
-          </div>
-          <!-- /.card-footer -->
-        </div>
-      </section>
       <!-- right col -->
     </div>
     <!-- /.row (main row) -->
