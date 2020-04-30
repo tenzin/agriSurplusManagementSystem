@@ -131,13 +131,22 @@
               </li>
             </ul>
               <li class="nav-item">
-                <a href="{{route('ca_surplus')}}" class="nav-link">
+                <a href="{{route('scopefilter')}}" class="nav-link">
                     <i class="nav-icon far fa-calendar-alt"></i>
                     <p>
                       Search and Claim
                     </p>
                   </a>
                 </li>
+
+                <li class="nav-item">
+                  <a href="{{route('view_claim')}}" class="nav-link">
+                      <i class="nav-icon far fa-calendar-alt"></i>
+                      <p>
+                        View Claim
+                      </p>
+                    </a>
+                  </li>
             
           </li>
     </ul>

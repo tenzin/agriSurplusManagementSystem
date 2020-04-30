@@ -5,7 +5,7 @@
 <section class="content">
   <div class="card card-info">
     <div class="card-header">
-      <h3 class="card-title">Surplus Detail Information
+      <h3 class="card-title">Claimed Surplus Information
       </h3>
     </div>
     <!-- /.card-header -->
@@ -16,6 +16,7 @@
             <th>Sl. no</th>
             <th>Produce</th>
             <th>Quantity</th>
+            <th>Location</th>
             <th>Selling Price</th>
             <th>Tentitive Supply Date</th>
             <th>Remarks</th>

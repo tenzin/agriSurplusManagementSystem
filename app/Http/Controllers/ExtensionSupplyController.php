@@ -11,12 +11,8 @@ class ExtensionSupplyController extends Controller
         return view('extension_farmer.supply.create');
     }
 
-    public function submit_supply_form(){               //save first table
-        
-        return view('extension_farmer.supply.supply_form_details');
-    }
 
-    public function submit_supply_details(){            //save second table
+    public function submit_supply_details(){            //save table
         
         return view('extension_farmer.supply.supply_home');
     }
@@ -26,14 +22,5 @@ class ExtensionSupplyController extends Controller
         return view('extension_farmer.supply.supply_home');
     }
 
-    public function viewall_supply_details(){
-        
-        return view('extension_farmer.supply.viewall_supply_details');
-    }
-
-    public function addmore_supply_details(){               // add more to second table
-        //  dd('shdfgd');
-        return view('extension_farmer.supply.supply_form_details');
-    }
 
 }
