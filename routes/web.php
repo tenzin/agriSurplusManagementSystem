@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+// Dashboard
 Route::get('login',['as'=>'login','uses'=>'LoginController@login']);
-Route::post('national',['as'=>'national','uses'=>'DashboardController@national']);
+Route::get('/national',['as'=>'national','uses'=>'DashboardController@national']);
+Route::get('/extension',['as'=>'extension','uses'=>'DashboardController@extension']);
+Route::get('/aggregator',['as'=>'aggregator','uses'=>'DashboardController@aggregator']);
 
 //Extension Supply Information Route
 
@@ -63,9 +65,7 @@ Route::get('addmore_surplus_demand_details',['as'=>'addmore_surplus_demand_detai
 
 
 
-// Route::get('/',['as'=>'nationaldashboard','uses'=>'DashboardController@national']);
- Route::get('extension',['as'=>'extension','uses'=>'DashboardController@extension']);
-Route::get('/aggregator',['as'=>'aggregator','uses'=>'DashboardController@aggregator']);
+ 
 
 
 

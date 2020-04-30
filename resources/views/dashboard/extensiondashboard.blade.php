@@ -229,6 +229,32 @@
           <!-- /.card-footer -->
         </div>
       </section>
+    </div>
+      <section class="content">
+               <div class="card card-info">
+                   <div class="card-header">
+                     <h3 class="card-title">Demand Detail Information</h3>
+                   </div>
+                 <!-- /.card-header -->
+                   <div class="card-body">
+                       <table id="example1" class="table table-bordered table-striped">
+                         <thead>
+                           <tr>
+                             <th>Sl. no</th>
+                             <th>Produce</th>
+                             <th>Quantity</th>
+                             <th>CostPrice</th>
+                             <th>Tentitive Pickup Date</th>
+                             <th>Remarks</th>
+                             <th>Status</th>
+                             <th>Action &nbsp;<span class="fa fa-cogs"></span></th>
+                            </tr>
+                         </thead>
+                        </table>
+                    </div>
+                </div>  
+           </section>
+
       <!-- right col -->
     </div>
     <!-- /.row (main row) -->

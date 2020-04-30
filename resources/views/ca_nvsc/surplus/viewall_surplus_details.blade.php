@@ -23,9 +23,6 @@
             <th>Action &nbsp;<span class="fa fa-cogs"></span></th>
           </tr>
         </thead>
-        
-
-          
       </table>
     </div>
 </div>  

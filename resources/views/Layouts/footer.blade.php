@@ -1,4 +1,6 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2020 <a href="#"> Vegetable Market Information System</a>.</strong> All rights
+
+    Copyright &copy; 2020  Vegetable Market Information System</a>.All rights
     reserved.
+    
   </footer>
