@@ -10,7 +10,7 @@ class PrototypeController extends Controller
 
     public function extensiondashboard(){
 
-       return view('extension_framer.extensiondashboard');
+       return view('extension_farmer.extensiondashboard');
     }
 
     
