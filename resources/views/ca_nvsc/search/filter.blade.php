@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="card card-info">
             <div class="card-header">
-              <h3 class="card-title">Surplus List</h3>
+              <h3 class="card-title">Surplus List Information</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

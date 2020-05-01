@@ -3,11 +3,9 @@
 @section('content')
 {{-- @include('flash-message') --}}
 <section class="content">
-  <div class="card card-info">
-    <div class="card-header">
-      <h3 class="card-title">Supply Information
-      </h3>
-    </div>
+  <h3 class="text-center mt-1 mb-1 alert aqua">Supply Surplus Details Information</h3>
+  <div class="card">
+    
     <!-- /.card-header -->
     <div class="card-body">
       <table id="example1" class="table table-bordered table-striped">

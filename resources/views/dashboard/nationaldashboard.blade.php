@@ -201,6 +201,20 @@
                         </select>
               </div>
           </div>
+                <table class="table table-bordered">
+                
+                <div class="form-group row">
+                      <div class="col-md-4">
+                        ProductName:<select class="form-control" name="agency_code" id="agency" >
+                                <option disabled>Please select your ProductName</option>
+                                </select>
+                    </div>
+                    <div class="col-md-4">
+                        Product Type:<select class="form-control" name="date" id="agency" >
+                            <option disabled>Please select your Dzongkhag</option>
+                          </select>
+                    </div>
+                 </div>
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
