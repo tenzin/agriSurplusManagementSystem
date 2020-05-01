@@ -24,7 +24,35 @@
             <th>Update</th>
           </tr>
         </thead>
-        
+        <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Cabbage</td>
+                      <td>20 Acres</td>
+                      <td>25/06/2020</td>
+                      <td>1000kg</td>
+                      <td>20 Acres</td>
+                      <td>Avaliable</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Chilli</td>
+                      <td>20 Acres</td>
+                      <td>25/06/2020</td>
+                      <td>1000kg</td>
+                      <td>20 Acres</td>
+                      <td>Avaliable</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Potatoes</td>
+                      <td>20 Acres</td>
+                      <td>25/06/2020</td>
+                      <td>1000kg</td>
+                      <td>20 Acres</td>
+                      <td>Avaliable</td>
+                    </tr>
+        </tbody>
           
       </table>
     </div>

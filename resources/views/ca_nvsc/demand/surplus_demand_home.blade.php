@@ -23,7 +23,35 @@
             <th>Action &nbsp;<span class="fa fa-cogs"></span></th>
           </tr>
         </thead>
-        
+        <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Cabbage</td>
+                      <td>500kg</td>
+                      <td>50</td>
+                      <td>30/07/2020</td>
+                      <td>Good</td>
+                      <td>Avaliable</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Chilli</td>
+                      <td>500kg</td>
+                      <td>50</td>
+                      <td>30/07/2020</td>
+                      <td>Good</td>
+                      <td>Avaliable</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Potatoes</td>
+                      <td>500kg</td>
+                      <td>50</td>
+                      <td>30/07/2020</td>
+                      <td>Good</td>
+                      <td>Avaliable</td>
+                    </tr>
+        </tbody>
 
           
       </table>

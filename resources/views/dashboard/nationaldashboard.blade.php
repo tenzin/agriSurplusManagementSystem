@@ -69,7 +69,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-6">
-            <div class="card">
+            <div class="card card-success">
               <div class="card-header">
                 <h3 class="card-title">Area of Cultivation</h3>
               </div>
@@ -99,22 +99,22 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>1.</td>
-                      <td>24</td>
-                      <td>lhuntse</td>
-                      <td>active</td>
+                      <td>1</td>
+                      <td>Potatoes</td>
+                      <td>Lhuntse</td>
+                      <td>20 Acres</td>
                     </tr>
                     <tr>
-                      <td>1.</td>
-                      <td>24</td>
-                      <td>lhuntse</td>
-                      <td>active</td>
+                      <td>2</td>
+                      <td>Chilli</td>
+                      <td>Thimphu</td>
+                      <td>10 Acres</td>
                     </tr>
                     <tr>
-                      <td>1.</td>
-                      <td>24</td>
-                      <td>lhuntse</td>
-                      <td>active</td>
+                      <td>3</td>
+                      <td>Paro</td>
+                      <td>Bringle</td>
+                      <td>2 Acres</td>
                     </tr>
                   </tbody>
                 </table>
@@ -122,7 +122,7 @@
             </div>
             <!-- /.card -->
 
-            <div class="card">
+            <div class="card card-info">
               <div class="card-header">
                 <h3 class="card-title">Condensed Full Width Table</h3>
               </div>
@@ -187,23 +187,18 @@
           </div>
           <!-- /.col -->
           <div class="col-md-6">
-            <div class="card">
+            <div class="card card-info">
               <div class="card-header">
-                <h3 class="card-title">Bhutan Product</h3>
+                <h3 class="card-title">Whole Bhutan ProductS</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body p-0">
+              <div class="card-body">
                 <table class="table">
-                <div class="form-group row">
-                <div class="col-md-4">
-                  ProductName:<select class="form-control" name="agency_code" id="agency" >
-                           <option disabled>Please select your ProductName</option>
-                          </select>
-              </div>
-              <div class="col-md-4">
+           <div class="form-group row">
+              <div class="col-md-6">
                   Product Type:<select class="form-control" name="date" id="agency" >
-                       <option disabled>Please select your Dzongkhag</option>
-                    </select>
+                                  <option disabled>Please select your Product Type</option>
+                        </select>
               </div>
           </div>
                   <thead>
@@ -216,24 +211,24 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>1.</td>
-                      <td>cabbage</td>
+                      <td>1</td>
+                      <td>Cabbage</td>
                       <td>vegetable</td>
                     </tr>
                     <tr>
-                      <td>1.</td>
-                      <td>cabbage</td>
+                      <td>2</td>
+                      <td>Chilli</td>
                       <td>vegetable</td>
                     </tr>
                     <tr>
-                      <td>1.</td>
-                      <td>cabbage</td>
-                      <td>vegetable</td>
+                      <td>3</td>
+                      <td>Apple</td>
+                      <td>Fruit</td>
                     </tr>
                     <tr>
-                      <td>1.</td>
-                      <td>cabbage</td>
-                      <td>vegetable</td>
+                      <td>4</td>
+                      <td>Rice</td>
+                      <td>Crop</td>
                     </tr>
                   </tbody>
                 </table>
@@ -258,8 +253,9 @@
          <table id="example1" class="table table-bordered table-striped">
          <div class="form-group row">
              <div class="col-md-3">
-                  ProductName:<select class="form-control" name="agency_code" id="agency" >
-                           <option disabled>Please select your ProductName</option>
+                  ProductName:<select class="form-control" name="product" id="pro" >
+                           <option disabled>Please select your Product Name</option>
+                           
                           </select>
               </div>
               <div class="col-md-3">
@@ -279,6 +275,7 @@
                   <th>Product Name</th>
                   <th>Quantity</th>
                   <th>Product Type</th>
+                  <th>Dzongkhag</th>
                   <th>Date</th>
                   <th>Remarks</th>
                   <th>Action &nbsp;<span class="fa fa-cogs"></span></th>
@@ -287,18 +284,29 @@
             <tr>
                <td> 1</td>
                <td>Potato</td>
-               <td>12</td>
+               <td>12 ton</td>
                <td>vegetable</td>
+               <td>Thimphu</td>
                <td>12/05/2020</td>
-               <td>rquiered</td>
+               <td>More Production</td>
             </tr>
             <tr>
-               <td> 1</td>
-               <td>Potato</td>
-               <td>12</td>
+               <td>2</td>
+               <td>Chili</td>
+               <td>12kg</td>
                <td>vegetable</td>
-               <td>12/05/2020</td>
-               <td>rquiered</td>
+               <td>Paro</td>
+               <td>12/06/2020</td>
+               <td>Not Good Quality</td>
+            </tr>
+            <tr>
+               <td>3</td>
+               <td>Bringle</td>
+               <td>12kg</td>
+               <td>vegetable</td>
+               <td>Lhuentse</td>
+               <td>12/06/2020</td>
+               <td>Not Good Quality</td>
             </tr>
          </table>
       </div>
