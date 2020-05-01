@@ -192,20 +192,21 @@
                 <h3 class="card-title">Bhutan Product</h3>
               </div>
               <!-- /.card-header -->
-              <div class="card-body p-0">
-                <table class="table">
+              <div class="card-body">
+                <table class="table table-bordered">
+                
                 <div class="form-group row">
-                <div class="col-md-4">
-                  ProductName:<select class="form-control" name="agency_code" id="agency" >
-                           <option disabled>Please select your ProductName</option>
+                      <div class="col-md-4">
+                        ProductName:<select class="form-control" name="agency_code" id="agency" >
+                                <option disabled>Please select your ProductName</option>
+                                </select>
+                    </div>
+                    <div class="col-md-4">
+                        Product Type:<select class="form-control" name="date" id="agency" >
+                            <option disabled>Please select your Dzongkhag</option>
                           </select>
-              </div>
-              <div class="col-md-4">
-                  Product Type:<select class="form-control" name="date" id="agency" >
-                       <option disabled>Please select your Dzongkhag</option>
-                    </select>
-              </div>
-          </div>
+                    </div>
+                 </div>
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>

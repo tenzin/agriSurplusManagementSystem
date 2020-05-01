@@ -6,7 +6,7 @@
 <div class="container-fluid"> 
 <div class="card card-info">
 <div class="card-header">
-<h3 class="card-title">Demand Form</h3>
+<h3 class="card-title">Area Under Cultivation Form</h3>
 </div>
 <form role="form" method="POST" action="{{route('submit_cultivation_details')}}">
 {{-- <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}"> --}}

@@ -3,12 +3,10 @@
     
 @section('content')
 {{-- @include('flash-message') --}}
+<h3 class="text-center mt-1 mb-1 alert aqua">Crops Cultivation Details Information</h3>
 <section class="content">
-  <div class="card card-info">
-    <div class="card-header">
-      <h3 class="card-title">Cultivation Information
-      </h3>
-    </div>
+  <div class="card">
+    
     <!-- /.card-header -->
     <div class="card-body">
       <table id="example1" class="table table-bordered table-striped">

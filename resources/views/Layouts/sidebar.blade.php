@@ -74,12 +74,23 @@
               </li>
           </li>
 
-            <li class="nav-item">
-              <a href="{{route('ca_surplus')}}" class="nav-link">
-                  <i class="nav-icon far fa-calendar-alt"></i>
-                    <p>Search and Claim </p>
-                </a>
+          <li class="nav-item">
+            <a href="{{route('scopefilter')}}" class="nav-link">
+                <i class="nav-icon far fa-calendar-alt"></i>
+                <p>
+                  Search and Claim
+                </p>
+              </a>
             </li>
+
+            <li class="nav-item">
+              <a href="{{route('view_claim')}}" class="nav-link">
+                  <i class="nav-icon far fa-calendar-alt"></i>
+                  <p>
+                    View Claim
+                  </p>
+                </a>
+              </li>
         <ul>
       </li>
     </ul>
@@ -167,31 +178,6 @@
               <i class="far fa-circle nav-icon"></i>
               <p>Geog</p>
             </a>
-            <ul>
-              <li class="nav-item">
-              <a href="{{route('view_surplus_demand_details')}}" class="nav-link">
-                  <p>View Demand Information </p>
-                </a>
-              </li>
-            </ul>
-              <li class="nav-item">
-                <a href="{{route('scopefilter')}}" class="nav-link">
-                    <i class="nav-icon far fa-calendar-alt"></i>
-                    <p>
-                      Search and Claim
-                    </p>
-                  </a>
-                </li>
-
-                <li class="nav-item">
-                  <a href="{{route('view_claim')}}" class="nav-link">
-                      <i class="nav-icon far fa-calendar-alt"></i>
-                      <p>
-                        View Claim
-                      </p>
-                    </a>
-                  </li>
-            
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">

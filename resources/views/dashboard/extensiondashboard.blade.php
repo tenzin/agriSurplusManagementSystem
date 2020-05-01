@@ -1,10 +1,10 @@
 @extends('master')
 @section('content')
 <section class="content">
-   <div class="card card-info">
-      <div class="card-header">
-         <h3 class="card-title">Demand Detail Information</h3>
-      </div>
+   <h3 class="text-center mt-1 mb-1 alert aqua">Demand Detail Information</h3>
+      
+   <div class="card">
+      
       <div class="card-body">
          <table id="example1" class="table table-bordered table-striped">
          <div class="form-group row">
@@ -58,12 +58,11 @@
       </div>
    </div>
 </section>
-
+<h3 class="text-center mt-1 mb-1 alert aqua">Surplus Details Information</h3>
+      
 <section class="content">
-   <div class="card card-success">
-      <div class="card-header">
-         <h3 class="card-title">Surplus Information</h3>
-      </div>
+   <div class="card">
+      
       <div class="card-body">
          <table id="example1" class="table table-bordered table-striped">
          <div class="form-group row">
