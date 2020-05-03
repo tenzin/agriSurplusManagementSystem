@@ -1,3 +1,4 @@
+
 <!-- Brand Logo -->
 <a href="#" class="brand-link">
   <img src="{{asset('images/logo.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -7,21 +8,21 @@
 
 <!-- Sidebar -->
 <div class="sidebar">
-  <!-- Sidebar user panel (optional) -->
   <!-- Sidebar Menu -->
   <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-      <li class="nav-item has-treeview menu-open">
-        <a href="#" class="nav-link active">
-          <i class="nav-icon fas fa-tachometer-alt"></i> 
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+        <i class="fas fa-bars"></i> 
+          <ion-icon name="stats-chart-outline"></ion-icon>
             <p>National Level</p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
             <a href="{{route('national')}}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
+            <i class="far fa-chart-bar"></i> 
               <p>National Dashboard</p>
             </a>
           </li>
@@ -34,15 +35,15 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!--  Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-      <li class="nav-item has-treeview menu-open">
-        <a href="#" class="nav-link active">
-          <i class="nav-icon fas fa-tachometer-alt"></i> 
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="fas fa-bars"></i> 
            <p> Aggregator Level</p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
             <a href="{{route('aggregator')}}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
+            <i class="far fa-chart-bar"></i> 
               <p>Aggregator Dashboard</p>
             </a>
           <li class="nav-item">
@@ -100,15 +101,15 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!--  Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-      <li class="nav-item has-treeview menu-open">
-        <a href="#" class="nav-link active">
-          <i class="nav-icon fas fa-tachometer-alt"></i> 
+      <li class="nav-item has-treeview">
+        <a href="#" class="nav-link">
+          <i class="fas fa-bars"></i> 
           <p>Extension Level</p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item"> 
             <a href="{{route('extension')}}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
+            <i class="far fa-chart-bar"></i> 
               <p>Extension Dashboard</p>
             </a>
           </li>
@@ -162,14 +163,14 @@
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
    <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
-          <i class="nav-icon far fa-plus-square"></i>
+          <i class="fab fa-elementor"></i>
           <p>Master Table</p>
         </a>
 
         <ul class="nav nav-treeview">
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
+              <i class="fas fa-list"></i>
               <p>Dzongkhag and Thromde</p>
             </a>
           </li>
@@ -210,7 +211,7 @@
 
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('system-user')}}" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Users</p>
             </a>
@@ -232,7 +233,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
+              <a href="{{route('contact-us')}}" class="nav-link">
                   <i class="nav-icon far fa-plus-square"></i>
                  <p>Contact Us</p>
               </a>

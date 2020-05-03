@@ -68,7 +68,8 @@
                      <th>Harvest Date</th>
                      <th>Tentitive Pickup Date</th>
                      <th>Status</th>
-                     <th>Action &nbsp;<span class="fa fa-cogs"></span></th>
+                     <th>Actions</th>
+                     <!-- <th>Action &nbsp;<span class="fa fa-cogs"></span></th> -->
                   </tr>
                </thead>
                <tr>
@@ -79,7 +80,9 @@
                   <td>12/05/2020</td>
                   <td>23/07/2020</td>
                   <td>New</td>
-                  <td>Avaliable</td>
+                  <!-- <td><a href="" class="btn btn-info"> View</a>
+                  <td><a href="" class="btn btn-success">Claim</a> -->
+                  </td>
                </tr>
                <td> 2</td>
                <td>Curliflower</td>
@@ -88,7 +91,6 @@
                <td>12/05/2020</td>
                <td>Minjey</td>
                <td>LUC</td>
-               <td>Avaliable</td>
                </tr>
                <td> 3</td>
                <td>Cabbages</td>
@@ -97,7 +99,6 @@
                <td>12/05/2020</td>
                <td>Khoma</td>
                <td>Extension officer</td>
-               <td>Avaliable</td>
                </tr>
                <td> 4</td>
                <td>Chilli</td>
@@ -106,7 +107,14 @@
                <td>12/05/2020</td>
                <td>Kabesa</td>
                <td>Farmer</td>
-               <td>Avaliable</td>
+               <td class="td-actions text-right">
+                                    <button type="button" class="btn btn-info btn-sm">
+                                    <a class="actions" href="#" >View</a>
+                                    </button>
+                                    <button type="button"class="btn btn-success btn-sm">
+                                       <a class="actions" href="#">Claim</a>
+                                    </button>
+                                </td>
                </tr>
             </table>
          </div>

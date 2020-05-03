@@ -3,11 +3,12 @@
     
 @section('content')
 {{-- @include('flash-message') --}}
-<h3 class="text-center mt-1 mb-1 alert aqua">Crops Cultivation Details Information</h3>
 <section class="content">
-  <div class="card">
-    
-    <!-- /.card-header -->
+      <div class="card card-info">
+         <div class="card-header">
+            <h3 class="card-title">Crops Cultivation Details</h3>
+         </div>
+  
     <div class="card-body">
       <table id="example1" class="table table-bordered table-striped">
         <thead>
@@ -23,34 +24,8 @@
           </tr>
         </thead>
         <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Cabbage</td>
-                      <td>20 Acres</td>
-                      <td>25/06/2020</td>
-                      <td>1000kg</td>
-                      <td>20 Acres</td>
-                      <td>Avaliable</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Chilli</td>
-                      <td>20 Acres</td>
-                      <td>25/06/2020</td>
-                      <td>1000kg</td>
-                      <td>20 Acres</td>
-                      <td>Avaliable</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Potatoes</td>
-                      <td>20 Acres</td>
-                      <td>25/06/2020</td>
-                      <td>1000kg</td>
-                      <td>20 Acres</td>
-                      <td>Avaliable</td>
-                    </tr>
-        </tbody>
+         
+         </tbody>           
           
       </table>
     </div>
