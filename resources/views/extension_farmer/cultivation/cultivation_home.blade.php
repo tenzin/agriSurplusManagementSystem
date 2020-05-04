@@ -15,7 +15,7 @@
           <tr>
             <th>Sl. no</th>
             <th>Crop_name</th>
-            <th>Acerage</th>
+            <th>Quantity/Acerage</th>
             <th>Sowing_Date</th>
             <th>Estimated Output</th>
             <th>Estimated Output Unit</th>

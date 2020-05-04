@@ -14,9 +14,9 @@ class CreateTblDzongkhagsTable extends Migration
     public function up()
     {
         Schema::create('tbl_dzongkhags', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('code');
-            $table->string('dzongkhag');
+            $table->id();
+            $table->integer('code')->unique();
+            $table->string('name')->unquie();
             $table->timestamps();
         });
     }

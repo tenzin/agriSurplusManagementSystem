@@ -14,9 +14,12 @@ class CreateTblGewogsTable extends Migration
     public function up()
     {
         Schema::create('tbl_gewogs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('code');
-            $table->string('gewog');
+            $table->id();
+            $table->integer('code')->unique();
+            $table->string('name');
+            $table->foreignId('dzongkhag_id')->constrained()->references('id')->on('tbl_dzongkhags')->onDelete('cascade');
+            $table->float('latitude');
+            $table->float('longitude');
             $table->timestamps();
         });
     }
