@@ -1,103 +1,171 @@
 @extends('master')
 @section('content')
-{{-- <section class="content">
-   <h3 class="text-center mt-1 mb-1 alert aqua">Demand Detail Information</h3>
-      
-   <div class="card">
-      
-      <div class="card-body">
-         <table id="example1" class="table table-bordered table-striped">
-         <div class="form-group row">
-             <div class="col-md-4">
-                  ProductName:<select class="form-control" name="agency_code" id="agency" >
-                           <option disabled>Please select your ProductName</option>
-                          </select>
-              </div>
-              <div class="col-md-4">
-                  Date:<select class="form-control" name="date" id="agency" >
-                       <option disabled>Please select your Date</option>
-                    </select>
-              </div>
-          </div>
-            <thead>
-               <tr>
-                  <th>Sl. no</th>
-                  <th>Product</th>
-                  <th>Quantity</th>
-                  <th>CostPrice</th>
-                  <th>Tentitive Pickup Date</th>
-                  <th>Remarks</th>
-                  <th>Action &nbsp;<span class="fa fa-cogs"></span></th>
-               </tr>
-            </thead>
-            <tr>
-               <td> 1</td>
-               <td>Potato</td>
-               <td>12</td>
-               <td>50</td>
-               <td>12/05/2020</td>
-               <td>rquiered</td>
-            </tr>
-            <tr>
-               <td> 2</td>
-               <td>Potato</td>
-               <td>12</td>
-               <td>50</td>
-               <td>12/05/2020</td>
-               <td>rquiered</td>
-            </tr>
-            <tr>
-               <td>3</td>
-               <td>Potato</td>
-               <td>12</td>
-               <td>50</td>
-               <td>12/05/2020</td>
-               <td>rquiered</td>
-            </tr>
-         </table>
+<div class="container-fluid">
+  <section class="content">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-6">
+               <div class="card card-success">
+                  <div class="card-header">
+                     <h3 class="card-title">Surplus Information</h3>
+                  </div>
+               <div class="card-body">
+               <table class="table table-bordered">
+                        <div class="form-group row">
+                           <div class="col-md-6">
+                              ProductName:
+                              <select class="form-control" name="agency_code" id="agency" >
+                                  <option disabled>Please select your ProductName</option>
+                              </select>
+                           </div>
+                        </div>
+                        <thead>
+                          <tr>
+                           <th style="width: 10px">Sl.No</th>
+                           <th>Product Name</th>
+                           <th>Quantity</th>
+                           <th>FarmGet Price</th>
+                           <th>Submitted By</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                           <td>1</td>
+                           <td>Potatoes</td>
+                           <td>20 Acres</td>
+                           <td>30</td>
+                           <td>EO</td>
+                          </tr>
+                          <tr>
+                           <td>2</td>
+                           <td>Chilli</td>
+                           <td>10 Acres</td>
+                           <td>50</td>
+                           <td>LUC</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  
+               </div>
+            </div>
+         </div>
+
+         <!-- Demand Info -->
+         <div class="col-md-6">
+            <div class="card card-info">
+               <div class="card-header">
+                  <h3 class="card-title">Surplus Statistics</h3>
+               </div>
+               <div class="card-body">
+               
+               </div>
+            </div>
+         </div>
       </div>
-   </div>
-</section> --}}
-<h3 class="text-center mt-1 mb-1 alert aqua">Surplus Details Information</h3>
-      
-<section class="content">
-   <div class="card">
-      
-      <div class="card-body">
-         <table id="example1" class="table table-bordered table-striped">
-         <div class="form-group row">
-             <div class="col-md-4">
-                  ProductName:<select class="form-control" name="agency_code" id="agency" >
-                           <option disabled>Please select your ProductName</option>
-                          </select>
-              </div>
-              <div class="col-md-4">
-                  Date:<select class="form-control" name="date" id="agency" >
-                       <option disabled>Please select your Date</option>
-                    </select>
-              </div>
-          </div>
-            <thead>
-               <tr>
-                  <th>Sl. no</th>
-                  <th>Product Name</th>
-                  <th>Quantity</th>
-                  <th>Product Type</th>
-                  <th>Date</th>
-                  <th>Remarks</th>
-                  <th>Action &nbsp;<span class="fa fa-cogs"></span></th>
-               </tr>
-            </thead>
-            <tr>
-               <td> 1</td>
-               <td>Potato</td>
-               <td>12</td>
-               <td>50</td>
-               <td>12/05/2020</td>
-               <td>rquiered</td>
-            </tr>
-         </table>
-      </div>
-   </div>
-</section>
+   </section>
+
+   <!-- Area of cultivation info -->
+   <section class="content">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-6">
+               <div class="card card-success">
+                  <div class="card-header">
+                     <h3 class="card-title">Area of Cultivation</h3>
+                  </div>
+                  <div class="card-body">
+                     <table class="table table-bordered">
+                        <div class="form-group row">
+                           <div class="col-md-6">
+                              ProductName:
+                              <select class="form-control" name="agency_code" id="agency" >
+                                  <option disabled>Please select your ProductName</option>
+                              </select>
+                           </div>
+                        </div>
+                        <thead>
+                          <tr>
+                           <th style="width: 10px">Sl.No</th>
+                           <th>Product Name</th>
+                           <th>Quantity</th>
+                           <th>Estimated Production</th>
+                           <th>Harvestion Date</th>
+                           <th>Year</th>
+                           <th>Submitted By</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                           <td>1</td>
+                           <td>Potatoes</td>
+                           <td>20 Acres</td>
+                           <td>300kg</td>
+                           <td>30/07/2020</td>
+                           <td>2020</td>
+                           <td>EO</td>
+                          </tr>
+                          <tr>
+                           <td>2</td>
+                           <td>Chilli</td>
+                           <td>10 Acres</td>
+                           <td>300kg</td>
+                           <td>30/07/2020</td>
+                           <td>2020</td>
+                           <td>LUC</td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+   
+         <!-- Surplus from other CA -->
+            <div class="col-md-6">
+               <div class="card card-info">
+                 <div class="card-header">
+                    <h3 class="card-title">Contact Information</h3>
+                  </div>
+                  <div class="card-body">
+                     <table class="table table-bordered">
+                        <div class="form-group row">
+                           <div class="col-md-4">
+                              Location:
+                             <select class="form-control" name="date" id="agency" >
+                               <option disabled>Please select Location</option>
+                              </select>
+                           </div>
+                        </div>
+                        <thead>
+                          <tr>
+                           <th style="width: 10px">Sl.No</th>
+                           <th>Name</th>
+                           <th>Desgination</th>
+                           <th>Location</th>
+                           <th>Contact Number</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                           <td>1</td>
+                           <td>Tenzin</td>
+                           <td>CA</td>
+                           <td>Phaling</td>
+                           <td>17594899</td>
+                          </tr>
+                          <tr>
+                           <td>1</td>
+                           <td>Norbu</td>
+                           <td>VSC</td>
+                           <td>Lhuntse Town</td>
+                           <td>17594899</td>
+                          </tr>
+                         </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>   
+   </section>
+</div>
 @endsection

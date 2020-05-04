@@ -13,7 +13,7 @@
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-comments"></i>
+          <i class="far fa-bell mr-2"></i>
           <span class="badge badge-danger navbar-badge">3</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
@@ -68,18 +68,17 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li>
-      <li class="nav-item">
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href=""
-             onclick="event.preventDefault();
-                           document.getElementById('logout-form').submit();">
-              {{ __('Logout') }}
+      <li class="nav-item dropdown">
+          <a class="nav-link" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class=" fas fa-user mr-2"></i>
+            <p>
+              <span class="d-lg-none d-md-block">Account</span>
+            </p>
           </a>
-
-          <form id="logout-form" action="" method="POST" style="display: none;">
-              @csrf
-          </form>
-      </div>
-      </li>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{{route('profile')}}">View Profile</a>
+            <a class="dropdown-item" href="/logout">Logout</a>
+          </div>
+        </li>
     </ul>
   </nav>

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 // Dashboard
 Route::get('login',['as'=>'login','uses'=>'LoginController@login']);
@@ -48,6 +48,14 @@ Route::get('scopefilter',['as'=>'scopefilter','uses'=>'CAFilterController@scopef
 Route::get('view_claim',['as'=>'view_claim','uses'=>'CAFilterController@view_claim']);
 
  
+//User profile
+Route::get('profile',['as'=>'profile','uses'=>'AccessControlListController@userprofile']);
+Route::get('system-user',['as'=>'system-user','uses'=>'AccessControlListController@user']);
+Route::get('role',['as'=>'role','uses'=>'AccessControlListController@role']);
+Route::get('permission',['as'=>'permission','uses'=>'AccessControlListController@permission']);
+
+//Contact US
+Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contact']);
 
 
 

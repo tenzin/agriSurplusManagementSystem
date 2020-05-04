@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Product;
+
 class DashboardController extends Controller
 {
     public function extension(){
@@ -17,7 +19,9 @@ class DashboardController extends Controller
      }
 
      public function national(){
-
+      // $products = Product::all();
+      //   return view('dashboard.nationaldashboard',compact('products'));
         return view('dashboard.nationaldashboard');
+
      }
 }
