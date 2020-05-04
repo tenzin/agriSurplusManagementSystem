@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTblDzongkhagsTable extends Migration
+class CreateTblRolesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateTblDzongkhagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_dzongkhags', function (Blueprint $table) {
+        Schema::create('tbl_roles', function (Blueprint $table) {
             $table->id();
-            $table->integer('code')->unique();
-            $table->string('dzongkhag')->unquie();
+            $table->string('role');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateTblDzongkhagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_dzongkhags');
+        Schema::dropIfExists('tbl_roles');
     }
 }
