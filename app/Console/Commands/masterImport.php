@@ -40,36 +40,62 @@ class masterImport extends Command
      */
     public function handle()
     {
-        $this->importdzongkhags("tbl_dzongkhags", new Dzongkhag);
+        $this->importdzongkhags("dzongkhags", new Dzongkhag);
 
     }
     
-  public function importdzongkhags() {
-    if (($handle = fopen ( public_path () . '/master/dzongkhag.csv', 'r' )) !== FALSE) {
-        $this->line("Importing dzongkhags master data");
-        $i=0;
-        while ( ($data = fgetcsv ( $handle, 100, ',' )) !== FALSE ) {
-            $data = [
-                'id' => $data[0],
-                'code' => $data[1],
-                'dzongkhag' => $data[2],
-                  ];
-             try {
-                if(Dzongkhag::firstOrCreate($data)) {
-                    $i++;
+    public function importdzongkhags($filename, Model $model) {
+        if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
+            $this->line("Importing ".$filename." tables...");
+            $i=0;
+            while ( ($data = fgetcsv ( $handle, 1000, ',' )) !== FALSE ) {
+                $data = [
+                    'id' => $data[0],
+                    'code' => $data[1],
+                    'dzongkhag' => $data[2],
+                ];
+                 try {
+                    if($model::firstOrCreate($data)) {
+                        $i++;
+                    }
+                } catch(\Exception $e) {
+                    $this->error('Something went wrong!'.$e);
+                    return;
+
                 }
-            } catch(\Exception $e) {
-                $this->error('Something went wrong!'.$e);
-                return;
-
             }
-        }
 
-    fclose ( $handle );
-    $this->line($i." entries successfully added in the dzongkhag table.");
+        fclose ( $handle );
+        $this->line($i." entries successfully added in the ".$filename." table.");
     }
 
-  }
+}
+//   public function importdzongkhags() {
+//     if (($handle = fopen ( public_path () . '/master/dzongkhags.csv', 'r' )) !== FALSE) {
+//         $this->line("Importing dzongkhags master data");
+//         $i=0;
+//         while ( ($data = fgetcsv ( $handle, 100, ',' )) !== FALSE ) {
+//             $data = [
+//                 'id' => $data[0],
+//                 'code' => $data[1],
+//                 'dzongkhag' => $data[2],
+//                   ];
+//              try {
+//                 if(Dzongkhag::firstOrCreate($data)) {
+//                     $i++;
+//                 }
+//             } catch(\Exception $e) {
+//                 $this->error('Something went wrong!'.$e);
+//                 return;
+
+//             }
+//         }
+
+//     fclose ( $handle );
+//     $this->line($i." entries successfully added in the dzongkhag table.");
+//     }
+
+//   }
 
 
 }
