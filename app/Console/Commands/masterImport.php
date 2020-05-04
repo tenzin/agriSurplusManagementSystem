@@ -45,7 +45,7 @@ class masterImport extends Command
     }
     
   public function importdzongkhags() {
-    if (($handle = fopen ( public_path () . '/master/dzongkhag.csv', 'r' )) !== FALSE) {
+    if (($handle = fopen ( public_path () . '/master/tbl_dzongkhags.csv', 'r' )) !== FALSE) {
         $this->line("Importing dzongkhags master data");
         $i=0;
         while ( ($data = fgetcsv ( $handle, 100, ',' )) !== FALSE ) {
