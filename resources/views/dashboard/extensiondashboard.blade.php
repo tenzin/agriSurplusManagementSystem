@@ -1,6 +1,6 @@
 @extends('master')
 @section('content')
-<section class="content">
+{{-- <section class="content">
    <h3 class="text-center mt-1 mb-1 alert aqua">Demand Detail Information</h3>
       
    <div class="card">
@@ -57,7 +57,7 @@
          </table>
       </div>
    </div>
-</section>
+</section> --}}
 <h3 class="text-center mt-1 mb-1 alert aqua">Surplus Details Information</h3>
       
 <section class="content">

@@ -128,20 +128,6 @@
         </li>
 
       <li class="nav-item">
-        <a href="{{route('extension_demand')}}" class="nav-link">
-          <i class="nav-icon far fa-image"></i>
-          <p>Demand Information</p>
-        </a>
-
-          <li class="nav-item">
-             <a href="{{route('view_demand_details')}}" class="nav-link">
-               <i class="nav-icon far fa-calendar-alt"></i>
-              <p>View Demand Information </p>
-            </a>
-          </li>
-      </li>
-
-      <li class="nav-item">
         <a href="{{route('extension_cultivation')}}" class="nav-link">
             <i class="nav-icon far fa-image"></i>
             <p> Area Under Cultivation</p>

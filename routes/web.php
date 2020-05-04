@@ -27,11 +27,6 @@ Route::get('extension_supply',['as'=>'extension_supply','uses'=>'ExtensionSupply
 Route::post('submit_supply_details',['as'=>'submit_supply_details','uses'=>'ExtensionSupplyController@submit_supply_details']);
 Route::get('view_supply_details',['as'=>'view_supply_details','uses'=>'ExtensionSupplyController@view_supply_details']);
 
-//Extension Demand Information Route
-Route::get('extension_demand',['as'=>'extension_demand','uses'=>'ExtensionDemandController@extension_demand']);
-Route::post('submit_demand_details',['as'=>'submit_demand_details','uses'=>'ExtensionDemandController@submit_demand_details']);
-Route::get('view_demand_details',['as'=>'view_demand_details','uses'=>'ExtensionDemandController@view_demand_details']);
-
 //Extension Under Cultivation
 Route::get('extension_cultivation',['as'=>'extension_cultivation','uses'=>'ExtensionUnderCultiavtionController@extension_cultivation']);
 Route::post('submit_cultivation_details',['as'=>'submit_cultivation_details','uses'=>'ExtensionUnderCultiavtionController@submit_cultivation_details']);
