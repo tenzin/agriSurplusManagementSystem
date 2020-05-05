@@ -11,6 +11,8 @@ use App\Role;
 use App\User;
 use App\PermissionRole;
 use App\Permission;
+use App\Product;
+use App\ProductType;
 
 
 class masterImport extends Command
@@ -47,16 +49,18 @@ class masterImport extends Command
     public function handle()
     {
         
+      
         $this->importroles("roles", new Role);
         $this->importdzongkhags("dzongkhags", new Dzongkhag);
         $this->importgeogs("gewogs", new Gewog);
         $this->importusers("users", new User);
         $this->importPermissions("permissions", new Permission);
         $this->importPivot("permission_roles",new PermissionRole, 'permission_id','role_id');
+        $this->importproduct_types("product_types", new ProductType);
+        $this->importproducts("products", new Product);
 
     }
 
-    
     
 
     public function importroles($filename, Model $model) {
@@ -190,6 +194,31 @@ public function importPermissions($filename, Model $model) {
                 'name' => $data[1],
                 'label' => $data[2],
             ];
+            try {
+               if($model::firstOrCreate($data)) {
+                   $i++;
+               }
+           } catch(\Exception $e) {
+               $this->error('Something went wrong!'.$e);
+               return;
+
+           }
+       }
+
+   fclose ( $handle );
+   $this->line($i." entries successfully added in the ".$filename." table.");
+}
+
+}
+public function importproduct_types($filename, Model $model) {
+    if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
+        $this->line("Importing ".$filename." tables...");
+        $i=0;
+        while ( ($data = fgetcsv ( $handle, 100, ',' )) !== FALSE ) {
+            $data = [
+                'id' => $data[0],
+                'type' => $data[1],
+            ];
              try {
                 if($model::firstOrCreate($data)) {
                     $i++;
@@ -215,7 +244,33 @@ public function importPivot($filename, Model $model, $a, $b) {
           $data = [
           $a => $data[0],
           $b => $data[1],
+        ];
+        try {
+           if($model::firstOrCreate($data)) {
+               $i++;
+           }
+       } catch(\Exception $e) {
+           $this->error('Something went wrong!'.$e);
+           return;
 
+       }
+   }
+
+fclose ( $handle );
+$this->line($i." entries successfully added in the ".$filename." table.");
+}
+
+}
+
+public function importproducts($filename, Model $model) {
+    if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
+        $this->line("Importing ".$filename." tables...");
+        $i=0;
+        while ( ($data = fgetcsv ( $handle, 100, ',' )) !== FALSE ) {
+            $data = [
+                'id' => $data[0],
+                'productType_id' => $data[1],
+                'product' => $data[2],
             ];
              try {
                 if($model::firstOrCreate($data)) {
@@ -231,6 +286,5 @@ public function importPivot($filename, Model $model, $a, $b) {
     fclose ( $handle );
     $this->line($i." entries successfully added in the table.");
     }
-
-  }
+}
 }
