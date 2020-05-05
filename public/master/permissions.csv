@@ -1,0 +1,16 @@
+1,access_control_list,Access Control List
+2,view_national_dashboard,National Dashboard
+3,view_extension_dashboard',Extension Dashboard
+4,view_aggregator_dashboard,Aggregator Dashboard
+5,extension_level,extension_level
+6,extension_add_surplus,Add Surplus Information-Extension
+7,view_extension_surplus,View Surplus Information-Extension
+8,extension_add_under_cultivation,Area Under Cultivation
+9,extension_view_under_cultivation,View Area Under Cultivation
+10,aggregator_level,Aggregator Sidebar
+11,aggregator_add_surplus,Add Surplus Information-Aggregator
+12,aggregator_view_surplus,View Surplus Information-Aggregator
+13,aggregator_demand_surplus,Add Demand Information-Aggregator
+14,aggregator_view_demand_surplus,View Demand Information-Aggregator
+15,aggregator_search_surplus,Search Surplus-Aggregator
+16,aggregator_view_search_surplus,View Search Information-Aggregator

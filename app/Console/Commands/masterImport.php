@@ -9,6 +9,8 @@ use App\Dzongkhag;
 use App\Gewog;
 use App\Role;
 use App\User;
+use App\PermissionRole;
+use App\Permission;
 
 
 class masterImport extends Command
@@ -44,10 +46,13 @@ class masterImport extends Command
      */
     public function handle()
     {
-        $this->importusers("users", new User);
+        
         $this->importroles("roles", new Role);
         $this->importdzongkhags("dzongkhags", new Dzongkhag);
         $this->importgeogs("gewogs", new Gewog);
+        $this->importusers("users", new User);
+        $this->importPermissions("permissions", new Permission);
+        $this->importPivot("permission_roles",new PermissionRole, 'permission_id','role_id');
 
     }
 
@@ -174,4 +179,58 @@ public function importusers($filename, Model $model) {
 }
 
 }
+
+public function importPermissions($filename, Model $model) {
+    if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
+        $this->line("Importing ".$filename." tables...");
+        $i=0;
+        while ( ($data = fgetcsv ( $handle, 1000, ',' )) !== FALSE ) {
+            $data = [
+                'id' => $data[0],
+                'name' => $data[1],
+                'label' => $data[2],
+            ];
+             try {
+                if($model::firstOrCreate($data)) {
+                    $i++;
+                }
+            } catch(\Exception $e) {
+                $this->error('Something went wrong!'.$e);
+                return;
+
+            }
+        }
+
+    fclose ( $handle );
+    $this->line($i." entries successfully added in the ".$filename." table.");
+}
+
+}
+
+public function importPivot($filename, Model $model, $a, $b) {
+    if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
+        $this->line("Importing pivot data");
+        $i=0;
+        while ( ($data = fgetcsv ( $handle, 1000, ',' )) !== FALSE ) {
+          $data = [
+          $a => $data[0],
+          $b => $data[1],
+
+            ];
+             try {
+                if($model::firstOrCreate($data)) {
+                    $i++;
+                }
+            } catch(\Exception $e) {
+                $this->error('Something went wrong!'.$e);
+                return;
+
+            }
+        }
+
+    fclose ( $handle );
+    $this->line($i." entries successfully added in the table.");
+    }
+
+  }
 }

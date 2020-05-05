@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Permission extends Model
 {
     
-    protected $table = 'tbl_permissions';
+  protected $table = 'tbl_permissions';
   protected $fillable = ['id','name','label'];
   public $timestamps=false;
 
