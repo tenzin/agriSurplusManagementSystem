@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Crop-SMS</title>
+  <title>V-MIS</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,17 +22,17 @@
 <div class="login-box">
   <div class="login-logo">
   <img class="img-responsive" src="{{URL::asset('/images/rgoblogo.png')}}"style="height:80px;width:80px; "></img><br>
-    <a href="../../index2.html"><b>Ministry of Agriculture</b></a>
+    <a href="../../index2.html"><b>Ministry of Agriculture And Foests</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Sign in to V-MIS</p>
       {{-- @include('flash-message') --}}
-    <form method="POST" action="{{ route('national') }}">
+    <form method="POST" action="{{url('login')}}">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Username" name="username">
+          <input type="text" class="form-control" value="{{ old('email') }}" required autofocus name="email" placeholder="Email ID"/>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" name="password">
+          <input type="password" class="form-control" placeholder="Password" class="form-control login" name="password" required/>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>

@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Product;
+use App\User;
 
 class DashboardController extends Controller
 {
+
+   public function __construct()
+  {
+      $this->middleware('auth');
+      $this->user = \Auth::user();
+  }
+
     public function extension(){
 
         return view('dashboard.extensiondashboard');

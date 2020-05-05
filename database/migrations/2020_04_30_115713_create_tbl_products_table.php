@@ -14,7 +14,8 @@ class CreateTblProductsTable extends Migration
     public function up()
     {
         Schema::create('tbl_products', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
+            $table->foreignId('productType_id')->constrained()->references('id')->on('tbl_product_types')->onDelete('cascade');
             $table->string('product');
             $table->timestamps();
         });

@@ -11,4 +11,10 @@ class Gewog extends Model
     protected $primaryKey = 'id';
     protected $fillable= ['code','dzongkhag_id','gewog','latitude','longitude'];
     public $timestamps = false;
+
+    public function dzongkhag(){
+
+        return $this->belongsTo(Dzongkhag::class, 'dzongkhag_id');
+    }
+
 }

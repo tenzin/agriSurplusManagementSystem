@@ -18,6 +18,9 @@
             <label>Product Type:<font color="red">*</font></label>
               <select  name="crop_type" id="crop_type" class="form-control select2bs4">
                 <option disabled selected value="">Select Product Type</option>
+                @foreach($productTypes as $ptype)
+                <option value="{{ $ptype->id }}">{{$ptype->type}}</option>
+                @endforeach
               </select>
           </div> 
           <div class="form-group">
@@ -42,7 +45,7 @@
 
             <div class="form-group">
               <label>Sowing_date:&nbsp;<font color="red">*</font></label>
-              <input id="pickup_date" type="date" class="form-control" name="pickup_date" />
+              <input id="pickup_date" type="month" class="form-control" name="pickup_date" />
             </div>
             <div class="form-group">
               <label>Estimated Output unit:&nbsp;<font color="red">*</font></label>

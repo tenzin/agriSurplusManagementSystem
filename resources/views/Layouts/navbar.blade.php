@@ -5,7 +5,7 @@
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
        <img class="img-responsive" src="{{URL::asset('/images/rgoblogo.png')}}"style="height:40px;width:40px;">
-       <h5><b>&nbsp;&nbsp;Ministry of Agriculture And Forests</b></h5>
+       <h5><b>&nbsp;&nbsp;Ministry of Agriculture and Forests</b></h5>
     </ul>
 
     <!-- Right navbar links -->
@@ -68,6 +68,7 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li>
+      {{auth()->user()->name}}
       <li class="nav-item dropdown">
           <a class="nav-link" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class=" fas fa-user mr-2"></i>
