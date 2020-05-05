@@ -54,11 +54,21 @@ Route::get('scopefilter',['as'=>'scopefilter','uses'=>'CAFilterController@scopef
 Route::get('view_claim',['as'=>'view_claim','uses'=>'CAFilterController@view_claim']);
 
 
-//User management Route
+//User profile Route
 Route::get('profile',['as'=>'profile','uses'=>'AccessControlListController@userprofile']);
-Route::get('system-user',['as'=>'system-user','uses'=>'AccessControlListController@user']);
+
+//user role and permission
 Route::get('role',['as'=>'role','uses'=>'AccessControlListController@role']);
 Route::get('permission',['as'=>'permission','uses'=>'AccessControlListController@permission']);
+
+
+//user management
+Route::get('system-user',['as'=>'system-user','uses'=>'AccessControlListController@user']);
+Route::get('userview',['as'=>'userview','uses'=>'AccessControlListController@userview']);
+Route::get('adduser',['as'=>'adduser','uses'=>'AccessControlListController@add']);
+Route::post('new-user',['as'=>'new-user','uses'=>'AccessControlListController@insert']);
+
+
 
 //Contact US
 Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contact']);

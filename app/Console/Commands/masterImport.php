@@ -9,6 +9,8 @@ use App\Dzongkhag;
 use App\Gewog;
 use App\Role;
 use App\User;
+use App\Product;
+use App\ProductType;
 
 
 class masterImport extends Command
@@ -44,14 +46,16 @@ class masterImport extends Command
      */
     public function handle()
     {
-        $this->importusers("users", new User);
+      
         $this->importroles("roles", new Role);
         $this->importdzongkhags("dzongkhags", new Dzongkhag);
         $this->importgeogs("gewogs", new Gewog);
+        $this->importusers("users", new User);
+        $this->importproduct_types("product_types", new ProductType);
+        $this->importproducts("products", new Product);
 
     }
 
-    
     
 
     public function importroles($filename, Model $model) {
@@ -173,5 +177,54 @@ public function importusers($filename, Model $model) {
     $this->line($i." entries successfully added in the ".$filename." table.");
 }
 
+}
+public function importproduct_types($filename, Model $model) {
+    if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
+        $this->line("Importing ".$filename." tables...");
+        $i=0;
+        while ( ($data = fgetcsv ( $handle, 100, ',' )) !== FALSE ) {
+            $data = [
+                'id' => $data[0],
+                'type' => $data[1],
+            ];
+             try {
+                if($model::firstOrCreate($data)) {
+                    $i++;
+                }
+            } catch(\Exception $e) {
+                $this->error('Something went wrong!'.$e);
+                return;
+
+            }
+        }
+
+    fclose ( $handle );
+    $this->line($i." entries successfully added in the ".$filename." table.");
+}
+}
+public function importproducts($filename, Model $model) {
+    if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
+        $this->line("Importing ".$filename." tables...");
+        $i=0;
+        while ( ($data = fgetcsv ( $handle, 100, ',' )) !== FALSE ) {
+            $data = [
+                'id' => $data[0],
+                'productType_id' => $data[1],
+                'product' => $data[2],
+            ];
+             try {
+                if($model::firstOrCreate($data)) {
+                    $i++;
+                }
+            } catch(\Exception $e) {
+                $this->error('Something went wrong!'.$e);
+                return;
+
+            }
+        }
+
+    fclose ( $handle );
+    $this->line($i." entries successfully added in the ".$filename." table.");
+}
 }
 }
