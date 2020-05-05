@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductType extends Model
+class Unit extends Model
 {
-    protected $table = 'tbl_product_types';
+    //
+    protected $table='tbl_units';
     protected $primaryKey = 'id';
-    protected $fillable= ['type'];
+    protected $fillable = ['unit'];
     public $timestamps = false;
 }

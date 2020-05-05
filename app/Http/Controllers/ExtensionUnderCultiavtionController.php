@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\ProductType;
 
 use Illuminate\Http\Request;
 
 class ExtensionUnderCultiavtionController extends Controller
 {
     public function extension_cultivation(){
-        
-        return view('extension_farmer.cultivation.create');
+        $productTypes = ProductType::all();
+        return view('extension_farmer.cultivation.create',compact('productTypes'));
     }
 
 

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\ProductType;
+use App\Product;
 class ExtensionSupplyController extends Controller
 {
     public function extension_supply(){             //view 
         
-        return view('extension_farmer.supply.create');
+        $productTypes = ProductType::all();
+        return view('extension_farmer.supply.create',compact('productTypes'));
     }
 
 
