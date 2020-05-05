@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTblProductsTable extends Migration
+class CreateTblPermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateTblProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_products', function (Blueprint $table) {
+        Schema::create('tbl_permissions', function (Blueprint $table) {
             $table->id();
-            $table->string('product');
+            $table->string('name');
+            $table->string('label');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateTblProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_products');
+        Schema::dropIfExists('tbl_permissions');
     }
 }

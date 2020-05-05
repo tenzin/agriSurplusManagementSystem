@@ -12,12 +12,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('login', 'AuthController@loginForm')->name('login');
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout')->name('logout');
+Route::get('logout', 'AuthController@logout');
 
 Route::get('/', function () {
     return view('index');
 });
+
 // Dashboard
-Route::get('login',['as'=>'login','uses'=>'LoginController@login']);
+Route::group(['middleware' => 'auth'], function () {
+
 Route::get('/national',['as'=>'national','uses'=>'DashboardController@national']);
 Route::get('/extension',['as'=>'extension','uses'=>'DashboardController@extension']);
 Route::get('/aggregator',['as'=>'aggregator','uses'=>'DashboardController@aggregator']);
@@ -47,8 +53,8 @@ Route::get('view_surplus_demand_details',['as'=>'view_surplus_demand_details','u
 Route::get('scopefilter',['as'=>'scopefilter','uses'=>'CAFilterController@scopefilter']);
 Route::get('view_claim',['as'=>'view_claim','uses'=>'CAFilterController@view_claim']);
 
- 
-//User profile
+
+//User management Route
 Route::get('profile',['as'=>'profile','uses'=>'AccessControlListController@userprofile']);
 Route::get('system-user',['as'=>'system-user','uses'=>'AccessControlListController@user']);
 Route::get('role',['as'=>'role','uses'=>'AccessControlListController@role']);
@@ -56,8 +62,6 @@ Route::get('permission',['as'=>'permission','uses'=>'AccessControlListController
 
 //Contact US
 Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contact']);
+});
 
-
-
-
-
+Route::get('/home', 'HomeController@index')->name('home');

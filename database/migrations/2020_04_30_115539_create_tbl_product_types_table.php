@@ -14,7 +14,7 @@ class CreateTblProductTypesTable extends Migration
     public function up()
     {
         Schema::create('tbl_product_types', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('type');
             $table->timestamps();
         });

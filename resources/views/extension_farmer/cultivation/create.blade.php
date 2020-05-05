@@ -42,7 +42,7 @@
 
             <div class="form-group">
               <label>Sowing_date:&nbsp;<font color="red">*</font></label>
-              <input id="pickup_date" type="date" class="form-control" name="pickup_date" />
+              <input id="pickup_date" type="month" class="form-control" name="pickup_date" />
             </div>
             <div class="form-group">
               <label>Estimated Output unit:&nbsp;<font color="red">*</font></label>

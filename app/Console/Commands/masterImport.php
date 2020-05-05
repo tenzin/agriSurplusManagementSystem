@@ -51,45 +51,7 @@ class masterImport extends Command
 
     }
 
-    public function importusers($filename, Model $model) {
-        if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
-            $this->line("Importing ".$filename." tables...");
-            $i=0;
-            while ( ($data = fgetcsv ( $handle, 1000, ',' )) !== FALSE ) {
-                $data = [
-                    'id' => $data[0],
-                    'cid' => $data[1],
-                    'name' => $data[2],
-                    'dzongkhag_id' => $data[3],
-                    'gewog_id' => $data[4],
-                    'address' => $data[5],
-                    'contact_number' => $data[6],
-                    'role_id' => $data[7],
-                    'isActive' => $data[8],
-                    'isAdmin' => $data[9],
-                    'isStaff' => $data[10],
-                    'username' => $data[11],
-                    'email' => $data[12],
-                    'email_verified_at' => ($data[13]=='' ? NULL:$data[13]),
-                    'password' => $data[14],
     
-                ];
-                 try {
-                    if($model::firstOrCreate($data)) {
-                        $i++;
-                    }
-                } catch(\Exception $e) {
-                    $this->error('Something went wrong!'.$e);
-                    return;
-    
-                }
-            }
-    
-        fclose ( $handle );
-        $this->line($i." entries successfully added in the ".$filename." table.");
-    }
-    
-    }
     
 
     public function importroles($filename, Model $model) {
@@ -172,5 +134,44 @@ public function importgeogs($filename, Model $model) {
 }
 
 }
+public function importusers($filename, Model $model) {
+    if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
+        $this->line("Importing ".$filename." tables...");
+        $i=0;
+        while ( ($data = fgetcsv ( $handle, 1000, ',' )) !== FALSE ) {
+            $data = [
+                'id' => $data[0],
+                'cid' => $data[1],
+                'name' => $data[2],
+                'dzongkhag_id' => $data[3],
+                'gewog_id' => $data[4],
+                'address' => $data[5],
+                'contact_number' => $data[6],
+                'role_id' => $data[7],
+                'isActive' => $data[8],
+                'isAdmin' => ($data[9]=='' ? NULL:$data[9]),
+                'isStaff' => ($data[10]=='' ? NULL:$data[10]),
+                'username' => $data[11],
+                'email' => $data[12],
+                'avatar' => ($data[13]=='' ? NULL:$data[13]),
+                'email_verified_at' => ($data[14]=='' ? NULL:$data[14]),
+                'password' => $data[15],
 
+            ];
+             try {
+                if($model::firstOrCreate($data)) {
+                    $i++;
+                }
+            } catch(\Exception $e) {
+                $this->error('Something went wrong!'.$e);
+                return;
+
+            }
+        }
+
+    fclose ( $handle );
+    $this->line($i." entries successfully added in the ".$filename." table.");
+}
+
+}
 }
