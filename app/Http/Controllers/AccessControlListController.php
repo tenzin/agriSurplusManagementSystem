@@ -11,6 +11,8 @@ use App\User;
 use Illuminate\Support\Facades\Input;
 use DB;
 use Auth;
+use App\Dzongkhag;
+use App\Gewog;
 
 class AccessControlListController extends Controller
 {
@@ -23,15 +25,6 @@ class AccessControlListController extends Controller
             return view('ACL.userprofile');
         }
        
-//Users
-        public function indexUser()
-        {
-            
-            $users = User::all();
-            return view('acl.user.index', compact('users'));
-        }
-
-
 //Role 
         public function indexRole(){
 
@@ -149,6 +142,8 @@ class AccessControlListController extends Controller
   
       }
 
+  //User
+
     public function user(){
         $users = User::all();
         return view('ACL.users', compact('users'));
@@ -159,7 +154,8 @@ class AccessControlListController extends Controller
         $gewogs = Gewog::all();
         return view('ACL.adduser',compact('dzongkhags','roles','gewogs'));
     }
-      public function insert(Request $request){
+      
+    public function insert(Request $request){
 
         $insert = new User;
         $insert->cid= $request->cid;
@@ -174,7 +170,7 @@ class AccessControlListController extends Controller
         // $insert->submitted_by=Auth::user()->id;
         $insert->save();
        
-        return redirect()->route('e_govform.view')->with('success','Added successfully');
+        return redirect()->route('user')->with('success','Added successfully');
     
         }
 

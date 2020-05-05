@@ -236,16 +236,6 @@
               <i class="far fa-circle nav-icon"></i>
               <p>Users</p>
             </a>
-            <ul>
-              <li><a href="{{route('system-user')}}" class="nav-link">
-                <p>Add New User</p>
-              </a>
-              </li>
-              <li><a href="{{route('indexUser')}}" class="nav-link">
-                <p>User List</p>
-              </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item">
           <a href="{{route('indexRole')}}" class="nav-link">

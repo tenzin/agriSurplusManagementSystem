@@ -22,12 +22,12 @@
 <div class="login-box">
   <div class="login-logo">
   <img class="img-responsive" src="{{URL::asset('/images/rgoblogo.png')}}"style="height:80px;width:80px; "></img><br>
-    <a href="../../index2.html"><b>Ministry of Agriculture</b></a>
+    <a href="../../index2.html"><b>Ministry of Agriculture And Foests</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Sign in to V-MIS</p>
       {{-- @include('flash-message') --}}
     <form method="POST" action="{{url('login')}}">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
