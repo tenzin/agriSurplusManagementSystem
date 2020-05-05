@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $table = 'tbl_products';
     protected $primaryKey = 'id';
-    protected $fillable= ['product'];
-    public $timestamps = false;
+    protected $fillable= ['productType_id','product'];
+   // public $timestamps = false;
+
+   public function productType()
+   {
+       return $this->belongsto('App\ProductType','productType_id','id');
+   }
+
 }

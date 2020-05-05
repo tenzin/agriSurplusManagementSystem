@@ -42,11 +42,9 @@ Route::get('ca_surplus_demand',['as'=>'ca_surplus_demand','uses'=>'CADemandContr
 Route::post('submit_surplus_demand_detail',['as'=>'submit_surplus_demand_detail','uses'=>'CADemandController@submit_surplus_demand_detail']);
 Route::get('view_surplus_demand_details',['as'=>'view_surplus_demand_details','uses'=>'CADemandController@view_surplus_demand_details']);
 
-
 //scope filter for Commercial Aggregator Route
 Route::get('scopefilter',['as'=>'scopefilter','uses'=>'CAFilterController@scopefilter']);
 Route::get('view_claim',['as'=>'view_claim','uses'=>'CAFilterController@view_claim']);
-
  
 //User profile
 Route::get('profile',['as'=>'profile','uses'=>'AccessControlListController@userprofile']);
@@ -57,7 +55,24 @@ Route::get('permission',['as'=>'permission','uses'=>'AccessControlListController
 //Contact US
 Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contact']);
 
+//Master product type.
+Route::get('product-type',['as' => 'product-type','uses'=>'ProductTypeController@producttype']);
+Route::post('product-type-store',['as'=>'product-type-store','uses'=>'ProductTypeController@producttypestore']);
+Route::get('product-type-list',['as'=>'product-type-list','uses'=>'ProductTypeController@producttypelist']);
+Route::get('product-type-edit/{id}',['as'=>'product-type-edit','uses'=>'ProductTypeController@producttypeedit']);
+Route::post('product-type-update/{id}',['as'=>'product-type-update','uses'=>'ProductTypeController@producttypeupdate']);
 
+//master product.
+Route::get('product',['as'=>'product','uses'=>'ProductController@productlist']);
+Route::get('product-create',['as'=>'product-create','uses'=>'ProductController@productcreate']);
+Route::post('product-store',['as'=>'product-store','uses'=>'ProductController@productstore']);
+Route::get('product-edit/{id}',['as'=>'product-edit','uses'=>'ProductController@productedit']);
+Route::post('product-update/{id}',['as'=>'product-update','uses'=>'ProductController@productupdate']);
 
-
+//master units.
+Route::get('units',['as'=>'units','uses'=>'UnitController@units']);
+Route::get('unit-create',['as'=>'unit-create','uses'=>'UnitController@unitcreate']);
+Route::post('unit-store',['as'=>'unit-store','uses'=>'UnitController@unitstore']);
+Route::get('unit-edit/{id}',['as'=>'unit-edit','uses'=>'UnitController@unitedit']);
+Route::post('unit-update/{id}',['as'=>'unit-update','uses'=>'UnitController@unitupdate']);
 
