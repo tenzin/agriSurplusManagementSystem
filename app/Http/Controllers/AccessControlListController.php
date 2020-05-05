@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Hash;
 
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
 use App\Role;
 use App\Permission;
 use App\User;
@@ -23,10 +22,7 @@ class AccessControlListController extends Controller
             
             return view('ACL.userprofile');
         }
-        public function user(){
-            
-            return view('ACL.users');
-        }
+       
 //Users
         public function indexUser()
         {
@@ -153,10 +149,6 @@ class AccessControlListController extends Controller
   
       }
 
-    public function userprofile(){
-        
-        return view('ACL.userprofile');
-    }
     public function user(){
         $users = User::all();
         return view('ACL.users', compact('users'));
@@ -185,7 +177,6 @@ class AccessControlListController extends Controller
         return redirect()->route('e_govform.view')->with('success','Added successfully');
     
         }
-    
 
 
     public function userView(){
