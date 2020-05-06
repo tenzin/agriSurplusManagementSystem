@@ -22,7 +22,7 @@ class AccessControlListController extends Controller
         }
         public function userprofile(){
             
-            return view('ACL.userprofile');
+            return view('acl.userprofile');
         }
        
 //Role 
@@ -146,13 +146,13 @@ class AccessControlListController extends Controller
 
     public function user(){
         $users = User::all();
-        return view('ACL.users', compact('users'));
+        return view('acl.users', compact('users'));
     }
     public function add(){
         $dzongkhags = Dzongkhag::all();
         $roles = Role::all();
         $gewogs = Gewog::all();
-        return view('ACL.adduser',compact('dzongkhags','roles','gewogs'));
+        return view('acl.adduser',compact('dzongkhags','roles','gewogs'));
     }
       
     public function insert(Request $request){
@@ -177,6 +177,6 @@ class AccessControlListController extends Controller
 
     public function userView(){
         $users = User::all();
-        return view('ACL.userview', compact('users'));
+        return view('acl.userview', compact('users'));
     }
 }

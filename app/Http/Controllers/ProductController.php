@@ -58,4 +58,11 @@ class ProductController extends Controller
         return redirect("product-edit/".$id)->with("success","Successfully updated!");
     }
 
+    //delete product.
+    public function productdelete($id)
+    {
+        Product::destroy($id);
+        return redirect("product")->with("success","Successfully deleted!");
+    }
+
 }

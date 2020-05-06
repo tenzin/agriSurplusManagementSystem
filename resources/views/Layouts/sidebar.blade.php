@@ -202,15 +202,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/product-type-list" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Product Type</p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="/product-type" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Add Product Type</p>
+              <p>Product Type</p>
             </a>
           </li>
           <li class="nav-item">
@@ -226,15 +220,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/units" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Units</p>
-            </a>
-          </li> 
-          <li class="nav-item">
             <a href="/unit-create" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
               <p>Add Unit</p>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a href="/cunit-create" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Cultivation Units</p>
             </a>
           </li> 
           <ul>
