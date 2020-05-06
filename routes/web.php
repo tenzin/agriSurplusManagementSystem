@@ -112,9 +112,9 @@ Route::get('profile',['as'=>'profile','uses'=>'ProfileController@userprofile']);
 //Master product type.
 Route::get('product-type',['as' => 'product-type','uses'=>'ProductTypeController@producttype']);
 Route::post('product-type-store',['as'=>'product-type-store','uses'=>'ProductTypeController@producttypestore']);
-Route::get('product-type-list',['as'=>'product-type-list','uses'=>'ProductTypeController@producttypelist']);
 Route::get('product-type-edit/{id}',['as'=>'product-type-edit','uses'=>'ProductTypeController@producttypeedit']);
 Route::post('product-type-update/{id}',['as'=>'product-type-update','uses'=>'ProductTypeController@producttypeupdate']);
+Route::get('product-type-delete/{id}',['as'=>'product-type-delete','uses'=>'ProductTypeController@producttypedelete']);
 
 //master product.
 Route::get('product-create',['as'=>'product-create','uses'=>'ProductController@productcreate']);
@@ -124,11 +124,18 @@ Route::post('product-update/{id}',['as'=>'product-update','uses'=>'ProductContro
 Route::get('product-delete/{id}',['as'=>'product-delete','uses'=>'ProductController@Productdestroy']);
 
 //master units.
-Route::get('units',['as'=>'units','uses'=>'UnitController@units']);
 Route::get('unit-create',['as'=>'unit-create','uses'=>'UnitController@unitcreate']);
 Route::post('unit-store',['as'=>'unit-store','uses'=>'UnitController@unitstore']);
 Route::get('unit-edit/{id}',['as'=>'unit-edit','uses'=>'UnitController@unitedit']);
 Route::post('unit-update/{id}',['as'=>'unit-update','uses'=>'UnitController@unitupdate']);
+Route::get('unit-delete/{id}',['as'=>'unit-delete','uses'=>'UnitController@unitdelete']);
+
+//master cultivation units.
+Route::get('cunit-create',['as'=>'cunit-create','uses'=>'CUnitController@cunitcreate']);
+Route::post('cunit-store',['as'=>'cunit-store','uses'=>'CUnitController@cunitstore']);
+Route::get('cunit-edit/{id}',['as'=>'cunit-edit','uses'=>'CUnitController@cunitedit']);
+Route::post('cunit-update/{id}',['as'=>'cunit-update','uses'=>'CUnitController@cunitupdate']);
+Route::get('cunit-delete/{id}',['as'=>'cunit-delete','uses'=>'CUnitController@cunitdelete']);
 
 //master dzongkhag
 Route::get('dzongkhag-list',['as'=>'dzongkhag-list','uses'=>'DzongkhagThromdeController@index']);

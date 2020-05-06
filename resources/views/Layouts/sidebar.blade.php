@@ -199,7 +199,7 @@
           <li class="nav-item">
             <a href="/product-type" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Add Product Type</p>
+              <p>Product Type</p>
             </a>
           </li>
           <li class="nav-item">
@@ -209,15 +209,15 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/units" class="nav-link">
+            <a href="/unit-create" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Cultivations Units</p>
+              <p>Add Unit</p>
             </a>
           </li> 
           <li class="nav-item">
-            <a href="{{route('unit-create')}}" class="nav-link">
+            <a href="/cunit-create" class="nav-link">
               <i class="far fa-circle nav-icon"></i>
-              <p>Product Unit</p>
+              <p>Cultivation Units</p>
             </a>
           </li> 
           <ul>
