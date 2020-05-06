@@ -80,9 +80,22 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
    
     //User Route
     Route::get('system-user',['as'=>'system-user','uses'=>'AccessControlListController@user']);
-    Route::get('userview',['as'=>'userview','uses'=>'AccessControlListController@userview']);
-    Route::get('adduser',['as'=>'adduser','uses'=>'AccessControlListController@add']);
+    Route::get('user-view',['as'=>'user-view','uses'=>'AccessControlListController@userview']);
+    Route::get('add-user',['as'=>'add-user','uses'=>'AccessControlListController@add']);
     Route::post('new-user',['as'=>'new-user','uses'=>'AccessControlListController@insert']);
+
+    Route::get('edit-user/{id}',['as'=>'edit-user','uses'=>'AccessControlListController@edit']);
+    Route::post('update-user',['as'=>'update-user','uses'=>'AccessControlListController@update']);
+    Route::get('delete-user/{id}',['as'=>'delete-user','uses'=>'AccessControlListController@userDelete']);
+    
+    Route::get('user-reset',['as'=>'user-reset','uses'=>'AccessControlListController@userResetPassword']);
+    Route::get('user-resetpassword/{id}',['as'=>'user-resetpassword','uses'=>'AccessControlListController@passwordReset']);
+    Route::post('user-passupdate',['as'=>'user-passupdate','uses'=>'AccessControlListController@passwordUpdate']);
+
+
+
+
+
 
   }); // end of acl group list
 
