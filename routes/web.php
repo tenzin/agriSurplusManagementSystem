@@ -84,14 +84,29 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
     Route::get('adduser',['as'=>'adduser','uses'=>'AccessControlListController@add']);
     Route::post('new-user',['as'=>'new-user','uses'=>'AccessControlListController@insert']);
 
+    
+
   }); // end of acl group list
 
 
 //User profile Route
-Route::get('profile',['as'=>'profile','uses'=>'AccessControlListController@userprofile']);
+Route::get('profile',['as'=>'profile','uses'=>'ProfileController@userprofile']);
 
-//Contact US
-Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contact']);
+//change Password & Email & Contact Route
+  Route::post('/changePassword','UpdateDetailsController@changePassword');
+  Route::post('/changeEmail','UpdateDetailsController@changeEmail');
+  Route::post('/changeContact','UpdateDetailsController@changeContact');
+
+
+  Route::post('/changePassword','UpdateDetailsController@changePassword')->name('changePassword');
+  Route::post('/changeEmail','UpdateDetailsController@changeEmail')->name('changeEmail');
+  Route::post('/changeContact','UpdateDetailsController@changeContact')->name('changeContact');
+
+  //Image Route
+  Route::post('/avatar', 'UserController@update_avatar');
+
+  //Contact US
+  Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contact']);
 });
 
 //Master product type.

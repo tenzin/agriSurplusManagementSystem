@@ -20,10 +20,7 @@ class AccessControlListController extends Controller
         {
             $this->middleware('auth');
         }
-        public function userprofile(){
-            
-            return view('acl.userprofile');
-        }
+        
        
 //Role 
         public function indexRole(){
