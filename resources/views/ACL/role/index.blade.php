@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">Role List
                   <hr/>
-                <a class="btn btn-primary" href="{{route('addRole')}}">Add a new Role</a>
+                <a class="btn btn-primary" href="{{route('add-role')}}">Add a new Role</a>
                 </div> <!--card header-->
 
 
@@ -55,8 +55,8 @@
                               </td>
 
                               <td>
-                                <a href="{{route('editRole',$role['id'])}}" class="btn btn-primary btn-xs" onclick="return confirm('Are you sure to you want to edit this data??');"></span>Edit</a>
-                                <a href="{{route('destroyRole',$role['id'])}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data??');"></span>Delete</a>
+                                <a href="{{route('edit-role',$role['id'])}}" class="btn btn-primary btn-xs" onclick="return confirm('Are you sure to you want to edit this data??');"></span>Edit</a>
+                                <a href="{{route('destroy-role',$role['id'])}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data??');"></span>Delete</a>
                               </td>
                             </tr>
                             @endforeach
@@ -70,6 +70,4 @@
     </div>
 </div>
 @endsection
-@section('custom_scripts')
 
-@endsection

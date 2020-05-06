@@ -42,8 +42,8 @@
                          <td>{{$user->Role['role']}}</td>
 
                               <td>
-                                <a href="{{route('userview')}}" class="btn btn-primary btn-xs"></span>View</a>
-                                <a href="{{route('userview')}}" class="btn btn-warning btn-xs"></span>Edit</a>
+                                <a href="{{route('userview')}}" class="btn btn-warning btn-xs"></span>View</a>
+                                <a href="{{route('userview')}}" class="btn btn-primary btn-xs"></span>Edit</a>
                                 <a href="#" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data??');"></span>Delete</a>
                               </td>
                             </tr>

@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header">Permission List
                   <hr/>
-                <a class="btn btn-primary" href="{{route('addPermission')}}">Add a new Permission</a>
+                <a class="btn btn-primary" href="{{route('add-permission')}}">Add a new Permission</a>
                 </div>
                 <div class="card-body">
                   <div class="card-body">
@@ -47,8 +47,8 @@
                               </ul>
                               </td>
                               <td>
-                                <a href="{{route('editPermission',$permission['id'])}}" class="btn btn-primary btn-xs" onclick="return confirm('Are you sure to you want to edit this data??');"></span>Edit</a>
-                                <a href="{{route('destroyPermission',$permission['id'])}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data??');"></span>Delete</a>
+                                <a href="{{route('edit-permission',$permission['id'])}}" class="btn btn-primary btn-xs" onclick="return confirm('Are you sure to you want to edit this data??');"></span>Edit</a>
+                                <a href="{{route('destroy-permission',$permission['id'])}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data??');"></span>Delete</a>
                               </td>
 
                             </tr>

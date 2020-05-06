@@ -63,20 +63,20 @@ Route::get('view_claim',['as'=>'view_claim','uses'=>'CAFilterController@view_cla
 Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function() {
 
     //Role Route
-    Route::get('indexRole',['as'=>'indexRole','uses'=>'AccessControlListController@indexRole']);
-    Route::get('addRole',['as'=>'addRole','uses'=>'AccessControlListController@addRole']);
-    Route::post('storeRole',['as'=>'storeRole','uses'=>'AccessControlListController@storeRole']);
-    Route::get('editRole/{id}',['as'=>'editRole','uses'=>'AccessControlListController@editRole']);
-    Route::post('updateRole',['as'=>'updateRole','uses'=>'AccessControlListController@updateRole']);
-    Route::get('destroyRole/{id}',['as'=>'destroyRole','uses'=>'AccessControlListController@destroyRole']);
+    Route::get('view-role',['as'=>'view-role','uses'=>'AccessControlListController@indexRole']);
+    Route::get('add-role',['as'=>'add-role','uses'=>'AccessControlListController@addRole']);
+    Route::post('store-role',['as'=>'store-role','uses'=>'AccessControlListController@storeRole']);
+    Route::get('edit-role/{id}',['as'=>'edit-role','uses'=>'AccessControlListController@editRole']);
+    Route::post('update-role',['as'=>'update-role','uses'=>'AccessControlListController@updateRole']);
+    Route::get('destroy-role/{id}',['as'=>'destroy-role','uses'=>'AccessControlListController@destroyRole']);
     
     //Permission Route
-    Route::get('indexPermission',['as'=>'indexPermission','uses'=>'AccessControlListController@indexPermission']);
-    Route::get('addPermission',['as'=>'addPermission','uses'=>'AccessControlListController@addPermission']);
-    Route::post('storePermission',['as'=>'storePermission','uses'=>'AccessControlListController@storePermission']);
-    Route::post('updatePermission',['as'=>'updatePermission','uses'=>'AccessControlListController@updatePermission']);
-    Route::get('editPermission/{id}',['as'=>'editPermission','uses'=>'AccessControlListController@editPermission']);
-    Route::get('destroyPermission/{id}',['as'=>'destroyPermission','uses'=>'AccessControlListController@destroyPermission']);
+    Route::get('view-permission',['as'=>'view-permission','uses'=>'AccessControlListController@indexPermission']);
+    Route::get('add-permission',['as'=>'add-permission','uses'=>'AccessControlListController@addPermission']);
+    Route::post('store-permission',['as'=>'store-permission','uses'=>'AccessControlListController@storePermission']);
+    Route::post('update-permission',['as'=>'update-permission','uses'=>'AccessControlListController@updatePermission']);
+    Route::get('edit-permission/{id}',['as'=>'edit-permission','uses'=>'AccessControlListController@editPermission']);
+    Route::get('destroy-permission/{id}',['as'=>'destroy-permission','uses'=>'AccessControlListController@destroyPermission']);
    
     //User Route
     Route::get('system-user',['as'=>'system-user','uses'=>'AccessControlListController@user']);
@@ -89,11 +89,6 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
 
 //User profile Route
 Route::get('profile',['as'=>'profile','uses'=>'AccessControlListController@userprofile']);
-Route::get('system-user',['as'=>'system-user','uses'=>'AccessControlListController@user']);
-
-//user role and permission
-Route::get('role',['as'=>'role','uses'=>'AccessControlListController@role']);
-Route::get('permission',['as'=>'permission','uses'=>'AccessControlListController@permission']);
 
 //Contact US
 Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contact']);
@@ -107,11 +102,11 @@ Route::get('product-type-edit/{id}',['as'=>'product-type-edit','uses'=>'ProductT
 Route::post('product-type-update/{id}',['as'=>'product-type-update','uses'=>'ProductTypeController@producttypeupdate']);
 
 //master product.
-Route::get('product',['as'=>'product','uses'=>'ProductController@productlist']);
 Route::get('product-create',['as'=>'product-create','uses'=>'ProductController@productcreate']);
 Route::post('product-store',['as'=>'product-store','uses'=>'ProductController@productstore']);
 Route::get('product-edit/{id}',['as'=>'product-edit','uses'=>'ProductController@productedit']);
 Route::post('product-update/{id}',['as'=>'product-update','uses'=>'ProductController@productupdate']);
+Route::get('product-delete/{id}',['as'=>'product-delete','uses'=>'ProductController@Productdestroy']);
 
 //master units.
 Route::get('units',['as'=>'units','uses'=>'UnitController@units']);
@@ -119,4 +114,7 @@ Route::get('unit-create',['as'=>'unit-create','uses'=>'UnitController@unitcreate
 Route::post('unit-store',['as'=>'unit-store','uses'=>'UnitController@unitstore']);
 Route::get('unit-edit/{id}',['as'=>'unit-edit','uses'=>'UnitController@unitedit']);
 Route::post('unit-update/{id}',['as'=>'unit-update','uses'=>'UnitController@unitupdate']);
+
+//master dzongkhag
+Route::get('dzongkhag-list',['as'=>'dzongkhag-list','uses'=>'DzongkhagThromdeController@index']);
 

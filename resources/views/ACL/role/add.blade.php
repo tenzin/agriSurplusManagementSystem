@@ -16,7 +16,7 @@
                    @endforeach
                   </div>
                   @endif
-                <form method="POST" action="{{route('storeRole')}}">
+                <form method="POST" action="{{route('store-role')}}">
                         @csrf
 
                         <div class="form-group row">
@@ -52,7 +52,7 @@
                                 <button type="submit" class="btn btn-success">
                                    Add Role
                                 </button>
-                                <a class="btn btn-primary" href="{{ route('indexRole')}}">Go back</a>
+                                <a class="btn btn-primary" href="{{ route('view-role')}}">Go back</a>
                             </div>
                         </div>
                     </form>

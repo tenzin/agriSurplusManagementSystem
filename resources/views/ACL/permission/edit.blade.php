@@ -18,7 +18,7 @@
                 </div>
                  <br />
                      @endif
-                    <form method="POST" action="{{ route('updatePermission')}}">
+                    <form method="POST" action="{{ route('update-permission')}}">
                    @csrf
 
                         <div class="form-group">
@@ -43,7 +43,7 @@
                                     {{ __('Update') }}
 
                                 </button>
-                                <a class="btn btn-primary" href="{{ url('acl/permission/') }}">Back</a>
+                                <a class="btn btn-primary" href="{{route('view-permission') }}">Back</a>
 
 
 

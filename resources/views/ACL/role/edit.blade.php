@@ -16,7 +16,7 @@
                    @endforeach
                   </div>
                   @endif
-                <form method="POST" action="{{route('updateRole')}}">
+                <form method="POST" action="{{route('update-role')}}">
                         @csrf
 
                         <input id="role_id"  class="form-control" type="hidden" name="role_id" value="{{$role->id}}">
@@ -50,7 +50,7 @@
                                 <button type="submit" class="btn btn-info">
                                   Update Role
                                 </button>
-                                <a class="btn btn-primary" href="{{ route('indexRole')}}">Go back</a>
+                                <a class="btn btn-primary" href="{{ route('view-role')}}">Go back</a>
                             </div>
                         </div>
                     </form>
