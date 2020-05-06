@@ -9,7 +9,8 @@ class ProductTypeController extends Controller
     //view to add product type.
     public function producttype()
     {
-        return view('Master.product_type.producttypeview');
+        $ptypes = ProductType::latest()->get();
+        return view('Master.product_type.producttypeadd',compact('ptypes'));
     } 
     //save a product type.
     public function producttypestore(Request $request)
@@ -18,16 +19,10 @@ class ProductTypeController extends Controller
          $ptype->type = $request->producttype;
          $ptype->save();
 
-        return redirect('product-type-list')->with("success","Successfully saved!");
+         //  return redirect('product-type-list')->with("success","Successfully saved!");
+         return redirect('product-type')->with("success","Successfully saved!");
     }
-    //list types of products.
-    public function producttypelist() 
-    {
-        $ptypes = ProductType::paginate(8);
-
-        return view('Master.product_type.producttypelist',compact('ptypes'));
-
-    }
+    
     //populate field in editview to change type.
     public function producttypeedit($id)
     {
@@ -39,13 +34,20 @@ class ProductTypeController extends Controller
     } 
 
     //update the changes of type.
-
     public function producttypeupdate(Request $request,$id)
     {
         $producttypes = ProductType::find($id);
         $producttypes->type = $request->producttype;
         $producttypes->save();
 
-        return redirect('product-type-edit/'.$id)->with("success","Successfully updated!");
+        return redirect('product-type')->with("success","Successfully updated!");
+    }
+
+    //delete type.
+    public function producttypedelete($id)
+    {
+        ProductType::destroy($id);
+        
+        return redirect('product-type')->with("success","Successfully deleted!");
     }
 }

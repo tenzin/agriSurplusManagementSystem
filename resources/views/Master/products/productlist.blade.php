@@ -14,7 +14,7 @@
             <th>Sl. No.</th>
             <th>Type</th>
             <th>Product</th>
-            <th></th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -23,7 +23,10 @@
                       <td>{{$loop->iteration}}</td>
                       <td>{{$product->productType->type }}</td> 
                       <td>{{$product->product}}</td>   
-                      <td><a href="{{ route('product-edit',[$product->id]) }}" class="btn btn-warning">Edit</a></td>                  
+                      <td>
+                        <a href="{{ route('product-edit',[$product->id]) }}" class="btn btn-warning btn-xs" onclick="return confirm('Are you sure to you want to edit this data?');"> Edit</a> &nbsp;
+                        <a href="{{ route('product-delete',[$product->id]) }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to you want to delete this data?');"> Delete</a>
+                      </td>                  
                     </tr>
         @endforeach            
 

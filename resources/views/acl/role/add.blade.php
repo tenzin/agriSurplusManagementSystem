@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Edit system role</div>
+                <div class="card-header">Add new system role</div>
 
                 <div class="card-body">
                   @if ( session('error') || $errors->any())
@@ -16,41 +16,43 @@
                    @endforeach
                   </div>
                   @endif
-                <form method="POST" action="{{route('updateRole')}}">
+                <form method="POST" action="{{route('store-role')}}">
                         @csrf
 
-                        <input id="role_id"  class="form-control" type="hidden" name="role_id" value="{{$role->id}}">
                         <div class="form-group row">
                             <label for="role_name" class="col-md-4 col-form-label text-md-right">Role name </label>
 
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="role_name" value="{{$role->role}}" required>
-                                </input>
+                                <input id="role_name"  class="form-control" name="role_name" required>
 
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="role_label" class="col-md-4 col-form-label text-md-right">Role Label </label>
+
+                            <div class="col-md-6">
+                                <input id="role_label"  class="form-control" name="role_label" required>
+
+                            </div>
+                        </div>
+
 
                         <div class="form-group row">
                             <label for="permissions" class="col-md-4 col-form-label text-md-right">Permissions</label>
 
                             <div class="col-md-6">
                                 @foreach($permissions as $permission)
-
-                                @if($role->permissions->contains($permission->id))
-                                <input type="checkbox" name="permissions[]" value="{{$permission->id}}" checked>
-                                @else
-                                <input type="checkbox" name="permissions[]" value="{{$permission->id}}">
-                                @endif
-                                : {{$permission->label}}</input><br/>
+                                <input type="checkbox" name="permissions[]" value="{{$permission->id}}"> : {{$permission->label}}</input><br/>
                                 @endforeach
                             </div>
                         </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-info">
-                                  Update Role
+                                <button type="submit" class="btn btn-success">
+                                   Add Role
                                 </button>
-                                <a class="btn btn-primary" href="{{ route('indexRole')}}">Go back</a>
+                                <a class="btn btn-primary" href="{{ route('view-role')}}">Go back</a>
                             </div>
                         </div>
                     </form>

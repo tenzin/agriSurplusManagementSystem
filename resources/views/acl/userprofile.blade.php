@@ -1,12 +1,12 @@
 @extends('master') 
-@section('content')
 
+@section('content')
 <div class="container normal-page">
     <div class="row">
         <div class="col-md-6">
-            <div class="card card-success">
+            <div class="card">
                 <div class="card-header">
-                    <h5 class="title">Update Profile</h5>
+                    <h5 class="title center">Update Profile</h5>
                 </div>
                 <div class="card-body">
                     @if (session('error'))
@@ -29,21 +29,8 @@
                         </ul>
                     </div>
                     @endif
-                    <form method="POST" action="#">
-                        {{ csrf_field() }}
-                        <div class="row">
-                            <div class="col-md-5 ">
-                                <div class="form-group{{ $errors->has('current-password') ? ' has-error' : '' }}">
-                                    <label for="current-confirm">Current Password</label>
-                                    <input id="current-password" type="password" class="form-control" name="current-password" required> @if ($errors->has('current-password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('current-password') }}</strong>
-                                    </span> @endif
-                                </div>
-                            </div>
-
-                        </div>
-
+                    <form method="POST" action="{{ route('changePassword') }}">
+                        @csrf
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form-group{{ $errors->has('new-password') ? ' has-error' : '' }}">
@@ -82,10 +69,10 @@
 
                 <div class="card-body">
 
-                    <form method="POST" action="#">
-                        {{ csrf_field() }}
+                    <form method="POST" action="{{ route('changeEmail') }}">
+                        @csrf
                         <div class="row">
-                            <div class="col-md-4 ">
+                            <div class="col-md-5 ">
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input id="email" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" class="form-control" name="email" required>
@@ -96,7 +83,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-8 ">
+                            <div class="col-md-4 ">
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">
                                         Change Email
@@ -109,20 +96,22 @@
                     </form>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="#">
-                        {{ csrf_field() }}
+
+                    <form method="POST" action="{{ route('changeContact') }}">
+                        @csrf
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-5 ">
                                 <div class="form-group">
                                     <label for="email">Phone</label>
                                     <input type="tel" pattern="^\d{8}$" class="form-control" name="phone" required>
+
                                 </div>
                             </div>
 
                         </div>
 
                         <div class="row">
-                            <div class="col-md-8 ">
+                            <div class="col-md-4 ">
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">
                                         Change Contact Number
@@ -144,31 +133,63 @@
 
                 </div>
                 <div class="card-body">
-                     
+                    <div class="author">
+                        <a href="#">
+                            
+                        @if($user->avatar)
+                         <center>  <img class="avatar border-gray" width=30% src="../profilepic/{{ $user->avatar}}" alt="..."></center>
+                            @else
+                           <center>  <img class="avatar border-gray" width=30% src="images/avatar04.png" alt="..."/></center>
+                        @endif
+                          <center>  <h5 class="title">{{$user->name}}</h5> </center>
+                        </a>
+                        <div class="row justify-content-center">
+                            <form action="{{url('/avatar')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <table class="table">
+                                    <tr>
+
+                                        <td width="30">
+                                            <input type="file" name="avatar" id="avatarFile" aria-describedby="fileHelp" />
+                                        </td>
+                                        <td width="30%" >
+                                            <input type="submit" name="upload" class="btn btn-primary" value="Upload">
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            </form>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="role">Role</label>
-                        <input type="text" class="form-control" disabled value="#" name="empId" id="empId">
+                        <input type="text" class="form-control" disabled value="{{$user->role['role']}}" name="empId" id="empId">
                     </div>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" disabled value="#" name="empId" id="empId">
-                    </div>
+                    
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="text" class="form-control" disabled value="@" name="empId" id="empId">
+                        <input type="text" class="form-control" disabled value="{{$user->email}}" name="empId" id="empId">
                     </div>
                     <div class="form-group">
-                        <label for="contact">Contact Number</label>
-                        <input type="text" class="form-control" disabled value="#" name="empId" id="empId">
+                        <label>CID</label>
+                        <input type="number" class="form-control" disabled value="{{$user->cid}}">
                     </div>
                     <div class="form-group">
-                        <label for="dzongkhag">Dzongkhag</label>
-                        <input class="form-control" disabled value="">
+                        <label for="email">Contact Number</label>
+                        <input type="text" class="form-control" disabled value="{{$user->contact_number}}" name="empId" id="empId">
                     </div>
+                    
                     <div class="form-group">
-                        <label for="geog">Geog</label>
-                        <input type="number" class="form-control" disabled value="#">
+                        <label>Dzongkhag </label>
+                        <input type="text" class="form-control" disabled value="{{$user->dzongkhag['dzongkhag']}}">
                     </div>
+
+                    <div class="form-group">
+                        <label>Gewog </label>
+                        <input type="text" class="form-control" disabled value="{{$user->gewog['gewog']}}">
+                    </div>
+
                 </div>
 
             </div>
