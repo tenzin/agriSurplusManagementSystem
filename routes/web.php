@@ -84,7 +84,6 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
     Route::get('add-user',['as'=>'add-user','uses'=>'AccessControlListController@add']);
     Route::post('new-user',['as'=>'new-user','uses'=>'AccessControlListController@insert']);
 
-<<<<<<< HEAD
     Route::get('edit-user/{id}',['as'=>'edit-user','uses'=>'AccessControlListController@edit']);
     Route::post('update-user',['as'=>'update-user','uses'=>'AccessControlListController@update']);
     Route::get('delete-user/{id}',['as'=>'delete-user','uses'=>'AccessControlListController@userDelete']);
@@ -92,14 +91,6 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
     Route::get('user-reset',['as'=>'user-reset','uses'=>'AccessControlListController@userResetPassword']);
     Route::get('user-resetpassword/{id}',['as'=>'user-resetpassword','uses'=>'AccessControlListController@passwordReset']);
     Route::post('user-passupdate',['as'=>'user-passupdate','uses'=>'AccessControlListController@passwordUpdate']);
-
-
-
-
-
-=======
-    
->>>>>>> users
 
   }); // end of acl group list
 
