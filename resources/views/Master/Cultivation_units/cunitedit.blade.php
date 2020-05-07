@@ -3,11 +3,11 @@
 @section('content')
 
 <div class="content-header">
-  <form class="form-horizontal" method="POST" action = "{{route('unit-update',$unit->id)}}">
+  <form class="form-horizontal" method="POST" action = "{{route('cunit-update',$unit->id)}}">
     @csrf
   <div class="card card-info">
           <div class="card-header">
-            <h3 class="card-title">Edit Unit</h3>
+            <h3 class="card-title">Edit Cultivation Unit</h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
             </div>
@@ -40,8 +40,8 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label for="unit">Unit:<font color="red">*</font></label>
-                <input id="unit" type="text" class="form-control" name="unit" maxlength="50" value="{{ $unit->unit }}"/>
+                <label for="cunit">Cultivation Unit:<font color="red">*</font></label>
+                <input id="cunit" type="text" class="form-control" name="cunit" maxlength="50" value="{{ $unit->unit }}"/>
                
               </div>                
             </div>
@@ -54,6 +54,7 @@
           </div>
   </div>
 </form>
+
 
 
 @endsection

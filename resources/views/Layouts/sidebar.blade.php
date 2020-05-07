@@ -17,8 +17,6 @@
            with font-awesome or any other icon font library -->
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
-        <i class="fas fa-bars"></i> 
-          <ion-icon name="stats-chart-outline"></ion-icon>
             <p>National Level</p>
         </a>
         <ul class="nav nav-treeview">
@@ -41,7 +39,6 @@
            with font-awesome or any other icon font library -->
       <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
-          <i class="fas fa-bars"></i> 
            <p> Aggregator Level</p>
         </a>
         <ul class="nav nav-treeview">
@@ -125,7 +122,6 @@
             with font-awesome or any other icon font library -->
         <li class="nav-item has-treeview">
           <a href="#" class="nav-link">
-            <i class="fas fa-bars"></i> 
             <p>Extension Level</p>
           </a>
           <ul class="nav nav-treeview">
@@ -182,92 +178,73 @@
 
   <nav class="mt-2">
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-   <li class="nav-item has-treeview">
+   <li class="nav-item has-treeview menu-open">
         <a href="#" class="nav-link">
-          <i class="fab fa-elementor"></i>
           <p>Master Table</p>
         </a>
 
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-list"></i>
+            <a href="{{route('dzongkhag-list')}}" class="nav-link">
+              <i class="nav-icon fas fa-fw fa-city"></i>
               <p>Dzongkhag and Thromde</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Geog</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/product-type-list" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
+            <a href="/product-type" class="nav-link">
+              <i class="nav-icon fas fa-edit"></i>
               <p>Product Type</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/product-type" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Add Product Type</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/product" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
+            <a href="{{route('product-create')}}" class="nav-link">
+              <i class="nav-icon fas fa-carrot"></i>
               <p>Product Name</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="/product-create" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Add Product Name</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="/units" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Units</p>
-            </a>
-          </li> 
-          <li class="nav-item">
             <a href="/unit-create" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Add Unit</p>
+              <i class=" nav-icon fas fa-balance-scale"></i>
+              <p>Product Unit</p>
+            </a>
+          </li> 
+          <li class="nav-item">
+            <a href="/cunit-create" class="nav-link">
+              <i class="nav-icon fas fa-balance-scale"></i>
+              <p>Cultivation Units</p>
             </a>
           </li> 
           <ul>
       </nav>
-      @can('access_control_list')
-      <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-             <li class="nav-item has-treeview menu-open">
-                <a href="#" class="nav-link">
-                   <i class="nav-icon far fa-plus-square"></i>
-                     <p> User Management</p>
-                 </a>
+  @can('access_control_list')
+  <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+                  <p> User Management</p>
+              </a>
 
-        <ul class="nav nav-treeview">
-          <li class="nav-item">
-            <a href="{{route('system-user')}}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Users</p>
-            </a>
-          </li>
-          <li class="nav-item">
-          <a href="{{route('indexRole')}}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Roles</p>
-            </a>
-          </li>
-          <li class="nav-item">
-          <a href="{{route('indexPermission')}}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Permissions</p>
-            </a>
-          <ul>
-      </nav>
+    <ul class="nav nav-treeview">
+      <li class="{{ (request()->is('acl/user*')) ? 'active' : '' }}">
+        <a href="{{route('system-user')}}" class="nav-link">
+          <i class="fas fa-users nav-icon"></i>
+          <p>Users</p>
+        </a>
+      </li>
+
+      <li class="nav-item">
+      <a href="{{route('view-role')}}" class="nav-link">
+          <i class="fas fa-street-view nav-icon"></i>
+          <p>Roles</p>
+        </a>
+      </li>
+      <li class="nav-item">
+      <a href="{{route('view-permission')}}" class="nav-link">
+          <i class="fas fa-key nav-icon"></i>
+          <p>Permissions</p>
+        </a>
+      <ul>
+  </nav>
   @endcan
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">

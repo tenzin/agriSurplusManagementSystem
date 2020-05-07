@@ -6,17 +6,11 @@ use Illuminate\Http\Request;
 use App\Unit;
 class UnitController extends Controller
 {
-    //list units.
-    public function units()
-    {
-        $units = Unit::paginate(10);
-        return view('Master.Units.unitlist',compact('units'));
-    }
-
-    //unit create.
+   //unit create.
     public function unitcreate() 
     {
-        return view('Master.Units.unitcreate');
+        $units = Unit::latest()->get();
+        return view('Master.Units.unitadd',compact('units'));       
 
     }
     //unit store.
@@ -40,6 +34,13 @@ class UnitController extends Controller
         $unit->unit = $request->unit;
         $unit->save();
 
-        return redirect('unit-edit/'.$id)->with("success","Successfully updated!");
+        return redirect('unit-create')->with("success","Successfully updated!");
+    }
+
+    //unit delete.
+    public function unitdelete($id)
+    {
+        Unit::destroy($id);
+        return redirect('unit-create')->with("success","Successfully deleted!");
     }
 }

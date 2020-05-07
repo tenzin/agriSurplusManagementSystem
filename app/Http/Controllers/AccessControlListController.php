@@ -20,6 +20,7 @@ class AccessControlListController extends Controller
         {
             $this->middleware('auth');
         }
+        
        
 //Role 
         public function indexRole(){
@@ -47,7 +48,7 @@ class AccessControlListController extends Controller
               $permission=Permission::find($permissions[$i]);
               $role->permissions()->attach($permission);
             }
-            return redirect()->route('indexRole')->with("success",'Successfully added a new role');
+            return redirect()->route('view-role')->with("success",'Successfully added a new role');
       
           }
 
@@ -72,16 +73,16 @@ class AccessControlListController extends Controller
             $permission=Permission::find($permissions[$i]);
             $role->permissions()->attach($permission);
             }
-            return redirect()->route('indexRole')->with("success",'Successfully updated the role');
+            return redirect()->route('view-role')->with("success",'Successfully updated the role');
         }
 
         public function destroyRole($id) {
             $role = Role::find($id);
             if($role->users()->count()>0) {
-                return redirect()->route('indexRole')->with("error",'Cannot delete role. There are users assiged to this role. ');
+                return redirect()->route('view-role')->with("error",'Cannot delete role. There are users assiged to this role. ');
             } else {
               $role->delete();
-              return redirect()->route('indexRole')->with("success",'Deleted Role successfully');
+              return redirect()->route('view-role')->with("success",'Deleted Role successfully');
             }
           }
 
@@ -106,7 +107,7 @@ class AccessControlListController extends Controller
         $permission->name = $request->name;
         $permission->label = $request->label;
         $permission->save();
-        return redirect()->route('indexPermission')->with("success",'Successfully added the permission');
+        return redirect()->route('view-permission')->with("success",'Successfully added the permission');
       }
       
       public function editPermission($id) {
@@ -126,7 +127,7 @@ class AccessControlListController extends Controller
         $permission->label = $request->label;
         $permission->save();
   
-        return redirect()->route('indexPermission')->with("success",'Successfully updated the permission');
+        return redirect()->route('view-permission')->with("success",'Successfully updated the permission');
   
       }
 
@@ -134,7 +135,7 @@ class AccessControlListController extends Controller
 
         $permission = Permission::find($id);
         $permission->delete();
-        return redirect()->route('indexPermission')->with("success",'Successfully deleted the permission');
+        return redirect()->route('view-permission')->with("success",'Successfully deleted the permission');
   
       }
 
@@ -185,6 +186,7 @@ class AccessControlListController extends Controller
         $roles = Role::all();
         $gewogs = Gewog::all();
         return view('acl.user.useredit',compact('users','dzongkhags','roles','gewogs'));
+  
     }
 
     public function update(Request $request){
