@@ -66,9 +66,9 @@
 
 
       <!-- /.social-auth-links -->
-      <p class="mb-1">
+      {{-- <p class="mb-1">
         <a href="{{ url('/password/reset') }}">Reset password</a>
-      </p>
+      </p> --}}
      
     </div>
     <!-- /.login-card-body -->

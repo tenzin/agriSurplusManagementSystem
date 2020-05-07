@@ -175,7 +175,7 @@
     </ul>
   </nav>
 @endcan
-
+@can('master_data')
   <nav class="mt-2">
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
    <li class="nav-item has-treeview menu-open">
@@ -216,6 +216,7 @@
           </li> 
           <ul>
       </nav>
+  @endcan
   @can('access_control_list')
   <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
