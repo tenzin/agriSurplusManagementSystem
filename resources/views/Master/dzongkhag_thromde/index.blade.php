@@ -2,12 +2,11 @@
 
 @section('content')
 <div class="content-header">
-  <div class="card-body">
   <form class="form-horizontal" method="POST" action = "{{route('dzongkhag-store')}}">
     @csrf
   <div class="card card-info">
           <div class="card-header">
-            <h3 class="card-title">Add Dzongkhag/Thromde</h3>
+            <h3 class="card-title">Add Dzongkhag/Thromde to Region</h3>
             <div class="card-tools">
               <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
             </div>
@@ -63,42 +62,37 @@
   </div>
 </form>
 
-  </div>
-</div>
-
-<div class="content-header">
-        <div class="card card-info">
-            <div class="card-header">
-              <h3 class="card-title">Dzongkhag List</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Sl. No.</th>
-                  <th>Dzongkhag/Thromde</th>     
-                  <th>Region</th> 
-                  <th>Actions</th>           
-                </tr>
-                </thead>
-                <tbody>
-                  @foreach($dzo as $row)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>                             
-                                    <td>{{ $row->dzongkhag }}</td>
-                                    <td>@if(!empty($row->regionName->region)) {{ $row->regionName->region }} @endif</td>
-                                    <td>
-                                      <a href="{{ route('dzongkhag-edit',[$row->id]) }}" class="btn btn-primary btn-xs" onclick="return confirm('Are you sure to you want to edit this data?');"> Edit</a> &nbsp;
-                                      <a href="{{ route('dzongkhag-delete',[$row->id]) }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to you want to delete this data?');"> Delete</a>                      
-                                    </td>
-                                </tr>
-                  @endforeach
+    <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Dzongkhag-Region List</h3>
+        </div>
+        <div class="card-body">
+              <table id="example1" class="table table-bordered">
+                <thead>                  
+                  <tr>
+                    <th>Sl. No.</th>
+                    <th>Dzongkhag/Thromde</th>     
+                    <th>Region</th> 
+                    <th>Actions</th>           
+                  </tr>
+                  </thead>
+                  <tbody>
+                    @foreach($dzo as $row)
+                                  <tr>
+                                      <td>{{ $loop->iteration }}</td>                             
+                                      <td>{{ $row->dzongkhag }}</td>
+                                      <td>@if(!empty($row->regionName->region)) {{ $row->regionName->region }} @endif</td>
+                                      <td>
+                                        <a href="{{ route('dzongkhag-edit',[$row->id]) }}" class="btn btn-primary btn-xs" onclick="return confirm('Are you sure to you want to edit this data?');"> Edit</a> &nbsp;
+                                        <a href="{{ route('dzongkhag-delete',[$row->id]) }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to you want to delete this data?');"> Delete</a>                      
+                                      </td>
+                                  </tr>
+                    @endforeach
+                        
+                </tbody>
               </table>
-            </div>
-    </div>         
+        </div>
+    </div>
+         
 </div>
-</div>
-</div>
-
 @endsection

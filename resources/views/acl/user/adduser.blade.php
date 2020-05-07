@@ -56,7 +56,7 @@
             <div class="col-md-4">
                <div class="form-group">
                   <label>Dzongkhag:<font color="red">*</font></label>
-                  <select  name="dzongkhag" id="dzongkhag" class="form-control" required onclick="getGewogs(this.value)"/>
+                  <select  name="dzongkhag" id="dzongkhag" class="form-control" onclick="getGewogs(this.value)" required>
                      <option disabled selected value="">Select Dzongkhag</option>
                      @foreach($dzongkhags as $dzongkhag)
                      <option value="{{$dzongkhag->id}}">{{$dzongkhag->dzongkhag}}</option>
@@ -117,7 +117,8 @@
  </form>
 </div>
 <script type="text/javascript">
-function getGewogs(dzo)
+ 
+ function getGewogs(dzo)
 {
    var xmlhttp = new XMLHttpRequest();
   
