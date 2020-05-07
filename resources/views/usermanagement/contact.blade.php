@@ -7,7 +7,7 @@
         <div class="col-lg-12 text-center">
             <div class="card card-success">
                 <div class="card-header">
-                    <h5 class="title">Contact Us</h5>
+                    <h5 class="card-title">Contact Us</h5>
                 </div>
                 <div class="card-body">
                     <div>
@@ -34,17 +34,19 @@
                         </ul>
                     </div>
                     @endif
-                    <form action="#" method="post">
+                    <form action="{{route('contact-post')}}" method="post">
                         {{ csrf_field() }}
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input class="form-control" id="name" readonly value="#"name="name" type="text" placeholder="Your Name *" required="required" data-validation-required-message="Please enter your name.">
+                                    <input class="form-control" id="name" name="name" readonly value="{{auth()->user()->name}}" type="text" placeholder="Your Name *" required="required" data-validation-required-message="Please enter your name.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" id="email" readonly value="#"type="email" name="email" placeholder="Your Email *" required="required" data-validation-required-message="Please enter your email address.">
+                                    <input class="form-control" id="email"type="email" readonly value="{{auth()->user()->email}}"
+                                    name="email" placeholder="Your Email *" 
+                                     required="required" data-validation-required-message="Please enter your email address.">
                                     <p class="help-block text-danger"></p>
                                 </div>
                                 <div class="form-group">
