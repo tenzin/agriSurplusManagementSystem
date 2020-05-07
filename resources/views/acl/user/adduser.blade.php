@@ -8,7 +8,7 @@
              <h3 class="card-title">Add New User</h3>
              
            </div>
-           <!-- /.card-header -->
+           <!-- /.card-header --->
            <div class="card-body">
              @if ($errors->any())
              <div class="col-sm-12">
