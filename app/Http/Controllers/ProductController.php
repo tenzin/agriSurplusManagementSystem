@@ -46,7 +46,7 @@ class ProductController extends Controller
         $product->product = $request->product;
         $product->save();
 
-        return redirect("product-edit/".$id)->with("success","Successfully updated!");
+        return redirect("product-create")->with("success","Successfully updated!");
     }
 
     public function Productdestroy($id) {

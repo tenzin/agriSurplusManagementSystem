@@ -137,11 +137,13 @@
                         <a href="#">
                             
                         @if($user->avatar)
-                         <center>  <img class="avatar border-gray" width=30% src="../profilepic/{{ $user->avatar}}" alt="..."></center>
+                        
+                         <center>  <img style="width:120px" src="../profilepic/{{ $user->avatar}}" alt="..."></center>
                             @else
-                           <center>  <img class="avatar border-gray" width=30% src="images/avatar04.png" alt="..."/></center>
+                           <center>  <img style="width:150px" src="images/avatar04.png" alt="..."/></center>
                         @endif
-                          <center>  <h5 class="title">{{$user->name}}</h5> </center>
+                        <br>
+                          <center> <strong> <h5 class="title">{{$user->name}}</h5> </strong></center>
                         </a>
                         <div class="row justify-content-center">
                             <form action="{{url('/avatar')}}" method="post" enctype="multipart/form-data">

@@ -178,7 +178,7 @@
 
   <nav class="mt-2">
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-   <li class="nav-item has-treeview">
+   <li class="nav-item has-treeview menu-open">
         <a href="#" class="nav-link">
           <p>Master Table</p>
         </a>
@@ -191,32 +191,26 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="/product-type-list" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Product Type</p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a href="/product-type" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
+              <i class="nav-icon fas fa-edit"></i>
               <p>Product Type</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{route('product-create')}}" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
+              <i class="nav-icon fas fa-carrot"></i>
               <p>Product Name</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="/unit-create" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
-              <p>Add Unit</p>
+              <i class=" nav-icon fas fa-balance-scale"></i>
+              <p>Product Unit</p>
             </a>
           </li> 
           <li class="nav-item">
             <a href="/cunit-create" class="nav-link">
-              <i class="far fa-circle nav-icon"></i>
+              <i class="nav-icon fas fa-balance-scale"></i>
               <p>Cultivation Units</p>
             </a>
           </li> 
