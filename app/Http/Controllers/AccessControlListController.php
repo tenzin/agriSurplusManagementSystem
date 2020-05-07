@@ -172,7 +172,7 @@ class AccessControlListController extends Controller
         $insert->isActive=$request->active;
         $insert->isStaff=$request->staff;
         $insert->email=$request->email;
-         $insert->password=Hash::make($request->password);
+        $insert->password=Hash::make($request->password);
         // $insert->submitted_by=Auth::user()->id;
         $insert->save();
        
@@ -185,7 +185,7 @@ class AccessControlListController extends Controller
         $users    = User::find($id);
         $dzongkhags = Dzongkhag::all();
         $roles = Role::all();
-        $gewogs = Gewog::all();
+        $gewogs = Gewog::where('dzongkhag_id',$users->dzongkhag->id)->get();
         return view('acl.user.useredit',compact('users','dzongkhags','roles','gewogs'));
   
     }

@@ -20,34 +20,46 @@
                   </div>
                   <div class="form-group">
                      <label>Name:<small></small>&nbsp;</label>
-                     <input id="name" type="text" class="form-control" name="name" readonly value="{{$users->name}}"/>
+                     <input id="name" type="text" class="form-control" name="name" readonly value="{{$users->name}}" required/>
                   </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group">
                      <label>Dzongkhag:</label>
-                     <select  name="dzongkhag" id="dzongkhag" class="form-control">
-                        <option disabled selected>{{$users->dzongkhag->dzongkhag}}</option>
+                     <select  name="dzongkhag" id="dzongkhag" class="form-control" onclick="getGewogs(this.value)" required>
+                       
                         @foreach($dzongkhags as $dzongkhag)
-                        <option value="{{$dzongkhag->id}}">{{$dzongkhag->dzongkhag}}</option>
+                           @if($users->dzongkhag->id == $dzongkhag->id)
+                           <option value="{{$dzongkhag->id}}" selected>{{$dzongkhag->dzongkhag}}</option>
+                           @else
+                           <option value="{{$dzongkhag->id}}">{{$dzongkhag->dzongkhag}}</option>
+                           @endif
                         @endforeach
                      </select>
                   </div>
                   <div class="form-group">
                      <label>Gewog:</label>
-                     <select  name="gewog" id="gewog" class="form-control">
-                        <option disabled selected>{{$users->gewog->gewog}}</option>
+                     <select  name="gewog" id="gewog" class="form-control" required>
+                        <!-- <option disabled selected>{{$users->gewog->gewog}}</option> -->
                         @foreach($gewogs as $gewog)
-                        <option value="{{$gewog->id}}">{{$gewog->gewog}}</option>
+                           @if($users->gewog->id == $gewog->id)
+                           <option value="{{$gewog->id}}" selected>{{$gewog->gewog}}</option>
+                           @else
+                           <option value="{{$gewog->id}}">{{$gewog->gewog}}</option>
+                           @endif
                         @endforeach
                      </select>
                   </div>
                   <div class="form-group">
                      <label>Role:</label>
-                     <select  name="role" id="role" class="form-control">
-                        <option selected>{{$users->role->role}}</option>
+                     <select  name="role" id="role" class="form-control" required>
+                        <!-- <option disabled selected>{{$users->role->role}}</option> -->
                         @foreach($roles as $role)
-                        <option value="{{$role->id}}">{{$role->role}}</option>
+                           @if($users->role->id == $role->id)
+                           <option value="{{$role->id}}" selected>{{$role->role}}</option>
+                           @else
+                           <option value="{{$role->id}}">{{$role->role}}</option>
+                           @endif
                         @endforeach
                      </select>
                   </div>
@@ -100,4 +112,20 @@
       </form>
    </div>
 </div>
+
+<script>
+function getGewogs(dzo)
+{
+   var xmlhttp = new XMLHttpRequest();
+  
+   xmlhttp.onreadystatechange = function() {
+   if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("gewog").innerHTML = this.responseText;
+   }
+   };
+
+   xmlhttp.open("GET", "/getData?d=" + dzo + "&t=gewog", true);
+   xmlhttp.send();
+}
+</script>
 @endsection
