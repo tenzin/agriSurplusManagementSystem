@@ -140,7 +140,7 @@
                         
                          <center>  <img style="width:120px" src="../profilepic/{{ $user->avatar}}" alt="..."></center>
                             @else
-                           <center>  <img style="width:150px" src="images/avatar04.png" alt="..."/></center>
+                           <center>  <img style="width:120px" src="images/avatar04.png" alt="..."/></center>
                         @endif
                         <br>
                           <center> <strong> <h5 class="title">{{$user->name}}</h5> </strong></center>
