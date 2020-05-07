@@ -30,7 +30,7 @@
                         <td>{{$user->email}}</td>
                         <td>{{$user->Role['role']}}</td>
                         <td>
-                           <a href="{{route('user-resetpassword', $user['id'])}}" class="btn btn-danger btn-xs"></span>Reset</a>
+                           <a href="{{route('user-resetpassword', $user['id'])}}" class="btn btn-success btn-xs"></span>Reset</a>
                         </td>
                      </tr>
                      @endforeach

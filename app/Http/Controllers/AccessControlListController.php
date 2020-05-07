@@ -228,13 +228,13 @@ class AccessControlListController extends Controller
              $validatedData = $request->validate([
               'password' => 'required|string|min:5|confirmed',
                ]);
-            $user             = User::find($request->id);
+            $users             = User::find($request->id);
             $users->cid        = $request->cid;
             $users->name     = $request->name;
             $users->address     = $request->address;
             $users->email      = $request->email;
             $users->password=Hash::make($request->password);
-            $user->save();
+            $users->save();
             return redirect('user-reset')->with("success","Password Reset Successfully!");
           }
 
