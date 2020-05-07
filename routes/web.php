@@ -146,7 +146,9 @@ Route::get('profile',['as'=>'profile','uses'=>'ProfileController@userprofile']);
   Route::post('/avatar', 'UserController@update_avatar');
 
   //Contact US
-  Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contact']);
+  Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contactUS']);
+  Route::post('contact-post',['as'=>'contact-post','uses'=>'ContactUsController@contactUSPost']);
+
 });
 
 
