@@ -151,6 +151,7 @@ class AccessControlListController extends Controller
     }
 
     public function add(){
+
         $dzongkhags = Dzongkhag::all();
         $roles = Role::all();
         $gewogs = Gewog::all();

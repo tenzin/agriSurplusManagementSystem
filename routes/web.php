@@ -39,6 +39,7 @@ Route::get('view_supply_details',['as'=>'view_supply_details','uses'=>'Extension
 Route::get('extension_cultivation',['as'=>'extension_cultivation','uses'=>'ExtensionUnderCultiavtionController@extension_cultivation'])->middleware('can:extension_add_under_cultivation,Auth::user()');
 Route::post('submit_cultivation_details',['as'=>'submit_cultivation_details','uses'=>'ExtensionUnderCultiavtionController@submit_cultivation_details']);
 Route::get('view_cultivation_details',['as'=>'view_cultivation_details','uses'=>'ExtensionUnderCultiavtionController@view_cultivation_details'])->middleware('can:extension_view_under_cultivation,Auth::user()');
+Route::get('update_cultivation_status/{id}',['as'=>'update_cultivation_status','uses'=>'ExtensionUnderCultiavtionController@update_cultivation_status']);
 
 });
 
@@ -125,6 +126,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
     Route::get('user-reset',['as'=>'user-reset','uses'=>'AccessControlListController@userResetPassword']);
     Route::get('user-resetpassword/{id}',['as'=>'user-resetpassword','uses'=>'AccessControlListController@passwordReset']);
     Route::post('user-passupdate',['as'=>'user-passupdate','uses'=>'AccessControlListController@passwordUpdate']);
+    
 
   }); // end of acl group list
 
@@ -147,6 +149,7 @@ Route::get('profile',['as'=>'profile','uses'=>'ProfileController@userprofile']);
 
   //Contact US
   Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contact']);
+
 });
 
 

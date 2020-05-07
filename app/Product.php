@@ -1,8 +1,7 @@
 <?php
 
 namespace App;
-
-use App\Product;
+use App\ProductType;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,7 +14,7 @@ class Product extends Model
 
    public function productType()
    {
-       return $this->belongsto('App\ProductType','productType_id','id');
+       return $this->belongsto(ProductType::class,'productType_id','id');
    }
 
 }
