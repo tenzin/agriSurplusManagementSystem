@@ -7,17 +7,12 @@ use App\Product;
 use App\ProductType;
 class ProductController extends Controller
 {
-    //list all products.
-    public function productlist()
-    {
-        $products = Product::paginate(10);
-        return view('Master.products.productlist',compact('products'));
-    }
     //create product.
     public function productcreate()
     {
+        $products = Product::latest()->get();
         $ptypes = ProductType::all();
-        return view('Master.products.productcreate',compact('ptypes'));
+        return view('Master.products.productcreate',compact('ptypes','products'));
     }
 
 
@@ -33,10 +28,6 @@ class ProductController extends Controller
         //add another product.
        
         return redirect('product-create')->with("success","successfully added!");
-     
-        //list all products.
-        // $products = Product::paginate(10);
-        // return redirect('Master.products.productlist',compact('products'));
     }
 
     public function productedit($id)
@@ -55,7 +46,15 @@ class ProductController extends Controller
         $product->product = $request->product;
         $product->save();
 
-        return redirect("product-edit/".$id)->with("success","Successfully updated!");
+        return redirect("product-create")->with("success","Successfully updated!");
     }
+
+    public function Productdestroy($id) {
+
+        $product = Product::find($id);
+        $product->delete();
+        return redirect('product-create')->with("success",'Successfully deleted the permission');
+  
+      }
 
 }

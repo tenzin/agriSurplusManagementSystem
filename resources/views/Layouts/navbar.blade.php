@@ -10,6 +10,11 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+      <li>
+        <a class="nav-link">
+          {{Auth()->user()->name.'  '.Auth()->user()->role->role.' - '.Auth()->user()->gewog->gewog}} 
+        </a> 
+      </li>
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -68,10 +73,10 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
       </li>
-      {{auth()->user()->name}}
+      
       <li class="nav-item dropdown">
           <a class="nav-link" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class=" fas fa-user mr-2"></i>
+            <i class=" fas fa-user mr-2"></i>
             <p>
               <span class="d-lg-none d-md-block">Account</span>
             </p>

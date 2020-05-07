@@ -20,10 +20,7 @@ class AccessControlListController extends Controller
         {
             $this->middleware('auth');
         }
-        public function userprofile(){
-            
-            return view('ACL.userprofile');
-        }
+        
        
 //Role 
         public function indexRole(){
@@ -51,7 +48,7 @@ class AccessControlListController extends Controller
               $permission=Permission::find($permissions[$i]);
               $role->permissions()->attach($permission);
             }
-            return redirect()->route('indexRole')->with("success",'Successfully added a new role');
+            return redirect()->route('view-role')->with("success",'Successfully added a new role');
       
           }
 
@@ -76,16 +73,16 @@ class AccessControlListController extends Controller
             $permission=Permission::find($permissions[$i]);
             $role->permissions()->attach($permission);
             }
-            return redirect()->route('indexRole')->with("success",'Successfully updated the role');
+            return redirect()->route('view-role')->with("success",'Successfully updated the role');
         }
 
         public function destroyRole($id) {
             $role = Role::find($id);
             if($role->users()->count()>0) {
-                return redirect()->route('indexRole')->with("error",'Cannot delete role. There are users assiged to this role. ');
+                return redirect()->route('view-role')->with("error",'Cannot delete role. There are users assiged to this role. ');
             } else {
               $role->delete();
-              return redirect()->route('indexRole')->with("success",'Deleted Role successfully');
+              return redirect()->route('view-role')->with("success",'Deleted Role successfully');
             }
           }
 
@@ -110,7 +107,7 @@ class AccessControlListController extends Controller
         $permission->name = $request->name;
         $permission->label = $request->label;
         $permission->save();
-        return redirect()->route('indexPermission')->with("success",'Successfully added the permission');
+        return redirect()->route('view-permission')->with("success",'Successfully added the permission');
       }
       
       public function editPermission($id) {
@@ -130,7 +127,7 @@ class AccessControlListController extends Controller
         $permission->label = $request->label;
         $permission->save();
   
-        return redirect()->route('indexPermission')->with("success",'Successfully updated the permission');
+        return redirect()->route('view-permission')->with("success",'Successfully updated the permission');
   
       }
 
@@ -138,21 +135,27 @@ class AccessControlListController extends Controller
 
         $permission = Permission::find($id);
         $permission->delete();
-        return redirect()->route('indexPermission')->with("success",'Successfully deleted the permission');
+        return redirect()->route('view-permission')->with("success",'Successfully deleted the permission');
   
       }
 
-  //User
+  //User management created by Tenzin
 
     public function user(){
         $users = User::all();
-        return view('ACL.users', compact('users'));
+        return view('acl.user.users', compact('users'));
     }
+    public function userView(){
+        $users = User::all();
+        return view('acl.user.userview', compact('users'));
+    }
+
     public function add(){
+
         $dzongkhags = Dzongkhag::all();
         $roles = Role::all();
         $gewogs = Gewog::all();
-        return view('ACL.adduser',compact('dzongkhags','roles','gewogs'));
+        return view('acl.user.adduser',compact('dzongkhags','roles','gewogs'));
     }
       
     public function insert(Request $request){
@@ -165,18 +168,78 @@ class AccessControlListController extends Controller
         $insert->role_id=$request->role;
         $insert->address=$request->address;
         $insert->contact_number=$request->number;
+        $insert->isAdmin=$request->admin;
+        $insert->isActive=$request->active;
+        $insert->isStaff=$request->staff;
         $insert->email=$request->email;
-         $insert->password=Hash::make($request->password);
+        $insert->password=Hash::make($request->password);
         // $insert->submitted_by=Auth::user()->id;
         $insert->save();
        
-        return redirect()->route('user')->with('success','Added successfully');
+        return redirect('system-user')->with('success','Added successfully');
     
         }
 
+    public function edit($id){
 
-    public function userView(){
-        $users = User::all();
-        return view('ACL.userview', compact('users'));
+        $users    = User::find($id);
+        $dzongkhags = Dzongkhag::all();
+        $roles = Role::all();
+        $gewogs = Gewog::where('dzongkhag_id',$users->dzongkhag->id)->get();
+        return view('acl.user.useredit',compact('users','dzongkhags','roles','gewogs'));
+  
     }
+
+    public function update(Request $request){
+
+        $users = User::find($request->id);
+        $users->cid= $request->cid;
+        $users->name=$request->name;
+        $users->dzongkhag_id= $request->dzongkhag;
+        $users->gewog_id=$request->gewog;
+        $users->role_id=$request->role;
+        $users->address=$request->address;
+        $users->contact_number=$request->number;
+        $users->isAdmin=$request->admin;
+        $users->isActive=$request->active;
+        $users->isStaff=$request->staff;
+        // $insert->submitted_by=Auth::user()->id;
+        $users->save();
+       
+        return redirect('system-user')->with('success','Added successfully');
+    
+        }
+        public function userDelete($id)
+        {
+            $users = User::find($id);
+            $users->delete();
+            return back()->with('success', 'Deleted Successfully');
+        }
+
+        //password reset
+        public function userResetPassword(){
+            $users = User::all()->where('role_id','!=', 1);
+            return view('acl.user.resetpassword',compact('users'));
+        }
+
+        public function passwordReset($id){
+            $users = User::find($id);
+            return view('acl.user.passupdate', compact('users'));
+          }
+        
+            public function passwordUpdate(Request $request){
+             $validatedData = $request->validate([
+              'password' => 'required|string|min:5|confirmed',
+               ]);
+            $users             = User::find($request->id);
+            $users->cid        = $request->cid;
+            $users->name     = $request->name;
+            $users->address     = $request->address;
+            $users->email      = $request->email;
+            $users->password=Hash::make($request->password);
+            $users->save();
+            return redirect('user-reset')->with("success","Password Reset Successfully!");
+          }
+
+//end
 }

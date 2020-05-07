@@ -4,10 +4,11 @@
 {{-- @include('flash-message') --}}
 
 <section class="content">
-      <div class="card card-info">
-         <div class="card-header">
+      {{-- <div class="card card-info"> --}}
+        <h1 class="text-center mt-1 mb-1 alert aqua">Surplus Information Details</h1>
+         {{-- <div class="card-header">
             <h3 class="card-title">Surplus Details</h3>
-         </div>
+         </div> --}}
     <div class="card-body">
       <table id="example1" class="table table-bordered table-striped">
         <thead>

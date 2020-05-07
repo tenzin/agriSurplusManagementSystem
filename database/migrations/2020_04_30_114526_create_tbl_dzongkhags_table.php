@@ -17,6 +17,7 @@ class CreateTblDzongkhagsTable extends Migration
             $table->id();
             $table->integer('code')->unique();
             $table->string('dzongkhag')->unquie();
+            $table->foreignId('region_id')->nullable()->references('id')->on('tbl_regions')->OnDelete('cascade');
             $table->timestamps();
         });
     }

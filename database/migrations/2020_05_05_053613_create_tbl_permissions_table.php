@@ -28,6 +28,6 @@ class CreateTblPermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_permissions');
+//        Schema::dropIfExists('tbl_permissions');
     }
 }

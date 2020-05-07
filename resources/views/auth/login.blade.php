@@ -22,7 +22,7 @@
 <div class="login-box">
   <div class="login-logo">
   <img class="img-responsive" src="{{URL::asset('/images/rgoblogo.png')}}"style="height:80px;width:80px; "></img><br>
-    <a href="../../index2.html"><b>Ministry of Agriculture And Foests</b></a>
+    <a href="../../index2.html"><b>Ministry of Agriculture and Forests</b></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -66,9 +66,9 @@
 
 
       <!-- /.social-auth-links -->
-      <p class="mb-1">
+      {{-- <p class="mb-1">
         <a href="{{ url('/password/reset') }}">Reset password</a>
-      </p>
+      </p> --}}
      
     </div>
     <!-- /.login-card-body -->

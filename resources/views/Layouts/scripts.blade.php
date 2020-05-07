@@ -27,11 +27,11 @@
 <script src="{{asset("/bower_components/admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset("/bower_components/admin-lte/dist/js/adminlte.js")}}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+ <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset("/bower_components/admin-lte/dist/js/pages/dashboard.js")}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset("/bower_components/admin-lte/dist/js/demo.js")}}"></script>
-<script src="{{asset('/bower_components/admin-lte/plugins/select2/js/select2.full.min.js')}}"></script>
+<script src="{{asset('/bower_components/admin-lte/plugins/select2/js/select2.full.min.js')}}"></script> 
 
 <!-- jquery-validation -->
 <script src="{{asset("/bower_components/admin-lte/plugins/jquery-validation/jquery.validate.min.js")}}"></script>
