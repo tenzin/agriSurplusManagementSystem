@@ -91,6 +91,17 @@ Route::get('cunit-delete/{id}',['as'=>'cunit-delete','uses'=>'CUnitController@cu
 
 //master dzongkhag
 Route::get('dzongkhag-list',['as'=>'dzongkhag-list','uses'=>'DzongkhagThromdeController@index']);
+Route::post('dzongkhag-store',['as'=>'dzongkhag-store','uses'=>'DzongkhagThromdeController@dzongkhagStore']);
+Route::get('dzongkhag-edit/{id}',['as'=>'dzongkhag-edit','uses'=>'DzongkhagThromdeController@dzongkhagEdit']);
+Route::post('dzongkhag-update/{id}',['as'=>'dzongkhag-update','uses'=>'DzongkhagThromdeController@dzongkhagUpdate']);
+Route::get('dzongkhag-delete/{id}',['as'=>'dzongkhag-delete','uses'=>'DzongkhagThromdeController@dzongkhagDelete']);
+
+//master region
+Route::get('region-list',['as'=>'region-list','uses'=>'RegionController@index']);
+Route::post('region-store',['as'=>'region-store','uses'=>'RegionController@regionStore']);
+Route::get('region-edit/{id}',['as'=>'region-edit','uses'=>'RegionController@regionEdit']);
+Route::post('region-update/{id}',['as'=>'region-update','uses'=>'RegionController@regionUpdate']);
+Route::get('region-delete/{id}',['as'=>'region-delete','uses'=>'RegionController@regionDelete']);
 });
 
 
@@ -117,6 +128,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
     Route::get('user-view',['as'=>'user-view','uses'=>'AccessControlListController@userview']);
     Route::get('add-user',['as'=>'add-user','uses'=>'AccessControlListController@add']);
     Route::post('new-user',['as'=>'new-user','uses'=>'AccessControlListController@insert']);
+    Route::get('/getData', function () { return view('getData'); });
 
     Route::get('edit-user/{id}',['as'=>'edit-user','uses'=>'AccessControlListController@edit']);
     Route::post('update-user',['as'=>'update-user','uses'=>'AccessControlListController@update']);

@@ -191,6 +191,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{route('region-list')}}" class="nav-link">
+              <i class="nav-icon fas fa-fw fa-city"></i>
+              <p>Region</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="/product-type" class="nav-link">
               <i class="nav-icon fas fa-edit"></i>
               <p>Product Type</p>
