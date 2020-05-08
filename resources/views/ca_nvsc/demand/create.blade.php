@@ -1,68 +1,204 @@
 @extends('master')
 
 @section('content')
-{{-- @include('flash-message') --}}
-<section class="content">
-<div class="container-fluid"> 
-<div class="card card-info">
-<div class="card-header">
-<h3 class="card-title">Demand Form</h3>
-</div>
-<form role="form" method="POST" action="{{route('submit_surplus_demand_detail')}}">
-{{-- <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}"> --}}
-@csrf
-<div class="card-body">
-  <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Product Type:<font color="red">*</font></label>
-              <select  name="crop_type" id="crop_type" class="form-control select2bs4">
-                <option disabled selected value="">Select Product Type</option>
-              </select>
-          </div> 
-          <div class="form-group">
-            <label>Quantity:<small>(Quantity should be in kg)</small>&nbsp;<font color="red">*</font></label>
-            <input id="quantity" type="text" class="form-control" name="quantity" maxlength="5" placeholder="Enter the Quantity"/>
-          </div>
+<div class="container">
+        <div class="py-2 text-center">
+              <h1>Demand Form </h1>
+                  <h5>Ref. No: <b>{{$nextNumber}}</b></h5>
+                  <p class="lead">Enter the product that you wish to buy.</p>
+              <hr>
+        </div>
+<form method="POST" action = "{{url('/ca_nvsc/demand')}}">
+<input type="hidden" name="refnumber" value="{{ $nextNumber}}">
 
-          <div class="form-group">
-            <label>Cost Price:<small>(Price should be per Kg)</small>&nbsp;<font color="red">*</font></label>
-            <input id="price" type="text" class="form-control" name="price"  maxlength="5" placeholder="Enter the Price Per Kg"/>
+<div class="row">
+  <div class="col-md-4 order-md-2 mb-4">
+    <h4 class="d-flex justify-content-between align-items-center mb-3">
+      <span class="text-muted">Your cart</span>
+      <span class="badge badge-secondary badge-pill">3</span>
+    </h4>
+    <ul class="list-group mb-3">
+      <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <div>
+          <h6 class="my-0">Product name</h6>
+          <small class="text-muted">Brief description</small>
+        </div>
+        <span class="text-muted">12</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <div>
+          <h6 class="my-0">Second product</h6>
+          <small class="text-muted">Brief description</small>
+        </div>
+        <span class="text-muted">8</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <div>
+          <h6 class="my-0">Third item</h6>
+          <small class="text-muted">Brief description</small>
+        </div>
+        <span class="text-muted">5</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between bg-light">
+        <div class="text-success">
+          <h6 class="my-0">Promo code</h6>
+          <small>EXAMPLECODE</small>
+        </div>
+        <span class="text-success">5</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between">
+        <span>Total</span>
+        <strong>20</strong>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-8 order-md-1">
+    <h4 class="mb-3">Product details</h4>
+    <form class="needs-validation" novalidate>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="country">Product Type*</label>
+          <select class="custom-select d-block w-100" id="producttype" name="producttype" required>
+            <option value="">Choose...</option>
+            @foreach($product_type as $row)
+                <option value="{{$row->id}}">{{$row->type}}</option>
+            @endforeach
+          </select>
+          <div class="invalid-feedback">
+            Please select a valid country.
           </div>
         </div>
-        
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>units:<small>(Please select kg)</small>&nbsp;<font color="red">*</font></label>
-              <select  name="unit" id="unit" class="form-control select2bs4" >
-              <option disabled selected>Select Units</option>
-              
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Tentative Supply date:&nbsp;<font color="red">*</font></label>
-              <input id="pickup_date" type="date" class="form-control" name="pickup_date" />
-            </div>
-            <div class="form-group">
-              <label>Remarks:</label>
-              <textarea class="form-control" rows="3" placeholder="Enter Remarks if Any" name="remarks"></textarea>
-            </div>
+        <div class="col-md-6 mb-3">
+          <label for="state">Product*</label>
+          <select class="custom-select d-block w-100" id="product" name="product" required>
+            <option value="">Choose...</option>
+          </select>
+          <div class="invalid-feedback">
+            Please provide a valid state.
           </div>
-        </div>    
-               
-                </div>
-                <div class="card-footer">
-                  <button type="submit" class="btn btn-info float-right">Submit</button>
-                  </div>
-</form>
-</div>
-</div>
-</section>
+        </div>
+      </div>
 
+      <div class="row">
+          <div class="col-md-3 mb-3">
+              <label for="qty">Quantity*</label>
+              <input type="text" class="form-control" name="quantity" id ="quantity" placeholder ="Quantity">
+              <div class="invalid-feedback">
+                  Please enter Quantity.
+              </div>
+          </div>
+          <div class="col-md-3 mb-3">
+              <label for="unit">Unit*</label>
+              <div class="input-group">
+                  <select class="custom-select d-block w-100" id="unit" name="unit" required>
+                  <option value="">Choose...</option>
+                  @foreach($unit as $unit)
+                      <option value="{{$unit->Id}}">{{$unit->unit}}</option>
+                  @endforeach
+                  </select>
+                  <div class="invalid-feedback" style="width: 100%;">
+                  Unit is required.
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3 mb-3">
+              <label for="unit">Price* (tentative)</label>
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                      <span class="input-group-text">Nu.</span>
+                  </div>
+                  <input type="text" class="form-control" name="price" id ="price" placeholder ="Price">
+                  <div class="invalid-feedback" style="width: 100%;">
+                  Price is required.
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3 mb-3">
+              <label for="qty">Required Date*</label>
+              <input type="date" class="form-control" name="date" id ="date" placeholder ="Required Date">
+              <div class="invalid-feedback">
+                  Please enter date of requirement.
+              </div>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-md-12 mb-3">
+              <label for="unit">Remarks</label>
+              <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" id="remarks" placeholder="If any ...."></textarea>
+                  <div class="invalid-feedback" style="width: 100%;">
+                  Price is required.
+                  </div>
+          </div>
+      </div>
+      
+
+      <hr class="mb-4">
+      <button class="btn btn-primary btn-lg btn-block" onclick="myFunction()" type="submit">Save</button>
+    </form>
+  </div>
 </div>
-</div>
+</form>
 @endsection
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+          $(window).on('load', function() {
+        console.log('All assets are loaded')
+    })
+    $(document).ready(function () {
+        $("#producttype").on('change',function(e){
+            console.log(e);
+            var id = e.target.value;
+            //alert(id);
+            $.get('/json-product_type?product_type=' + id, function(data){
+                console.log(data);
+                $('#product').empty();
+                $('#product').append('<option value="">Select Products</option>');
+                $.each(data, function(index, ageproductObj){
+                    $('#product').append('<option value="'+ ageproductObj.id +'">'+ ageproductObj.product + '</option>');
+                })
+            });
+        });
+        $("#quantity").keypress(function (e) {
+          if (e.which != 46)
+          {
+            if(isNaN(document.getElementById("quantity").value))
+            {
+              alert('Invalid number!!!!');
+              document.getElementById("quantity").style.color = "red";
+              return false;
+            }
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+              $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                  return false;
+            }
+          }
+          document.getElementById("quantity").style.color = "black";
+          
+      });
+      $("#price").keypress(function (e) {
+          if (e.which != 46)
+          {
+            if(isNaN(document.getElementById("price").value))
+            {
+              alert('Invalid number!!!!');
+              document.getElementById("price").style.color = "red";
+              return false;
+            }
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+              $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                  return false;
+            }
+          }
+          document.getElementById("price").style.color = "black";
+      });
+      
+    });
+    
+</script>
+
    
      
 

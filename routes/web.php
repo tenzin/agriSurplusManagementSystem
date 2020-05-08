@@ -21,6 +21,7 @@ Route::get('/', function () {
     return view('index');
 });
 
+
 // Dashboard
 Route::group(['middleware' => 'auth'], function () {
 
@@ -51,8 +52,11 @@ Route::post('submit_surplus_detail',['as'=>'submit_surplus_detail','uses'=>'CASu
 Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@view_surplus_details'])->middleware('can:aggregator_view_surplus,Auth::user()');
 
 //Commercial Aggregator Demand Surplus Information Route
-Route::get('ca_surplus_demand',['as'=>'ca_surplus_demand','uses'=>'CADemandController@ca_surplus_demand'])->middleware('can:aggregator_demand_surplus,Auth::user()');
-Route::post('submit_surplus_demand_detail',['as'=>'submit_surplus_demand_detail','uses'=>'CADemandController@submit_surplus_demand_detail']);
+Route::get('ca_surplus_demand',['as'=>'ca_surplus_demand','uses'=>'CADemandController@index']);
+Route::get('/demand_temp', 'CADemandController@demand_temp')->name('demand_temp');
+Route::get('/json-product_type','CADemandController@product_type');
+// Route::get('ca_surplus_demand',['as'=>'ca_surplus_demand','uses'=>'CADemandController@ca_surplus_demand'])->middleware('can:aggregator_demand_surplus,Auth::user()');
+// Route::post('submit_surplus_demand_detail',['as'=>'submit_surplus_demand_detail','uses'=>'CADemandController@submit_surplus_demand_detail']);
 Route::get('view_surplus_demand_details',['as'=>'view_surplus_demand_details','uses'=>'CADemandController@view_surplus_demand_details'])->middleware('can:aggregator_view_demand_surplus,Auth::user()');
 
 //scope filter for Commercial Aggregator Route
@@ -129,7 +133,8 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
     Route::get('user-view',['as'=>'user-view','uses'=>'AccessControlListController@userview']);
     Route::get('add-user',['as'=>'add-user','uses'=>'AccessControlListController@add']);
     Route::post('new-user',['as'=>'new-user','uses'=>'AccessControlListController@insert']);
-    Route::get('/getData', function () { return view('getData'); });
+    Route::get('/json-dzongkhag','AccessControlListController@dzongkhag');
+  
 
     Route::get('edit-user/{id}',['as'=>'edit-user','uses'=>'AccessControlListController@edit']);
     Route::post('update-user',['as'=>'update-user','uses'=>'AccessControlListController@update']);
