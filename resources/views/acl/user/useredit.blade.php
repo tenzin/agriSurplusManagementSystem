@@ -26,7 +26,7 @@
                <div class="col-md-4">
                   <div class="form-group">
                      <label>Dzongkhag:</label>
-                     <select  name="dzongkhag" id="dzongkhag" class="form-control" onclick="getGewogs(this.value)" required>
+                     <select  name="dzongkhag" id="dzongkhag" class="form-control" required>
                        
                         @foreach($dzongkhags as $dzongkhag)
                            @if($users->dzongkhag->id == $dzongkhag->id)
@@ -112,20 +112,29 @@
       </form>
    </div>
 </div>
-
-<script>
-function getGewogs(dzo)
-{
-   var xmlhttp = new XMLHttpRequest();
-  
-   xmlhttp.onreadystatechange = function() {
-   if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("gewog").innerHTML = this.responseText;
-   }
-   };
-
-   xmlhttp.open("GET", "/getData?d=" + dzo + "&t=gewog", true);
-   xmlhttp.send();
-}
-</script>
 @endsection
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+          $(window).on('load', function() {
+        console.log('All assets are loaded')
+    })
+    $(document).ready(function () {
+        $("#dzongkhag").on('change',function(e){
+            console.log(e);
+            var id = e.target.value;
+            //alert(id);
+            $.get('/json-dzongkhag?dzongkhag=' + id, function(data){
+                console.log(data);
+                $('#gewog').empty();
+                $('#gewog').append('<option value="">Select Gewog</option>');
+                $.each(data, function(index, gewogObj){
+                    $('#gewog').append('<option value="'+ gewogObj.id +'">'+ gewogObj.gewog + '</option>');
+                })
+            });
+        });
+      
+    });
+    
+</script>

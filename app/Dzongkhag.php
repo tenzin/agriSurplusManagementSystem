@@ -15,7 +15,11 @@ class Dzongkhag extends Model
     // public function gewog(){
     //     return $this->hasMany(Gewog::class, 'dzongkhag_id');
     // }
-
+    public function gewogs()
+    {
+        return $this->hasMany(Gewog::class, 'dzongkhag_id');
+    }
+    
     public function regionName()
     {
         return $this->belongsto('App\Region','region_id');
