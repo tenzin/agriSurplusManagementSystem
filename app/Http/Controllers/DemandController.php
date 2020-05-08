@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Input;
 use DB;
 use App\Transaction;
 use App\Demand;
+use Session;
+use Carbon\Carbon;
 class DemandController extends Controller
 {
     /**
@@ -20,46 +22,64 @@ class DemandController extends Controller
     public function __construct(Request $request) {
         $this->request = $request;
     }
-    
+    //-----------Product dropdown----------//
     public function product_type(){
         $id = $this->request->input('product_type');
-        //Request::input('product_type');
-        $product=DB::table('products')
-            ->where('producttypes_id', '=', $id)
+        $product=DB::table('tbl_products')
+            ->where('productType_id', '=', $id)
             ->get();
         return response()->json($product);
     }
+
     public function index()
     {
         $user = auth()->user();
         $date = date('Ym');
-        $data=DB::table('transactions')
-            ->where(\DB::raw('substr(refNumber, 0, 7)'), '=' , $date)
-            ->get();
+        $type = "D"; //Transaction type D: Demand; S: Supply
+        $refno = $type.$date;
 
-        $product_type=DB::table('product_types')->get();
-        $unit=DB::table('units')->get();
+        //--------Check transaction not submitted
+        $checkno = DB::table('transactions')
+            ->where('user_id', '=' , $user->id)
+            ->where('status', '!=', 'S')
+            ->get('refNumber');
+            if($checkno->isNotEmpty()){
+                Session::put('NextNumber', $checkno);
+                return redirect('/demand_view');
+            }
+        //-----Check referance number exist
+        $ref = DB::table('transactions')
+            ->where('refNumber', 'Like' , '%'.$refno.'%')
+            ->get();
         
-        if(empty($data->refNumber)) {
+        if(empty($ref)) {
              $number = 1;
              $number = sprintf("%05d", $number);
+             $nextNumber = $type.date('Ym').$number;
              
          } else {
-            $query = Transaction::latest('refNumber')->first();
-             $number = substr($query->refNumber,1,13);
+            $max = Transaction::where('refNumber','like', '%'.$refno.'%')->max('refNumber');
+            $number = substr($max,1,12);
+            $number=$number+1;
+            $nextNumber = $type.$number;
          }
-        $type = "D"; //get type from url
         
-        $nextNumber = $type.date('Ym').$number;
+        
+
+        //------Save Referance Number---
+        $current = Carbon::now();
+        $trialExpires = $current->addDays(7);
 
         $data = new Transaction();
         $data->refNumber = $nextNumber;
         $data->type = 'D';
-        $data->expiryDate = date('Y-m-d');
+        $data->expiryDate = $trialExpires;
         $data->status = 'A';
         $data->user_id = $user->id;
         $data->save();
 
+        $product_type=DB::table('tbl_product_types')->get();
+        $unit=DB::table('tbl_units')->get();
         return view('demand/new')->with('nextNumber',$nextNumber)
                                 ->with('products',$product_type)
                                 ->with('units',$unit);
@@ -67,11 +87,45 @@ class DemandController extends Controller
     public function demand_temp()
     {
         $nextNumber =session('NextNumber');
-        $product_type=DB::table('product_types')->get();
-        $unit=DB::table('units')->get();
+        $demand = DB::table('demands')
+                ->where('refNumber', '=', $nextNumber)
+                ->join('tbl_product_types','demands.productType_id', '=', 'tbl_product_types.id')
+                ->join('tbl_products','demands.product_id', '=', 'tbl_products.id')
+                ->select('demands.quantity','tbl_product_types.type','tbl_products.product')
+                ->get();
+        $count = DB::table('demands')
+                ->where('refNumber', '=', $nextNumber)
+                ->count();
+        $product_type=DB::table('tbl_product_types')->get();
+        $unit=DB::table('tbl_units')->get();
         return view('demand/new')->with('products',$product_type)
                                 ->with('units',$unit)
-                                ->with('nextNumber',$nextNumber);
+                                ->with('nextNumber',$nextNumber)
+                                ->with('demands',$demand)
+                                ->with('counts',$count);
+    }
+    public function demand_view()
+    {
+        $refno =session('NextNumber');
+        $refno1 = str_replace('[{"refNumber":"','',$refno);
+        $refno2 = str_replace('"}]','',$refno1);
+        $demand = DB::table('demands')
+                ->where('refNumber', '=', $refno2)
+                ->join('tbl_product_types','demands.productType_id', '=', 'tbl_product_types.id')
+                ->join('tbl_products','demands.product_id', '=', 'tbl_products.id')
+                ->join('tbl_units','demands.unit_id', '=', 'tbl_units.id')
+                ->select('demands.tentativeRequiredDate','demands.price','demands.quantity','tbl_product_types.type','tbl_products.product','tbl_units.unit')
+                ->get();
+        return view('demand/view')->with('demands',$demand)->with('msg','Your demand(s) not submitted');
+    }
+
+    public function submit_demand(){
+        $user = auth()->user();
+        $id = $this->request->input('ref_number');
+        DB::table('transactions')
+            ->where('refNumber', $id)
+            ->where('user_id', $user->id)
+            ->update(['status' => 'S']);
     }
     /**
      * Show the form for creating a new resource.

@@ -13,42 +13,27 @@
 <div class="row">
   <div class="col-md-4 order-md-2 mb-4">
     <h4 class="d-flex justify-content-between align-items-center mb-3">
-      <span class="text-muted">Your cart</span>
+      <span class="text-muted">Demand list</span>
       <span class="badge badge-secondary badge-pill">3</span>
     </h4>
     <ul class="list-group mb-3">
+      @isset($demands)
+      @foreach($demands as $demand)
       <li class="list-group-item d-flex justify-content-between lh-condensed">
         <div>
-          <h6 class="my-0">Product name</h6>
-          <small class="text-muted">Brief description</small>
+          <h6 class="my-0">{{$demand->product}}</h6>
+          <small class="text-muted">{{$demand->type}}</small>
         </div>
-        <span class="text-muted">12</span>
+        <span class="text-muted">{{$demand->quantity}}</span>
       </li>
-      <li class="list-group-item d-flex justify-content-between lh-condensed">
-        <div>
-          <h6 class="my-0">Second product</h6>
-          <small class="text-muted">Brief description</small>
-        </div>
-        <span class="text-muted">8</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between lh-condensed">
-        <div>
-          <h6 class="my-0">Third item</h6>
-          <small class="text-muted">Brief description</small>
-        </div>
-        <span class="text-muted">5</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between bg-light">
-        <div class="text-success">
-          <h6 class="my-0">Promo code</h6>
-          <small>EXAMPLECODE</small>
-        </div>
-        <span class="text-success">5</span>
-      </li>
+      @endforeach
+      @endisset
+      @isset($counts)
       <li class="list-group-item d-flex justify-content-between">
-        <span>Total</span>
-        <strong>20</strong>
+        <span>Total Items</span>
+        <strong>{{$counts}}</strong>
       </li>
+      @endisset
     </ul>
   </div>
   <div class="col-md-8 order-md-1">
@@ -60,7 +45,7 @@
           <select class="custom-select d-block w-100" id="producttype" name="producttype" required>
             <option value="">Choose...</option>
             @foreach($products as $row)
-                <option value="{{$row->Id}}">{{$row->type}}</option>
+                <option value="{{$row->id}}">{{$row->type}}</option>
             @endforeach
           </select>
           <div class="invalid-feedback">
@@ -92,7 +77,7 @@
                   <select class="custom-select d-block w-100" id="unit" name="unit" required>
                   <option value="">Choose...</option>
                   @foreach($units as $unit)
-                      <option value="{{$unit->Id}}">{{$unit->unit}}</option>
+                      <option value="{{$unit->id}}">{{$unit->unit}}</option>
                   @endforeach
                   </select>
                   <div class="invalid-feedback" style="width: 100%;">
@@ -130,10 +115,10 @@
                   </div>
           </div>
       </div>
-      
 
       <hr class="mb-4">
-      <button class="btn btn-primary btn-lg btn-block" onclick="myFunction()" type="submit">Save</button>
+      <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button><br>
+      <a class="btn btn-success btn-lg btn-block text-white" onclick="myFunction()">Submit</a>
     </form>
   </div>
 </div>
@@ -157,7 +142,7 @@
                 $('#product').empty();
                 $('#product').append('<option value="">Select Products</option>');
                 $.each(data, function(index, ageproductObj){
-                    $('#product').append('<option value="'+ ageproductObj.Id +'">'+ ageproductObj.products + '</option>');
+                    $('#product').append('<option value="'+ ageproductObj.id +'">'+ ageproductObj.product + '</option>');
                 })
             });
 
@@ -197,5 +182,16 @@
       });
       
     });
+    function myFunction() {
+      if (confirm('Are you sure you want to your demand list?. Once you submit, you cannot add or delete or update.'))  {
+        var id = document.getElementById("refnumber").value;
+        $.get('/json-submit-demand?ref_number=' + id, function(data){
+          window.location = "/home/";
+        });
+      }
+      else {
+          
+      }
+    }
     
 </script>
