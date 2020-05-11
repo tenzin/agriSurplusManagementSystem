@@ -13,8 +13,19 @@
       <link rel="stylesheet" href="css/template-style.css">
       <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
       <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-      <script type="text/javascript" src="js/jquery-ui.min.js"></script>    
-      <script type="text/javascript" src="js/template-scripts.js"></script> 
+      <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+      <script type="text/javascript" src="js/template-scripts.js"></script>
+      <!-- MAP STYLE -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
+      <style>
+        .map {
+          height: 730px;
+          width: 90%;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+      </style>
    </head>
    <body class="size-1140">
   	  <!-- PREMIUM FEATURES BUTTON -->
@@ -22,15 +33,15 @@
       <!-- TOP NAV WITH LOGO -->
       <header>
          <div id="topbar" class="hide-s hide-m">
-              
-         </div> 
+
+         </div>
          <nav>
             <div class="line">
                <div class="s-12 l-2">
-                  <p class="logo">C-SMS</p>
+                  <p class="logo">VMIS</p>
                </div>
                <div class="top-nav s-12 l-10">
-                  
+
                   <ul class="right">
                      <li class="active-item"><a href="#carousel">Home</a></li>
                      <li><a href="#features">Process</a></li>
@@ -41,11 +52,26 @@
                </div>
             </div>
          </nav>
-      </header>  
+      </header>
       <section>
-         <div id="map-block">  	  
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1247814.3661917313!2d16.569872019090596!3d48.23131953825178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476c8cbf758ecb9f%3A0xddeb1d26bce5eccf!2sGallayova+2150%2F19%2C+841+02+D%C3%BAbravka!5e0!3m2!1ssk!2ssk!4v1440344568394" width="100%" height="450" frameborder="0" style="border:0"></iframe>
-         </div>
+        <!-- Map Block -->
+         <div id="map" class="map"></div>
+         <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
+         <script type="text/javascript">
+          var map = new ol.Map({
+              target: 'map',
+              layers: [
+                  new ol.layer.Tile({
+                  source: new ol.source.OSM()
+                })
+              ],
+              view: new ol.View({
+                  center: ol.proj.fromLonLat([90.46,27.60]),
+                  zoom: 8.89
+              })
+          });
+        </script>
+
          <!-- FIRST BLOCK -->
          <div id="first-block">
             <div class="line">
@@ -65,7 +91,7 @@
                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
                   </div>
                   <div class="s-12 m-6 l-3 margin-bottom">
-                  <img src="{{asset('images/surplus.jpg')}}">                    
+                  <img src="{{asset('images/surplus.jpg')}}">
                     <h2>Manage the Surplus</h2>
                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat adipiscing.</p>
                   </div>
@@ -111,7 +137,7 @@
                </div>
             </div>
          </div>
-         
+
          <!-- CONTACT -->
          <div id="contact">
             <div class="line">
@@ -127,7 +153,7 @@
                         <p><strong>Contact:</strong> +975-1745664/02-343457</p>
                         <p><strong>E-mail:</strong> info@tenzi.gmail</p>
                      </address>
-                  </div>               
+                  </div>
                </div>
             </div>
          </div>
@@ -170,15 +196,15 @@
               autoplay: true,
               autoplayTimeout: 4000
             });
-        
+
             // Custom Navigation Events
             $(".next-arrow").click(function() {
                 theme_slider.trigger('next.owl');
             })
             $(".prev-arrow").click(function() {
                 theme_slider.trigger('prev.owl');
-            })     
-        }); 
+            })
+        });
       </script>
    </body>
 </html>
