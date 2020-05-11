@@ -3,41 +3,31 @@
 @section('content')
 <div class="container">
 <div class="py-2 text-center">
-  <h1><i class="fa fa-plus text-success"></i> Demand </h1>
+  <h1>Demand <i class="fa fa-edit text-primary"></i> </h1>
   <h5>Ref. No: <b>{{$nextNumber}}</b></h5>
-  <small>Enter the product that you wish to buy.</small>
-  @isset($msg)
-    <p>{{$msg}}</p>
-  @endisset
   <hr>
 </div>
-{!! Form::open(['action' => 'DemandController@store','method' => 'POST','enctype'=>'multipart/form-data']) !!}
-{{Form::text('refnumber',$nextNumber,['class'=>'form-control','id'=>'refnumber', 'hidden'=>'true'])}}
+{!! Form::open(['action' => ['DemandController@update',$individuals->id],'method' => 'POST','enctype'=>'multipart/form-data']) !!}
 <div class="row">
   <div class="col-md-4 order-md-2 mb-4">
     <h4 class="d-flex justify-content-between align-items-center mb-3">
       <span class="text-muted">Demand list</span>
       @isset($counts)
-      <span class="badge badge-secondary badge-pill text-warning">{{$counts}}</span>
+      <span class="badge badge-secondary badge-pill">{{$counts}}</span>
       @endisset
       
     </h4>
-    <ul class="list-group mb-0">
+    <ul class="list-group mb-3">
       @isset($demands)
-        @foreach($demands as $demand)
-          <li class="list-group-item d-flex justify-content-between lh-condensed">
-            <div>
-            <h6 class="my-0 text-primary">
-              <a href="/demand/{{$demand->id}}/edit">
-              <i class="fa fa-edit" aria-hidden="true"> </i> {{$demand->product}}</a>
-            </h6>
-              <small class="text-muted">{{$demand->type}}</small>
-            </div>
-            <small class="text-muted">Qty. {{$demand->quantity}} @ Nu. {{$demand->price}}</small>
-            <a onclick="return confirm('Are you sure want do delete permanently?')" href="/demand-delete/{{$demand->id}}" class="text-danger">
-              <i class="fa fa-trash" aria-hidden="true"> </i> Remove</a>
-          </li>
-        @endforeach
+      @foreach($demands as $demand)
+      <li class="list-group-item d-flex justify-content-between lh-condensed">
+        <div>
+          <h6 class="my-0 text-primary">{{$demand->product}}</a></h6>
+          <small class="text-muted">{{$demand->type}}</small>
+        </div>
+        <small class="text-muted">Q. {{$demand->quantity}} @ Nu. {{$demand->price}}</small>
+      </li>
+      @endforeach
       @endisset
       
     </ul>
@@ -50,8 +40,10 @@
           <label for="country">Product Type*</label>
           <select class="custom-select d-block w-100" id="producttype" name="producttype" required>
             <option value="">Choose...</option>
-            @foreach($products as $row)
-                <option value="{{$row->id}}">{{$row->type}}</option>
+            @foreach($products as $producttype)
+              <option value="
+                {{$producttype->id}}" {{($individuals->productType_id == $producttype->id) ? 'selected' : '' }}>
+                {{$producttype->type}}</option>
             @endforeach
           </select>
           <div class="invalid-feedback">
@@ -62,6 +54,11 @@
           <label for="state">Product*</label>
           <select class="custom-select d-block w-100" id="product" name="product" required>
             <option value="">Choose...</option>
+            @foreach($produce as $row)
+              <option value="
+                {{$row->id}}" {{($individuals->product_id == $row->id) ? 'selected' : '' }}>
+                {{$row->product}}</option>
+            @endforeach
           </select>
           <div class="invalid-feedback">
             Please provide a valid state.
@@ -72,7 +69,7 @@
       <div class="row">
           <div class="col-md-3 mb-3">
               <label for="qty">Quantity*</label>
-              {{Form::text('quantity',null,['class'=>'form-control','id'=>'quantity', 'placeholder' =>'Quantity'])}}
+              {{Form::text('quantity',$demand->quantity,['class'=>'form-control','id'=>'quantity', 'placeholder' =>'Quantity'])}}
               <div class="invalid-feedback">
                   Please enter Quantity.
               </div>
@@ -82,8 +79,10 @@
               <div class="input-group">
                   <select class="custom-select d-block w-100" id="unit" name="unit" required>
                   <option value="">Choose...</option>
-                  @foreach($units as $unit)
-                      <option value="{{$unit->id}}">{{$unit->unit}}</option>
+                  @foreach($units as $row)
+                    <option value="
+                      {{$row->id}}" {{($individuals->unit_id == $row->id) ? 'selected' : '' }}>
+                      {{$row->unit}}</option>
                   @endforeach
                   </select>
                   <div class="invalid-feedback" style="width: 100%;">
@@ -97,7 +96,7 @@
                   <div class="input-group-prepend">
                       <span class="input-group-text">Nu.</span>
                   </div>
-                  {{Form::text('price',null,['class'=>'form-control','id'=>'price', 'placeholder' =>'Price'])}}
+                  {{Form::text('price',$individuals->price,['class'=>'form-control','id'=>'price', 'placeholder' =>'Price'])}}
                   <div class="invalid-feedback" style="width: 100%;">
                   Price is required.
                   </div>
@@ -105,7 +104,7 @@
           </div>
           <div class="col-md-3 mb-3">
               <label for="qty">Required Date*</label>
-              {{Form::date('date',null,['class'=>'form-control','id'=>'date', 'placeholder' =>'Required Date'])}}
+              {{Form::date('date',$individuals->tentativeRequiredDate,['class'=>'form-control','id'=>'date', 'placeholder' =>'Required Date'])}}
               <div class="invalid-feedback">
                   Please enter date of requirement.
               </div>
@@ -115,7 +114,8 @@
       <div class="row">
           <div class="col-md-12 mb-3">
               <label for="unit">Remarks</label>
-              <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" id="remarks" placeholder="If any ...."></textarea>
+              <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" 
+              id="remarks" placeholder="If any ....">{{$individuals->remarks}}</textarea>
                   <div class="invalid-feedback" style="width: 100%;">
                   Price is required.
                   </div>
@@ -123,14 +123,8 @@
       </div>
 
       <hr class="mb-4">
-      <button class="btn btn-primary btn-lg btn-block" type="submit">ADD NEW</button><br>
-      <div class="jumbotron py-3" style="background-color: orange">
-      <h3>Important!!!</h3>
-          <i>Your demand list are saved temporarily. Unless it is submitted, other 
-            potential suppliers cannot view it. 
-            You must <b>SUBMIT</b> your demand list inorder to viewed by others.</i><br>
-          <p><a class="btn btn-success btn-lg text-white py-1" onclick="myFunction()">Submit</a></p>
-      </div>
+      {{Form::hidden('_method','PUT')}}
+      {{Form::submit('UPDATE',['class'=>'btn btn-primary btn-lg btn-block'])}}<br>
 
     </form>
   </div>
@@ -202,16 +196,8 @@
           window.location = "/home/";
         });
       }
-    }
-    function deletFn() {
-      if (confirm('Are you sure you want delete permanently?'))  {
-        $.ajax({
-          type: "POST",
-          url: url,
-          success: function(result) {
-            location.reload();
-          }
-        });
+      else {
+          
       }
     }
     
