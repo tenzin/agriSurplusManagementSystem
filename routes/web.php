@@ -17,15 +17,15 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 
-Auth::routes(); 
+// Auth::routes(); 
 
-//Sonamg010------------
-Route::resource('/demand','DemandController');
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/demand_temp', 'DemandController@demand_temp')->name('demand_temp');
-Route::get('/demand_view', 'DemandController@demand_view')->name('demand_view');
-Route::get('/json-product_type','DemandController@product_type');
-Route::get('/json-submit-demand','DemandController@submit_demand');
+// //Sonamg010------------
+// Route::resource('/demand','DemandController');
+// Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/demand_temp', 'DemandController@demand_temp')->name('demand_temp');
+// Route::get('/demand_view', 'DemandController@demand_view')->name('demand_view');
+// Route::get('/json-product_type','DemandController@product_type');
+// Route::get('/json-submit-demand','DemandController@submit_demand');
 
 //--------------------------------------------------------------
 
