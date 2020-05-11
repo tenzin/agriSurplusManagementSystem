@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
 use DB;
+use Auth;
 use App\ProductType;
 use App\Transaction;
 use App\Demand;
 use App\Unit;
+use Session;
+use Carbon\Carbon;
 class CADemandController extends Controller
 {
-    
-    protected $request;
-
     public function __construct(Request $request) {
         
         $this->request = $request;
@@ -29,43 +29,64 @@ class CADemandController extends Controller
             ->get();
         return response()->json($product);
     }
-
     
     public function index()
     {
         $user = auth()->user();
+        // $user_dzo = auth()->user()->dzongkhag_id;
         $date = date('Ym');
-        $data=DB::table('tbl_transactions')
-            ->where(\DB::raw('substr(refNumber, 0, 7)'), '=' , $date)
-            ->get();
-        $product_type= ProductType::all();
-        $unit=Unit::all();
-        
-        if(empty($data->refNumber)) {
-             $number = 1;
-             $number = sprintf("%05d", $number);
-             
-         } else {
-            $query = Transaction::latest('refNumber')->first();
-             $number = substr($query->refNumber,1,13);
-         }
-         $type = "D"; //get type from url
-        
-        $nextNumber = $type.date('Ym').$number;
+        $type = "D"; //Transaction type D: Demand; S: Supply
+        $refno = $type.$date;
 
-        $data = new Transaction();
+        //--------Check transaction not submitted
+        $checkno = DB::table('tbl_transactions')
+            // ->where('user_id', '=' , $user->id)
+            ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
+            ->where('status', '!=', 'S')
+            ->get('refNumber');
+
+            if($checkno->isNotEmpty()){
+                Session::put('NextNumber', $checkno);
+                return redirect('/demand_view');
+            }
+        //-----Check referance number exist
+        $ref = DB::table('tbl_transactions')
+            //  ->where('user_id', '=' , $user->id)
+             ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
+             ->where('refNumber', 'Like' , '%'.$refno.'%')
+             ->get();
+        
+        if($ref->isEmpty()){
+            $number = 1;
+            $number = sprintf('%05d', $number);
+            $nextNumber = $type.date('Ym').$number;
+            //$nextNumber = 'xxxx';
+            
+        } else {
+        $max = Transaction::where('refNumber','like', '%'.$refno.'%')->max('refNumber');
+        $number = substr($max,1,12);
+        $number=$number+1;
+        $nextNumber = $type.$number;
+        }
+        //------Save Referance Number---
+        $current = Carbon::now();
+        $trialExpires = $current->addDays(7);
+
+        $data = new Transaction;
         $data->refNumber = $nextNumber;
         $data->type = 'D';
-        $data->expiryDate = date('Y-m-d');
+        $data->expiryDate = $trialExpires;
         $data->status = 'A';
         $data->user_id = $user->id;
         $data->dzongkhag_id = $user->dzongkhag_id;
         $data->gewog_id = $user->gewog_id;
 
         $data->save();
+        $product_type= ProductType::all();
+        $unit=Unit::all();
         
         return view('ca_nvsc.demand.create',compact('nextNumber','product_type','unit'));
-        // return redirect('ca_surplus_demand',compact('nextNumber','product_type','unit'));
+        
        
     }
 
@@ -74,41 +95,56 @@ class CADemandController extends Controller
         $nextNumber =session('NextNumber');
         $product_type= ProductType::all();
         $unit=Unit::all();
-        return view('ca_nvsc.demand.create',compact('nextNumber','product_type','unit'));
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $demand = DB::table('tbl_demands')
+                ->where('refNumber', '=', $nextNumber)
+                ->join('tbl_product_types','tbl_demands.productType_id', '=', 'tbl_product_types.id')
+                ->join('tbl_products','tbl_demands.product_id', '=', 'tbl_products.id')
+                ->select('tbl_demands.quantity','tbl_product_types.type','tbl_products.product')
+                ->get();
+        $count = DB::table('tbl_demands')
+                ->where('refNumber', '=', $nextNumber)
+                ->count();
+        return view('ca_nvsc.demand.create',compact('nextNumber','product_type','unit','demand','count'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+    public function demand_view()
+    {
+        $refno =session('NextNumber');
+        $refno1 = str_replace('[{"refNumber":"','',$refno);
+        $refno2 = str_replace('"}]','',$refno1);
+        $demand = DB::table('tbl_demands')
+                ->where('refNumber', '=', $refno2)
+                ->join('tbl_product_types','tbl_demands.productType_id', '=', 'tbl_product_types.id')
+                ->join('tbl_products','tbl_demands.product_id', '=', 'tbl_products.id')
+                ->join('tbl_units','tbl_demands.unit_id', '=', 'tbl_units.id')
+                ->select('tbl_demands.tentativeRequiredDate','tbl_demands.price','tbl_demands.quantity','tbl_product_types.type','tbl_products.product','tbl_units.unit')
+                ->get();
+                //return $refno;  
+        return view('ca_nvsc.demand.view',compact('demand','refno2'))->with('msg','Your demand(s) not submitted');
+    }
+
+    public function submit_demand()
+    {
+
+        $user = auth()->user();
+        $id = $this->request->input('ref_number');
+        DB::table('tbl_transactions')
+            ->where('refNumber', $id)
+            ->where('user_id', $user->id)
+            ->update(['status' => 'S']);
+    }
+    
     public function store(Request $request)
     {
+        $request->session()->put('NextNumber', $request->input('refnumber'));
         
-        $this->validate($request,[
-            'product' =>'required',
-            'producttype' =>'required',
-            'price' =>'required',
-            'unit' =>'required',
-            'date' =>'required'
-
-        ]);
         $data = new Demand;
         $data->refNumber = $request->input('refnumber');
         $data->productType_id = $request->input('producttype');
         $data->product_id = $request->input('product');
         $data->quantity = $request->input('quantity');
-        $data->unit_id = $request->input('unit');
+        $data->unit_id = $request->input('ut');
         $data->tentativeRequiredDate = $request->input('date');
         $data->price = $request->input('price');
         $data->status = 'R';
@@ -117,78 +153,12 @@ class CADemandController extends Controller
         return redirect('/demand_temp')->with('nextNumber');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+    
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function view_surplus_demand_details()
     {
-        //
+        $demand = Demand::with('product','unit')->where('dzongkhag_id', Auth::user()->dzongkhag_id)->latest()->get();
+        return view('ca_nvsc.demand.surplus_demand_home',compact('demand'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function view_surplus_demand_details(){
-        
-                return view('ca_nvsc.demand.surplus_demand_home');
-            }
 }
 
-// <?php
-
-// namespace App\Http\Controllers;
-
-// use Illuminate\Http\Request;
-
-// class CADemandController extends Controller
-// {
-//     public function ca_surplus_demand(){               //view
-        
-//         return view('ca_nvsc.demand.create');
-//     }
-
-//     public function submit_surplus_demand_detail(){               //save second table
-   
-       
-//         return view('ca_nvsc.demand.surplus_demand_home');
-//     }
-
-//     public function view_surplus_demand_details(){
-        
-//         return view('ca_nvsc.demand.surplus_demand_home');
-//     }
-// }

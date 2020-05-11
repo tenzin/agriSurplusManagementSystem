@@ -42,9 +42,6 @@
 <script src="{{URL::asset('/bower_components/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{URL::asset('/bower_components/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 
-
-
-
 <script>
   $(function () {
     $("#example1").DataTable({
