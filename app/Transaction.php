@@ -11,6 +11,12 @@ class Transaction extends Model
     protected $fillable= ['refNumber','type','expiryDate','status','user_id','dzongkhag_id','gewog_id','remarks'];
     public $timestamps = false;
 
+    // protected $table ='tbl_surplus_transacations';
+    // protected $primaryKey = 'id';
+    // protected protected $fillable= ['refNumber','type','expiryDate','status','user_id','dzongkhag_id','gewog_id','remarks'];
+    // public $timestamps = false;
+
+
 
 public function dzongkhag() {
 

@@ -14,16 +14,35 @@
         <thead>
           <tr>
             <th>Sl. no</th>
-            <th>Produce</th>
+            <th>Product</th>
+            <th>Product Type</th>
             <th>Quantity</th>
             <th>Farm gate Price</th>
-            <th>Harvest Date</th>
             <th>Tentitive Pickup Date</th>
+            <th>Harvest Date</th>
             <th>Remarks</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
-        </thead>    
+        </thead> 
+        <tbody>
+          @foreach($product as $row)
+          <tr>
+             <td>{{$loop->iteration}}</td>
+             <td>{{$row->product->product}}</td>
+             <td>{{$row->product->productType->type}}</td>
+             <td>{{$row->quantity.' '.$row->unit->unit}}</td>
+             <td>Nu. {{$row->price}}</td>
+             <td>{{$row->tentativePickupDate}}</td>
+             <td>{{$row->harvestDate}}</td>
+             <td>{{$row->remarks}}</td>
+             <td>{{$row->status}}</td>
+             <td></td>
+           
+          </tr>
+          @endforeach
+
+        </tbody>   
       </table>
     </div>
 </div>  
