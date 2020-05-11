@@ -130,7 +130,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
    
     //User Route
     Route::get('system-user',['as'=>'system-user','uses'=>'AccessControlListController@user']);
-    Route::get('user-view',['as'=>'user-view','uses'=>'AccessControlListController@userview']);
+    Route::get('user-view/{id}',['as'=>'user-view','uses'=>'AccessControlListController@userView']);
     Route::get('add-user',['as'=>'add-user','uses'=>'AccessControlListController@add']);
     Route::post('new-user',['as'=>'new-user','uses'=>'AccessControlListController@insert']);
     Route::get('/json-dzongkhag','AccessControlListController@dzongkhag');

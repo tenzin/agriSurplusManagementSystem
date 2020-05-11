@@ -20,20 +20,18 @@
                   <th>Role</th>
                </tr>
             </thead>
-            <tbody id="myTable">
-               @foreach($users as $user)
+            <tbody>
                <tr>
                   <td class="text-center">{{$user->id}}</td>
                   <td>{{$user->cid}}</td>
                   <td>{{$user->name}}</td>
-                  <td>{{$user->email}}</td>
+                  <td>{{$user->email}}</td> 
                   <td>{{$user->Dzongkhag['dzongkhag']}}</td>
                   <td>{{$user->Gewog['gewog']}}</td>
                   <td>{{$user->address}}</td>
                   <td>{{$user->contact_number}}</td>
                   <td>{{$user->Role['role']}}</td>
                </tr>
-               @endforeach
             </tbody>
          </table>
       </div>

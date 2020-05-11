@@ -53,7 +53,7 @@
                         <div class="col-md-6">
                           <div class="form-group">
                           <label for="product">Product:<font color="red">*</font></label>
-                          <input id="product" type="text" class="form-control" name="product" maxlength="50" placeholder="Enter product..."/>
+                          <input id="product" type="text" class="form-control" name="product" maxlength="50" placeholder="Enter product..." required/>
                           </div>
                         </div>  
                     </div>

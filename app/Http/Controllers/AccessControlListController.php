@@ -143,9 +143,10 @@ class AccessControlListController extends Controller
         $users = User::all();
         return view('acl.user.users', compact('users'));
     }
-    public function userView(){
-        $users = User::all();
-        return view('acl.user.userview', compact('users'));
+    public function userView($id){
+
+        $user = User::find($id);
+        return view('acl.user.userview', compact('user'));
     }
 
     public function add(){
