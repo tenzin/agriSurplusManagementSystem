@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Input;
 use DB;
 use Auth;
 use App\ProductType;
-use App\CA_Surplus_Transcation;
+use App\Transaction;
 use App\CASupply;
 use App\Unit;
 use Session;
@@ -41,9 +41,10 @@ class CASurplusController extends Controller
         $refno = $type.$date;
 
         //--------Check transaction not submitted
-        $checkno = DB::table('tbl_surplus_transacations')
+        $checkno = DB::table('tbl_transactions')
             // ->where('user_id', '=' , $user->id)
             ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
+            ->where('type', '=', 'D')
             ->where('status', '!=', 'S')
             ->get('refNumber');
 
@@ -64,9 +65,10 @@ class CASurplusController extends Controller
         $refno = $type.$date;
 
         //-----Check referance number exist
-        $ref = DB::table('tbl_surplus_transacations')
+        $ref = DB::table('tbl_transactions')
             //  ->where('user_id', '=' , $user->id)
              ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
+             ->where('type', '=', 'D')
              ->where('refNumber', 'Like' , '%'.$refno.'%')
              ->get();
         
@@ -78,7 +80,7 @@ class CASurplusController extends Controller
             
         } else {
 
-        $max = CA_Surplus_Transcation::where('refNumber','like', '%'.$refno.'%')->max('refNumber');
+        $max = Transaction::where('refNumber','like', '%'.$refno.'%')->max('refNumber');
         $number = substr($max,1,12);
         $number=$number+1;
         $nextNumber = $type.$number;
@@ -88,7 +90,7 @@ class CASurplusController extends Controller
         // $current = Carbon::now();
         // $trialExpires = $current->addDays(7);
 
-        $data = new CA_Surplus_Transcation;
+        $data = new Transaction;
         $data->refNumber = $nextNumber;
         $data->type = 'S';
         $data->expiryDate = $request->expirydate;

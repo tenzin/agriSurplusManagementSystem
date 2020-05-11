@@ -34,12 +34,12 @@ class CADemandController extends Controller
 
         $user = auth()->user();
         $date = date('Ym');
-        $type = "S"; //Transaction type D: Demand; S: Supply
+        $type = "D"; //Transaction type D: Demand; S: Supply
         $refno = $type.$date;
 
         //--------Check transaction not submitted
         $checkno = DB::table('tbl_transactions')
-        ->where('user_id', '=' , $user->id)
+        ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
         ->where('status', '!=', 'S')
         ->where('type', '=', 'D')
         ->get('refNumber');
@@ -60,11 +60,11 @@ class CADemandController extends Controller
         $user = auth()->user();
         // $user_dzo = auth()->user()->dzongkhag_id;
         $date = date('Ym');
-        $type = "S"; //Transaction type D: Demand; S: Supply
+        $type = "D"; //Transaction type D: Demand; S: Supply
         $refno = $type.$date;
     //--------Check transaction not submitted
         $checkno = DB::table('tbl_transactions')
-        ->where('user_id', '=' , $user->id)
+        ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
         ->where('status', '!=', 'S')
         ->where('type', '=', 'D')
         ->get('refNumber');
@@ -163,7 +163,7 @@ class CADemandController extends Controller
         $id = $this->request->input('ref_number');
         DB::table('tbl_transactions')
             ->where('refNumber', $id)
-            ->where('user_id', $user->id)
+            ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
             ->update(['status' => 'S']);
     }
     
