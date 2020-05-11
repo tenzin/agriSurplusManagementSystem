@@ -10,8 +10,6 @@
       <div class="col-md">
           <div class="card">
               <div class="card-header"><center><p class="text-muted">{{$msg}}</p></center>
-                <hr/>
-              <a class="btn btn-primary" href="{{route('add-permission')}}">Add a new Product</a>
               </div>
               <div class="card-body">
                 <div class="card-body">
@@ -34,6 +32,7 @@
                           <th scope="col">Quantity</th>
                           <th scope="col">Price</th>
                           <th scope="col">Required Date</th>
+                          {{-- <th>Action</th> --}}
                           </tr>
                       </thead>
                       <tbody>
@@ -46,6 +45,9 @@
                         <td>{{$row->quantity.' '.$row->unit}}</td>
                         <td>Nu. {{$row->price}}</td>
                         <td>{{$row->tentativeRequiredDate}}</td>
+                        {{-- <td>
+                        <a href="/demand-delete/{{$row->id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data??');"></span>Delete</a>
+                        </td> --}}
                         </tr>
                         @endforeach
                        </tbody>           

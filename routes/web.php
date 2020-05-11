@@ -68,12 +68,17 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@view_surplus_details'])->middleware('can:aggregator_view_surplus,Auth::user()');
 
       //Commercial Aggregator Demand Surplus Information Route
-      Route::get('ca_surplus_demand',['as'=>'ca_surplus_demand','uses'=>'CADemandController@index'])->middleware('can:aggregator_demand_surplus,Auth::user()');
+      Route::get('demand-date',['as'=>'demand-date','uses'=>'CADemandController@expriydate'])->middleware('can:aggregator_demand_surplus,Auth::user()');
+      Route::post('demanded-store',['as'=>'demanded-store','uses'=>'CADemandController@store_transcation']);
+      Route::get('demanded-view',['as'=>'demanded-view','uses'=>'CADemandController@store_transcation']);
       Route::post('demand-store',['as'=>'demand-store','uses'=>'CADemandController@store']);
+      Route::get('demand-edit/{id}',['as'=>'demand-edit','uses'=>'CADemandController@edit']);
+      Route::post('update-store/{id}',['as'=>'update-store','uses'=>'CADemandController@update']);
       Route::get('/demand_temp', 'CADemandController@demand_temp')->name('demand_temp');
       Route::get('/json-product_type','CADemandController@product_type');
       Route::get('/demand_view', 'CADemandController@demand_view')->name('demand_view');
       Route::get('/json-submit-demand','CADemandController@submit_demand');
+      Route::get('demand-delete/{id}','CADemandController@destroy');
 
       //Commercial Aggregator Demand View Surplus Information 
       Route::get('view_surplus_demand_details',['as'=>'view_surplus_demand_details','uses'=>'CADemandController@view_surplus_demand_details'])->middleware('can:aggregator_view_demand_surplus,Auth::user()');

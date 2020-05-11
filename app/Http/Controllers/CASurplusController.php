@@ -104,52 +104,52 @@ class CASurplusController extends Controller
         return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit')); 
         
     }
-    public function index()
-    {
+    // public function index()
+    // {
 
-        $user = auth()->user();
-        // $user_dzo = auth()->user()->dzongkhag_id;
-        $date = date('Ym');
-        $type = "S"; //Transaction type D: Demand; S: Supply
-        $refno = $type.$date;
+    //     $user = auth()->user();
+    //     // $user_dzo = auth()->user()->dzongkhag_id;
+    //     $date = date('Ym');
+    //     $type = "S"; //Transaction type D: Demand; S: Supply
+    //     $refno = $type.$date;
 
-        //--------Check transaction not submitted
-        $checkno = DB::table('tbl_surplus_transacations')
-            // ->where('user_id', '=' , $user->id)
-            ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
-            ->where('status', '!=', 'S')
-            ->get('refNumber');
+    //     //--------Check transaction not submitted
+    //     $checkno = DB::table('tbl_surplus_transacations')
+    //         // ->where('user_id', '=' , $user->id)
+    //         ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
+    //         ->where('status', '!=', 'S')
+    //         ->get('refNumber');
 
-            if($checkno->isNotEmpty()){
-                Session::put('NextNumber', $checkno);
-                return redirect('/ca_supply_view');
-            }
-        //-----Check referance number exist
-        $ref = DB::table('tbl_surplus_transacations')
-            //  ->where('user_id', '=' , $user->id)
-             ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
-             ->where('refNumber', 'Like' , '%'.$refno.'%')
-             ->get();
+    //         if($checkno->isNotEmpty()){
+    //             Session::put('NextNumber', $checkno);
+    //             return redirect('/ca_supply_view');
+    //         }
+    //     //-----Check referance number exist
+    //     $ref = DB::table('tbl_surplus_transacations')
+    //         //  ->where('user_id', '=' , $user->id)
+    //          ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
+    //          ->where('refNumber', 'Like' , '%'.$refno.'%')
+    //          ->get();
         
-        if($ref->isEmpty()){
-            $number = 1;
-            $number = sprintf('%05d', $number);
-            $nextNumber = $type.date('Ym').$number;
-            //$nextNumber = 'xxxx';
+    //     if($ref->isEmpty()){
+    //         $number = 1;
+    //         $number = sprintf('%05d', $number);
+    //         $nextNumber = $type.date('Ym').$number;
+    //         //$nextNumber = 'xxxx';
             
-        } else {
+    //     } else {
 
-        $max = CA_Surplus_Transcation::where('refNumber','like', '%'.$refno.'%')->max('refNumber');
-        $number = substr($max,1,12);
-        $number=$number+1;
-        $nextNumber = $type.$number;
-        }
+    //     $max = CA_Surplus_Transcation::where('refNumber','like', '%'.$refno.'%')->max('refNumber');
+    //     $number = substr($max,1,12);
+    //     $number=$number+1;
+    //     $nextNumber = $type.$number;
+    //     }
         
-        $product_type= ProductType::all();
-        $unit=Unit::all();
+    //     $product_type= ProductType::all();
+    //     $unit=Unit::all();
         
-        return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit')); 
-    }
+    //     return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit')); 
+    // }
 
     public function supply_temp()
     {
