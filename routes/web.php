@@ -12,23 +12,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Login Route
+Route::get('login', 'AuthController@loginForm')->name('login');
+Route::post('login', 'AuthController@login');
+Route::post('logout', 'AuthController@logout')->name('logout');
+Route::get('logout', 'AuthController@logout');
 
-/* Route::get('/', function () {
-    return view('welcome');
-});*/
-
-// Auth::routes(); 
-
-// //Sonamg010------------
-// Route::resource('/demand','DemandController');
-// Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('/demand_temp', 'DemandController@demand_temp')->name('demand_temp');
-// Route::get('/demand_view', 'DemandController@demand_view')->name('demand_view');
-// Route::get('/json-product_type','DemandController@product_type');
-// Route::get('/json-submit-demand','DemandController@submit_demand');
-
-//--------------------------------------------------------------
-
+Route::get('/', function () {
+    return view('index');
+});
 
 // Dashboard
 Route::group(['middleware' => 'auth'], function () {
