@@ -9,8 +9,8 @@
       <div class="col-md">
           <div class="card">
               <div class="card-header"><center><p class="text-muted">{{$msg}}</p></center>
-                <hr/>
-              <a class="btn btn-primary" href="{{route('add-permission')}}">Add a new Product</a>
+                {{-- <hr/>
+              <a class="btn btn-primary" href="{{route('add-permission')}}">Add a new Product</a> --}}
               </div>
               <div class="card-body">
                 <div class="card-body">
@@ -34,6 +34,7 @@
                           <th scope="col">Price</th>
                           <th scope="col">Required Date</th>
                           <th scope="col">Harvest Date</th>
+                          {{-- <th scope="col">Actions</th> --}}
                           </tr>
                       </thead>
                       <tbody>
@@ -47,6 +48,10 @@
                 <td>Nu. {{$row->price}}</td>
                 <td>{{$row->tentativePickupDate}}</td>
                 <td>{{$row->harvestDate}}</td>
+                {{-- <td>
+                  <a href="{{route('supply-edit',$row->id)}}" class="btn btn-primary btn-xs" onclick="return confirm('Are you sure to you want to edit this data??');"></span>Edit</a>
+                  <a href="/supply-delete/{{$row->id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data??');"></span>Delete</a>
+                </td> --}}
                 </tr>
                 @endforeach
                        </tbody>           
