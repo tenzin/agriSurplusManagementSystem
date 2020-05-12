@@ -9,8 +9,8 @@
       <div class="col-md">
           <div class="card">
               <div class="card-header"><center><p class="text-muted">{{$msg}}</p></center>
-                <hr/>
-              <a class="btn btn-primary" href="{{route('add-permission')}}">Add a new Product</a>
+                {{-- <hr/>
+              <a class="btn btn-primary" href="{{route('add-permission')}}">Add a new Product</a> --}}
               </div>
               <div class="card-body">
                 <div class="card-body">
