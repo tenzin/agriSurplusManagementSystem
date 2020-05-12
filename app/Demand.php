@@ -12,10 +12,10 @@ class Demand extends Model
     protected $fillable= ['refNumber','productType_id','product_id','quantity','unit_id','tentativeRequiredDate','price','status','remarks'];
     public $timestamps = false;
 
-//     public function productType()
-//    {
-//        return $this->belongsTo(ProductType::class,'productType_id','id');
-//    }
+    public function productType()
+   {
+       return $this->belongsTo(ProductType::class,'productType_id','id');
+   }
 
    public function product()
    {
@@ -25,6 +25,11 @@ class Demand extends Model
    public function unit()
    {
         return $this->belongsTo(Unit::class, 'unit_id');
+   }
+    //link to transaction table using refNumber.
+   public function transaction()
+   {
+       return $this->belongsTo(Transaction::class,'refNumber','refNumber');
    }
 
 }
