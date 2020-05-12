@@ -42,7 +42,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="region">Region:<font color="red">*</font></label>
-              <input id="region" type="text" class="form-control" name="region" maxlength="50" placeholder="Enter region name..."/>
+              <input id="region" type="text" class="form-control" name="region" maxlength="50" placeholder="Enter region name..." required/>
             </div>                
           </div>
       </div>

@@ -40,7 +40,7 @@
                         <td>{{$user->email}}</td>
                         <td>{{$user->Role['role']}}</td>
                         <td>
-                           <a href="{{route('user-view')}}" class="btn btn-primary btn-xs"></span>View</a>
+                           <a href="{{route('user-view',$user['id'])}}" class="btn btn-primary btn-xs"></span>View</a>
                            <a href="{{route('edit-user',$user['id'])}}" class="btn btn-warning btn-xs"></span>Edit</a>
                            <a href="{{route('delete-user',$user['id'])}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete this data??');"></span>Delete</a>
                         </td>

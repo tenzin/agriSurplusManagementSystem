@@ -3,7 +3,7 @@
 @section('content')
 <div class="lockscreen-wrapper">
     <div class="lockscreen-logo">
-      <a href="../../index2.html"><b>Expiry_</b>Day</a>
+      <a href="../../index2.html"><b>Expiry_</b>Date</a>
     </div>
     <!-- START LOCK SCREEN ITEM -->
     <div class="lockscreen-item">

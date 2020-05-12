@@ -40,7 +40,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="code">Code:<font color="red">*</font></label>
-              <input id="code" type="text" class="form-control" name="code" maxlength="5" placeholder="Enter code..."/>
+              <input id="code" type="text" class="form-control" name="code" maxlength="5" placeholder="Enter code..." required/>
             </div>                
           </div>
       </div>
@@ -48,7 +48,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="dzongkhag">Dzongkhag/Thromde:<font color="red">*</font></label>
-              <input id="dzongkhag" type="text" class="form-control" name="dzongkhag" maxlength="50" placeholder="Enter Dzongkhag/Thromde..."/>
+              <input id="dzongkhag" type="text" class="form-control" name="dzongkhag" maxlength="50" placeholder="Enter Dzongkhag/Thromde..." rrequired/>
             </div>                
           </div>
       </div>
