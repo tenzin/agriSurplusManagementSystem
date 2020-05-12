@@ -23,7 +23,7 @@ class CreateTblDemandsTable extends Migration
             $table->date('tentativeRequiredDate');
             $table->float('price');
             $table->char('status', 1);
-            $table->longText('remarks')->nullable()->change();
+            $table->longText('remarks')->nullable();
             $table->timestamps();
         });
     }

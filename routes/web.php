@@ -32,11 +32,15 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
 
       //Extension Supply Information Route
-      Route::get('ex-date',['as'=>'ex-date','uses'=>'ExtensionSupplyController@ex_expriydate'])->middleware('can:extension_add_surplus,Auth::user()');
-      Route::post('ex-store',['as'=>'ex-store','uses'=>'ExtensionSupplyController@ex_store_transcation']);
-      Route::get('ca_surplus',['as'=>'ca_surplus','uses'=>'ExtensionSupplyController@index']);
+      Route::get('ex-day',['as'=>'ex-day','uses'=>'ExtensionSupplyController@ex_expiryday']);
+      Route::post('ex-store',['as'=>'ex-store','uses'=>'ExtensionSupplyController@ex_store_transaction']);
+      
       Route::post('ex-supply-store',['as'=>'ex-supply-store','uses'=>'ExtensionSupplyController@ex_store']);
+      Route::get('ex-supply-edit/{id}',['as'=>'ex-supply-edit','uses'=>'ExtensionSupplyController@ex_edit']);
+      Route::post('ex-supply-update/{id}',['as'=>'ex-supply-update','uses'=>'ExtensionSupplyController@ex_update']);
+      Route::get('surplus-view',['as'=>'surplus-view','uses'=>'ExtensionSupplyController@ex_store_transaction']);
       Route::get('/ex_supply_temp', 'ExtensionSupplyController@ex_supply_temp')->name('ex_supply_temp');
+      Route::get('surplus-delete/{id}','ExtensionSupplyController@destroy');
       Route::get('/json-product_type','ExtensionSupplyController@product_type');
       Route::get('/ex_supply_view', 'ExtensionSupplyController@ex_supply_view')->name('ex_supply_view');
       Route::get('/json-submit-ex-supply','ExtensionSupplyController@submit_ex_supply');
