@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('master')
 
 @section('content')
 <div class="container">
@@ -196,12 +196,21 @@
       
     });
     function myFunction() {
-      if (confirm('Are you sure you want to your demand list?. Once you submit, you cannot add or delete or update.'))  {
-        var id = document.getElementById("refnumber").value;
-        $.get('/json-submit-demand?ref_number=' + id, function(data){
-          window.location = "/home/";
-        });
-      }
+      var refNo = document.getElementById("refnumber").value;
+      $.get('/json-product-exist?refNo=' + refNo, function(data){
+        if(data == null || data ==''){
+            alert('Unsuccessful: To submit the demand you need at least one or more product!');
+        } else {
+            //show some type of message to the user
+            if (confirm('Are you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
+              var id = document.getElementById("refnumber").value;
+              $.get('/json-submit-demand?ref_number=' + id, function(data){
+
+              });
+            }
+        }
+      });
+      
     }
     function deletFn() {
       if (confirm('Are you sure you want delete permanently?'))  {

@@ -17,16 +17,20 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 
-Auth::routes(); 
-
+Auth::routes();
 //Sonamg010------------
 Route::resource('/demand','DemandController');
 Route::get('demand-delete/{id}','DemandController@destroy');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/demand_temp', 'DemandController@demand_temp')->name('demand_temp');
 Route::get('/demand_view', 'DemandController@demand_view')->name('demand_view');
+Route::get('/data_show', 'DemandController@data_show')->name('data_show');
+Route::get('/submitted_show', 'DemandController@show_submit')->name('submitted_show');
 Route::get('/json-product_type','DemandController@product_type');
 Route::get('/json-submit-demand','DemandController@submit_demand');
+Route::get('/json-product-exist','DemandController@product_exists');
+Route::get('/edit_submitted/{id}','DemandController@edit_submitted')->name('edit-submitted');
+Route::get('/update_submitted/{id}','DemandController@update_submitted')->name('update_submitted');
 
 //--------------------------------------------------------------
 

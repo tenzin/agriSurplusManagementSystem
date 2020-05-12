@@ -10,6 +10,7 @@ use App\Transaction;
 use App\Demand;
 use Session;
 use Carbon\Carbon;
+use DataTables;
 class DemandController extends Controller
 {
     /**
@@ -30,6 +31,22 @@ class DemandController extends Controller
             ->where('productType_id', '=', $id)
             ->get();
         return response()->json($product);
+    }
+
+    public function product_exists(){
+        $id = $this->request->input('refNo');
+        $data=DB::table('demands')
+            ->where('refNumber', '=', $id)
+            ->get();
+        if ($data->isEmpty()) {
+            return null;
+         } else {
+            return response()->json($id);
+         }
+        
+        // $data = DB::table('demands')
+        //     ->where('refNumber','=', $id)->get('refNmuber');
+        // return response()->json($data);
     }
 
     public function index()
@@ -81,6 +98,7 @@ class DemandController extends Controller
 
         $product_type=DB::table('tbl_product_types')->get();
         $unit=DB::table('tbl_units')->get();
+        Session::put('View_status', 'A');
         return view('demand/new')->with('nextNumber',$nextNumber)
                                 ->with('products',$product_type)
                                 ->with('units',$unit);
@@ -100,6 +118,7 @@ class DemandController extends Controller
                 ->count();
         $product_type=DB::table('tbl_product_types')->get();
         $unit=DB::table('tbl_units')->get();
+        Session::put('View_status', 'E');
         return view('demand/new')->with('products',$product_type)
                                 ->with('units',$unit)
                                 ->with('nextNumber',$nextNumber)
@@ -120,16 +139,20 @@ class DemandController extends Controller
                         'tbl_product_types.type','tbl_products.product','tbl_units.unit',
                         'demands.id')
                 ->get();
+                Session::put('View_status', 'E');
         return view('demand/view')->with('demands',$demand)->with('msg','Your demand(s) not submitted');
     }
 
     public function submit_demand(){
         $user = auth()->user();
+        $current = Carbon::now();
         $id = $this->request->input('ref_number');
         DB::table('transactions')
             ->where('refNumber', $id)
             ->where('user_id', $user->id)
-            ->update(['status' => 'S']);
+            ->update(['status' => 'S'])
+            ->update(['submittedDate' => $current]);
+            return view('demand/msg')->with('msg','Your demand(s) submitted successfully!!!');
     }
     /**
      * Show the form for creating a new resource.
@@ -167,7 +190,7 @@ class DemandController extends Controller
         $data->unit_id = $request->input('unit');
         $data->tentativeRequiredDate = $request->input('date');
         $data->price = $request->input('price');
-        $data->status = 'R';
+        $data->status = 'A';
         $data->remarks = $request->input('remarks');
         $data->save();
         return redirect('/demand_temp');
@@ -181,9 +204,67 @@ class DemandController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = auth()->user();
+        $date = date('Ym');
+        $type = "D"; //Transaction type D: Demand; S: Supply
+        $refno = $type.$date;
+        //--------Check transaction not submitted
+        $checkno = DB::table('transactions')
+        ->where('user_id', '=' , $user->id)
+        ->where('status', '!=', 'S')
+        ->where('type', '=', 'D')
+        ->get('refNumber');
+        if($checkno->isNotEmpty()){
+            $refno1 = str_replace('[{"refNumber":"','',$checkno);
+            $refno2 = str_replace('"}]','',$refno1);
+        }
+        $demand = DB::table('demands')
+                ->where('refNumber', '=', $refno2)
+                ->join('tbl_product_types','demands.productType_id', '=', 'tbl_product_types.id')
+                ->join('tbl_products','demands.product_id', '=', 'tbl_products.id')
+                ->join('tbl_units','demands.unit_id', '=', 'tbl_units.id')
+                ->select('demands.quantity','tbl_product_types.type','tbl_products.product', 'demands.price',
+                'demands.id', 'tbl_units.unit', 'demands.tentativeRequiredDate',)
+                ->paginate(15);
+        Session::put('View_status', 'V');
+        return view('demand/view')->with('demands',$demand)
+                                ->with('nextNumber',$refno2)
+                                ->with('demands',$demand)
+                                ->with('msg','Your demand(s) not submitted');
     }
 
+    public function show_submit()
+    {
+        $user = auth()->user();
+        $date = date('Ym');
+        $type = "D"; //Transaction type D: Demand; S: Supply
+        $refno = $type.$date;
+        //--------Check transaction not submitted
+        $checkno = DB::table('transactions')
+            ->where('user_id', '=' , $user->id)
+            ->where('status', '=', 'S')
+            ->where('type', '=', 'D')
+            ->get();
+            foreach($checkno as $data){
+                $ref = array(
+                    $data->refNumber,
+                );
+            }
+        $demand = DB::table('demands')
+                ->where('transactions.user_id', '=', $user->id)
+                ->where('transactions.status', '=', 'S')
+                ->where('transactions.type', '=', 'D')
+                ->join('transactions','demands.refNumber', '=', 'transactions.refNumber')
+                ->join('tbl_product_types','demands.productType_id', '=', 'tbl_product_types.id')
+                ->join('tbl_products','demands.product_id', '=', 'tbl_products.id')
+                ->join('tbl_units','demands.unit_id', '=', 'tbl_units.id')
+                ->select('demands.refNumber','demands.quantity','tbl_product_types.type','tbl_products.product', 'demands.price',
+                'demands.id', 'tbl_units.unit', 'demands.tentativeRequiredDate',)
+                ->paginate(15);
+        Session::put('View_status', 'VS');
+        return view('demand/view-submitted')->with('demands',$demand)
+                                ->with('msg','Submitted product list.');
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -206,7 +287,7 @@ class DemandController extends Controller
         $count = DB::table('demands')
                 ->where('refNumber', '=', $nextNumber)
                 ->count();
-                
+        //return $individual;    
         $product_type=DB::table('tbl_product_types')->get();
         $unit=DB::table('tbl_units')->get();
         $product=DB::table('tbl_products')->get();
@@ -219,7 +300,21 @@ class DemandController extends Controller
                                 ->with('individuals',$individual)
                                 ->with('produce',$product);
     }
-
+    public function edit_submitted($id)
+    {      
+        $demand = DB::table('demands')
+                ->where('demands.id', '=', $id)
+                ->get(); 
+                //return $demand; 
+        $product_type=DB::table('tbl_product_types')->get();
+        $unit=DB::table('tbl_units')->get();
+        $product=DB::table('tbl_products')->get();
+        //return $unit;
+        return view('demand/edit-submitted')->with('products',$product_type)
+                                ->with('units',$unit)
+                                ->with('demands',$demand)
+                                ->with('produce',$product);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -244,12 +339,44 @@ class DemandController extends Controller
         $data->unit_id = $request->input('unit');
         $data->tentativeRequiredDate = $request->input('date');
         $data->price = $request->input('price');
-        $data->status = 'R';
+        $data->status = 'A';
         $data->remarks = $request->input('remarks');
         $data->save();
-        return redirect('/demand_temp')->with('msg','Saved successfully!!');
+        if(session('View_status')=='V'){
+            return redirect('/demand/show')->with('msg','Saved successfully!!');
+        } else {
+            return redirect('/demand_temp')->with('msg','Saved successfully!!');
+        }
+        
     }
 
+    public function update_submitted(Request $request, $id)
+    {
+        $qty=floatval($request->input('hqty')) -floatval($request->input('quantity'));
+        if($request->input('status') =='T'){
+            
+            DB::table('history_demands')->insert([
+                'refNumber' => $request->input('refno'),
+                'productType_id' => $request->input('producttype'),
+                'product_id' => $request->input('product'),
+                'quantity' => $request->input('quantity'),
+                'unit_id' =>$request->input('unit'),
+                'price' => $request->input('price'),
+                'status' => $request->input('status')
+            ]);
+        }
+
+        $data = Demand::find($id);
+        $data->quantity = $qty;
+        $data->unit_id = $request->input('unit');
+        $data->price = $request->input('price');
+        $data->status = $request->input('status');
+        $data->remarks = $request->input('remarks');
+        $data->save();
+        return redirect('/submitted_show')->with('msg','Saved successfully!!');
+
+        
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -258,8 +385,12 @@ class DemandController extends Controller
      */
     public function destroy($id)
     {
-        $activity= Demand::find($id);
-        $activity->delete();
-        return redirect('/demand')->with('msg','Deleted successfully!!');
+        $data= Demand::find($id);
+        $data->delete();
+        if(session('View_status')=='V'){
+            return redirect('/demand/show')->with('msg','Deleted successfully!!');
+        } else {
+            return redirect('/demand')->with('msg','Deleted successfully!!');
+        }
     }
 }
