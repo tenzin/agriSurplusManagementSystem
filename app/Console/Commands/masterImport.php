@@ -13,6 +13,7 @@ use App\PermissionRole;
 use App\Permission;
 use App\Product;
 use App\ProductType;
+use App\Region;
 
 
 class masterImport extends Command
@@ -48,9 +49,10 @@ class masterImport extends Command
      */
     public function handle()
     {
-        
-      
+
+
         $this->importroles("roles", new Role);
+        $this->importregions("regions", new Region);
         $this->importdzongkhags("dzongkhags", new Dzongkhag);
         $this->importgeogs("gewogs", new Gewog);
         $this->importusers("users", new User);
@@ -61,7 +63,7 @@ class masterImport extends Command
 
     }
 
-    
+
 
     public function importroles($filename, Model $model) {
         if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
@@ -87,6 +89,33 @@ class masterImport extends Command
         $this->line($i." entries successfully added in the ".$filename." table.");
     }
 }
+
+public function importregions($filename, Model $model) {
+    if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
+        $this->line("Importing ".$filename." tables...");
+        $i=0;
+        while ( ($data = fgetcsv ( $handle, 1000, ',' )) !== FALSE ) {
+            $data = [
+                'id' => $data[0],
+                'region' => $data[1],
+            ];
+             try {
+                if($model::firstOrCreate($data)) {
+                    $i++;
+                }
+            } catch(\Exception $e) {
+                $this->error('Something went wrong!'.$e);
+                return;
+
+            }
+        }
+
+    fclose ( $handle );
+    $this->line($i." entries successfully added in the ".$filename." table.");
+  }
+
+}
+
     public function importdzongkhags($filename, Model $model) {
         if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
             $this->line("Importing ".$filename." tables...");
