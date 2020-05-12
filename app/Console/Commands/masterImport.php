@@ -125,6 +125,7 @@ public function importregions($filename, Model $model) {
                     'id' => $data[0],
                     'code' => $data[1],
                     'dzongkhag' => $data[2],
+                    'region_id' => $data[3],
                 ];
                  try {
                     if($model::firstOrCreate($data)) {
