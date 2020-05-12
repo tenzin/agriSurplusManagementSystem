@@ -15,25 +15,27 @@
   <div class="col-md-4 order-md-2 mb-4">
     <h4 class="d-flex justify-content-between align-items-center mb-3">
       <span class="text-muted">Demand list</span>
-      <span class="badge badge-secondary badge-pill">3</span>
-    </h4>
-    <ul class="list-group mb-3">
-      @isset($demand)
-      @foreach($demand as $demands)
-      <li class="list-group-item d-flex justify-content-between lh-condensed">
-        <div>
-          <h6 class="my-0">{{$demands->product}}</h6>
-          <small class="text-muted">{{$demands->type}}</small>
-        </div>
-        <span class="text-muted">{{$demands->quantity}}</span>
-      </li>
-      @endforeach
+      @isset($counts)
+      <span class="badge badge-secondary badge-pill text-warning">{{$counts}}</span>
       @endisset
-      @isset($count)
-      <li class="list-group-item d-flex justify-content-between">
-        <span>Total Items</span>
-        <strong>{{$count}}</strong>
-      </li>
+      
+    </h4>
+    <ul class="list-group mb-0">
+      @isset($demands)
+        @foreach($demands as $demand)
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+            <h6 class="my-0 text-primary">
+            <a href="{{route('demand-edit',$demand->id)}}">
+              <i class="fa fa-edit" aria-hidden="true"> </i> {{$demand->product}}</a>
+            </h6>
+              <small class="text-muted">{{$demand->type}}</small>
+            </div>
+            <small class="text-muted">Qty. {{$demand->quantity}} @ Nu. {{$demand->price}}</small>
+            <a onclick="return confirm('Are you sure want do delete permanently?')" href="/demand-delete/{{$demand->id}}" class="text-danger">
+              <i class="fa fa-trash" aria-hidden="true"> </i> Remove</a>
+          </li>
+        @endforeach
       @endisset
     </ul>
   </div>
@@ -120,8 +122,14 @@
       
 
       <hr class="mb-4">
-      <button class="btn btn-primary btn-lg btn-block" type="submit">Save</button><br>
-      <a class="btn btn-success btn-lg btn-block text-white" onclick="myFunction()">Submit</a>
+      <button class="btn btn-primary btn-lg btn-block" type="submit">ADD NEW</button><br>
+      <div class="jumbotron py-3" style="background-color: orange">
+      <h3>Important!!!</h3>
+          <i>Your demand list are saved temporarily. Unless it is submitted, other 
+            potential suppliers cannot view it. 
+            You must <b>SUBMIT</b> your demand list inorder to viewed by others.</i><br>
+          <p><a class="btn btn-success btn-lg text-white py-1" onclick="myFunction()">Submit</a></p>
+      </div>
     </form>
   </div>
 </div>
@@ -190,6 +198,17 @@
         });
       }
       
+    }
+    function deletFn() {
+      if (confirm('Are you sure you want delete permanently?'))  {
+        $.ajax({
+          type: "POST",
+          url: url,
+          success: function(result) {
+            location.reload();
+          }
+        });
+      }
     }
     
 </script>

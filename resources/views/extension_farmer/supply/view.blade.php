@@ -9,8 +9,6 @@
       <div class="col-md">
           <div class="card">
               <div class="card-header"><center><p class="text-muted">{{$msg}}</p></center>
-                <hr/>
-              <a class="btn btn-primary" href="{{route('add-permission')}}">Add a new Product</a>
               </div>
               <div class="card-body">
                 <div class="card-body">
@@ -68,7 +66,7 @@
     function myFunction() {
       if (confirm('Are you sure you want to your demand list?. Once you submit, you cannot add or delete or update.'))  {
         var id = document.getElementById("refnumber").value;
-        $.get('/json-submit-ex-supply?ref_number=' + id, function(data){
+        $.get('/json-submit-surplus?ref_number=' + id, function(data){
           window.location = "/national/";
         });
       }

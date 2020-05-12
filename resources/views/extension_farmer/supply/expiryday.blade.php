@@ -3,7 +3,7 @@
 @section('content')
 <div class="lockscreen-wrapper">
     <div class="lockscreen-logo">
-      <a href="../../index2.html"><b>Expiry_</b>Day</a>
+      <a href="#"><b>Expiry_</b>Day</a>
     </div>
     <!-- START LOCK SCREEN ITEM -->
     <div class="lockscreen-item">
@@ -12,11 +12,10 @@
         <img src="{{asset('images/logo.jpg')}}" alt="User Image">
       </div>
       <!-- lockscreen credentials (contains the form) -->
-      <form class="lockscreen-credentials" method="POST" action={{route('store')}}>
+      <form class="lockscreen-credentials" method="POST" action={{route('ex-store')}}>
         @csrf
         <div class="input-group">
-          {{-- <input type="date" class="form-control" placeholder="date" name="expirydate" id="expirydate" required/> --}}
-          <input type="text" class="form-control" placeholder="Please enter expiry day" maxlength="2" name="expirydate" id="expirydate" required/>
+          <input type="text" class="form-control" placeholder="Enter Expiry Day" name="expirydate" id="expirydate" required/>
   
           <div class="input-group-append">
             <button type="submit" class="btn"><i class="fas fa-arrow-right text-muted"></i></button>

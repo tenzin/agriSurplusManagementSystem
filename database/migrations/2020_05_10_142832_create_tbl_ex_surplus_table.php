@@ -24,11 +24,11 @@ class CreateTblExSurplusTable extends Migration
             $table->date('tentativePickupDate');
             $table->date('harvestDate');
             $table->float('price');
-            $table->char('status', 1);
-            $table->longText('remarks')->nullable();
             $table->foreignId('dzongkhag_id')->nullable()->constrained()->references('id')->on('tbl_dzongkhags')->onDelete('cascade');
             $table->foreignId('gewog_id')->nullable()->constrained()->references('id')->on('tbl_gewogs')->onDelete('cascade');
-            $table->timestamps();
+            $table->char('status', 1);
+            $table->longText('remarks')->nullable();
+           $table->timestamps();
         });
     }
 

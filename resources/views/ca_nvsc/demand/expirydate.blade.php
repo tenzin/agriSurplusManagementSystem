@@ -12,10 +12,11 @@
         <img src="{{asset('images/logo.jpg')}}" alt="User Image">
       </div>
       <!-- lockscreen credentials (contains the form) -->
-      <form class="lockscreen-credentials" method="POST" action={{route('ex-store')}}>
+      <form class="lockscreen-credentials" method="POST" action={{route('demanded-store')}}>
         @csrf
         <div class="input-group">
-          <input type="date" class="form-control" placeholder="date" name="expirydate" id="expirydate" required/>
+          {{-- <input type="date" class="form-control" placeholder="Please enter expiry date" name="expirydate" id="expirydate" required/> --}}
+          <input type="text" class="form-control" placeholder="Please enter expiry day" maxlength="2" name="expirydate" id="expirydate" required/>
   
           <div class="input-group-append">
             <button type="submit" class="btn"><i class="fas fa-arrow-right text-muted"></i></button>
@@ -27,7 +28,7 @@
     </div>
     <!-- /.lockscreen-item -->
     <div class="help-block text-center">
-      Enter Expiry Date for this batch of product
+      Enter Expiry Day for this batch of product
     </div>
   </div>
 @endsection
