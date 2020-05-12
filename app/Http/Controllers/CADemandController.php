@@ -39,7 +39,8 @@ class CADemandController extends Controller
 
         //--------Check transaction not submitted
         $checkno = DB::table('tbl_transactions')
-        ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
+        ->where('user_id', '=' , $user->id)
+        // ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
         ->where('status', '!=', 'S')
         ->where('type', '=', 'D')
         ->get('refNumber');
@@ -64,7 +65,8 @@ class CADemandController extends Controller
         $refno = $type.$date;
     //--------Check transaction not submitted
         $checkno = DB::table('tbl_transactions')
-        ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
+        ->where('user_id', '=' , $user->id)
+        // ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
         ->where('status', '!=', 'S')
         ->where('type', '=', 'D')
         ->get('refNumber');
