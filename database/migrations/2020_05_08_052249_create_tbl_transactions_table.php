@@ -23,6 +23,7 @@ class CreateTblTransactionsTable extends Migration
             $table->foreignId('dzongkhag_id')->nullable()->constrained()->references('id')->on('tbl_dzongkhags')->onDelete('cascade');
             $table->foreignId('gewog_id')->nullable()->constrained()->references('id')->on('tbl_gewogs')->onDelete('cascade');
             $table->longText('remarks')->nullable()->change();
+            $table->date('submittedDate')->nullable();
             $table->timestamps();
         });
     }

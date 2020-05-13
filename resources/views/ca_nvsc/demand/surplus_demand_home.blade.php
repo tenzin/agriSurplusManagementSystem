@@ -33,7 +33,9 @@
                       <td>{{$d->tentativeRequiredDate}}</td>
                       <td>Nu. {{$d->price}}</td>
                       <td>{{$d->status}}</td>
-                      <td></td>
+                      <td><a href="/edit_submitted/{{$row->id}}">
+                        <i class="fa fa-edit" aria-hidden="true"> </i> Edit</a>
+                      </td>
                   </tr>
                @endforeach
         </tbody> 
