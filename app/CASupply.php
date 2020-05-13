@@ -21,4 +21,15 @@ class CASupply extends Model
    {
         return $this->belongsTo(Unit::class, 'unit_id');
    }
+
+   public function dzongkhag(){
+
+    return $this->belongsTo(Dzongkhag::class, 'dzongkhag_id');
+
+}
+
+// public function user()
+//     {
+//         return $this->belongsToMany('App\User','user');
+//     }
 }

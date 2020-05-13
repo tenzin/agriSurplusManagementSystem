@@ -7,9 +7,9 @@
 <div class="container-fluid">
   <div class="row">
       <div class="col-md">
-          <!-- <div class="card"> -->
+          {{-- <div class="card"> --}}
           <h3 class="text-primary text-center">Surplus List</h3>
-              <!-- </div> -->
+              {{-- </div> --}}
               <div class="card-body">
                 <div class="card-body">
                   @if (session('success'))
@@ -36,7 +36,7 @@
                         @foreach($supply as $row)
                         <tr>
                         <th scope="row">{{$loop->index+1}}</th>
-                        <td><a href="{{route('showii',$row->refNumber)}}">
+                        <td><a href="{{route('showe',$row->refNumber)}}">
                         <i class="fas fa-eye"></i>
                           {{$row->refNumber}}
                         </td>

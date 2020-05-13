@@ -1,7 +1,7 @@
 @extends('master')
 @section('content')
 <div class="container">
-    <h3 class="text-primary text-center">Demand List (Submitted)</h3>
+    <h3 class="text-primary text-center">Surplus List (Submitted)</h3>
     <center><p class="text-muted">{{$msg}}</p></center>
 
     <table id= "example1" class="table table-bordered table-striped table-sm">
@@ -18,7 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach($demands as $row)
+        @foreach($supply as $row)
         <tr>
             <td>{{$loop->index+1}}</td>
             {{-- <td>{{$row->refNumber}}</td> --}}
@@ -28,13 +28,13 @@
             <td>{{$row->price}}</td>
             {{-- <td>{{$row->tentativeRequiredDate}}</td> --}}
             <td>
-              @can('aggregator_edit_demand_details') 
-              <a href="/edit_submitted/{{$row->id}}">
+                @can('aggregator_edit_surplus_details')
+              <a href="/edit_submited/{{$row->id}}">
               <i class="fa fa-edit" aria-hidden="true"> </i> Edit</a>
               @endcan
 
-              @can('aggregator_view_demand_details')
-              <a href="{{route('view-detail',$row->id)}}">
+              @can('aggregator_view_surplus_details')
+              <a href="{{route('view-details',$row->id)}}">
                 <i class="fa fa-eye" aria-hidden="true"> </i> View</a>
               </a>
               @endcan

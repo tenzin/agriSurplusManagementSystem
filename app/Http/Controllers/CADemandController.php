@@ -186,7 +186,7 @@ class CADemandController extends Controller
                 ->join('tbl_products','tbl_demands.product_id', '=', 'tbl_products.id')
                 ->join('tbl_units','tbl_demands.unit_id', '=', 'tbl_units.id')
                 ->select('tbl_demands.quantity','tbl_product_types.type','tbl_products.product', 'tbl_demands.price',
-                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate',)
+                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate')
                 ->paginate(15);
         Session::put('View_status', 'V');
         return view('ca_nvsc.demand.view')->with('demand',$demand)
@@ -216,6 +216,7 @@ class CADemandController extends Controller
         $user = auth()->user();
         $data = DB::table('tbl_transactions')
                 ->where('user_id', '=', $user->id)
+                ->where('type', '=', 'D')
                 ->where('status', '=', 'E')
                 ->orderBy('submittedDate','DESC')
                 ->paginate(15);
@@ -290,7 +291,7 @@ class CADemandController extends Controller
     {      
         $demand = DB::table('tbl_demands')
                 ->where('tbl_demands.id', '=', $id)
-                ->get(); 
+                ->orderBy('product_id')->get(); 
                 //return $demand; 
         $product_type=DB::table('tbl_product_types')->get();
         $unit=DB::table('tbl_units')->get();
@@ -394,6 +395,7 @@ class CADemandController extends Controller
                 ->where('tbl_transactions.user_id', '=', $user->id)
                 ->where('tbl_transactions.status', '=', 'S')
                 ->where('tbl_transactions.type', '=', 'D')
+                ->where('tbl_demands.quantity', '>', 0)
                 ->where('tbl_demands.dzongkhag_id', '=', $user->dzongkhag_id)
                 ->join('tbl_transactions','tbl_demands.refNumber', '=', 'tbl_transactions.refNumber')
                 ->join('tbl_product_types','tbl_demands.productType_id', '=', 'tbl_product_types.id')
@@ -405,6 +407,15 @@ class CADemandController extends Controller
         Session::put('View_status', 'VS');
         return view('ca_nvsc.demand.view-submitted')->with('demands',$demand)
                                 ->with('msg','Submitted product list.');
+    }
+
+    public function view_detail($id){
+
+       
+
+        $row = Demand::find($id);
+        // $rows = Demand::with('dzongkhag')->get();
+        return view('ca_nvsc.demand.view-details', compact('row'));
     }
 }
 

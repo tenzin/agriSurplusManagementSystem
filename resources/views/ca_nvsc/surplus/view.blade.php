@@ -2,7 +2,7 @@
 
 @section('content')
 <form method="POST" action = "{{route('supply-store')}}">
-  <input type="hidden" name="refnumber" id="refnumber" value="{{ $refno2}}">
+  <input type="hidden" name="refnumber" id="refnumber" value="{{ $nextNumber}}">
   @csrf
 <div class="container-fluid">
   <div class="row">
@@ -34,6 +34,7 @@
                           <th scope="col">Price</th>
                           <th scope="col">Required Date</th>
                           <th scope="col">Harvest Date</th>
+                          <th>Action</th>
                           </tr>
                       </thead>
                       <tbody>
@@ -47,6 +48,22 @@
                 <td>Nu. {{$row->price}}</td>
                 <td>{{$row->tentativePickupDate}}</td>
                 <td>{{$row->harvestDate}}</td>
+                
+                  <td>
+                    
+
+                    <a href="{{route('supply-edit',$row->id)}}">
+                    <i class="fa fa-edit" aria-hidden="true"> </i> Edit</a>
+
+                   
+                    &nbsp;
+
+                    
+                    <a onclick="return confirm('Are you sure want do delete permanently?')" href="/supply-delete/{{$row->id}}" class="text-danger">
+                    <i class="fa fa-trash" aria-hidden="true"> </i> Remove</a>
+                    @endcan
+                  </td>
+                
                 </tr>
                 @endforeach
                        </tbody>           
@@ -64,18 +81,27 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-        
+          $(window).on('load', function() {
+        console.log('All assets are loaded')
+    })
+   
     function myFunction() {
-      if (confirm('Are you sure you want to your demand list?. Once you submit, you cannot add or delete or update.'))  {
-        var id = document.getElementById("refnumber").value;
-        $.get('/json-submit-supply?ref_number=' + id, function(data){
-          window.location = "/national/";
-        });
+      var refNo = document.getElementById("refnumber").value;
+      $.get('/json-ca-product-exist?refNo=' + refNo, function(data){
+        if(data == null || data ==''){
+            alert('Unsuccessful: To submit the demand you need at least one or more product!');
+        } else {
+            //show some type of message to the user
+            if (confirm('Are you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
+              var id = document.getElementById("refnumber").value;
+              $.get('/json-submit-supply?ref_number=' + id, function(data){
+                window.location = "/national/";
+              });
+            }
+        }
+      });
       }
-      else {
-          
-      }
-    }
-    
-</script>
+   
+    </script>
+
 @endsection
