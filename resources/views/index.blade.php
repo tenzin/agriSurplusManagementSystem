@@ -25,6 +25,47 @@
           margin-left: auto;
           margin-right: auto;
         }
+        .ol-popup {
+          position: absolute;
+          background-color: white;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+          padding: 15px;
+          border-radius: 10px;
+          border: 1px solid #cccccc;
+          bottom: 12px;
+          left: -50px;
+          min-width: 280px;
+          }
+          .ol-popup:after, .ol-popup:before {
+          top: 100%;
+          border: solid transparent;
+          content: " ";
+          height: 0;
+          width: 0;
+          position: absolute;
+          pointer-events: none;
+          }
+          .ol-popup:after {
+          border-top-color: white;
+          border-width: 10px;
+          left: 48px;
+          margin-left: -10px;
+          }
+          .ol-popup:before {
+          border-top-color: #cccccc;
+          border-width: 11px;
+          left: 48px;
+          margin-left: -11px;
+          }
+          .ol-popup-closer {
+          text-decoration: none;
+          position: absolute;
+          top: 2px;
+          right: 8px;
+          }
+          .ol-popup-closer:after {
+          content: "x";
+          }
       </style>
    </head>
    <body class="size-1140">
@@ -56,6 +97,10 @@
       <section>
         <!-- Map Block -->
          <div id="map" class="map"></div>
+         <div id="popup" class="ol-popup">
+           <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+           <div id="popup-content"></div>
+         </div>
          <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
          <script type="text/javascript">
           var map = new ol.Map({
@@ -70,6 +115,83 @@
                   zoom: 8.89
               })
           });
+
+          var gewog_name = ['Chokhor', 'Ura', 'Tang', 'Chhume'];
+          var long = [90.71112766300, 90.91560670800, 90.87104712900, 90.69937767200];
+          var lat = [27.60460129980, 27.48790712980, 27.57078822880, 27.49359672880];
+          var pointerFeatures = [];
+
+          gewog_name.forEach(createFeatures);
+          function createFeatures(value, index, array) {
+            feature = new ol.Feature({
+              geometry: new ol.geom.Point(ol.proj.fromLonLat([long[index],lat[index]])),
+              ID: gewog_name[index],
+              gewog_name: 'Gewog: ' + gewog_name[index]
+            });
+            console.log(feature.get('gewog_name'));
+            pointerFeatures.push(feature);
+          }
+
+          // create the marker stylesheet
+          var iconStyle = new ol.style.Style({
+            image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+              anchor: [0.5, 46],
+              anchorXUnits: 'fraction',
+              anchorYUnits: 'pixels',
+              //opacity: 0.75,
+              src: '../../images/extension.png'
+            }))
+          });
+
+          var layer = new ol.layer.Vector({
+            source: new ol.source.Vector({
+              features: pointerFeatures,
+            }),
+            style: iconStyle
+          });
+
+        map.addLayer(layer);
+
+        layer.getSource().forEachFeature(test_on_console);
+        function test_on_console(feature) {
+          console.log(feature.get('gewog_name'));
+        }
+
+        //trypopup
+        //var container = document.getElementById('popup');
+
+        var container = document.getElementById('popup');
+        var content = document.getElementById('popup-content');
+        var closer = document.getElementById('popup-closer');
+
+
+        var overlay = new ol.Overlay({
+          element: container
+        });
+        map.addOverlay(overlay);
+
+        map.on('click', function(event) {
+          map.forEachFeatureAtPixel(event.pixel, function(feature,layer) {
+            var coordinate = event.coordinate;
+          //  var content = document.getElementById('popup');
+          //  content.innerHTML = '<p>Position:'+coordinate+'</p><code>' +feature.get('ID') + '</code>';
+          //content = '<p>Position:'+coordinate+'</p><code>' +feature.get('ID') + '</code>';
+          content.innerHTML= '<p>Gewog: '+feature.get('ID')+ '<br> Surplus: </p>' ;
+          overlay.setPosition(coordinate);
+              // console.log("ID: " + feature.get('ID'));
+              // alert("You clicked on " + feature.get('ID'));
+
+            });
+        });
+
+        closer.onclick = function() {
+          overlay.setPosition(undefined);
+          closer.blur();
+          return false;
+        };
+
+        //end trypopup
+
         </script>
 
          <!-- FIRST BLOCK -->
