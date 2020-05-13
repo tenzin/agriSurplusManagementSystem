@@ -29,7 +29,15 @@ class DashboardController extends Controller
      public function national(){
       // $products = Product::all();
       //   return view('dashboard.nationaldashboard',compact('products'));
-        return view('dashboard.nationaldashboard');
+      return view('dashboard.nationaldashboard');
+      //   $surplus = DB::table('tbl_ex_surplus')
+      //           ->where('refNumber', '=', $nextNumber)
+      //           ->select('tbl_ex_surplus.product_id','')
+      //           ->get();
+      //   $count = DB::table('tbl_ex_surplus')
+      //           ->where('refNumber', '=', $nextNumber)
+      //           ->count();
+      //    return view('dashboard.nationaldashboard','count');
 
      }
 }

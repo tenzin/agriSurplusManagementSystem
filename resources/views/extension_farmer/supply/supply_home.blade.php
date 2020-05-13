@@ -5,7 +5,7 @@
 
 <section class="content">
       {{-- <div class="card card-info"> --}}
-        <h1 class="text-center mt-1 mb-1 alert aqua">Surplus Information Details</h1>
+        <h1 class="text-center mt-1 mb-1 alert aqua">Surplus List(Submitted)</h1>
          {{-- <div class="card-header">
             <h3 class="card-title">Surplus Details</h3>
          </div> --}}
@@ -14,14 +14,14 @@
         <thead>
           <tr>
             <th>Sl. no</th>
-            <th>Product</th>
             <th>Product Type</th>
+            <th>Product</th>
             <th>Quantity</th>
             <th>Farm gate Price</th>
-            <th>Tentitive Pickup Date</th>
             <th>Harvest Date</th>
-            <th>Remarks</th>
+            <th>Tentitive Pickup Date</th>
             <th>Status</th>
+            <th>Remarks</th>
             <th>Actions</th>
           </tr>
         </thead> 
@@ -33,11 +33,17 @@
              <td>{{$row->product->productType->type}}</td>
              <td>{{$row->quantity.' '.$row->unit->unit}}</td>
              <td>Nu. {{$row->price}}</td>
-             <td>{{$row->tentativePickupDate}}</td>
              <td>{{$row->harvestDate}}</td>
-             <td>{{$row->remarks}}</td>
+             <td>{{$row->tentativePickupDate}}</td>
              <td>{{$row->status}}</td>
-             <td></td>
+             <td>{{$row->remarks}}</td>
+             <td> <a href="{{route('surplus-view-detail',$row['id'])}}">
+                <i class="fa fa-eye" aria-hidden="true"></i>View</a>
+                &nbsp;
+
+                <a href="{{route('edit-submitted',$row['id'])}}">
+                <i class="fa fa-edit" aria-hidden="true"></i>Edit</a>
+             </td>
            
           </tr>
           @endforeach

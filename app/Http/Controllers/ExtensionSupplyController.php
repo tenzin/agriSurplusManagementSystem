@@ -32,6 +32,21 @@ class ExtensionSupplyController extends Controller
             ->get();
         return response()->json($product);
     }
+    public function surplus_exists(){
+        $id = $this->request->input('refNo');
+        $data=DB::table('tbl_ex_surplus')
+            ->where('refNumber', '=', $id)
+            ->get();
+        if ($data->isEmpty()) {
+            return null;
+         } else {
+            return response()->json($id);
+         }
+        
+        // $data = DB::table('demands')
+        //     ->where('refNumber','=', $id)->get('refNmuber');
+        // return response()->json($data);
+    }
 
     public function ex_expiryday(){
 
@@ -59,7 +74,6 @@ class ExtensionSupplyController extends Controller
 
     public function ex_store_transaction(Request $request){
 
-        // dd('sdgfs');
         $user = auth()->user();
         $date = date('Ym');
         $type = "S"; //Transaction type D: Demand; S: Supply
@@ -146,7 +160,40 @@ class ExtensionSupplyController extends Controller
         $data->save();
         return redirect('/ex_supply_temp')->with('nextNumber');
     }
+//show 
+public function show_submit()
+{
+    $user = auth()->user();
+    $date = date('Ym');
+    $type = "S"; //Transaction type D: Demand; S: Supply
+    $refno = $type.$date;
 
+    //--------Check transaction not submitted
+    $checkno = DB::table('transactions')
+        ->where('user_id', '=' , $user->id)
+        ->where('status', '=', 'S')
+        ->where('type', '=', 'S')
+        ->get();
+        foreach($checkno as $data){
+            $ref = array(
+                $data->refNumber,
+            );
+        }
+    $surplus = DB::table('tbl_ex_surplus')
+            ->where('transactions.user_id', '=', $user->id)
+            ->where('transactions.status', '=', 'S')
+            ->where('transactions.type', '=', 'D')
+            ->join('transactions','tbl_ex_surplus.refNumber', '=', 'transactions.refNumber')
+            ->join('tbl_product_types','tbl_ex_surplus.productType_id', '=', 'tbl_product_types.id')
+            ->join('tbl_products','tbl_ex_surplus.product_id', '=', 'tbl_products.id')
+            ->join('tbl_units','tbl_ex_surplus.unit_id', '=', 'tbl_units.id')
+            ->select('tbl_ex_surplus.refNumber','tbl_ex_surplus.quantity','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
+            'tbl_ex_surplus.id', 'tbl_units.unit', 'tbl_ex_surplus.tentativeRequiredDate',)
+            ->get();
+    Session::put('View_status', 'VS');
+    return view('extension_farmer.supply.view')->with('tbl_ex_surplus',$surplus)
+                            ->with('msg','Submitted Product List.');
+}
     
     public function ex_supply_temp()
     {
@@ -218,7 +265,10 @@ class ExtensionSupplyController extends Controller
         $data->status = 'A';
         $data->remarks = $request->input('remarks');
         $data->save();
-        return redirect('surplus-view')->with('msg','Saved successfully!!');
+        if(session('View_status')=='V'){
+            return redirect('surplus-view')->with('msg','Saved successfully!!');
+        }else
+        return redirect('/ex_supply_temp')->with('msg','Saved successfully!!');
     }
 
 
@@ -261,6 +311,64 @@ class ExtensionSupplyController extends Controller
     {
         $product = EXSurplus::with('product','unit')->where('gewog_id', Auth::user()->gewog_id)->latest()->get();
         return view('extension_farmer.supply.supply_home',compact('product'));
+    }
+
+    //view individual
+    public function ex_view_detail($id){
+
+        $row = EXSurplus::find($id);
+        return view('extension_farmer.supply.surplusview', compact('row'));
+    }
+
+    public function edit_submitted($id)
+    {      
+        $demand = DB::table('tbl_ex_surplus')
+              //->where('demands.id', '=', $id)
+                ->where('tbl_ex_surplus.id','=', $id)
+                ->get(); 
+                //return $demand; 
+        $product_type=DB::table('tbl_product_types')->get();
+        $unit=DB::table('tbl_units')->get();
+        $product=DB::table('tbl_products')->get();
+        //return $unit;
+        return view('extension_farmer.supply.edit-submitted')->with('products',$product_type)
+                                ->with('units',$unit)
+                                ->with('demands',$demand)
+                                ->with('produce',$product);
+    }
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $this->validate($request,[
+            'product' =>'required',
+            'producttype' =>'required',
+            'price' =>'required',
+            'unit' =>'required',
+            'date' =>'required'
+
+        ]);
+        $data = Demand::find($id);
+        $data->productType_id = $request->input('producttype');
+        $data->product_id = $request->input('product');
+        $data->quantity = $request->input('quantity');
+        $data->unit_id = $request->input('unit');
+        $data->tentativeRequiredDate = $request->input('date');
+        $data->price = $request->input('price');
+        $data->status = 'A';
+        $data->remarks = $request->input('remarks');
+        $data->save();
+        if(session('View_status')=='V'){
+            return redirect('/demand/show')->with('msg','Saved successfully!!');
+        } else {
+            return redirect('/demand_temp')->with('msg','Saved successfully!!');
+        }
+        
     }
 
 
