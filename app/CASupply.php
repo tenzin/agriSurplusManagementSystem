@@ -10,7 +10,7 @@ class CASupply extends Model
     protected $table = 'tbl_cssupply';
     protected $primaryKey = 'id';
     protected $fillable= ['refNumber','productType_id','product_id','quantity','unit_id','tentativePickupDate','price','status','remarks','harvestDate'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function product()
    {

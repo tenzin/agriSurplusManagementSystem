@@ -10,7 +10,7 @@ class Demand extends Model
     protected $table = 'tbl_demands';
     protected $primaryKey = 'id';
     protected $fillable= ['refNumber','productType_id','product_id','quantity','unit_id','tentativeRequiredDate','price','status','remarks'];
-    public $timestamps = false;
+    public $timestamps = true;
 
     public function productType()
    {

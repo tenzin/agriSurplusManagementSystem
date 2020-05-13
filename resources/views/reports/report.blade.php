@@ -4,7 +4,7 @@
 
     <!-- Content Header (Page header) -->
     <div class="content-header">
-          <form class="form-horizontal" method="POST" action = "/reports">
+          <form class="form-horizontal" method="POST" action = "{{route('report-details')}}">
             @csrf
           <div class="card card-info">
                   <div class="card-header">
@@ -47,8 +47,8 @@
                   <div class="col-md-2">
                     <select name="report_type" id="report_type" required>
                       <option value="">Select type</option>
-                      <option value="supply">Supply</option>
-                      <option value="demand">Demand</option>
+                      <option value="Surplus">Surplus</option>
+                      <option value="Demand">Demand</option>
                     </select>
                   </div>
 
@@ -69,11 +69,11 @@
 
                 <div class="row">
                     <div class="col-sm-2 text-right">
-                       <label for="product_type_id">Product Type:<font color="red">*</font></label>
+                       <label for="product_type_id">Product Type:</label>
                     </div>
                     <div class="col-md-4">
                         <select  name="product_type" id="product_type_id" class="form-control select2bs4">
-                            <option value="0">All</option>
+                            <option value="">All</option>
                             @foreach($ptypes as $ptype)
                             <option value="{{ $ptype->id }}">{{$ptype->type}}</option>
                             @endforeach
@@ -83,7 +83,7 @@
                        <label for="product">Product:</label>
                     </div>   
                     <div class="col-md-4">
-                        <select class="custom-select d-block w-100" id="product" name="product" required>
+                        <select class="custom-select d-block w-100" id="product" name="product">
                             <option value="">All</option>
                         </select>
                     </div>  
@@ -100,7 +100,7 @@
 
               <div class="col-md-4">    
                   <select class="form-control select2bs4" id="dzongkhag" name="dzongkhag">
-                     <option value="0">All</option>
+                     <option value="">All</option>
                      @foreach($dzongkhags as $row)
                          <option value="{{$row->id}}">{{$row->dzongkhag}}</option>
                      @endforeach
@@ -113,7 +113,7 @@
 
               <div class="col-md-4"> 
                   <select class="form-control select2bs4" id="gewog" name="gewog">
-                     <option value="0">All</option>
+                     <option value="">All</option>
                    </select>
                </div>
               
@@ -126,42 +126,7 @@
                     <button type="submit" class="btn btn-primary float-right ">Search</button>
                   </div>
           </div>
-        </form>
-            <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title"> ....  List</h3>
-                </div>
-                <div class="card-body">
-                      <table id="example3" class="display table table-bordered">
-                        <thead>                  
-                            <tr>
-                                <th>Sl. No.</th>
-                                <th>Type</th>
-                                <th>Product</th>
-                                <th>Quantity(unit)</th>
-                                <th>Expected Prize(Nu.)</th>
-                                <th>Gewog</th>
-                                <th>Dzongkhag</th>
-                                <th>Date</th>
-                              </tr>
-                        </thead>
-                        <tbody>
-                           @foreach($details as $report)
-                            <tr>
-                              <td>{{$loop->iteration}}</td>
-                              <td>{{$report->productType->type}}</td> 
-                              <td>{{$report->product->product}}</td> 
-                              <td>{{$report->quantity}} {{$report->unit->unit}}</td> 
-                              <td>{{$report->price}}</td> 
-                              <td>{{$report->transaction->gewog->gewog}}</td>
-                              <td>{{$report->transaction->dzongkhag->dzongkhag}}</td>
-                              <td>{{$report->created_at}}</td>                   
-                            </tr>
-                           @endforeach 
-                        </tbody>
-                      </table>
-                </div>
-            </div>
+        </form>            
                  
     </div>
 
@@ -179,7 +144,7 @@
             $.get('/json-product_type?product_type=' + id, function(data){
                 console.log(data);
                 $('#product').empty();
-                $('#product').append('<option value="0">All</option>');
+                $('#product').append('<option value="">All</option>');
                 $.each(data, function(index, ageproductObj){
                     $('#product').append('<option value="'+ ageproductObj.id +'">'+ ageproductObj.product + '</option>');
                 })
@@ -193,7 +158,7 @@
             $.get('/json-dzongkhag?dzongkhag=' + dzid, function(data){
                 console.log(data);
                 $('#gewog').empty();
-                $('#gewog').append('<option value="0">All</option>');
+                $('#gewog').append('<option value="">All</option>');
                 $.each(data, function(index, gewogObj){
                     $('#gewog').append('<option value="'+ gewogObj.id +'">'+ gewogObj.gewog + '</option>');
                 })
@@ -204,47 +169,4 @@
 
 </script>
     
-@endsection
-@section('custom_scripts')
-  @include('Layouts.addscripts')
-  <script>
-  $(document).ready( function () 
-  {
-    $("#example3").DataTable({
-        dom: 'B<"clear">lfrtip',
-        //buttons: [ 'copy','print','excel','pdf']
-        buttons: [
-            {
-                  extend: 'copy',
-                  title:'Product List',
-                  exportOptions: {
-                    columns: [0, 1, 2]
-                }
-            },           
-            {
-                  extend: 'print',
-                  exportOptions: {
-                    columns: [0, 1, 2]
-                }
-              },
-            {
-                  extend: 'excelHtml5',
-                  title: 'Data export',
-                  exportOptions: {
-                    columns: [0, 1, 2]
-                }
-              },
-              {
-                  extend: 'pdfHtml5',
-                  title: 'Data export',
-                  exportOptions: {
-                    columns: [ 0, 1, 2]
-                }
-              }
-          ]
-    });
-
-  });
-
-</script>     
 @endsection

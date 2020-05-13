@@ -183,7 +183,7 @@ class CADemandController extends Controller
                 ->join('tbl_products','tbl_demands.product_id', '=', 'tbl_products.id')
                 ->join('tbl_units','tbl_demands.unit_id', '=', 'tbl_units.id')
                 ->select('tbl_demands.quantity','tbl_product_types.type','tbl_products.product', 'tbl_demands.price',
-                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate',)
+                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate')
                 ->paginate(15);
         Session::put('View_status', 'V');
         return view('ca_nvsc.demand.view')->with('demand',$demand)
@@ -230,7 +230,7 @@ class CADemandController extends Controller
                 ->join('tbl_products','tbl_demands.product_id', '=', 'tbl_products.id')
                 ->join('tbl_units','tbl_demands.unit_id', '=', 'tbl_units.id')
                 ->select('tbl_demands.quantity','tbl_product_types.type','tbl_products.product', 'tbl_demands.price',
-                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate',)
+                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate')
                 ->paginate(15);
         Session::put('View_status', 'V');
         return view('ca_nvsc.demand.view')->with('demands',$demand)
@@ -405,7 +405,7 @@ class CADemandController extends Controller
                 ->join('tbl_products','tbl_demands.product_id', '=', 'tbl_products.id')
                 ->join('tbl_units','tbl_demands.unit_id', '=', 'tbl_units.id')
                 ->select('tbl_demands.refNumber','tbl_demands.quantity','tbl_product_types.type','tbl_products.product', 'tbl_demands.price',
-                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate',)
+                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate')
                 ->get();
         Session::put('View_status', 'VS');
         return view('ca_nvsc.demand.view-submitted')->with('demands',$demand)

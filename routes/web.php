@@ -201,7 +201,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
 
         //Reports.
         Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
-        Route::post('reports',['as'=>'reports', 'uses'=>'ReportController@search']);
+        Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
 
 
         //Contact US
