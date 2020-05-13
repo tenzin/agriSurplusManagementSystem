@@ -216,6 +216,7 @@ class CADemandController extends Controller
         $user = auth()->user();
         $data = DB::table('tbl_transactions')
                 ->where('user_id', '=', $user->id)
+                ->where('type', '=', 'D')
                 ->where('status', '=', 'E')
                 ->orderBy('submittedDate','DESC')
                 ->paginate(15);
@@ -394,6 +395,7 @@ class CADemandController extends Controller
                 ->where('tbl_transactions.user_id', '=', $user->id)
                 ->where('tbl_transactions.status', '=', 'S')
                 ->where('tbl_transactions.type', '=', 'D')
+                ->where('tbl_demands.quantity', '>', 0)
                 ->where('tbl_demands.dzongkhag_id', '=', $user->dzongkhag_id)
                 ->join('tbl_transactions','tbl_demands.refNumber', '=', 'tbl_transactions.refNumber')
                 ->join('tbl_product_types','tbl_demands.productType_id', '=', 'tbl_product_types.id')

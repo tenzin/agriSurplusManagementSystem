@@ -15,4 +15,9 @@
 15,aggregator_search_surplus,Search Surplus-Aggregator
 16,aggregator_view_search_surplus,View Search Information-Aggregator
 17,master_data,View Master Data
-18,aggregator_demand_history,Demand History
+18,aggregator_demand_history,Demand History-Aggregator
+19,aggregator_supply_history,Supply History-Aggregator
+20,aggregator_view_surplus_details,ViewSurplus Details-Aggregator
+21,aggregator_edit_surplus_details,Edit Surplus Detail-Aggregator
+22,aggregator_edit_demand_details,Edit Demand Details
+23,aggregator_view_demand_details,View Demand Details

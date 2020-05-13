@@ -62,6 +62,16 @@
 
                 @endcan
 
+                @can('aggregator_supply_history')
+            
+                  <li class="nav-item">
+                    <a href="{{route('supply-history')}}" class="nav-link">
+                    <i class="fas fa-shopping-cart"> </i> &nbsp;
+                      <p> Surplus History</p>
+                    </a>
+                  </li>
+                 @endcan
+
                 @can('aggregator_view_surplus')
                 <li class="nav-item">
                     <a href="{{route('view_surplus_details')}}" class="nav-link">

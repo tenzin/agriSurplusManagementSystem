@@ -224,7 +224,33 @@ class CASurplusController extends Controller
             ]);
         
     }
-    
+
+    public function show($id)
+    {
+        $data = DB::table('tbl_cssupply')
+                ->where('tbl_cssupply.refNumber', '=', $id)
+                ->join('tbl_product_types','tbl_cssupply.productType_id', '=', 'tbl_product_types.id')
+                ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
+                ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
+                ->select('tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
+                'tbl_cssupply.id','tbl_units.unit')
+                ->get();
+        return view('ca_nvsc.surplus.view-history-list')->with('supply',$data);
+    }
+
+    public function show_history()
+    {
+        // dd('dg');
+        $user = auth()->user();
+        $data = DB::table('tbl_transactions')
+                ->where('user_id', '=', $user->id)
+                ->where('type', '=', 'S')
+                ->where('status', '=', 'E')
+                ->orderBy('submittedDate','DESC')
+                ->paginate(15);
+        return view('ca_nvsc.surplus.view-history')->with('supply',$data)
+                                ->with('msg','Your demand history');
+    }
     public function store(Request $request)
     {
         $user = auth()->user();
@@ -375,6 +401,7 @@ class CASurplusController extends Controller
         $checkno = DB::table('tbl_transactions')
             ->where('user_id', '=' , $user->id)
             ->where('status', '=', 'S')
+            ->Where('status', '!=', 'E')
             ->where('type', '=', 'S')
             ->get();
             foreach($checkno as $data){
