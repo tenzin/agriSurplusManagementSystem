@@ -13,8 +13,60 @@
       <link rel="stylesheet" href="css/template-style.css">
       <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
       <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-      <script type="text/javascript" src="js/jquery-ui.min.js"></script>    
-      <script type="text/javascript" src="js/template-scripts.js"></script> 
+      <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+      <script type="text/javascript" src="js/template-scripts.js"></script>
+      <!-- MAP STYLE -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
+      <style>
+        .map {
+          height: 700px;
+          width: 90%;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .ol-popup {
+          position: absolute;
+          background-color: white;
+          box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+          padding: 15px;
+          border-radius: 10px;
+          border: 1px solid #cccccc;
+          bottom: 12px;
+          left: -50px;
+          min-width: 280px;
+          }
+          .ol-popup:after, .ol-popup:before {
+          top: 100%;
+          border: solid transparent;
+          content: " ";
+          height: 0;
+          width: 0;
+          position: absolute;
+          pointer-events: none;
+          }
+          .ol-popup:after {
+          border-top-color: white;
+          border-width: 10px;
+          left: 48px;
+          margin-left: -10px;
+          }
+          .ol-popup:before {
+          border-top-color: #cccccc;
+          border-width: 11px;
+          left: 48px;
+          margin-left: -11px;
+          }
+          .ol-popup-closer {
+          text-decoration: none;
+          position: absolute;
+          top: 2px;
+          right: 8px;
+          }
+          .ol-popup-closer:after {
+          content: "x";
+          }
+      </style>
    </head>
    <body class="size-1140">
   	  <!-- PREMIUM FEATURES BUTTON -->
@@ -22,41 +74,145 @@
       <!-- TOP NAV WITH LOGO -->
       <header>
          <div id="topbar" class="hide-s hide-m">
-              
-         </div> 
+
+         </div>
          <nav>
             <div class="line">
                <div class="s-12 l-2">
-                  <p class="logo">C-SMS</p>
+                  <p class="logo">VMIS</p>
                </div>
                <div class="top-nav s-12 l-10">
-                  
+
                   <ul class="right">
                      <li class="active-item"><a href="#carousel">Home</a></li>
-                     <li><a href="#features">Process</a></li>
-                     <li><a href="#services">Services</a></li>
+                     <!--<li><a href="#features">Process</a></li>
+                     <li><a href="#services">Services</a></li> -->
                      <li><a href="#contact">Contact</a></li>
                      <li><a href="{{url('login')}}">Login</a></li>
                   </ul>
                </div>
             </div>
          </nav>
-      </header>  
+      </header>
       <section>
-         <div id="map-block">  	  
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1247814.3661917313!2d16.569872019090596!3d48.23131953825178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476c8cbf758ecb9f%3A0xddeb1d26bce5eccf!2sGallayova+2150%2F19%2C+841+02+D%C3%BAbravka!5e0!3m2!1ssk!2ssk!4v1440344568394" width="100%" height="450" frameborder="0" style="border:0"></iframe>
+        <!-- Map Block -->
+         <div id="map" class="map"></div>
+         <div id="popup" class="ol-popup">
+           <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+           <div id="popup-content"></div>
          </div>
+         <div>
+           <label for="selector">Map Layers:</label>
+           <select id="selector" onchange="changeLayer(value)">
+             <option disabled selected value> -- select an option -- </option>
+             <option value="Gewogs">Gewogs</option>
+             <option value="CAs">Commercial Aggregators</option>
+           </select>
+         </div>
+         <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
+         <script type="text/javascript">
+          var map = new ol.Map({
+              target: 'map',
+              layers: [
+                  new ol.layer.Tile({
+                  source: new ol.source.OSM()
+                })
+              ],
+              view: new ol.View({
+                  center: ol.proj.fromLonLat([90.46,27.60]),
+                  zoom: 8.80
+              })
+          });
+
+          var gewog_name = ['Chokhor', 'Ura', 'Tang', 'Chhume'];
+          var long = [90.71112766300, 90.91560670800, 90.87104712900, 90.69937767200];
+          var lat = [27.60460129980, 27.48790712980, 27.57078822880, 27.49359672880];
+          var pointerFeatures = [];
+
+          gewog_name.forEach(createFeatures);
+          function createFeatures(value, index, array) {
+            feature = new ol.Feature({
+              geometry: new ol.geom.Point(ol.proj.fromLonLat([long[index],lat[index]])),
+              ID: gewog_name[index],
+              gewog_name: 'Gewog: ' + gewog_name[index]
+            });
+            console.log(feature.get('gewog_name'));
+            pointerFeatures.push(feature);
+          }
+
+          // create the marker stylesheet
+          var iconStyle = new ol.style.Style({
+            image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+              anchor: [0.5, 46],
+              anchorXUnits: 'fraction',
+              anchorYUnits: 'pixels',
+              //opacity: 0.75,
+              src: '../../images/extension.png'
+            }))
+          });
+
+          var layer = new ol.layer.Vector({
+            name: 'Gewog',
+            source: new ol.source.Vector({
+              features: pointerFeatures,
+            }),
+            style: iconStyle
+          });
+
+        map.addLayer(layer);
+
+        // layer.getSource().forEachFeature(test_on_console);
+        // function test_on_console(feature) {
+        //   console.log(feature.get('gewog_name'));
+        // }
+
+        //trypopup
+        var container = document.getElementById('popup');
+        var content = document.getElementById('popup-content');
+        var closer = document.getElementById('popup-closer');
+
+        var overlay = new ol.Overlay({
+          element: container
+        });
+        map.addOverlay(overlay);
+        map.on('click', function(event) {
+          map.forEachFeatureAtPixel(event.pixel, function(feature,layer) {
+            var coordinate = event.coordinate;
+          //  var content = document.getElementById('popup');
+          //  content.innerHTML = '<p>Position:'+coordinate+'</p><code>' +feature.get('ID') + '</code>';
+          //content = '<p>Position:'+coordinate+'</p><code>' +feature.get('ID') + '</code>';
+          content.innerHTML= '<p>Gewog: '+feature.get('ID')+ '<br> Surplus: </p>' ;
+          overlay.setPosition(coordinate);
+              // console.log("ID: " + feature.get('ID'));
+              // alert("You clicked on " + feature.get('ID'));
+
+            });
+        });
+        closer.onclick = function() {
+          overlay.setPosition(undefined);
+          closer.blur();
+          return false;
+        };
+
+        //end trypopup
+
+        function changeLayer(value){
+          alert(value);
+        }
+
+        </script>
+
          <!-- FIRST BLOCK -->
-         <div id="first-block">
+         <!-- <div id="first-block">
             <div class="line">
                <h1>What is C-SMS?</h1>
                <p>C-SMS is the Crop-Surplus Management System that will help to mange the surplus and market value to some place that
                    have no crop production</p>
                <div class="s-12 m-4 l-2 center"><a class="white-btn" href="#features">Click the Process</a></div>
             </div>
-         </div>
+         </div> -->
          <!-- FEATURES -->
-         <div id="features">
+         <!-- <div id="features">
             <div class="line">
                <div class="margin">
                   <div class="s-12 m-6 l-3 margin-bottom">
@@ -65,7 +221,7 @@
                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
                   </div>
                   <div class="s-12 m-6 l-3 margin-bottom">
-                  <img src="{{asset('images/surplus.jpg')}}">                    
+                  <img src="{{asset('images/surplus.jpg')}}">
                     <h2>Manage the Surplus</h2>
                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat adipiscing.</p>
                   </div>
@@ -81,9 +237,9 @@
                   </div>
                </div>
             </div>
-         </div>
+         </div> -->
          <!-- SERVICES -->
-         <div id="services">
+         <!-- <div id="services">
             <div class="line">
                <h2 class="section-title">What System do</h2>
                <div class="margin">
@@ -110,8 +266,8 @@
                   </div>
                </div>
             </div>
-         </div>
-         
+         </div> -->
+
          <!-- CONTACT -->
          <div id="contact">
             <div class="line">
@@ -127,7 +283,7 @@
                         <p><strong>Contact:</strong> +975-1745664/02-343457</p>
                         <p><strong>E-mail:</strong> info@tenzi.gmail</p>
                      </address>
-                  </div>               
+                  </div>
                </div>
             </div>
          </div>
@@ -170,15 +326,15 @@
               autoplay: true,
               autoplayTimeout: 4000
             });
-        
+
             // Custom Navigation Events
             $(".next-arrow").click(function() {
                 theme_slider.trigger('next.owl');
             })
             $(".prev-arrow").click(function() {
                 theme_slider.trigger('prev.owl');
-            })     
-        }); 
+            })
+        });
       </script>
    </body>
 </html>

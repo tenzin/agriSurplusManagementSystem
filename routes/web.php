@@ -34,19 +34,31 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       //Extension Supply Information Route
       Route::get('ex-day',['as'=>'ex-day','uses'=>'ExtensionSupplyController@ex_expiryday'])->middleware('can:extension_add_surplus,Auth::user()');
       Route::post('ex-store',['as'=>'ex-store','uses'=>'ExtensionSupplyController@ex_store_transaction']);
+      Route::get('surplus-view',['as'=>'surplus-view','uses'=>'ExtensionSupplyController@ex_store_transaction']);
       Route::post('ex-supply-store',['as'=>'ex-supply-store','uses'=>'ExtensionSupplyController@ex_store']);
       Route::get('ex-supply-edit/{id}',['as'=>'ex-supply-edit','uses'=>'ExtensionSupplyController@ex_edit']);
       Route::post('ex-supply-update/{id}',['as'=>'ex-supply-update','uses'=>'ExtensionSupplyController@ex_update']);
-      Route::get('surplus-view',['as'=>'surplus-view','uses'=>'ExtensionSupplyController@ex_store_transaction']);
       Route::get('/ex_supply_temp', 'ExtensionSupplyController@ex_supply_temp')->name('ex_supply_temp');
       Route::get('surplus-delete/{id}','ExtensionSupplyController@destroy');
+
       Route::get('/json-product_type','ExtensionSupplyController@product_type');
-      Route::get('/ex_supply_view', 'ExtensionSupplyController@ex_supply_view')->name('ex_supply_view');
-      
       Route::get('/json-submit-surplus','ExtensionSupplyController@ex_submit_supply');
+      Route::get('/json-surplus-exist','ExtensionSupplyController@surplus_exists');
 
       //Extension Supply View Surplus Information Route
+      Route::get('/ex_supply_view', 'ExtensionSupplyController@ex_supply_view')->name('ex_supply_view');
+
+      //Extension Supply Submitted View Surplus Information Route
       Route::get('view_supply_details',['as'=>'view_supply_details','uses'=>'ExtensionSupplyController@view_supply_details'])->middleware('can:view_extension_surplus,Auth::user()');
+      Route::get('surplus-view-detail/{id}',['as'=>'surplus-view-detail','uses'=>'ExtensionSupplyController@ex_view_detail'])->middleware('can:extension_view_surplus_details,Auth::user()');
+
+      //Extension Supply Submitted View Surplus Information edit Route
+      Route::get('/editi-submitted/{id}','ExtensionSupplyController@edit_submitted')->name('editi-submitted')->middleware('can:extension_edit_surplus_details,Auth::user()');
+      Route::post('/update-submitted/{id}','ExtensionSupplyController@update_submitted')->name('update-submitted');
+
+      //Extension history Route
+      Route::get('suppli-history',['as'=>'suppli-history','uses'=>'ExtensionSupplyController@show_history'])->middleware('can:extension_supply_history,Auth()::user()');
+      Route::get('showii/{id}','ExtensionSupplyController@ex_show')->name('showii');;
 
       //Extension Under Cultivation
       Route::get('extension_cultivation',['as'=>'extension_cultivation','uses'=>'ExtensionUnderCultiavtionController@extension_cultivation'])->middleware('can:extension_add_under_cultivation,Auth::user()');
@@ -70,10 +82,17 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('/supply_view', 'CASurplusController@ca_supply_view')->name('supply_view');
       Route::get('/json-submit-supply','CASurplusController@submit_ca_suuply');
       Route::get('supply-delete/{id}','CASurplusController@ca_destroy');
+      Route::get('/json-ca-product-exist','CASurplusController@ca_product_exists');
+      Route::get('supply-history','CASurplusController@show_history')->name('supply-history')->middleware('can:aggregator_supply_history,Auth::user()');
+      Route::get('showe/{id}','CASurplusController@show')->name('showe');
 
 
       //Commercial Aggregator Supply View Surplus Information Route
       Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@view_surplus_details'])->middleware('can:aggregator_view_surplus,Auth::user()');
+      Route::get('/edit_submited/{id}','CASurplusController@edit_submitted')->name('edit-submited')->middleware('can:aggregator_edit_surplus_details,Auth::user()');
+      Route::post('update_submited/{id}',['as'=>'update_submited','uses'=>'CASurplusController@update_submitted']);
+      Route::get('view-details/{id}',['as'=>'view-details','uses'=>'CASurplusController@view_detail'])->middleware('can:aggregator_view_surplus_details,Auth::user()');
+      // Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@view_surplus_details'])->middleware('can:aggregator_view_surplus,Auth::user()');
 
       //Commercial Aggregator Demand Surplus Information Route
       Route::get('demand-date',['as'=>'demand-date','uses'=>'CADemandController@expriydate'])->middleware('can:aggregator_demand_surplus,Auth::user()');
@@ -81,9 +100,9 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('demanded-view',['as'=>'demanded-view','uses'=>'CADemandController@store_transcation']);
       Route::post('demand-store',['as'=>'demand-store','uses'=>'CADemandController@store']);
       Route::get('demand-delete/{id}','CADemandController@destroy');
-      Route::get('demand-history','CADemandController@show_history')->name('demand-history');
+      Route::get('demand-history','CADemandController@show_history')->name('demand-history')->middleware('can:aggregator_demand_history,Auth::user()');
       Route::get('demand-edit/{id}',['as'=>'demand-edit','uses'=>'CADemandController@edit']);
-      Route::get('show/{id}','CADemandController@show')->name('show');;
+      Route::get('show/{id}','CADemandController@show')->name('show');
       Route::post('update-store/{id}',['as'=>'update-store','uses'=>'CADemandController@update']);
       Route::get('/demand_temp', 'CADemandController@demand_temp')->name('demand_temp');
       Route::get('/json-product_type','CADemandController@product_type');
@@ -96,11 +115,13 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
 
       // Route::get('/data_show', 'CADemandController@data_show')->name('data_show');
       
-
       //Commercial Aggregator Demand View Surplus Information 
       Route::get('view_surplus_demand_details',['as'=>'view_surplus_demand_details','uses'=>'CADemandController@view_surplus_demand_details'])->middleware('can:aggregator_view_demand_surplus,Auth::user()');
-      Route::get('/edit_submitted/{id}','CADemandController@edit_submitted')->name('edit-submitted');
+      Route::get('/edit_submitted/{id}','CADemandController@edit_submitted')->name('edit-submitted')->middleware('can:aggregator_edit_demand_details,Auth::user()');;
       Route::post('update_submitted/{id}',['as'=>'update_submitted','uses'=>'CADemandController@update_submitted']);
+
+      Route::get('view-detail/{id}',['as'=>'view-detail','uses'=>'CADemandController@view_detail'])->middleware('can:aggregator_view_demand_details,Auth::user()');
+      
 
 
       //scope filter for Commercial Aggregator Route

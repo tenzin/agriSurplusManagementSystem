@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
         <div class="py-2 text-center">
-              <h1>Demand Form </h1>
+              <h1>Surplus Form </h1>
                   <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
                   <p class="lead">Enter Surplus Information.</p>
               <hr>
@@ -193,16 +193,31 @@
       });
       
     });
-
-    function myFunction() {
-      if (confirm('Are you sure you want to your demand list?. Once you submit, you cannot add or delete or update.'))  {
-        var id = document.getElementById("refnumber").value;
-        $.get('/json-submit-supply?ref_number=' + id, function(data){
-          window.location = "/national/";
-        });
-      }
+    // function myFunction() {
+    //   if (confirm('Are you sure you want to your demand list?. Once you submit, you cannot add or delete or update.'))  {
+    //     var id = document.getElementById("refnumber").value;
+    //     $.get('/json-submit-supply?ref_number=' + id, function(data){
+    //       window.location = "/national/";
+    //     });
+    //   }
       
-    }
+    // }
+    function myFunction() {
+      var refNo = document.getElementById("refnumber").value;
+      $.get('/json-ca-product-exist?refNo=' + refNo, function(data){
+        if(data == null || data ==''){
+            alert('Unsuccessful: To submit the demand you need at least one or more product!');
+        } else {
+            //show some type of message to the user
+            if (confirm('Are you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
+              var id = document.getElementById("refnumber").value;
+              $.get('/json-submit-supply?ref_number=' + id, function(data){
+                window.location = "/national/";
+              });
+            }
+        }
+      });
+      }
     function deletFn() {
       if (confirm('Are you sure you want delete permanently?'))  {
         $.ajax({

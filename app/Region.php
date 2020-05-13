@@ -9,5 +9,6 @@ class Region extends Model
     //
     protected $table = 'tbl_regions';
     protected $primaryKey = 'id';
+    protected $fillable= ['region'];
     public $timestamps = false;
 }

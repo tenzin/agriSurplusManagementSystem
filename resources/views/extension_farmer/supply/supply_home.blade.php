@@ -1,54 +1,56 @@
+
 @extends('master')
-
 @section('content')
-{{-- @include('flash-message') --}}
 
-<section class="content">
-      {{-- <div class="card card-info"> --}}
-        <h1 class="text-center mt-1 mb-1 alert aqua">Surplus Information Details</h1>
-         {{-- <div class="card-header">
-            <h3 class="card-title">Surplus Details</h3>
-         </div> --}}
-    <div class="card-body">
-      <table id="example1" class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>Sl. no</th>
-            <th>Product</th>
-            <th>Product Type</th>
-            <th>Quantity</th>
-            <th>Farm gate Price</th>
-            <th>Tentitive Pickup Date</th>
-            <th>Harvest Date</th>
-            <th>Remarks</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead> 
+<div class="container">
+    <h3 class="text-primary text-center">Surplus List (Submitted)</h3>
+    <center><p class="text-muted">{{$msg}}</p></center>
+
+    <table id= "example1" class="table table-bordered table-striped table-sm">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        {{-- <th scope="col">Referance No.</th> --}}
+        <th scope="col">Product Type</th>
+        <th scope="col">Product</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        {{-- <th scope="col">Required Date</th> --}}
+        <th>Action</th>
+        </tr>
+    </thead>
         <tbody>
           @foreach($product as $row)
           <tr>
              <td>{{$loop->iteration}}</td>
-             <td>{{$row->product->product}}</td>
-             <td>{{$row->product->productType->type}}</td>
-             <td>{{$row->quantity.' '.$row->unit->unit}}</td>
+             <td>{{$row->type}}</td>
+             <td>{{$row->product}}</td>
+             <td>{{$row->quantity.' '.$row->unit}}</td>
              <td>Nu. {{$row->price}}</td>
-             <td>{{$row->tentativePickupDate}}</td>
-             <td>{{$row->harvestDate}}</td>
-             <td>{{$row->remarks}}</td>
-             <td>{{$row->status}}</td>
-             <td></td>
-           
-          </tr>
-          @endforeach
+             {{-- <!-- <td>{{$row->harvestDate}}</td> --> --}}
+             {{-- <td>{{$row->tentativePickupDate}}</td> --}}
 
-        </tbody>   
-      </table>
+             <td> 
+                @can('extension_edit_surplus_details') 
+                <a href="{{route('surplus-view-detail',$row->id)}}">
+                <i class="fa fa-eye" aria-hidden="true"></i>View</a>
+                &nbsp;
+                @endcan
+
+                @can('extension_view_surplus_details')
+                <a href="{{route('editi-submitted',$row->id)}}">
+                <i class="fa fa-edit" aria-hidden="true"></i>Edit</a>
+                @endcan
+             </td>  
+             </tr>
+        @endforeach
+    </tbody>
+    </table>
+    <div class="row">
+        <div class="col-12 text-center">
+
+        </div>
     </div>
-</div>  
-</section>
-
-</div>
 </div>
 @endsection
    
