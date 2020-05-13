@@ -2,7 +2,7 @@
 @extends('master')
 @section('content')
 <form method="POST" action = "{{route('ex-supply-store')}}">
-  <input type="hidden" name="refnumber" id="refnumber" value="{{ $refno2}}">
+  <input type="hidden" name="refnumber" id="refnumber" value="{{ $nextNumber}}">
   @csrf
 <div class="container-fluid">
   <div class="row">
@@ -74,7 +74,7 @@
       if (confirm('Are you sure you want to submit your Surplus list?.'))  {
         var id = document.getElementById("refnumber").value;
         $.get('/json-submit-surplus?ref_number=' + id, function(data){
-          window.location = "/view_supply_details";
+          window.location = "/national";
         });
       }
       else {

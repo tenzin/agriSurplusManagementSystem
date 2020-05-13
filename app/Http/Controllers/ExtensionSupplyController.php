@@ -63,13 +63,23 @@ class ExtensionSupplyController extends Controller
             ->where('status', '!=', 'S')
             ->where('type', '=', 'S')
             ->get('refNumber');
-
-            if($checkno->isNotEmpty()){
-                $refno1 = str_replace('[{"refNumber":"','',$checkno);
+            //remove unnecessary character
+            $refno1 = str_replace('[{"refNumber":"','',$checkno);
                 $refno2 = str_replace('"}]','',$refno1);
-                Session::put('NextNumber', $refno2);
-                return redirect('/ex_supply_view');
-            }
+
+                $list = EXSurplus::where('refNumber', '=', $refno2)->first();
+                if($checkno->isNotEmpty() && $list!=''){
+                    
+                    Session::put('NextNumber', $refno2);
+                    return redirect('/ex_supply_view');
+                    
+                }
+            // if($checkno->isNotEmpty()){
+            //     $refno1 = str_replace('[{"refNumber":"','',$checkno);
+            //     $refno2 = str_replace('"}]','',$refno1);
+            //     Session::put('NextNumber', $refno2);
+            //     return redirect('/ex_supply_view');
+            // }
 
         return view('extension_farmer.supply.expiryday');
     }
@@ -138,6 +148,8 @@ class ExtensionSupplyController extends Controller
 
             $product_type= ProductType::all();
             $unit=Unit::all();
+
+            Session::put('View_status', 'A');
     
             return view('extension_farmer.supply.create',compact('nextNumber','product_type','unit'));
     }
@@ -234,7 +246,7 @@ class ExtensionSupplyController extends Controller
         $data->remarks = $request->input('remarks');
         $data->save();
         if(session('View_status')=='V'){
-            return redirect('surplus-view')->with('msg','Saved successfully!!');
+            return redirect('ex_supply_view')->with('msg','Saved successfully!!');
         }else
         return redirect('/ex_supply_temp')->with('msg','Saved successfully!!');
     }
@@ -243,20 +255,46 @@ class ExtensionSupplyController extends Controller
 
     public function ex_supply_view()
     {
+        $user = auth()->user();
+        $date = date('Ym');
+        $type = "S"; //Transaction type D: Demand; S: Supply
         $refno =session('NextNumber');
-        $refno1 = str_replace('[{"refNumber":"','',$refno);
-        $refno2 = str_replace('"}]','',$refno1);
+        //--------Check transaction not submitted
+        $checkno = DB::table('tbl_transactions')
+        ->where('user_id', '=' , $user->id)
+        ->where('status', '!=', 'S')
+        ->where('type', '=', 'S')
+        ->get('refNumber');
+        if($checkno->isNotEmpty()){
+            $refno1 = str_replace('[{"refNumber":"','',$checkno);
+            $refno2 = str_replace('"}]','',$refno1);
+        }
         $supply = DB::table('tbl_ex_surplus')
-                ->where('tbl_ex_surplus.refNumber', '=', $refno2)
-                ->where('tbl_transactions.status', '=', 'A')
-                ->join('tbl_transactions','tbl_transactions.refNumber', '=', 'tbl_ex_surplus.refNumber')
+                ->where('refNumber', '=', $refno2)
                 ->join('tbl_product_types','tbl_ex_surplus.productType_id', '=', 'tbl_product_types.id')
                 ->join('tbl_products','tbl_ex_surplus.product_id', '=', 'tbl_products.id')
                 ->join('tbl_units','tbl_ex_surplus.unit_id', '=', 'tbl_units.id')
-                ->select('tbl_ex_surplus.tentativePickupDate','tbl_ex_surplus.harvestDate','tbl_ex_surplus.price','tbl_ex_surplus.quantity','tbl_product_types.type','tbl_products.product','tbl_units.unit','tbl_ex_surplus.id')
-                ->get();
-                //return $refno;  
-        return view('extension_farmer.supply.view',compact('supply','refno2'))->with('msg','Please Submit Your Surplus Information');
+                ->select('tbl_ex_surplus.quantity','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
+                'tbl_ex_surplus.id', 'tbl_units.unit', 'tbl_ex_surplus.tentativePickupDate','tbl_ex_surplus.harvestDate')
+                ->paginate(15);
+        Session::put('View_status', 'V');
+        return view('extension_farmer.supply.view')->with('supply',$supply)
+                                ->with('nextNumber',$refno2)
+                                ->with('msg','Your demand(s) not submitted');
+        // $refno =session('NextNumber');
+        // $refno1 = str_replace('[{"refNumber":"','',$refno);
+        // $refno2 = str_replace('"}]','',$refno1);
+        // $supply = DB::table('tbl_ex_surplus')
+        //         ->where('tbl_ex_surplus.refNumber', '=', $refno2)
+        //         ->where('tbl_transactions.status', '=', 'A')
+        //         ->join('tbl_transactions','tbl_transactions.refNumber', '=', 'tbl_ex_surplus.refNumber')
+        //         ->join('tbl_product_types','tbl_ex_surplus.productType_id', '=', 'tbl_product_types.id')
+        //         ->join('tbl_products','tbl_ex_surplus.product_id', '=', 'tbl_products.id')
+        //         ->join('tbl_units','tbl_ex_surplus.unit_id', '=', 'tbl_units.id')
+        //         ->select('tbl_ex_surplus.tentativePickupDate','tbl_ex_surplus.harvestDate','tbl_ex_surplus.price','tbl_ex_surplus.quantity','tbl_product_types.type','tbl_products.product','tbl_units.unit','tbl_ex_surplus.id')
+        //         ->get();
+        //         //return $refno;  
+        // return view('extension_farmer.supply.view',compact('supply','refno2'))->with('msg','Please Submit Your Surplus Information');
     }
 
     public function ex_submit_supply()
@@ -278,7 +316,7 @@ class ExtensionSupplyController extends Controller
         $activity= ExSurplus::find($id);
         $activity->delete();
         if(session('View_status')=='V'){
-            return redirect('surplus-view')->with('msg','Deleted successfully!!');
+            return redirect('ex_supply_view')->with('msg','Deleted successfully!!');
         } else {
            return redirect()->back()->with('msg','Deleted successfully!!');
         }
@@ -393,7 +431,7 @@ class ExtensionSupplyController extends Controller
         return view('extension_farmer.supply.supplyhistory')->with('supply',$data)
                                 ->with('msg','Your Surplus history');
     }
-    public function show($id)
+    public function ex_show($id)
     {
         $data = DB::table('tbl_ex_surplus')
                 ->where('tbl_ex_surplus.refNumber', '=', $id)

@@ -50,15 +50,15 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
 
       //Extension Supply Submitted View Surplus Information Route
       Route::get('view_supply_details',['as'=>'view_supply_details','uses'=>'ExtensionSupplyController@view_supply_details'])->middleware('can:view_extension_surplus,Auth::user()');
-      Route::get('surplus-view-detail/{id}',['as'=>'surplus-view-detail','uses'=>'ExtensionSupplyController@ex_view_detail']);
+      Route::get('surplus-view-detail/{id}',['as'=>'surplus-view-detail','uses'=>'ExtensionSupplyController@ex_view_detail'])->middleware('can:extension_view_surplus_details,Auth::user()');
 
       //Extension Supply Submitted View Surplus Information edit Route
-      Route::get('/editi-submitted/{id}','ExtensionSupplyController@edit_submitted')->name('editi-submitted');
+      Route::get('/editi-submitted/{id}','ExtensionSupplyController@edit_submitted')->name('editi-submitted')->middleware('can:extension_edit_surplus_details,Auth::user()');
       Route::post('/update-submitted/{id}','ExtensionSupplyController@update_submitted')->name('update-submitted');
 
       //Extension history Route
-      Route::get('supply-history',['as'=>'supply-history','uses'=>'ExtensionSupplyController@show_history']);
-      Route::get('showi/{id}','ExtensionSupplyController@show')->name('showi');;
+      Route::get('suppli-history',['as'=>'suppli-history','uses'=>'ExtensionSupplyController@show_history'])->middleware('can:extension_supply_history,Auth()::user()');
+      Route::get('showii/{id}','ExtensionSupplyController@ex_show')->name('showii');;
 
       //Extension Under Cultivation
       Route::get('extension_cultivation',['as'=>'extension_cultivation','uses'=>'ExtensionUnderCultiavtionController@extension_cultivation'])->middleware('can:extension_add_under_cultivation,Auth::user()');

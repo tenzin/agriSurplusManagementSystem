@@ -36,7 +36,7 @@
                         @foreach($supply as $row)
                         <tr>
                         <th scope="row">{{$loop->index+1}}</th>
-                        <td><a href="{{route('showi',$row->refNumber)}}">
+                        <td><a href="{{route('showii',$row->refNumber)}}">
                         <i class="fas fa-eye"></i>
                           {{$row->refNumber}}
                         </td>

@@ -177,12 +177,14 @@
             </li>
           @endcan
           <li class="nav-item">
-                <a href="{{route('supply-history')}}" class="nav-link">
-                  <i class="nav-icon far fa-calendar-alt"></i>
+            @can('extension_supply_history')
+                <a href="{{route('suppli-history')}}" class="nav-link">
+                  <i class="fas fa-shopping-cart"></i>
                   <p>Supply Surplus History </p>
                 </a>
               </li>
             </li>
+            @endcan
 
         @can('extension_add_under_cultivation') 
             <li class="nav-item">

@@ -27,13 +27,20 @@
              <td>{{$row->product}}</td>
              <td>{{$row->quantity.' '.$row->unit}}</td>
              <td>Nu. {{$row->price}}</td>
-             <!-- <td>{{$row->harvestDate}}</td> -->
-             <td>{{$row->tentativePickupDate}}</td>
-             <td> <a href="{{route('surplus-view-detail',$row->id)}}">
+             {{-- <!-- <td>{{$row->harvestDate}}</td> --> --}}
+             {{-- <td>{{$row->tentativePickupDate}}</td> --}}
+
+             <td> 
+                @can('extension_edit_surplus_details') 
+                <a href="{{route('surplus-view-detail',$row->id)}}">
                 <i class="fa fa-eye" aria-hidden="true"></i>View</a>
                 &nbsp;
+                @endcan
+
+                @can('extension_view_surplus_details')
                 <a href="{{route('editi-submitted',$row->id)}}">
                 <i class="fa fa-edit" aria-hidden="true"></i>Edit</a>
+                @endcan
              </td>  
              </tr>
         @endforeach
