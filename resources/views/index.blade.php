@@ -19,7 +19,7 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
       <style>
         .map {
-          height: 730px;
+          height: 700px;
           width: 90%;
           display: block;
           margin-left: auto;
@@ -85,8 +85,8 @@
 
                   <ul class="right">
                      <li class="active-item"><a href="#carousel">Home</a></li>
-                     <li><a href="#features">Process</a></li>
-                     <li><a href="#services">Services</a></li>
+                     <!--<li><a href="#features">Process</a></li>
+                     <li><a href="#services">Services</a></li> -->
                      <li><a href="#contact">Contact</a></li>
                      <li><a href="{{url('login')}}">Login</a></li>
                   </ul>
@@ -101,6 +101,14 @@
            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
            <div id="popup-content"></div>
          </div>
+         <div>
+           <label for="selector">Map Layers:</label>
+           <select id="selector" onchange="changeLayer(value)">
+             <option disabled selected value> -- select an option -- </option>
+             <option value="Gewogs">Gewogs</option>
+             <option value="CAs">Commercial Aggregators</option>
+           </select>
+         </div>
          <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
          <script type="text/javascript">
           var map = new ol.Map({
@@ -112,7 +120,7 @@
               ],
               view: new ol.View({
                   center: ol.proj.fromLonLat([90.46,27.60]),
-                  zoom: 8.89
+                  zoom: 8.80
               })
           });
 
@@ -144,6 +152,7 @@
           });
 
           var layer = new ol.layer.Vector({
+            name: 'Gewog',
             source: new ol.source.Vector({
               features: pointerFeatures,
             }),
@@ -152,24 +161,20 @@
 
         map.addLayer(layer);
 
-        layer.getSource().forEachFeature(test_on_console);
-        function test_on_console(feature) {
-          console.log(feature.get('gewog_name'));
-        }
+        // layer.getSource().forEachFeature(test_on_console);
+        // function test_on_console(feature) {
+        //   console.log(feature.get('gewog_name'));
+        // }
 
         //trypopup
-        //var container = document.getElementById('popup');
-
         var container = document.getElementById('popup');
         var content = document.getElementById('popup-content');
         var closer = document.getElementById('popup-closer');
-
 
         var overlay = new ol.Overlay({
           element: container
         });
         map.addOverlay(overlay);
-
         map.on('click', function(event) {
           map.forEachFeatureAtPixel(event.pixel, function(feature,layer) {
             var coordinate = event.coordinate;
@@ -183,7 +188,6 @@
 
             });
         });
-
         closer.onclick = function() {
           overlay.setPosition(undefined);
           closer.blur();
@@ -192,19 +196,23 @@
 
         //end trypopup
 
+        function changeLayer(value){
+          alert(value);
+        }
+
         </script>
 
          <!-- FIRST BLOCK -->
-         <div id="first-block">
+         <!-- <div id="first-block">
             <div class="line">
                <h1>What is C-SMS?</h1>
                <p>C-SMS is the Crop-Surplus Management System that will help to mange the surplus and market value to some place that
                    have no crop production</p>
                <div class="s-12 m-4 l-2 center"><a class="white-btn" href="#features">Click the Process</a></div>
             </div>
-         </div>
+         </div> -->
          <!-- FEATURES -->
-         <div id="features">
+         <!-- <div id="features">
             <div class="line">
                <div class="margin">
                   <div class="s-12 m-6 l-3 margin-bottom">
@@ -229,9 +237,9 @@
                   </div>
                </div>
             </div>
-         </div>
+         </div> -->
          <!-- SERVICES -->
-         <div id="services">
+         <!-- <div id="services">
             <div class="line">
                <h2 class="section-title">What System do</h2>
                <div class="margin">
@@ -258,7 +266,7 @@
                   </div>
                </div>
             </div>
-         </div>
+         </div> -->
 
          <!-- CONTACT -->
          <div id="contact">
