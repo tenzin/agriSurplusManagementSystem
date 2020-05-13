@@ -37,7 +37,7 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!--  Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-      <li class="nav-item has-treeview menu-open">
+      <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
            <p> Aggregator Level</p>
         </a>
@@ -134,7 +134,7 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!--  Add icons to the links using the .nav-icon class
             with font-awesome or any other icon font library -->
-        <li class="nav-item has-treeview ">
+        <li class="nav-item has-treeview menu-open">
           <a href="#" class="nav-link">
             <p>Extension Level</p>
           </a>
@@ -166,6 +166,13 @@
               </li>
             </li>
           @endcan
+          <li class="nav-item">
+                <a href="{{route('supply-history')}}" class="nav-link">
+                  <i class="nav-icon far fa-calendar-alt"></i>
+                  <p>Supply Surplus History </p>
+                </a>
+              </li>
+            </li>
 
         @can('extension_add_under_cultivation') 
             <li class="nav-item">
