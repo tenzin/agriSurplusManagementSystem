@@ -40,7 +40,7 @@
     <div class="row">
         <div class="col-md-6 mb-3">
           <label for="country">Product Type*</label>
-          <select class="custom-select d-block w-100" id="producttype" name="producttype" required>
+          <select class="custom-select d-block w-100" id="producttype" name="producttype" required >
             <option value="">Choose...</option>
             @foreach($products as $producttype)
               <option value="
@@ -54,7 +54,7 @@
         </div>
         <div class="col-md-6 mb-3">
           <label for="state">Product*</label>
-          <select class="custom-select d-block w-100" id="product" name="product" required>
+          <select class="custom-select d-block w-100" id="product" name="product" required aria-readonly="true">
             <option value="">Choose...</option>
             @foreach($produce as $row)
               <option value="
@@ -145,7 +145,7 @@
 </form>
   {{-- {!! Form::close() !!} --}}
 @endsection
-<script src="{{ asset('js/app.js') }}"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">

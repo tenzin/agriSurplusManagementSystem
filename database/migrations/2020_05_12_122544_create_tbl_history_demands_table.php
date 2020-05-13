@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTblDemandsTable extends Migration
+class CreateTblHistoryDemandsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTblDemandsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tbl_demands', function (Blueprint $table) {
+        Schema::create('tbl_history_demands', function (Blueprint $table) {
             $table->id();
             $table->string('refNumber', 12);
             $table->foreignId('productType_id')->constrained()->references('id')->on('tbl_product_types')->onDelete('cascade');
@@ -36,6 +36,6 @@ class CreateTblDemandsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tbl_demands');
+        Schema::dropIfExists('tbl_history_demands');
     }
 }
