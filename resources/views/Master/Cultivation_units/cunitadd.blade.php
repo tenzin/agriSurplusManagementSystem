@@ -42,7 +42,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label for="cunit">Cultivation Unit:<font color="red">*</font></label>
-              <input id="cunit" type="text" class="form-control" name="cunit" maxlength="50" placeholder="Enter unit..."/>
+              <input id="cunit" type="text" class="form-control" name="cunit" maxlength="50" placeholder="Enter unit..." required/>
             </div>                
           </div>
       </div>

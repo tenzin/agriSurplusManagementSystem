@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
-
-
 use Illuminate\Http\Request;
 use App\Role;
 use App\Permission;
@@ -16,12 +14,12 @@ use App\Gewog;
 
 class AccessControlListController extends Controller
 {
-        public function __construct()
-        {
+        public function __construct(Request $request)
+        {  
+          $this->request = $request;
             $this->middleware('auth');
         }
-        
-       
+          
 //Role 
         public function indexRole(){
 
@@ -145,9 +143,10 @@ class AccessControlListController extends Controller
         $users = User::all();
         return view('acl.user.users', compact('users'));
     }
-    public function userView(){
-        $users = User::all();
-        return view('acl.user.userview', compact('users'));
+    public function userView($id){
+
+        $user = User::find($id);
+        return view('acl.user.userview', compact('user'));
     }
 
     public function add(){
@@ -241,5 +240,14 @@ class AccessControlListController extends Controller
             return redirect('user-reset')->with("success","Password Reset Successfully!");
           }
 
+          public function dzongkhag(){
+
+            $id = $this->request->input('dzongkhag');
+            $gewog=DB::table('tbl_gewogs')
+                ->where('dzongkhag_id', '=', $id)
+                ->get();
+            return response()->json($gewog);
+        }
+    
 //end
 }

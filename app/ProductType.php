@@ -10,4 +10,6 @@ class ProductType extends Model
     protected $primaryKey = 'id';
     protected $fillable= ['type'];
     public $timestamps = false;
+
+    
 }
