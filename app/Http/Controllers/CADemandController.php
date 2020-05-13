@@ -30,6 +30,20 @@ class CADemandController extends Controller
         return response()->json($product);
     }
 
+    public function product_exists()
+    {
+        $id = $this->request->input('refNo');
+        $data=DB::table('tbl_demands')
+            ->where('refNumber', '=', $id)
+            ->get();
+        if ($data->isEmpty()) {
+            return null;
+         } else {
+            return response()->json($id);
+         }
+    }
+
+
     public function expriydate(){
 
         $user = auth()->user();
@@ -42,15 +56,19 @@ class CADemandController extends Controller
         ->where('user_id', '=' , $user->id)
         // ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
         ->where('status', '!=', 'S')
+        ->Where('status', '!=', 'E')
         ->where('type', '=', 'D')
         ->get('refNumber');
+        //remove unnecessary character
+        $refno1 = str_replace('[{"refNumber":"','',$checkno);
+        $refno2 = str_replace('"}]','',$refno1);
 
-        if($checkno->isNotEmpty()){
-            $refno1 = str_replace('[{"refNumber":"','',$checkno);
-            $refno2 = str_replace('"}]','',$refno1);
+        $list = Demand::where('refNumber', '=', $refno2)->first();
+        if($checkno->isNotEmpty() && $list!=''){
+            
             Session::put('NextNumber', $refno2);
             return redirect('/demand_view');
-            // return $this->demand_temp();
+            
         }
 
         return view('ca_nvsc.demand.expirydate');
@@ -68,6 +86,7 @@ class CADemandController extends Controller
         ->where('user_id', '=' , $user->id)
         // ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
         ->where('status', '!=', 'S')
+        ->Where('status', '!=', 'E')
         ->where('type', '=', 'D')
         ->get('refNumber');
 
@@ -111,13 +130,14 @@ class CADemandController extends Controller
             $data->user_id = $user->id;
             $data->dzongkhag_id = $user->dzongkhag_id;
             $data->gewog_id = $user->gewog_id;
-
+            
             $data->save();
 
             $product_type= ProductType::all();
             $unit=Unit::all();
-        
-    return view('ca_nvsc.demand.create',compact('nextNumber','product_type','unit'));
+            Session::put('View_status', 'A');
+
+            return view('ca_nvsc.demand.create',compact('nextNumber','product_type','unit'));
     }
     
     
@@ -137,40 +157,87 @@ class CADemandController extends Controller
         $counts = DB::table('tbl_demands')
                 ->where('refNumber', '=', $nextNumber)
                 ->count();
+
+        Session::put('View_status', 'E');
         return view('ca_nvsc.demand.create',compact('nextNumber','product_type','unit','demands','counts'));
     }
 
 
     public function demand_view()
     {
+        $user = auth()->user();
+        $date = date('Ym');
+        $type = "D"; //Transaction type D: Demand; S: Supply
         $refno =session('NextNumber');
-        $refno1 = str_replace('[{"refNumber":"','',$refno);
-        $refno2 = str_replace('"}]','',$refno1);
+        //--------Check transaction not submitted
+        $checkno = DB::table('tbl_transactions')
+        ->where('user_id', '=' , $user->id)
+        ->where('status', '!=', 'S')
+        ->Where('status', '!=', 'E')
+        ->where('type', '=', 'D')
+        ->get('refNumber');
+        if($checkno->isNotEmpty()){
+            $refno1 = str_replace('[{"refNumber":"','',$checkno);
+            $refno2 = str_replace('"}]','',$refno1);
+        }
         $demand = DB::table('tbl_demands')
                 ->where('refNumber', '=', $refno2)
                 ->join('tbl_product_types','tbl_demands.productType_id', '=', 'tbl_product_types.id')
                 ->join('tbl_products','tbl_demands.product_id', '=', 'tbl_products.id')
                 ->join('tbl_units','tbl_demands.unit_id', '=', 'tbl_units.id')
-                ->select('tbl_demands.tentativeRequiredDate','tbl_demands.price','tbl_demands.quantity','tbl_product_types.type','tbl_products.product','tbl_units.unit','tbl_demands.id')
-                ->get();
-                // dd($demand);
-                //return $refno;  
-        return view('ca_nvsc.demand.view',compact('demand','refno2'))->with('msg','Your demand(s) not submitted');
+                ->select('tbl_demands.quantity','tbl_product_types.type','tbl_products.product', 'tbl_demands.price',
+                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate',)
+                ->paginate(15);
+        Session::put('View_status', 'V');
+        return view('ca_nvsc.demand.view')->with('demand',$demand)
+                                ->with('nextNumber',$refno2)
+                                ->with('msg','Your demand(s) not submitted');
     }
 
     public function submit_demand()
     {
-
+    
         $user = auth()->user();
         $id = $this->request->input('ref_number');
+        $current = Carbon::now();
         DB::table('tbl_transactions')
             ->where('refNumber', $id)
             ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
-            ->update(['status' => 'S']);
+            ->update([
+                'status' => 'S',
+                'submittedDate' => $current
+            ]);
+        
     }
     
+
+    public function show_history()
+    {
+        $user = auth()->user();
+        $data = DB::table('tbl_transactions')
+                ->where('user_id', '=', $user->id)
+                ->where('status', '=', 'E')
+                ->orderBy('submittedDate','DESC')
+                ->paginate(15);
+        return view('ca_nvsc.demand.view-history')->with('demands',$data)
+                                ->with('msg','Your demand history');
+    }
+    public function show($id)
+    {
+        $data = DB::table('tbl_demands')
+                ->where('tbl_demands.refNumber', '=', $id)
+                ->join('tbl_product_types','tbl_demands.productType_id', '=', 'tbl_product_types.id')
+                ->join('tbl_products','tbl_demands.product_id', '=', 'tbl_products.id')
+                ->join('tbl_units','tbl_demands.unit_id', '=', 'tbl_units.id')
+                ->select('tbl_demands.quantity','tbl_product_types.type','tbl_products.product', 'tbl_demands.price',
+                'tbl_demands.id','tbl_units.unit')
+                ->get();
+        return view('ca_nvsc.demand.view-history-list')->with('demands',$data);
+    }
     public function store(Request $request)
     {
+
+        $user = auth()->user();
         $request->session()->put('NextNumber', $request->input('refnumber'));
         
         $data = new Demand;
@@ -183,6 +250,7 @@ class CADemandController extends Controller
         $data->price = $request->input('price');
         $data->status = 'A';
         $data->remarks = $request->input('remarks');
+        $data->dzongkhag_id = $user->dzongkhag_id;
         $data->save();
         return redirect('/demand_temp')->with('nextNumber');
     }
@@ -217,13 +285,23 @@ class CADemandController extends Controller
                                 ->with('produce',$product);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function edit_submitted($id)
+
+    {      
+        $demand = DB::table('tbl_demands')
+                ->where('tbl_demands.id', '=', $id)
+                ->get(); 
+                //return $demand; 
+        $product_type=DB::table('tbl_product_types')->get();
+        $unit=DB::table('tbl_units')->get();
+        $product=DB::table('tbl_products')->get();
+        //return $unit;
+        return view('ca_nvsc.demand.edit-submitted')->with('products',$product_type)
+                                ->with('units',$unit)
+                                ->with('demands',$demand)
+                                ->with('produce',$product);
+    }
+    
     public function update(Request $request)
     {
         // $this->validate($request,[
@@ -245,26 +323,88 @@ class CADemandController extends Controller
         $data->status = 'A';
         $data->remarks = $request->input('remarks');
         $data->save();
-        return redirect('demanded-view')->with('msg','Saved successfully!!');
+        if(session('View_status')=='V'){
+
+            return redirect('/demand_view')->with('msg','Saved successfully!!');
+        } else {
+            return redirect('/demand_temp')->with('msg','Saved successfully!!');
+        }
+        // return redirect('demanded-view')->with('msg','Saved successfully!!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function update_submitted(Request $request, $id)
+    {
+        $qty=floatval($request->input('hqty')) -floatval($request->input('quantity'));
+        if($request->input('status') =='T'){
+            
+            DB::table('tbl_history_demands')->insert([
+                'refNumber' => $request->input('refno'),
+                'productType_id' => $request->input('producttype'),
+                'product_id' => $request->input('product'),
+                'quantity' => $request->input('quantity'),
+                'unit_id' =>$request->input('unit'),
+                'price' => $request->input('price'),
+                'tentativeRequiredDate' => $request->input('date'),
+                'status' => $request->input('status')
+            ]);
+        }
+
+        $data = Demand::find($id);
+        $data->quantity = $qty;
+        $data->unit_id = $request->input('unit');
+        $data->price = $request->input('price');
+        $data->status = $request->input('status');
+        $data->remarks = $request->input('remarks');
+        $data->save();
+        return redirect('view_surplus_demand_details')->with('msg','Saved successfully!!');
+
+        
+    }
+    
     public function destroy($id)
     {
-        $activity= Demand::find($id);
-        $activity->delete();
-        return redirect()->back()->with('msg','Deleted successfully!!');
+        $data= Demand::find($id);
+        $data->delete();
+        if(session('View_status')=='V'){
+            return redirect('/demand_view')->with('msg','Deleted successfully!!');
+        } else {
+            return redirect()->back()->with('msg','Deleted successfully!!');
+        }
     }
 
     public function view_surplus_demand_details()
     {
-        $demand = Demand::with('product','unit')->where('dzongkhag_id', Auth::user()->dzongkhag_id)->latest()->get();
-        return view('ca_nvsc.demand.surplus_demand_home',compact('demand'));
+        $user = auth()->user();
+        $date = date('Ym');
+        $type = "D"; //Transaction type D: Demand; S: Supply
+        $refno = $type.$date;
+        //--------Check transaction not submitted
+        $checkno = DB::table('tbl_transactions')
+            ->where('user_id', '=' , $user->id)
+            ->where('status', '=', 'S')
+            ->Where('status', '!=', 'E')
+            ->where('type', '=', 'D')
+            ->get();
+            foreach($checkno as $data){
+                $ref = array(
+                    $data->refNumber,
+                );
+            }
+        $demand = DB::table('tbl_demands')
+                ->where('tbl_transactions.user_id', '=', $user->id)
+                ->where('tbl_transactions.status', '=', 'S')
+                ->where('tbl_transactions.type', '=', 'D')
+                ->where('tbl_demands.dzongkhag_id', '=', $user->dzongkhag_id)
+                ->join('tbl_transactions','tbl_demands.refNumber', '=', 'tbl_transactions.refNumber')
+                ->join('tbl_product_types','tbl_demands.productType_id', '=', 'tbl_product_types.id')
+                ->join('tbl_products','tbl_demands.product_id', '=', 'tbl_products.id')
+                ->join('tbl_units','tbl_demands.unit_id', '=', 'tbl_units.id')
+                ->select('tbl_demands.refNumber','tbl_demands.quantity','tbl_product_types.type','tbl_products.product', 'tbl_demands.price',
+                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate',)
+                ->get();
+        Session::put('View_status', 'VS');
+        return view('ca_nvsc.demand.view-submitted')->with('demands',$demand)
+                                ->with('msg','Submitted product list.');
     }
 }
 

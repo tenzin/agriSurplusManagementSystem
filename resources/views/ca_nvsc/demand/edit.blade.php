@@ -1,6 +1,11 @@
 @extends('master')
 
 @section('content')
+<style>
+  select[readonly] option, select[readonly] optgroup {
+       display: none;
+   }
+</style>
 <div class="container">
 <div class="py-2 text-center">
   <h1>Demand <i class="fa fa-edit text-primary"></i> </h1>
@@ -40,21 +45,21 @@
     <div class="row">
         <div class="col-md-6 mb-3">
           <label for="country">Product Type*</label>
-          <select class="custom-select d-block w-100" id="producttype" name="producttype" required>
+          <select class="custom-select d-block w-100" id="producttype" name="producttype" required >
             <option value="">Choose...</option>
             @foreach($products as $producttype)
-              <option value="
-                {{$producttype->id}}" {{($individuals->productType_id == $producttype->id) ? 'selected' : '' }}>
+              <option value="{{$producttype->id}}" {{($individuals->productType_id == $producttype->id) ? 'selected' : '' }}>
                 {{$producttype->type}}</option>
             @endforeach
           </select>
+          
           <div class="invalid-feedback">
             Please select a valid country.
           </div>
         </div>
         <div class="col-md-6 mb-3">
           <label for="state">Product*</label>
-          <select class="custom-select d-block w-100" id="product" name="product" required>
+          <select class="custom-select d-block w-100" id="product" name="product" required >
             <option value="">Choose...</option>
             @foreach($produce as $row)
               <option value="
@@ -80,7 +85,7 @@
           <div class="col-md-3 mb-3">
               <label for="unit">Unit*</label>
               <div class="input-group">
-                  <select class="custom-select d-block w-100" id="unit" name="unit" required>
+                  <select class="custom-select d-block w-100" id="unit" name="unit" required >
                   <option value="">Choose...</option>
                   @foreach($units as $row)
                     <option value="
@@ -137,7 +142,7 @@
 </form>
   {{-- {!! Form::close() !!} --}}
 @endsection
-<script src="{{ asset('js/app.js') }}"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
