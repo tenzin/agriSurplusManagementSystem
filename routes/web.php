@@ -70,10 +70,15 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('/supply_view', 'CASurplusController@ca_supply_view')->name('supply_view');
       Route::get('/json-submit-supply','CASurplusController@submit_ca_suuply');
       Route::get('supply-delete/{id}','CASurplusController@ca_destroy');
+      Route::get('/json-ca-product-exist','CASurplusController@ca_product_exists');
 
 
       //Commercial Aggregator Supply View Surplus Information Route
       Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@view_surplus_details'])->middleware('can:aggregator_view_surplus,Auth::user()');
+      Route::get('/edit_submited/{id}','CASurplusController@edit_submitted')->name('edit-submited')->middleware('can:aggregator_edit_surplus_details,Auth::user()');
+      Route::post('update_submited/{id}',['as'=>'update_submited','uses'=>'CASurplusController@update_submitted']);
+      Route::get('view-details/{id}',['as'=>'view-details','uses'=>'CASurplusController@view_detail'])->middleware('can:aggregator_view_surplus_details,Auth::user()');
+      // Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@view_surplus_details'])->middleware('can:aggregator_view_surplus,Auth::user()');
 
       //Commercial Aggregator Demand Surplus Information Route
       Route::get('demand-date',['as'=>'demand-date','uses'=>'CADemandController@expriydate'])->middleware('can:aggregator_demand_surplus,Auth::user()');
@@ -91,11 +96,13 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
 
       // Route::get('/data_show', 'CADemandController@data_show')->name('data_show');
       
-
       //Commercial Aggregator Demand View Surplus Information 
       Route::get('view_surplus_demand_details',['as'=>'view_surplus_demand_details','uses'=>'CADemandController@view_surplus_demand_details'])->middleware('can:aggregator_view_demand_surplus,Auth::user()');
-      Route::get('/edit_submitted/{id}','CADemandController@edit_submitted')->name('edit-submitted');
+      Route::get('/edit_submitted/{id}','CADemandController@edit_submitted')->name('edit-submitted')->middleware('can:aggregator_edit_demand_details,Auth::user()');;
       Route::post('update_submitted/{id}',['as'=>'update_submitted','uses'=>'CADemandController@update_submitted']);
+
+      Route::get('view-detail/{id}',['as'=>'view-detail','uses'=>'CADemandController@view_detail'])->middleware('can:aggregator_view_demand_details,Auth::user()');
+      
 
 
       //scope filter for Commercial Aggregator Route
