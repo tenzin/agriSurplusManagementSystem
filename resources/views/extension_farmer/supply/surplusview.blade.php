@@ -20,7 +20,7 @@
                   <div class="input-group-prepend">
                       <span class="input-group-text">Dzongkhag</span>
                   </div>
-                  <input type="text" class="form-control" name="dzo" id ="dzo" readonly value=>
+                  <input type="text" class="form-control" name="dzo" id ="dzo" readonly value={{$row->dzongkhag->dzongkhag}}>
                 </div>
             </div>
                 <div class="col-md-4 mb-3">
@@ -28,7 +28,7 @@
                   <div class="input-group-prepend">
                       <span class="input-group-text">Gewog</span>
                   </div>
-                  <input type="text" class="form-control" name="gewog" id ="gewog" readonly value={{$row->Gewog['gewog']}}>
+                  <input type="text" class="form-control" name="gewog" id ="gewog" readonly value={{$row->gewog->gewog}}>
                 </div>
             </div>
          </div>
@@ -69,11 +69,20 @@
                  
              </div>
           </div>
-      </div>
+      
         <div class="row">
-          <div class="col-md-12 mb-3">
+           <div class="col-md-4 mb-3">
+              <label>Contact Number</label>
+               @foreach($table as $data)
+               <?php
+                $phone=$data->contact_number;
+                ?>
+               @endforeach
+              <input type="text" class="form-control" name="contact" id ="contact" readonly value={{$phone}}> 
+            </div>
+          <div class="col-md-8 mb-3">
               <label>Remarks</label>
-              <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" id="remarks" readonly value={{$row->remarks}}></textarea>
+              <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" id="remarks" readonly>{{$row->remarks}}></textarea>
                   <div class="invalid-feedback" style="width: 100%;">
                      Remark is required.
                   </div>

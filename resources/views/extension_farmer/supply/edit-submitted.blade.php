@@ -8,12 +8,13 @@
 </style>
 <div class="container">
 <div class="py-2 text-center">
-  <h1>Surplus <i class="fa fa-edit text-primary"> Submitted</i> </h1>
+  <h3>Surplus Submitted <i class="fa fa-edit text-primary"></i> </h3>
   @foreach($demands as $demand)
   <h5>Ref. No: <b>{{$demand->refNumber}}</b></h5>
   <hr>
 </div>
-
+<form method="POST" action="{{route('update-submitted',$demand->id)}}" >
+@csrf
 <div class="row">
   <input type="hidden" id="refno" name="refno" value="{{$demand->refNumber}}"/>
   <div class="col-md-12 order-md-1">
@@ -23,7 +24,7 @@
         <div class="col-md-4 mb-3">
           <label for="country">Product Type*</label>
           <select class="custom-select d-block w-100" id="producttype" name="producttype" >
-            <option value="">Choose...</option>
+            <option readonly value="">Choose...</option>
             @foreach($products as $producttype)
               <option value="
                 {{$producttype->id}}" {{($demand->productType_id == $producttype->id) ? 'selected' : '' }}>
@@ -37,7 +38,7 @@
         <div class="col-md-4 mb-3">
           <label for="state">Product*</label>
           <select class="custom-select d-block w-100" id="product" name="product" >
-            <option value="">Choose...</option>
+            <option readonly value="">Choose...</option>
             @foreach($produce as $row)
               <option value="
                 {{$row->id}}" {{($demand->product_id == $row->id) ? 'selected' : '' }}>
@@ -60,12 +61,14 @@
                   </div>
               </div>
           </div>
+
       </div>
 
       <div class="row">
           <div class="col-md-4 mb-3">
-              <label for="qty">Quantity*</label>
-              <input type="text" value="{{ $demand->quantity}}" class="form-control" name="hqty" id="hqty" required>
+              <label for="qty">Taken Quantity:<font color="red">*</font></label>
+              <input type="hidden" id="hqty" name="hqty" value="{{$demand->quantity}}"/>
+              <input type="text" value="{{ $demand->quantity}}" class="form-control" name="quantity" id="quantity" required>
               <div class="invalid-feedback">
                   Please enter Quantity.
               </div>
@@ -74,7 +77,7 @@
               <label for="unit">Unit*</label>
               <div class="input-group">
                   <select class="custom-select d-block w-100" id="unit" name="unit" required>
-                  <option value="">Choose...</option>
+                  <option readonly value="">Choose...</option>
                   @foreach($units as $row)
                     <option value="
                       {{$row->id}}" {{($demand->unit_id == $row->id) ? 'selected' : '' }}>
@@ -87,7 +90,7 @@
               </div>
           </div>
           <div class="col-md-3 mb-3">
-              <label for="unit">Status*</label>
+              <label for="unit">Status:<font color="red">*</font></label>
               <div class="input-group">
                   <select class="custom-select d-block w-100" id="status" name="status" required>
                     <option value="A" {{($demand->status == 'A') ? 'selected' : '' }}>
@@ -101,15 +104,14 @@
                   Status is required.
                   </div>
               </div>
-          </div>
-          
+          </div>    
       </div>
 
       <div class="row">
           <div class="col-md-12 mb-3">
-              <label for="unit">Remarks</label>
+              <label>Remarks</label>
               <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" 
-              id="remarks" placeholder="If any ....">{{$demand->remarks}}</textarea>
+              id="remarks">{{$demand->remarks}}</textarea>
                   <div class="invalid-feedback" style="width: 100%;">
                   Remarks is required.
                   </div>

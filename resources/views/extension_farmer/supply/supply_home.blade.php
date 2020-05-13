@@ -1,7 +1,6 @@
-@extends('master')
 
+@extends('master')
 @section('content')
-{{-- @include('flash-message') --}}
 
 <section class="content">
       {{-- <div class="card card-info"> --}}
@@ -20,8 +19,6 @@
             <th>Farm gate Price</th>
             <th>Harvest Date</th>
             <th>Tentitive Pickup Date</th>
-            <th>Status</th>
-            <th>Remarks</th>
             <th>Actions</th>
           </tr>
         </thead> 
@@ -29,22 +26,18 @@
           @foreach($product as $row)
           <tr>
              <td>{{$loop->iteration}}</td>
-             <td>{{$row->product->product}}</td>
-             <td>{{$row->product->productType->type}}</td>
-             <td>{{$row->quantity.' '.$row->unit->unit}}</td>
+             <td>{{$row->product}}</td>
+             <td>{{$row->type}}</td>
+             <td>{{$row->quantity.' '.$row->unit}}</td>
              <td>Nu. {{$row->price}}</td>
              <td>{{$row->harvestDate}}</td>
              <td>{{$row->tentativePickupDate}}</td>
-             <td>{{$row->status}}</td>
-             <td>{{$row->remarks}}</td>
-             <td> <a href="{{route('surplus-view-detail',$row['id'])}}">
+             <td> <a href="{{route('surplus-view-detail',$row->id)}}">
                 <i class="fa fa-eye" aria-hidden="true"></i>View</a>
                 &nbsp;
-
-                <a href="{{route('edit-submitted',$row['id'])}}">
+                <a href="{{route('edit-submitted',$row->id)}}">
                 <i class="fa fa-edit" aria-hidden="true"></i>Edit</a>
-             </td>
-           
+             </td>  
           </tr>
           @endforeach
 
