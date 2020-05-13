@@ -125,27 +125,27 @@
                   extend: 'copy',
                   title:'Product List',
                   exportOptions: {
-                    columns: [0, 1, 2]
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7]
                 }
             },           
             {
                   extend: 'print',
                   exportOptions: {
-                    columns: [0, 1, 2]
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7]
                 }
               },
             {
                   extend: 'excelHtml5',
                   title: 'Data export',
                   exportOptions: {
-                    columns: [0, 1, 2]
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7]
                 }
               },
               {
                   extend: 'pdfHtml5',
                   title: 'Data export',
                   exportOptions: {
-                    columns: [ 0, 1, 2]
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7]
                 }
               }
           ]
