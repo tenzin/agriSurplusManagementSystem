@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\ProductType;
 use DB;
 use App\Demand;
+use App\Dzongkhag;
+
 class ReportController extends Controller
 {
     public function __construct(Request $request) {
@@ -18,8 +20,9 @@ class ReportController extends Controller
     {
         $ptypes = ProductType::all();
         $details = Demand::all();
+        $dzongkhags = Dzongkhag::all();
 
-        return view("reports.report",compact("ptypes","details"));
+        return view("reports.report",compact("ptypes","details","dzongkhags"));
     }
 
     //search with parameters.
@@ -27,7 +30,9 @@ class ReportController extends Controller
     {
         $details = Demand::all();
         $ptypes = ProductType::all();
-        return redirect("reports",compact("ptypes","details"));
+        $dzongkhags = Dzongkhag::all();
+
+        return redirect("reports",compact("ptypes","details","dzongkhags"));
 
     }
 }

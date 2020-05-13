@@ -8,7 +8,7 @@
             @csrf
           <div class="card card-info">
                   <div class="card-header">
-                    <h3 class="card-title">View Report</h3>
+                    <h3 class="card-title">Search By:</h3>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                     </div>
@@ -38,33 +38,92 @@
                           </div>
                       </div>
                   @endif
-                    <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label for="product_type_id">Product Type:<font color="red">*</font></label>
-                            <select  name="product_type" id="product_type_id" class="form-control select2bs4">
-                                <option value="0">All</option>
-                                @foreach($ptypes as $ptype)
-                                <option value="{{ $ptype->id }}">{{$ptype->type}}</option>
-                                @endforeach
-                              </select>
-                          </div>                
-                        </div>
-                        <div class="col-md-6 mb-3">
-                    <label for="state">Product<font color="red">*</font></label>
-                    <select class="custom-select d-block w-100" id="product" name="product" required>
-                      <option value="">All</option>
+<!-- supply/demand report and transaction date range. -->
+
+                <div class="row mb-1">
+                  <div class="col-sm-2 text-right">
+                    <label for="report_type">Type:<font color="red">*</font></label>
+                  </div>
+                  <div class="col-md-2">
+                    <select name="report_type" id="report_type" required>
+                      <option value="">Select type</option>
+                      <option value="supply">Supply</option>
+                      <option value="demand">Demand</option>
                     </select>
-                    <div class="invalid-feedback">
-                      Please provide a valid state.
-                    </div>
                   </div>
-                    </div>
+
+                  <div class="col-sm-2 text-right">
+                    <label for="fromdate">From:<font color="red">*</font></label>
                   </div>
+                  <div class="col-md-2">
+                  <input type="date" class="form-control" name="fromdate" id ="fromdate" value="{{ date('Y-m-d') }}" required>
+                  </div>
+                  <div class="col-sm-2 text-right">
+                    <label for="report_type">To:</label>
+                  </div>
+                  <div class="col-md-2">
+                  <input type="date" class="form-control" name="todate" id ="fromdate" value="{{ date('Y-m-d') }}">
+                  </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2 text-right">
+                       <label for="product_type_id">Product Type:<font color="red">*</font></label>
+                    </div>
+                    <div class="col-md-4">
+                        <select  name="product_type" id="product_type_id" class="form-control select2bs4">
+                            <option value="0">All</option>
+                            @foreach($ptypes as $ptype)
+                            <option value="{{ $ptype->id }}">{{$ptype->type}}</option>
+                            @endforeach
+                        </select>                               
+                    </div>
+                    <div class="col-sm-2 text-right">
+                       <label for="product">Product:</label>
+                    </div>   
+                    <div class="col-md-4">
+                        <select class="custom-select d-block w-100" id="product" name="product" required>
+                            <option value="">All</option>
+                        </select>
+                    </div>  
+                          <div class="invalid-feedback">
+                            Please provide a valid input.
+                          </div>                    
+                </div>
+
+                  <!-- Selection of Dzongkhag and Gewog. -->
+            <div class="row mt-2">
+              <div class="col-sm-2 text-right">
+                  <label for="dzongkhag">Dzongkhag:</label>
+              </div>
+
+              <div class="col-md-4">    
+                  <select class="form-control select2bs4" id="dzongkhag" name="dzongkhag">
+                     <option value="0">All</option>
+                     @foreach($dzongkhags as $row)
+                         <option value="{{$row->id}}">{{$row->dzongkhag}}</option>
+                     @endforeach
+                   </select>
+              </div>       
+               
+              <div class="col-sm-2 text-right">
+                <label for="gewog">Gewog:</label>
+              </div>
+
+              <div class="col-md-4"> 
+                  <select class="form-control select2bs4" id="gewog" name="gewog">
+                     <option value="0">All</option>
+                   </select>
+               </div>
+              
+            </div>   
+            
+
                   <!-- /.card-body -->
                   @csrf
-                  <div class="card-footer">                   
-                    <button type="submit" class="btn btn-primary">Search</button>
+                  <div class="card-footer mt-1">                   
+                    <button type="submit" class="btn btn-primary float-right ">Search</button>
                   </div>
           </div>
         </form>
@@ -126,6 +185,20 @@
                 })
             });
         });
+
+        $("#dzongkhag").on('change',function(e){
+            console.log(e);
+            var dzid = e.target.value;
+            //alert(id);
+            $.get('/json-dzongkhag?dzongkhag=' + dzid, function(data){
+                console.log(data);
+                $('#gewog').empty();
+                $('#gewog').append('<option value="0">All</option>');
+                $.each(data, function(index, gewogObj){
+                    $('#gewog').append('<option value="'+ gewogObj.id +'">'+ gewogObj.gewog + '</option>');
+                })
+            });
+        })
 
     });
 
