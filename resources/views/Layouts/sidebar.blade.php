@@ -86,7 +86,7 @@
             
           <li class="nav-item">
             <a href="{{route('demand-date')}}" class="nav-link">
-            <i class="fas fa-shopping-cart"> </i> &nbsp;
+            <i class="nav-icon far fa-calendar-alt"> </i> &nbsp;
                <p> Demand Product</p>
             </a>
           </li>
