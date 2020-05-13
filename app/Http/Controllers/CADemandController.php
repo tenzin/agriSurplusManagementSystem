@@ -56,6 +56,7 @@ class CADemandController extends Controller
         ->where('user_id', '=' , $user->id)
         // ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
         ->where('status', '!=', 'S')
+        ->Where('status', '!=', 'E')
         ->where('type', '=', 'D')
         ->get('refNumber');
         //remove unnecessary character
@@ -85,6 +86,7 @@ class CADemandController extends Controller
         ->where('user_id', '=' , $user->id)
         // ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
         ->where('status', '!=', 'S')
+        ->Where('status', '!=', 'E')
         ->where('type', '=', 'D')
         ->get('refNumber');
 
@@ -171,6 +173,7 @@ class CADemandController extends Controller
         $checkno = DB::table('tbl_transactions')
         ->where('user_id', '=' , $user->id)
         ->where('status', '!=', 'S')
+        ->Where('status', '!=', 'E')
         ->where('type', '=', 'D')
         ->get('refNumber');
         if($checkno->isNotEmpty()){
@@ -208,38 +211,29 @@ class CADemandController extends Controller
     }
     
 
-    public function show($id)
+    public function show_history()
     {
         $user = auth()->user();
-        $date = date('Ym');
-        $type = "D"; //Transaction type D: Demand; S: Supply
-        $refno = $type.$date;
-        //--------Check transaction not submitted
-        $checkno = DB::table('tbl_transactions')
-        ->where('user_id', '=' , $user->id)
-        ->where('status', '!=', 'S')
-        ->where('type', '=', 'D')
-        ->get('refNumber');
-        if($checkno->isNotEmpty()){
-            $refno1 = str_replace('[{"refNumber":"','',$checkno);
-            $refno2 = str_replace('"}]','',$refno1);
-        }
-        $demand = DB::table('tbl_demands')
-                ->where('refNumber', '=', $refno2)
+        $data = DB::table('tbl_transactions')
+                ->where('user_id', '=', $user->id)
+                ->where('status', '=', 'E')
+                ->orderBy('submittedDate','DESC')
+                ->paginate(15);
+        return view('ca_nvsc.demand.view-history')->with('demands',$data)
+                                ->with('msg','Your demand history');
+    }
+    public function show($id)
+    {
+        $data = DB::table('tbl_demands')
+                ->where('tbl_demands.refNumber', '=', $id)
                 ->join('tbl_product_types','tbl_demands.productType_id', '=', 'tbl_product_types.id')
                 ->join('tbl_products','tbl_demands.product_id', '=', 'tbl_products.id')
                 ->join('tbl_units','tbl_demands.unit_id', '=', 'tbl_units.id')
                 ->select('tbl_demands.quantity','tbl_product_types.type','tbl_products.product', 'tbl_demands.price',
-                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate',)
-                ->paginate(15);
-        Session::put('View_status', 'V');
-        return view('ca_nvsc.demand.view')->with('demands',$demand)
-                                ->with('nextNumber',$refno2)
-                                ->with('demands',$demand)
-                                ->with('msg','Your demand(s) not submitted');
+                'tbl_demands.id','tbl_units.unit')
+                ->get();
+        return view('ca_nvsc.demand.view-history-list')->with('demands',$data);
     }
-
-
     public function store(Request $request)
     {
 
@@ -388,6 +382,7 @@ class CADemandController extends Controller
         $checkno = DB::table('tbl_transactions')
             ->where('user_id', '=' , $user->id)
             ->where('status', '=', 'S')
+            ->Where('status', '!=', 'E')
             ->where('type', '=', 'D')
             ->get();
             foreach($checkno as $data){

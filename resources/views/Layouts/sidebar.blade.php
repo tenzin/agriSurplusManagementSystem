@@ -76,9 +76,20 @@
             
           <li class="nav-item">
             <a href="{{route('demand-date')}}" class="nav-link">
-              <i class="nav-icon far fa-image"></i>
-               <p>Demand Product</p>
+            <i class="fas fa-shopping-cart"> </i> &nbsp;
+               <p> Demand Product</p>
             </a>
+          </li>
+            @endcan
+
+            @can('aggregator_demand_history')
+            
+          <li class="nav-item">
+            <a href="{{route('demand-history')}}" class="nav-link">
+            <i class="fas fa-shopping-cart"> </i> &nbsp;
+               <p> Demand History</p>
+            </a>
+          </li>
             @endcan
 
             @can('aggregator_view_demand_surplus')
