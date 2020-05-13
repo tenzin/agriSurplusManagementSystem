@@ -81,13 +81,18 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('demanded-view',['as'=>'demanded-view','uses'=>'CADemandController@store_transcation']);
       Route::post('demand-store',['as'=>'demand-store','uses'=>'CADemandController@store']);
       Route::get('demand-delete/{id}','CADemandController@destroy');
+      Route::get('demand-history','CADemandController@show_history')->name('demand-history');
       Route::get('demand-edit/{id}',['as'=>'demand-edit','uses'=>'CADemandController@edit']);
+      Route::get('show/{id}','CADemandController@show')->name('show');;
       Route::post('update-store/{id}',['as'=>'update-store','uses'=>'CADemandController@update']);
       Route::get('/demand_temp', 'CADemandController@demand_temp')->name('demand_temp');
       Route::get('/json-product_type','CADemandController@product_type');
       Route::get('/demand_view', 'CADemandController@demand_view')->name('demand_view');
       Route::get('/json-submit-demand','CADemandController@submit_demand');
       Route::get('/json-product-exist','CADemandController@product_exists');
+
+      Route::get('/json-transaction-exist','TransactionController@transaction_exists');
+      Route::get('/json-dimport-exist/{id}','TransactionController@import_demand');
 
       // Route::get('/data_show', 'CADemandController@data_show')->name('data_show');
       
