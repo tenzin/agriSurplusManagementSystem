@@ -45,7 +45,7 @@
     <form class="needs-validation" novalidate>
     <div class="row">
         <div class="col-md-6 mb-3">
-          <label for="country">Product Type<font color="red">*</font></label>
+          <label for="producttype">Product Type<font color="red">*</font></label>
           <select class="custom-select d-block w-100" id="producttype" name="producttype" required>
             <option value="">Choose...</option>
             @foreach($product_type as $row)
@@ -57,7 +57,7 @@
           </div>
         </div>
         <div class="col-md-6 mb-3">
-          <label for="state">Product<font color="red">*</font></label>
+          <label for="product">Product<font color="red">*</font></label>
           <select class="custom-select d-block w-100" id="product" name="product" required>
             <option value="">Choose...</option>
           </select>
