@@ -34,19 +34,31 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       //Extension Supply Information Route
       Route::get('ex-day',['as'=>'ex-day','uses'=>'ExtensionSupplyController@ex_expiryday'])->middleware('can:extension_add_surplus,Auth::user()');
       Route::post('ex-store',['as'=>'ex-store','uses'=>'ExtensionSupplyController@ex_store_transaction']);
+      Route::get('surplus-view',['as'=>'surplus-view','uses'=>'ExtensionSupplyController@ex_store_transaction']);
       Route::post('ex-supply-store',['as'=>'ex-supply-store','uses'=>'ExtensionSupplyController@ex_store']);
       Route::get('ex-supply-edit/{id}',['as'=>'ex-supply-edit','uses'=>'ExtensionSupplyController@ex_edit']);
       Route::post('ex-supply-update/{id}',['as'=>'ex-supply-update','uses'=>'ExtensionSupplyController@ex_update']);
-      Route::get('surplus-view',['as'=>'surplus-view','uses'=>'ExtensionSupplyController@ex_store_transaction']);
       Route::get('/ex_supply_temp', 'ExtensionSupplyController@ex_supply_temp')->name('ex_supply_temp');
       Route::get('surplus-delete/{id}','ExtensionSupplyController@destroy');
+
       Route::get('/json-product_type','ExtensionSupplyController@product_type');
-      Route::get('/ex_supply_view', 'ExtensionSupplyController@ex_supply_view')->name('ex_supply_view');
-      
       Route::get('/json-submit-surplus','ExtensionSupplyController@ex_submit_supply');
+      Route::get('/json-surplus-exist','ExtensionSupplyController@surplus_exists');
 
       //Extension Supply View Surplus Information Route
+      Route::get('/ex_supply_view', 'ExtensionSupplyController@ex_supply_view')->name('ex_supply_view');
+
+      //Extension Supply Submitted View Surplus Information Route
       Route::get('view_supply_details',['as'=>'view_supply_details','uses'=>'ExtensionSupplyController@view_supply_details'])->middleware('can:view_extension_surplus,Auth::user()');
+      Route::get('surplus-view-detail/{id}',['as'=>'surplus-view-detail','uses'=>'ExtensionSupplyController@ex_view_detail']);
+
+      //Extension Supply Submitted View Surplus Information edit Route
+      Route::get('/editi-submitted/{id}','ExtensionSupplyController@edit_submitted')->name('editi-submitted');
+      Route::post('/update-submitted/{id}','ExtensionSupplyController@update_submitted')->name('update-submitted');
+
+      //Extension history Route
+      Route::get('supply-history',['as'=>'supply-history','uses'=>'ExtensionSupplyController@show_history']);
+      Route::get('showi/{id}','ExtensionSupplyController@show')->name('showi');;
 
       //Extension Under Cultivation
       Route::get('extension_cultivation',['as'=>'extension_cultivation','uses'=>'ExtensionUnderCultiavtionController@extension_cultivation'])->middleware('can:extension_add_under_cultivation,Auth::user()');
