@@ -29,6 +29,8 @@
      <!-- DataTables -->
      <link rel="stylesheet" href="{{URL::asset('bower_components/admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
      <link rel="stylesheet" href="{{URL::asset('bower_components/admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+     <link rel="stylesheet" href="{{URL::asset('bower_components/admin-lte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+     <link rel="stylesheet" href="{{URL::asset('bower_components/admin-lte/plugins/datatables-buttons/css/jquery.dataTables.min.css')}}">
   
      <!-- Select2 -->
     <link rel="stylesheet" href="{{URL::asset('bower_components/admin-lte/plugins/select2/css/select2.min.css')}}">
