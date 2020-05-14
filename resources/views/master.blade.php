@@ -22,7 +22,6 @@
       
     </div>
     <!-- /.content-header -->
-
     <!-- Main content -->
     <section class="content">
       @yield('content')
@@ -41,5 +40,6 @@
 <!-- ./wrapper -->
 
 @include('Layouts.scripts')
+@yield('custom_scripts')
 </body>
 </html>

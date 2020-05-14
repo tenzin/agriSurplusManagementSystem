@@ -286,6 +286,19 @@
       <ul>
   </nav>
   @endcan
+
+  <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item has-treeview">
+              <a href="/reports" class="nav-link">
+                  <i class="nav-icon far fa-plus-square"></i>
+                 <p>Reports</p>               
+              </a>
+          </li>
+        </ul>
+      </nav>
+
+
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item has-treeview">
