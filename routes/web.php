@@ -225,6 +225,11 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
         //Image Route
         Route::post('/avatar', 'UserController@update_avatar');
 
+        //Reports.
+        Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
+        Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
+
+
         //Contact US
         Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contactUS']);
         Route::post('contact-post',['as'=>'contact-post','uses'=>'ContactUsController@contactUSPost']);
