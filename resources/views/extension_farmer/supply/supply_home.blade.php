@@ -9,13 +9,12 @@
     <table id= "example1" class="table table-bordered table-striped table-sm">
     <thead>
         <tr>
-        <th scope="col">#</th>
-        {{-- <th scope="col">Referance No.</th> --}}
+        <th scope="col">Sl.No</th>
         <th scope="col">Product Type</th>
         <th scope="col">Product</th>
         <th scope="col">Quantity</th>
-        <th scope="col">Price</th>
-        {{-- <th scope="col">Required Date</th> --}}
+        <th scope="col">Price per Unit</th>
+        <th scope="col">SubmittedDate</th>
         <th>Action</th>
         </tr>
     </thead>
@@ -27,9 +26,7 @@
              <td>{{$row->product}}</td>
              <td>{{$row->quantity.' '.$row->unit}}</td>
              <td>Nu. {{$row->price}}</td>
-             {{-- <!-- <td>{{$row->harvestDate}}</td> --> --}}
-             {{-- <td>{{$row->tentativePickupDate}}</td> --}}
-
+             <td>{{$row->submittedDate}}
              <td> 
                 @can('extension_edit_surplus_details') 
                 <a href="{{route('surplus-view-detail',$row->id)}}">
