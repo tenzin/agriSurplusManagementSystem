@@ -83,6 +83,7 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('supply-history','CASurplusController@show_history')->name('supply-history')->middleware('can:aggregator_supply_history,Auth::user()');
       Route::get('showe/{id}','CASurplusController@show')->name('showe');
 
+      Route::get('view-surplus-nation',['as'=>'view-surplus-nation','uses'=>'CASurplusController@view_surplus_nation_all']);
       // Route::get('/json-product_type','CASurplusController@product_type');
       // Route::get('/json-submit-supply','CASurplusController@submit_ca_suuply');
       // Route::get('/json-ca-product-exist','CASurplusController@ca_product_exists');
@@ -121,6 +122,7 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::post('update_submitted/{id}',['as'=>'update_submitted','uses'=>'CADemandController@update_submitted']);
       Route::get('view-detail/{id}',['as'=>'view-detail','uses'=>'CADemandController@view_detail'])->middleware('can:aggregator_view_demand_details,Auth::user()');
       
+      Route::get('view-nation',['as'=>'view-nation','uses'=>'CADemandController@view_surplus_nation']);
 
 
       //scope filter for Commercial Aggregator Route

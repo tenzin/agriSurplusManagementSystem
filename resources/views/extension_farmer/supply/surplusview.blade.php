@@ -89,7 +89,7 @@
           </div>
         </div>
       <hr class="mb-4">
-      <a class="btn btn-primary btn-xx" href="{{route('view_supply_details')}}">Back</a>
+     <center> <a class="btn btn-primary btn-xx" href="{{route('view_supply_details')}}">Back</a> </center>
       
     </form>
   </div>

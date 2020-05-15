@@ -16,7 +16,7 @@ class CreateTblTransactionsTable extends Migration
         Schema::create('tbl_transactions', function (Blueprint $table) {
             $table->id();
             $table->string('refNumber', 12);
-            $table->char('type', 1);
+            $table->char('type', 2);
             $table->date('expiryDate', 12);
             $table->char('status', 1);
             $table->foreignId('user_id')->constrained()->references('id')->on('users')->onDelete('cascade');
