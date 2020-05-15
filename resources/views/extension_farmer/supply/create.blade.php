@@ -90,7 +90,7 @@
               </div>
           </div>
           <div class="col-md-4 mb-3">
-              <label for="unit">Price<font color="red">*</font> (tentative)</label>
+              <label for="unit">Unit Price<font color="red">*</font> (tentative)</label>
               <div class="input-group">
                   <div class="input-group-prepend">
                       <span class="input-group-text">Nu.</span>

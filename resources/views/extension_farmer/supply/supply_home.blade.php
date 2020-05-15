@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-    <h3 class="text-primary text-center">Surplus List (Submitted)</h3>
+    <h2 class="text-primary text-center">Surplus List </h3>
     <center><p class="text-muted">{{$msg}}</p></center>
 
     <table id= "example1" class="table table-bordered table-striped table-sm">
@@ -22,21 +22,22 @@
           @foreach($product as $row)
           <tr>
              <td>{{$loop->iteration}}</td>
-             <td>{{$row->type}}</td>
+             {{-- <td>{{$row->type}}</td> --}}
              <td>{{$row->product}}</td>
              <td>{{$row->quantity.' '.$row->unit}}</td>
              <td>Nu. {{$row->price}}</td>
              <td>{{$row->submittedDate}}
              <td> 
                 @can('extension_edit_surplus_details') 
-                <a href="{{route('surplus-view-detail',$row->id)}}">
-                <i class="fa fa-eye" aria-hidden="true"></i>View</a>
+                <a href="{{route('editi-submitted',$row->id)}}">
+                    <i class="fa fa-edit" aria-hidden="true"></i>Edit</a>
+                
                 &nbsp;
                 @endcan
 
                 @can('extension_view_surplus_details')
-                <a href="{{route('editi-submitted',$row->id)}}">
-                <i class="fa fa-edit" aria-hidden="true"></i>Edit</a>
+                <a href="{{route('surplus-view-detail',$row->id)}}">
+                    <i class="fa fa-eye" aria-hidden="true"></i>View</a>
                 @endcan
              </td>  
              </tr>

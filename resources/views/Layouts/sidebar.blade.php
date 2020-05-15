@@ -37,7 +37,7 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!--  Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-      <li class="nav-item has-treeview">
+      <li class="nav-item has-treeview menu-open">
         <a href="#" class="nav-link">
            <p> Aggregator Level</p>
         </a>
@@ -51,7 +51,19 @@
                       </a>
                     </li>
                 @endcan
+                <li class="nav-item">
+                  <a href="{{route('view-nation')}}" class="nav-link">
+                  <i class="far fa-chart-bar"></i> 
+                    <p>Demand - Nation</p>
+                  </a>
+                </li>
 
+                <li class="nav-item">
+                  <a href="{{route('view-surplus-nation')}}" class="nav-link">
+                  <i class="far fa-chart-bar"></i> 
+                    <p>Surplus - Nation</p>
+                  </a>
+                </li>
                 @can('aggregator_add_surplus')
 
                 <li class="nav-item">
@@ -112,7 +124,7 @@
           </li>
           @endcan
 
-          @can('aggregator_search_surplus')
+          {{-- @can('aggregator_search_surplus')
           <li class="nav-item">
             <a href="{{route('scopefilter')}}" class="nav-link">
                 <i class="nav-icon far fa-calendar-alt"></i>
@@ -132,7 +144,7 @@
                   </p>
                 </a>
               </li>
-              @endcan
+              @endcan --}}
         <ul>
       </li>
     </ul>
@@ -163,7 +175,7 @@
             <li class="nav-item">
               <a href="{{route('ex-day')}}" class="nav-link">
                 <i class="nav-icon far fa-calendar-alt"></i>
-                <p>Supply Information</p>
+                <p>Submit Surplus</p>
               </a>
             @endcan
 
@@ -171,7 +183,7 @@
               <li class="nav-item">
                 <a href="{{route('view_supply_details')}}" class="nav-link">
                   <i class="nav-icon far fa-calendar-alt"></i>
-                  <p>View Supply Information </p>
+                  <p>View Surplus Information </p>
                 </a>
               </li>
             </li>
@@ -179,7 +191,7 @@
           <li class="nav-item">
             @can('extension_supply_history')
                 <a href="{{route('suppli-history')}}" class="nav-link">
-                  <i class="fas fa-shopping-cart"></i>
+                  <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>Supply Surplus History </p>
                 </a>
               </li>

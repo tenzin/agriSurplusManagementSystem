@@ -61,7 +61,7 @@
                     
                     <a onclick="return confirm('Are you sure want do delete permanently?')" href="/supply-delete/{{$row->id}}" class="text-danger">
                     <i class="fa fa-trash" aria-hidden="true"> </i> Remove</a>
-                    @endcan
+                  
                   </td>
                 
                 </tr>
