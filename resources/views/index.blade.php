@@ -101,13 +101,19 @@
            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
            <div id="popup-content"></div>
          </div>
-         <div>
+         <!-- <div>
            <label for="selector">Map Layers:</label>
            <select id="selector" onchange="changeLayer(value)">
              <option disabled selected value> -- select an option -- </option>
              <option value="Gewogs">Gewogs</option>
              <option value="CAs">Commercial Aggregators</option>
+             <option value="Dzongkhags">Dzongkhags</option>
            </select>
+         </div> -->
+
+         <div align='center'>
+           <label><input type='checkbox' onclick='handleClickGewog(this);'>Gewog</label><br>
+           <label><input type='checkbox' onclick='handleClickDzongkhag(this);'>Dzongkhag</label>
          </div>
          <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
          <script type="text/javascript">
@@ -121,45 +127,94 @@
               view: new ol.View({
                   center: ol.proj.fromLonLat([90.46,27.60]),
                   zoom: 8.80
-              })
+              }),
+              controls: [], //These options disable map scroll
+              interactions: []
           });
 
-          var gewog_name = ['Chokhor', 'Ura', 'Tang', 'Chhume'];
-          var long = [90.71112766300, 90.91560670800, 90.87104712900, 90.69937767200];
-          var lat = [27.60460129980, 27.48790712980, 27.57078822880, 27.49359672880];
-          var pointerFeatures = [];
+          var gewog_layer;
+          var dzongkhag_layer;
 
-          gewog_name.forEach(createFeatures);
-          function createFeatures(value, index, array) {
-            feature = new ol.Feature({
-              geometry: new ol.geom.Point(ol.proj.fromLonLat([long[index],lat[index]])),
-              ID: gewog_name[index],
-              gewog_name: 'Gewog: ' + gewog_name[index]
-            });
-            console.log(feature.get('gewog_name'));
-            pointerFeatures.push(feature);
+          function show_dzongkhag_layer() {
+            if(typeof dzongkhag_layer == 'undefined') {
+              //alert('dzongkhag_layer not defined');
+              var dzongkhag_name = ['Thimphu', 'Bumthang', 'Trashiyangtse', 'Samtse'];
+              var long = [89.64191, 90.7525, 91.498, 89.09951];
+              var lat = [27.46609, 27.54918, 27.6116, 26.89903];
+              var pointerFeatures = [];
+
+              dzongkhag_name.forEach(createFeatures);
+              function createFeatures(value, index, array) {
+                feature = new ol.Feature({
+                  geometry: new ol.geom.Point(ol.proj.fromLonLat([long[index],lat[index]])),
+                  type: 'Dzongkhag',
+                  name: dzongkhag_name[index]
+                });
+                console.log(feature.get('gewog_name'));
+                pointerFeatures.push(feature);
+              }
+              // create the marker stylesheet
+              var iconStyle = new ol.style.Style({
+                image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+                  anchor: [0.5, 46],
+                  anchorXUnits: 'fraction',
+                  anchorYUnits: 'pixels',
+                  //opacity: 0.75,
+                  src: '../../images/dzongkhag.png'
+                }))
+              });
+              dzongkhag_layer = new ol.layer.Vector({
+                name: 'Dzongkhag',
+                source: new ol.source.Vector({
+                  features: pointerFeatures,
+                }),
+                style: iconStyle
+              });
+            }
+            //Now add the layer
+            map.addLayer(dzongkhag_layer);
           }
 
-          // create the marker stylesheet
-          var iconStyle = new ol.style.Style({
-            image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
-              anchor: [0.5, 46],
-              anchorXUnits: 'fraction',
-              anchorYUnits: 'pixels',
-              //opacity: 0.75,
-              src: '../../images/extension.png'
-            }))
-          });
+          function show_gewog_layer() {
+            if(typeof gewog_layer == 'undefined') {
+              //gewog_layer is not defined. Define now
+              //alert('gewog_layer not defined');
+              var gewog_name = ['Chokhor', 'Ura', 'Tang', 'Chhume'];
+              var long = [90.71112766300, 90.91560670800, 90.87104712900, 90.69937767200];
+              var lat = [27.60460129980, 27.48790712980, 27.57078822880, 27.49359672880];
+              var pointerFeatures = [];
 
-          var layer = new ol.layer.Vector({
-            name: 'Gewog',
-            source: new ol.source.Vector({
-              features: pointerFeatures,
-            }),
-            style: iconStyle
-          });
-
-        map.addLayer(layer);
+              gewog_name.forEach(createFeatures);
+              function createFeatures(value, index, array) {
+                feature = new ol.Feature({
+                  geometry: new ol.geom.Point(ol.proj.fromLonLat([long[index],lat[index]])),
+                  type: 'Gewog',
+                  name: gewog_name[index]
+                });
+                //console.log(feature.get('gewog_name'));
+                pointerFeatures.push(feature);
+              }
+              // create the marker stylesheet
+              var iconStyle = new ol.style.Style({
+                image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+                  anchor: [0.5, 46],
+                  anchorXUnits: 'fraction',
+                  anchorYUnits: 'pixels',
+                  //opacity: 0.75,
+                  src: '../../images/extension.png'
+                }))
+              });
+              gewog_layer = new ol.layer.Vector({
+                name: 'Gewog',
+                source: new ol.source.Vector({
+                  features: pointerFeatures,
+                }),
+                style: iconStyle
+              });
+            }
+            //Now add the layer
+            map.addLayer(gewog_layer);
+          }
 
         // layer.getSource().forEachFeature(test_on_console);
         // function test_on_console(feature) {
@@ -181,7 +236,7 @@
           //  var content = document.getElementById('popup');
           //  content.innerHTML = '<p>Position:'+coordinate+'</p><code>' +feature.get('ID') + '</code>';
           //content = '<p>Position:'+coordinate+'</p><code>' +feature.get('ID') + '</code>';
-          content.innerHTML= '<p>Gewog: '+feature.get('ID')+ '<br> Surplus: </p>' ;
+          content.innerHTML= feature.get('type')+': '+feature.get('name');
           overlay.setPosition(coordinate);
               // console.log("ID: " + feature.get('ID'));
               // alert("You clicked on " + feature.get('ID'));
@@ -197,7 +252,39 @@
         //end trypopup
 
         function changeLayer(value){
-          alert(value);
+          if (value == 'Gewogs') {
+            show_gewog_layer();
+          }
+          else if (value == 'CAs') {
+            show_ca_layer();
+          }
+          else if (value == 'Dzongkhags') {
+            show_dzongkhag_layer();
+          }
+        }
+
+        function handleClickGewog(status) {
+          if(status.checked) {
+            show_gewog_layer();
+          }
+          else {
+            remove_layer('Gewog');
+          }
+        }
+
+        function handleClickDzongkhag(status) {
+          if(status.checked) {
+            show_dzongkhag_layer();
+          }
+          else {
+            remove_layer('Dzongkhag');
+          }
+        }
+
+        function remove_layer(layer_name) {
+           map.getLayers().getArray()
+             .filter(layer => layer.get('name') === layer_name)
+             .forEach(layer => map.removeLayer(layer));
         }
 
         </script>
