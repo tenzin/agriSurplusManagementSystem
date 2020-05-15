@@ -11,7 +11,6 @@ use App\ProductType;
 use App\Transaction;
 use App\CASupply;
 use App\Unit;
-use App\Gewog;
 use Session;
 use Carbon\Carbon;
 
@@ -475,37 +474,45 @@ class CASurplusController extends Controller
         return view('ca_nvsc.surplus.view-details', compact('row','table'));
     }
 
-    public function view_surplus_nation_all(Request $request)
+    public function view_surplus_nation_all()
     {
-        $location = Gewog::all();
+        
         // dd($location );
-
-        $supply = [];
+        $supply = DB::table('tbl_cssupply')
+        // ->where('tbl_transactions.user_id', '=', $user->id)
+        ->where('tbl_transactions.status', '=', 'S')
+        // ->where('tbl_transactions.type', '=', 'S')
+        // ->where('tbl_cssupply.tentativePickupDate', '=', $start)
+        ->where('tbl_cssupply.quantity','>',0)
+        ->join('tbl_transactions','tbl_cssupply.refNumber', '=', 'tbl_transactions.refNumber')
+        ->join('tbl_product_types','tbl_cssupply.productType_id', '=', 'tbl_product_types.id')
+        ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
+        ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
+        ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
+        'tbl_cssupply.id', 'tbl_units.unit', 'tbl_cssupply.tentativePickupDate','tbl_cssupply.harvestDate')
+        ->groupBy('id')->paginate(10);
+        // $supply = [];
         
-        if ($request->query('date') && $request->has('date') || $request->query('location') && $request->has('location')) {
+        // if ($request->query('date') && $request->has('date') || $request->query('location') && $request->has('location')) {
             
-        $supply = CASupply::search($request)
-                // ->where('tbl_transactions.user_id', '=', $user->id)
-                ->where('tbl_transactions.status', '=', 'S')
-                // ->where('tbl_transactions.type', '=', 'S')
-                // ->where('tbl_cssupply.tentativePickupDate', '=', $start)
-                ->where('tbl_cssupply.quantity','>',0)
-                ->join('tbl_transactions','tbl_cssupply.refNumber', '=', 'tbl_transactions.refNumber')
-                ->join('tbl_product_types','tbl_cssupply.productType_id', '=', 'tbl_product_types.id')
-                ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
-                ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
-                ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-                'tbl_cssupply.id', 'tbl_units.unit', 'tbl_cssupply.tentativePickupDate','tbl_cssupply.harvestDate')
-                ->groupBy('id')->paginate(10);
+        // $supply = CASupply::search($request)
+        //         // ->where('tbl_transactions.user_id', '=', $user->id)
+        //         ->where('tbl_transactions.status', '=', 'S')
+        //         // ->where('tbl_transactions.type', '=', 'S')
+        //         // ->where('tbl_cssupply.tentativePickupDate', '=', $start)
+        //         ->where('tbl_cssupply.quantity','>',0)
+        //         ->join('tbl_transactions','tbl_cssupply.refNumber', '=', 'tbl_transactions.refNumber')
+        //         ->join('tbl_product_types','tbl_cssupply.productType_id', '=', 'tbl_product_types.id')
+        //         ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
+        //         ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
+        //         ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
+        //         'tbl_cssupply.id', 'tbl_units.unit', 'tbl_cssupply.tentativePickupDate','tbl_cssupply.harvestDate')
+        //         ->groupBy('id')->paginate(10);
         
-        // dd($supply);
-        
-        // $start = Carbon::parse($request->date);
-            // dd($start);
-        }
+        // }
         Session::put('View_status', 'VS');
-        return view('ca_nvsc.surplus.view-all')->with('supply',$supply)
-                                                ->with('locations',$location);
+        return view('ca_nvsc.surplus.view-all')->with('supply',$supply);
+                                                
     }
 }
 

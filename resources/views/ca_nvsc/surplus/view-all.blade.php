@@ -3,7 +3,7 @@
 <div class="container">
     <h2 class="text-primary text-center">Surplus List</h2>
     {{-- <center><p class="text-muted">{{$msg}}</p></center> --}}
-    <br>
+    {{-- <br>
     <form action="{{ url()->current() }}" method="GET">
         <div class="row">
           <div class="col-md-4">
@@ -24,19 +24,17 @@
         </div>
       </form>
 
-      <br>
-      
-
-    <table id="example1" class="table table-bordered table-striped table-sm">
+      <br> --}}
+    <table id="example1"class="table table-bordered table-striped table-sm">
     <thead>
         <tr>
-        <th scope="col">#</th>
+        <th>#</th>
         {{-- <th scope="col">Referance No.</th> --}}
         <th>Product Type</th>
-        <th scope="col">Product</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Price</th>
-        <th scope="col">Pick Up Date</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Pick Up Date</th>
         <th>Action</th>
         </tr>
     </thead>
@@ -63,7 +61,7 @@
         @endforeach
     </tbody>
     </table>
-    {{-- {{ $supply->links() }} --}}
+    {{ $supply->links() }}
     <div class="row">
         <div class="col-12 text-center">
 

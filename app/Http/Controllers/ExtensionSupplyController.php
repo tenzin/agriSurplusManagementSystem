@@ -12,6 +12,7 @@ use App\EXSurplus;
 use App\Product;
 use App\Unit;
 use App\User;
+use App\Gewog;
 use Session;
 use Carbon\Carbon;
 
@@ -333,13 +334,14 @@ class ExtensionSupplyController extends Controller
         }
     }
     
-    public function view_supply_details()
+    public function view_supply_details(Request $request)
     {
         $user = auth()->user();
         $date = date('Ym');
         $type = "E"; //Transaction type D: Demand; S: Supply
         $refno = $type.$date;
-    
+        $location = Gewog::all();
+
         //--------Check transaction not submitted
         $checkno = DB::table('tbl_transactions')
             ->where('user_id', '=' , $user->id)
@@ -354,10 +356,10 @@ class ExtensionSupplyController extends Controller
                 );
             }
             if($user->role_id==4 || $user->role_id==5){
+
+             $location = Gewog::all(); 
         
-                
             $product = DB::table('tbl_ex_surplus')
-                
                 // ->where('tbl_transactions.user_id', '=', $user->id)
                 // ->where('tbl_transactions.gewog_id', '=', $user->gewog_id)
                 ->where('tbl_transactions.status', '=', 'S')
@@ -369,15 +371,17 @@ class ExtensionSupplyController extends Controller
                 ->join('tbl_product_types','tbl_ex_surplus.productType_id', '=', 'tbl_product_types.id')
                 ->join('tbl_products','tbl_ex_surplus.product_id', '=', 'tbl_products.id')
                 ->join('tbl_units','tbl_ex_surplus.unit_id', '=', 'tbl_units.id')
-                ->select('tbl_ex_surplus.refNumber','tbl_ex_surplus.quantity','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
+                ->join('tbl_gewogs','tbl_ex_surplus.gewog_id', '=', 'tbl_gewogs.id')
+                ->select('tbl_ex_surplus.refNumber','tbl_ex_surplus.quantity','tbl_gewogs.gewog','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
                 'tbl_ex_surplus.id', 'tbl_units.unit', 'tbl_ex_surplus.tentativePickupDate','tbl_ex_surplus.harvestDate')
                 ->groupBy('id')->get();
 
-                // dd($product);
+    // dd($product);
+
             } else {
 
+                // dd('sdf');
                 $product = DB::table('tbl_ex_surplus')
-                
                 ->where('tbl_transactions.user_id', '=', $user->id)
                 // ->where('tbl_transactions.gewog_id', '=', $user->gewog_id)
                 ->where('tbl_transactions.status', '=', 'S')
@@ -391,14 +395,14 @@ class ExtensionSupplyController extends Controller
                 ->join('tbl_units','tbl_ex_surplus.unit_id', '=', 'tbl_units.id')
                 ->select('tbl_ex_surplus.refNumber','tbl_ex_surplus.quantity','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
                 'tbl_ex_surplus.id', 'tbl_units.unit', 'tbl_ex_surplus.tentativePickupDate','tbl_ex_surplus.harvestDate')
-                ->get();
+                ->groupBy('id')->get();
             
             
             }
 
         Session::put('View_status', 'VS');
        
-        return view('extension_farmer.supply.supply_home',compact('product'))->with('msg','Submitted Product List.');
+        return view('extension_farmer.supply.supply_home',compact('product','location','user'))->with('msg','Submitted Product List.');
     }
 
     //view individual
