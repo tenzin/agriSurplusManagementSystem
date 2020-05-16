@@ -37,7 +37,7 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!--  Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-      <li class="nav-item has-treeview menu-open">
+      <li class="nav-item has-treeview">
         <a href="#" class="nav-link">
            <p> Aggregator Level</p>
         </a>
@@ -183,7 +183,7 @@
               <li class="nav-item">
                 <a href="{{route('view_supply_details')}}" class="nav-link">
                   <i class="nav-icon far fa-calendar-alt"></i>
-                  <p>View Surplus Information </p>
+                  <p>View Surplus</p>
                 </a>
               </li>
             </li>
@@ -192,7 +192,7 @@
             @can('extension_supply_history')
                 <a href="{{route('suppli-history')}}" class="nav-link">
                   <i class="nav-icon fas fa-shopping-cart"></i>
-                  <p>Supply Surplus History </p>
+                  <p>Surplus History </p>
                 </a>
               </li>
             </li>

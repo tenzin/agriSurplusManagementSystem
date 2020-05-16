@@ -105,8 +105,9 @@
             </div>-->--}}
          <div class="form-group row mb-0">
            <div class="col-md-6 offset-md-6">
-              <a class="btn btn-primary" href="{{ route('view_supply_details')}}">Go back</a>
-            </div> 
+              <a class="btn btn-primary btn-sm" href="{{ route('view_supply_details')}}">Go back</a>
+            </div>
+            <hr> 
         </div>
     </form>
   </div>
