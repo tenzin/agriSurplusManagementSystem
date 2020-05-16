@@ -1,0 +1,16 @@
+
+
+
+.card.card-chart {
+    text-align: center;
+}
+
+.card.type {
+    overflow-y: scroll;
+    height: 280px;
+}
+.card.product {
+    overflow-y: scroll;
+    height: 280px;
+}
+
