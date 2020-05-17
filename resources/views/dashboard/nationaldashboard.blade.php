@@ -1,5 +1,11 @@
 @extends('master')
+
+@section('custom_css')
+@include('includes/chart-css')
+
+@endsection
 @section('content')
+
 <div class="container-fluid">
    <div class="row">
       <!-- CA info-->
@@ -7,7 +13,7 @@
          <div class="small-box bg-info">
             <div class="inner">
                <p>Aggregator And Veg.Supply Company</p>
-               <h3>140</h3>
+               <h3>{{$vsc}}</h3>
             </div>
             <div class="icon">
                <i class="ion ion-bag"></i>
@@ -19,7 +25,7 @@
          <div class="small-box bg-success">
             <div class="inner">
                <p>Extension Officer</p>
-               <h3>205</h3>
+               <h3>{{$ex}}</h3>
             </div>
             <div class="icon">
                <i class="ion ion-stats-bars"></i>
@@ -31,7 +37,7 @@
          <div class="small-box bg-warning">
             <div class="inner">
                <p>Land User Certificate and ARDC</p>
-               <h3>10</h3>
+               <h3>{{$luc}}</h3>
             </div>
             <div class="icon">
                <i class="ion ion-person-add"></i>
@@ -43,7 +49,7 @@
          <div class="small-box bg-primary">
             <div class="inner">
                <p>Farmer Groups</p>
-               <h3>100</h3>
+               <h3>{{$farmer}}</h3>
             </div>
             <div class="icon">
                <i class="ion ion-pie-graph"></i>
@@ -51,48 +57,77 @@
          </div>
       </div>
    </div>
-   <!-- Graph Part---->
-   <section class="content">
-      <div class="container-fluid">
-         <div class="row">
+  
+
+<div class="content">
+  <div class="row center">
+  <div class="col-lg-6">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-title">Surplus Vs. Product</h5>
+        </div>
+        <div class="card-body chart">
+          <canvas id="productStats" height="150px"></canvas>
+        </div>
+      </div>
+   </div>
+    <div class="col-lg-3">
+      <div class="card type">
+        <div class="card-header">
+          <h4 class="card-title">Product Types</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                @foreach($producttype as $t)
+                <tr>
+                  <td>{{$t->type}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+   </div>
+    <div class="col-lg-3">
+      <div class="card product">
+      <div class="card-header">
+          <h4 class="card-title">Products</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                @foreach($product as $p)
+                <tr>
+                 <td>{{$p->product}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-category">Overall Surplus</h5>
+
+        </div>
+        <div class="card-body chart">
+          <canvas id="surplus" height="200px"></canvas>
+        </div>
+      </div>
+    </div>
+   <!-- Area of cultivation info -->
             <div class="col-md-6">
-               <!-- Supply VS. Product Type -->
-               <div class="card card-primary">
+               <div class="card card">
                   <div class="card-header">
-                     <h3 class="card-title">Supply VS. Product Type</h3>
-                  </div>
-                  <div class="card-body">
-                     <div class="chart">
-                        <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                     </div>
-                  </div>
-               </div>
-               <!-- Supply Demand Graph -->
-               <div class="card card-success">
-                  <div class="card-header">
-                     <h3 class="card-title">Supply VS. Demand</h3>
-                  </div>
-                  <div class="card-body">
-                     <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                  </div>
-               </div>
-            </div>
-            <!-- Demand VS. Product Type -->
-            <div class="col-md-6">
-               <div class="card card-info">
-                  <div class="card-header">
-                     <h3 class="card-title">Demand VS. Product Type</h3>
-                  </div>
-                  <div class="card-body">
-                     <div class="chart">
-                        <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                     </div>
-                  </div>
-               </div>
-               <!-- Area Of Cultivation -->
-               <div class="card card-success">
-                  <div class="card-header">
-                     <h3 class="card-title">Area Of Cultivation</h3>
+                     <h3 class="card-title">Area of Cultivation</h3>
                   </div>
                   <div class="card-body">
                      <table class="table table-bordered">
@@ -100,57 +135,54 @@
                            <div class="col-md-6">
                               ProductName:
                               <select class="form-control" name="agency_code" id="agency" >
-                                 <option disabled>Please select your ProductName</option>
-                              </select>
-                           </div>
-                           <div class="col-md-6">
-                              Dzongkhag:
-                              <select class="form-control" name="date" id="agency" >
-                                 <option disabled>Please select your Dzongkhag</option>
+                                  <option disabled>select your ProductName</option>
                               </select>
                            </div>
                         </div>
                         <thead>
-                           <tr>
-                              <th style="width: 10px">#</th>
-                              <th>Product Name</th>
-                              <th>Quantity</th>
-                              <th>Dzongkhag</th>
-                              <th>Geog</th>
+                          <tr>
+                           <th>Sl.No</th>
+                           <th>Product Name</th>
+                           <th>Quantity</th>
+                           <th>Estimated Production</th>
                            </tr>
                         </thead>
                         <tbody>
-                           <tr>
-                              <td>1</td>
-                              <td>Potatoes</td>
-                              <td>20 Acres</td>
-                              <td>Lhuntse</td>
-                              <td>Khoma</td>
-                           </tr>
-                           <tr>
-                              <td>2</td>
-                              <td>Chilli</td>
-                              <td>10 Acres</td>
-                              <td>Thimphu</td>
-                              <td>Thimphu</td>
-                           </tr>
-                           <tr>
-                              <td>3</td>
-                              <td>Bringle</td>
-                              <td>2 Acres</td>
-                              <td>Paro</td>
-                              <td>Paro</td>
+                          <tr>
+                           <td>1</td>
+                           <td>Potatoes</td>
+                           <td>20 Acres</td>
+                           <td>300kg</td>
+                          </tr>
+                          <tr>
+                           <td>2</td>
+                           <td>Chilli</td>
+                           <td>10 Acres</td>
+                           <td>300kg</td>
                            </tr>
                         </tbody>
                      </table>
                   </div>
                </div>
             </div>
-         </div>
-      </div>
-   </section>
-   <!-- Surplus Info-->
-   <section class="content">
+            <div class="col-lg-6">
+              <div class="card card-chart">
+                <div class="card-header">
+                 <h5 class="card-category">Surplus vs. month</h5>
+                </div>
+              <div class="card-body chart">
+                   <canvas id="monthsurplus" height="200px"></canvas>
+               </div>
+            </div>
+    </div>       
+</div>
+@endsection
+@section('custom_scripts')
+@include('includes/chart-js')
+@include('includes/n-dashboard-stats')
+@endsection
+ <!-- Surplus Info-->
+{{--<section class="content">
       <div class="card card-success">
          <div class="card-header">
             <h3 class="card-title">Surplus Vs Dzongkhags</h3>
@@ -220,4 +252,4 @@
       </div>
    </section>
 </div>
-@endsection
+@endsection--}}

@@ -1,5 +1,6 @@
 
 <script>
+//extension dashboard
 var ctx = document.getElementById('userStats');
 var userStats = new Chart(ctx, {
     type: 'doughnut',

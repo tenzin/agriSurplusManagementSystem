@@ -43,8 +43,6 @@ class DashboardController extends Controller
      }
 
      public function national(){
-      // $products = Product::all();
-      //   return view('dashboard.nationaldashboard',compact('products'));
       $date = Carbon::now()->format('Y-m-d');
 
       Transaction::where('expiryDate', '<', $date)
@@ -52,8 +50,20 @@ class DashboardController extends Controller
          ->update([
            'status' => 'E'
         ]);
+        $producttype = ProductType::all();
+        $product = Product::all();
 
-        return view('dashboard.nationaldashboard');
+        $farmer = User::where('role_id','9')->count();
+       $ex = User::where('role_id','7')->count();
+       $luc = User::where('role_id','6','8')->count();
+       $vsc = User::where('role_id','5','4')->count();
+        return view('dashboard.nationaldashboard',compact(
+           'producttype',
+           'product',
+          'farmer',
+          'ex',
+         'luc',
+          'vsc'));
 
      }
 }
