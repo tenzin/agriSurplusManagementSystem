@@ -4,13 +4,9 @@
 
     <!-- Content Header (Page header) -->
     <div class="content-header">
-            <div class="card card-info">
-                  <div class="card-header">
-                    <h3 class="card-title">Details of {{ $type }}</h3>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                    </div>
-                  </div>
+           
+      <h2 class="text-center mt-1 mb-1 alert aqua">Details of {{ $type }}</h2>
+                  
                   <!-- /.card-header -->
                   <div class="card-body">
                     @if ($errors->any())
@@ -70,7 +66,7 @@
                 </div>
             </div>
                  
-    </div>
+    
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -117,12 +113,13 @@
   <script>
   $(document).ready( function () 
   {
-    $("#example3").DataTable({
+    $("#example3").DataTable({    
         dom: 'B<"clear">lfrtip',
-        //buttons: [ 'copy','print','excel','pdf']
+        // buttons: [ 'copy','print','excel','pdf']
         buttons: [
             {
                   extend: 'copy',
+                  
                   title:'Product List',
                   exportOptions: {
                     columns: [ 0, 1, 2, 3, 4, 5, 6, 7]

@@ -101,6 +101,8 @@
            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
            <div id="popup-content"></div>
          </div>
+       
+         
          <!-- <div>
            <label for="selector">Map Layers:</label>
            <select id="selector" onchange="changeLayer(value)">

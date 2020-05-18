@@ -46,7 +46,7 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
-      "autoWidth": false 
+      "autoWidth": true 
    });
 
 //Initialize Select2 Elements

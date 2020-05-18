@@ -12,7 +12,8 @@
     <div class="row" >
          
         <div class="col-md-6">
-            Date:<input type="date" class="form-control" name="date" id="date" >
+            Date:<input placeholder="Date" class="form-control" type="text" onfocus="(this.type='date')" id="date" name="date">
+            {{-- Date:<input type="date" class="form-control" name="date" id="date" > --}}
         </div>
           <div class="col-md-6">
             Gewog:<select class= "form-control select2bs4" name="location" id="location" >

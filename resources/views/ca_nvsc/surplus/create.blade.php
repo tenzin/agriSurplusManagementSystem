@@ -193,15 +193,7 @@
       });
       
     });
-    // function myFunction() {
-    //   if (confirm('Are you sure you want to your demand list?. Once you submit, you cannot add or delete or update.'))  {
-    //     var id = document.getElementById("refnumber").value;
-    //     $.get('/json-submit-supply?ref_number=' + id, function(data){
-    //       window.location = "/national/";
-    //     });
-    //   }
-      
-    // }
+   
     function myFunction() {
       var refNo = document.getElementById("refnumber").value;
       $.get('/json-ca-product-exist?refNo=' + refNo, function(data){
