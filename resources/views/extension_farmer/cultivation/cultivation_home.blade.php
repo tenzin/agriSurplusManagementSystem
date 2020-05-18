@@ -18,9 +18,9 @@
             <th>Crop_name</th>
             <th>Quantity/Acerage & Unit</th>
             <th>Sowing_Date</th>
-            <th>Estimated Output & Unit</th>
-            <th>Remarks</th>
+            <!-- <th>Estimated Output & Unit</th> -->
             <th>Status</th>
+            <th>Update</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -31,11 +31,9 @@
             <td>{{$c->product->product}}</td> 
             <td>{{$c->quantity.' - '.$c->c_unit->unit}}</td>
             <td>{{$c->sowing_date}}</td> 
-            <td>{{$c->estimated_output.' - '. $c->e_unit->unit}}</td> 
-            <td>{{$c->remarks}}</td>
             <td>@if($c->status == '1')<span class="label">Harvested</span>
               @else<span class="label">Under Cultivation</span>@endif </td>
-            <td>  
+             <td> 
               @if($c->status == 0)                  
               <button type="button" class="btn btn-block bg-gradient-warning btn-xs" style="width:2cm;">
                 <a href="{{route('update_cultivation_status',$c->id)}}" >Harvested</a>
@@ -44,8 +42,26 @@
               <button type="button" class="btn btn-block bg-gradient-info btn-xs" style="width:2cm;" disabled>
                 Harvested
               </button>
-              @endif
-            </td>                     
+              @endif 
+             </td>
+              <td>
+              @if($c->status == 0)
+                <a href="{{route('cultivation-view',$c->id)}}">
+                    <i class="fa fa-eye" aria-hidden="true"></i>View</a>
+                <a href="{{route('cultivation-edit',$c->id)}}">
+                  <i class="fa fa-edit" aria-hidden="true"> </i> Edit</a>
+                 &nbsp;
+                 <a onclick="return confirm('Are you sure want do Delete Permanently?')" href="{{route('cultivation-delete',$c->id)}}" class="text-danger">
+                   <i class="fa fa-trash" aria-hidden="true"> </i> Remove</a>
+                @else
+                <a href="{{route('cultivation-view',$c->id)}}">
+                    <i class="fa fa-eye" aria-hidden="true"></i>View</a>
+                     &nbsp;
+                 <a onclick="return confirm('Are you sure want do Delete Permanently?')" href="{{route('cultivation-delete',$c->id)}}" class="text-danger">
+                   <i class="fa fa-trash" aria-hidden="true"> </i> Remove</a>
+                @endif
+             </td>
+                   
           </tr>
             
           @endforeach

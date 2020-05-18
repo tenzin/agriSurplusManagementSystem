@@ -65,6 +65,13 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       Route::post('submit_cultivation_details',['as'=>'submit_cultivation_details','uses'=>'ExtensionUnderCultiavtionController@submit_cultivation_details']);
       Route::get('view_cultivation_details',['as'=>'view_cultivation_details','uses'=>'ExtensionUnderCultiavtionController@view_cultivation_details'])->middleware('can:extension_view_under_cultivation,Auth::user()');
       Route::get('update_cultivation_status/{id}',['as'=>'update_cultivation_status','uses'=>'ExtensionUnderCultiavtionController@update_cultivation_status']);
+      
+      Route::get('cultivation-view/{id}',['as'=>'cultivation-view','uses'=>'ExtensionUnderCultiavtionController@cultivation_view']);
+      Route::get('cultivation-edit/{id}',['as'=>'cultivation-edit','uses'=>'ExtensionUnderCultiavtionController@cultivation_edit']);
+      Route::post('cultivation-update/{id}',['as'=>'cultivation-update','uses'=>'ExtensionUnderCultiavtionController@cultivation_update']);
+      Route::get('cultivation-delete/{id}',['as'=>'cultivation-delete','uses'=>'ExtensionUnderCultiavtionController@cultivationDelete']);
+
+
 
 });
 
