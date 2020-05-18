@@ -544,7 +544,7 @@ class CASurplusController extends Controller
                     ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
                     ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
                     'tbl_cssupply.id', 'tbl_units.unit', 'tbl_cssupply.tentativePickupDate','tbl_cssupply.harvestDate')
-                    ->groupBy('id')->paginate(10);
+                    ->orderBy('id')->paginate(10);
 
         Session::put('View_status', 'VS');
         return view('ca_nvsc.surplus.view-all')->with('supply',$supply);

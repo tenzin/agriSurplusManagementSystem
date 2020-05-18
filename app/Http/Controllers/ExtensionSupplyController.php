@@ -444,7 +444,7 @@ class ExtensionSupplyController extends Controller
                             ->join('tbl_gewogs','tbl_ex_surplus.gewog_id', '=', 'tbl_gewogs.id')
                             ->select('tbl_ex_surplus.refNumber','tbl_ex_surplus.quantity','tbl_gewogs.gewog','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
                             'tbl_ex_surplus.id', 'tbl_units.unit', 'tbl_ex_surplus.tentativePickupDate','tbl_ex_surplus.harvestDate')
-                            ->groupBy('id')->get();
+                            ->orderBy('id')->get();
 
             } 
             else 
@@ -464,7 +464,7 @@ class ExtensionSupplyController extends Controller
                             ->join('tbl_units','tbl_ex_surplus.unit_id', '=', 'tbl_units.id')
                             ->select('tbl_ex_surplus.refNumber','tbl_ex_surplus.quantity','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
                             'tbl_ex_surplus.id', 'tbl_units.unit', 'tbl_ex_surplus.tentativePickupDate','tbl_ex_surplus.harvestDate')
-                            ->groupBy('id')->get();
+                            ->orderBy('id')->get();
             
             }
 

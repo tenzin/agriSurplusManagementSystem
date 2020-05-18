@@ -20,7 +20,6 @@ class ExtensionUnderCultiavtionController extends Controller
 
     public function submit_cultivation_details(Request  $request){            //save second table
 
-
         $cultivation= new Cultivation;
         $cultivation->product_id=$request->crop;
         $cultivation->c_units = $request->unit;
@@ -53,6 +52,46 @@ class ExtensionUnderCultiavtionController extends Controller
             ]);
         return back();
       }
+public function cultivation_view($id){
+    $cultivation = Cultivation::find($id);
+     return view('extension_farmer.cultivation.view', compact('cultivation'));
+}
 
+public function cultivation_edit($id){
+
+    $cultivation = Cultivation::find($id);
+    $product = Product::with('productType')->get();
+    $c_unit = Cunit::get();
+    $e_unit = Unit::get();
+     return view('extension_farmer.cultivation.edit',compact('cultivation','product','c_unit','e_unit'));
+}
+
+public function cultivation_update(Request $request, $id){
+
+    //dd($id);
+    $cultivation = Cultivation::find($id);
+// dd($cultivation);
+    $cultivation->product_id=$request->input('crop');
+    $cultivation->c_units = $request->input('unit');
+    $cultivation->e_units=$request->input('e_unit');
+    $cultivation->quantity=$request->input('quantity');
+    $cultivation->sowing_date=$request->input('date');
+    $cultivation->estimated_output=$request->input('output');
+    $cultivation->remarks=$request->input('remarks');
+    $cultivation->user_id=Auth::user()->id;
+    $cultivation->dzongkhag_id=Auth::user()->dzongkhag_id;
+    $cultivation->gewog_id=Auth::user()->gewog_id;
+    $cultivation->status=0;
+    // dd($cultivation);
+    $cultivation->save();  
+    
+    return redirect('view_cultivation_details')->with('success','You have successfully entered cultivation deltails.');
+}
+public function cultivationDelete($id)
+        {
+            $cultivation = Cultivation::find($id);
+            $cultivation->delete();
+            return back()->with('success', 'Deleted Successfully');
+        }
     
 }

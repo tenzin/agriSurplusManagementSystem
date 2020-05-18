@@ -14,7 +14,7 @@
 @csrf
 <div class="card-body">
   <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="form-group">
             <label>Crop Name:<font color="red">*</font></label>
               <select  name="crop" id="crop" class="form-control select2bs4" required>
@@ -25,30 +25,15 @@
               </select>
           </div> 
           <div class="form-group">
-            <label>Quantity/Acerage:<small>(Should be in Acres or number)</small>&nbsp;<font color="red">*</font></label>
-            <input id="quantity" type="text" class="form-control" name="quantity" maxlength="5" placeholder="Enter the Quantity" required/>
-          </div>
-
-          <div class="form-group">
             <label>Estimated Output:&nbsp;<font color="red">*</font></label>
             <input id="output" type="text" class="form-control" name="output"  maxlength="5" placeholder="Enter the Price Per Kg" required/>
           </div>
         </div>
         
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-group">
-              <label>units:&nbsp;<font color="red">*</font></label>
-              <select  name="unit" id="unit" class="form-control select2bs4" required>
-              <option disabled selected>Select Units</option>
-              @foreach($c_unit as $c)
-                <option value="{{ $c->id }}">{{$c->unit}}</option>
-                @endforeach
-              </select>
-            </div>
-
-            <div class="form-group">
-              <label>Sowing_date:&nbsp;<font color="red">*</font></label>
-              <input id="pickup_date" type="month" class="form-control" name="pickup_date" required/>
+              <label>Quantity/Acerage:<small>(Should be in Acres or number)</small>&nbsp;<font color="red">*</font></label>
+               <input id="quantity" type="text" class="form-control" name="quantity" maxlength="5" placeholder="Enter the Quantity" required/>
             </div>
             <div class="form-group">
               <label>Estimated Output unit:&nbsp;<font color="red">*</font></label>
@@ -60,14 +45,29 @@
                 </select>
             </div>
           </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label>units:&nbsp;<font color="red">*</font></label>
+              <select  name="unit" id="unit" class="form-control select2bs4" required>
+              <option disabled selected>Select Units</option>
+              @foreach($c_unit as $c)
+                <option value="{{ $c->id }}">{{$c->unit}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Sowing_date:&nbsp;<font color="red">*</font></label>
+              <input id="pickup_date" type="month" class="form-control" name="pickup_date" required/>
+            </div>
+          </div>
             <div class="col-md-12">
             <div class="form-group">
               <label>Remarks:&nbsp;<small>(Please mention location or address)</small></label>
               <textarea class="form-control" rows="3" placeholder="Enter Remarks if Any" name="remarks"></textarea>
             </div>
           </div>
-        </div>    
-               
+        </div>            
         </div>
         {{-- <div class="card-footer"> --}}
        <center> <button type="submit" class="btn btn-info">Submit</button></center>
