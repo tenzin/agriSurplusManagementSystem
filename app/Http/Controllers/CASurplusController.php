@@ -545,7 +545,7 @@ class CASurplusController extends Controller
                     ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
                     'tbl_cssupply.id', 'tbl_units.unit', 'tbl_cssupply.tentativePickupDate','tbl_cssupply.harvestDate')
                     ->groupBy('id')->paginate(10);
-    
+
         Session::put('View_status', 'VS');
         return view('ca_nvsc.surplus.view-all')->with('supply',$supply);
                                                 
@@ -553,48 +553,40 @@ class CASurplusController extends Controller
 
     public function zero(Request $request, $id){
 
-       $data = CASupply::findorfail($id)->get();
-    
-        // $user = auth()->user();
-        // $data = DB::table('tbl_cssupply')
-        //             ->where('tbl_cssupply.id', '=', $id)
-        //             // ->where('tbl_cssupply.dzongkhag_id','=',$user->dzongkhag_id)
-        //             ->join('tbl_product_types','tbl_cssupply.productType_id', '=', 'tbl_product_types.id')
-        //             ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
-        //             ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
-        //             ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-        //             'tbl_cssupply.id','tbl_units.unit','tbl_cssupply.tentativePickupDate','tbl_cssupply.status','tbl_cssupply.harvestDate','tbl_cssupply.remarks')
-        //             ->get()->toArray();
 
-        dd($data);
-        // DB::table('tbl_history_ca_supply')->insert([
+        $data = DB::table('tbl_cssupply')
+                    ->where('id', '=', $id)
+                    ->select('refNumber','quantity','productType_id','product_id', 'price',
+                    'id','unit_id','tentativePickupDate','status','harvestDate','remarks','dzongkhag_id')
+                    ->first();
 
-        //     'refNumber' => $da->refNumber,
-        //     'productType_id' => $da->producttype,
-        //     'product_id' => $da->product,
-        //     'quantity' => $da->quantity,
-        //     'unit_id' =>$da->unit,
-        //     'price' => $da->price,
-        //     'tentativePickupDate' => $da->tentativePickupDate,
-        //     'harvestDate' => $da->harvestdate,
-        //     'status' => 'T',
-        //     'remarks' => $da->remarks
-        // ]);
+        $inserts = [];
+
+        $inserts[] =  [
+            'refNumber' => $data->refNumber,
+            'productType_id' => $data->productType_id,
+            'product_id' => $data->product_id,
+            'quantity' => $data->quantity,
+            'unit_id' =>$data->unit_id,
+            'price' => $data->price,
+            'tentativePickupDate' => $data->tentativePickupDate,
+            'harvestDate' => $data->harvestDate,
+            'status' => 'T',
+            'remarks' => $data->remarks,
+            'dzongkhag_id' => $data->dzongkhag_id
+            ]; 
+
+        DB::table('tbl_history_ca_supply')->insert($inserts);
 
         DB::table('tbl_cssupply')
                 ->where('id', $id)
-                // ->where('user_id', $user->id)
-                // ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
                 ->update([
-
                         'status' => 'T',
                         'quantity' => '0'
                         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Added successfully');
         
     }
 
 }
-
-

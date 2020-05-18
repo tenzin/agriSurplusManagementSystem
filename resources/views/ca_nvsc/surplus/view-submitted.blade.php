@@ -42,9 +42,12 @@
               @endcan
             </td>
             <td>
-                <a href="{{route('update',$row->id)}}">
+                <button type="button" class="btn btn-block bg-gradient-warning btn-xs" style="width:2cm;" onclick="return confirm('Are you sure all Quantity are Taken??');">
+                    <a href="{{route('update',$row->id)}}" >All Taken</a>
+                    </button>
+                {{-- <a href="{{route('update',$row->id)}}">
                     <i class="fa fa-eye" aria-hidden="true"> </i> To Zero</a>
-                 </a>
+                 </a> --}}
             </td>
         </tr>
         @endforeach

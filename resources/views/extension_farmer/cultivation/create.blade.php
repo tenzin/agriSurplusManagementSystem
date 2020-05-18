@@ -4,9 +4,10 @@
 {{-- @include('flash-message') --}}
 <section class="content">
 <div class="container-fluid"> 
-<div class="card card-info">
+{{-- <div class="card card-info"> --}}
 <div class="card-header">
-<h3 class="card-title">Area Under Cultivation Form</h3>
+  <h2 class="text-center mt-1 mb-1 alert aqua">Area Under Cultivation Form</h2>
+{{-- <h3 class="card-title">Area Under Cultivation Form</h3> --}}
 </div>
 <form role="form" method="POST" action="{{route('submit_cultivation_details')}}">
 {{-- <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}"> --}}
@@ -59,7 +60,7 @@
                 </select>
             </div>
           </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
             <div class="form-group">
               <label>Remarks:&nbsp;<small>(Please mention location or address)</small></label>
               <textarea class="form-control" rows="3" placeholder="Enter Remarks if Any" name="remarks"></textarea>
@@ -68,17 +69,18 @@
         </div>    
                
         </div>
-        <div class="card-footer">
-        <button type="submit" class="btn btn-info float-right">Submit</button>
-        </div>
+        {{-- <div class="card-footer"> --}}
+       <center> <button type="submit" class="btn btn-info">Submit</button></center>
+        {{-- </div> --}}
 </form>
-</div>
+{{-- </div> --}}
 </div>
 </section>
 
 </div>
 </div>
 @endsection
+
    
      
 

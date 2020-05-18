@@ -52,74 +52,6 @@
       </div>
    </div>
 
-   <section class="content">
-      <div class="card card-info">
-         <div class="card-header">
-            <h3 class="card-title">Surplus Information</h3>
-         </div>
-         <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
-               <thead>
-                  <tr>
-                     <th>Sl. no</th>
-                     <th>ProductName</th>
-                     <th>Quantity</th>
-                     <th>FarmGet Price</th>
-                     <th>Harvest Date</th>
-                     <th>Tentitive Pickup Date</th>
-                     <th>Status</th>
-                     <th>Actions</th>
-                     <!-- <th>Action &nbsp;<span class="fa fa-cogs"></span></th> -->
-                  </tr>
-               </thead>
-               <tr>
-                  <td> 1</td>
-                  <td>Potato</td>
-                  <td>12</td>
-                  <td>50</td>
-                  <td>12/05/2020</td>
-                  <td>23/07/2020</td>
-                  <td>New</td>
-                  <!-- <td><a href="" class="btn btn-info"> View</a>
-                  <td><a href="" class="btn btn-success">Claim</a> -->
-                  </td>
-               </tr>
-               <td> 2</td>
-               <td>Curliflower</td>
-               <td>12</td>
-               <td>50</td>
-               <td>12/05/2020</td>
-               <td>Minjey</td>
-               <td>LUC</td>
-               </tr>
-               <td> 3</td>
-               <td>Cabbages</td>
-               <td>12</td>
-               <td>50</td>
-               <td>12/05/2020</td>
-               <td>Khoma</td>
-               <td>Extension officer</td>
-               </tr>
-               <td> 4</td>
-               <td>Chilli</td>
-               <td>12</td>
-               <td>100</td>
-               <td>12/05/2020</td>
-               <td>Kabesa</td>
-               <td>Farmer</td>
-               <td class="td-actions text-right">
-                                    <button type="button" class="btn btn-info btn-sm">
-                                    <a class="actions" href="#" >View</a>
-                                    </button>
-                                    <button type="button"class="btn btn-success btn-sm">
-                                       <a class="actions" href="#">Claim</a>
-                                    </button>
-                                </td>
-               </tr>
-            </table>
-         </div>
-      </div>
-   </section>
 
    <section class="content">
       <div class="container-fluid">
@@ -276,6 +208,38 @@
             </div>
          </div>
       </div>   
+   </section>
+
+   <section class="content">
+      <div class="card card-info">
+         <div class="card-header">
+            <h3 class="card-title">Extension Information</h3>
+         </div>
+         <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+               <thead>
+                  <tr>
+                     <th>Sl. no</th>
+                     <th>Name</th>
+                     <th>Gewog</th>
+                     <th>Email</th>
+                     <th>Contact</th>
+                     <!-- <th>Action &nbsp;<span class="fa fa-cogs"></span></th> -->
+                  </tr>
+               </thead>
+               <tr>
+                 @foreach($users_data as $ud)
+                     <td>{{$loop->iteration}}</td>
+                     <td>{{$ud->name}}</td>
+                     <td>{{$ud->gewog['gewog']}}</td>
+                     <td>{{$ud->email}}</td>
+                     
+                     <td>{{$ud->contact_number}}</td>   
+                 @endforeach
+               </tr>
+            </table>
+         </div>
+      </div>
    </section>
 </div>  
 @endsection
