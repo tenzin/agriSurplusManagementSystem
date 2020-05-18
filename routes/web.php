@@ -57,8 +57,8 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       Route::post('/update-submitted/{id}','ExtensionSupplyController@update_submitted')->name('update-submitted');
 
       //Extension history Route
-      Route::get('suppli-history',['as'=>'suppli-history','uses'=>'ExtensionSupplyController@show_history'])->middleware('can:extension_supply_history,Auth()::user()');
-      Route::get('showii/{id}','ExtensionSupplyController@ex_show')->name('showii');;
+      Route::get('surplus-history',['as'=>'surplus-history','uses'=>'ExtensionSupplyController@show_history'])->middleware('can:extension_supply_history,Auth()::user()');
+      Route::get('show-surplus/{id}','ExtensionSupplyController@ex_show')->name('show-surplus');;
 
       //Extension Under Cultivation
       Route::get('extension_cultivation',['as'=>'extension_cultivation','uses'=>'ExtensionUnderCultiavtionController@extension_cultivation'])->middleware('can:extension_add_under_cultivation,Auth::user()');

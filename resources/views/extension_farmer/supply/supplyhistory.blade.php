@@ -25,7 +25,7 @@
                   <table id="example1" class="table table-bordered table-striped">
                       <thead>
                         <tr>
-                          <th scope="col">#</th>
+                          <th scope="col">Sl.No</th>
                           <th scope="col">Referance Number</th>
                           <th scope="col">Submitted Date</th>
                           <th scope="col">Expired Date</th>
@@ -33,10 +33,11 @@
                       </thead>
                       <tbody>
                           
-                        @foreach($supply as $row)
+                       @foreach($supply as $row)
                         <tr>
-                        <th scope="row">{{$loop->index+1}}</th>
-                        <td><a href="{{route('showii',$row->refNumber)}}">
+
+                        <td scope="row">{{$loop->index+1}}</td>
+                        <td><a href="{{route('show-surplus',$row->refNumber)}}">
                         <i class="fas fa-eye"></i>
                           {{$row->refNumber}}
                         </td>
@@ -44,8 +45,8 @@
                         <td>{{$row->expiryDate}}</td>
 
                         </tr>
-                        @endforeach
-                       </tbody>           
+                       </tbody>  
+                       @endforeach          
                         
                     </table>
               </div>

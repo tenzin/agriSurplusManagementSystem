@@ -190,7 +190,7 @@
           @endcan
           <li class="nav-item">
             @can('extension_supply_history')
-                <a href="{{route('suppli-history')}}" class="nav-link">
+                <a href="{{route('surplus-history')}}" class="nav-link">
                   <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>Surplus History </p>
                 </a>
