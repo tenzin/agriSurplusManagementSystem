@@ -17,7 +17,7 @@
                   <div class="input-group-prepend">
                       <span class="input-group-text">Dzongkhag</span>
                   </div>
-                    <input type="text" class="form-control" name="price" id ="price" readonly value={{$row->dzongkhag->dzongkhag}}>
+                    <input type="text" class="form-control" name="price" id ="price" readonly value={{$row->gewog->dzongkhag->dzongkhag}}>
                 </div>
               </div>
               <div class="col-md-6 mb-3">
