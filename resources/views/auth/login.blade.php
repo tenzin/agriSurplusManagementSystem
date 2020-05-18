@@ -73,6 +73,9 @@
     </div>
     <!-- /.login-card-body -->
   </div>
+  <div class="col-4">
+  <a href="{{ url('/') }}">BACK TO Home</a>         
+   </div>
 </div>
 <!-- /.login-box -->
 

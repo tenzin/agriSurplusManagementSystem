@@ -42,12 +42,15 @@
 <script src="{{URL::asset('/bower_components/admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{URL::asset('/bower_components/admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 
+<link rel="stylesheet" href="{{asset('css/custom.css')}}"/>
+
 <script>
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
       "autoWidth": true 
    });
+   
 
 //Initialize Select2 Elements
   $('.select2').select2();

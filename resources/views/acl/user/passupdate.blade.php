@@ -9,7 +9,7 @@
       @csrf
       <div class="card-body">
          <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                <div class="form-group">
                   <label>Sl.No:<small></small>&nbsp;</label>
                   <input id="id" type="text" class="form-control" readonly value="{{$users->id}}" name="id"/>
@@ -23,7 +23,7 @@
                   <input id="name" type="text" class="form-control" name="name" readonly value="{{$users->name}}"/>
                </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                <div class="form-group">
                   <label>Dzongkhag:<small></small>&nbsp;</label>
                   <select id="dzongkhag" type="text" class="form-control" name="dzongkhag" readonly>
@@ -41,7 +41,7 @@
                   <input id="address" type="text" class="form-control" name="address" readonly value="{{$users->address}}"/>
                </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                <div class="form-group"> 
                   <label>Email:</label>
                   <input  name="email" id="email" class="form-control" readonly value="{{$users->email}}"/>
@@ -57,7 +57,12 @@
             </div>
          </div>
          <div class="card-footer">
-            <button type="submit" class="btn btn-info float-right">Reset</button>
+            <div class="form-group row mb-0">
+            <div class="col-md-6 offset-md-4">
+              <button type="submit"class="btn btn-success btn-sm">Reset</button>
+                <a class="btn btn-primary btn-sm" href="{{ route('user-reset')}}">Go back</a>
+               </div>
+            </div>
          </div>
    </form>
    </div>

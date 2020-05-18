@@ -29,14 +29,12 @@
     <table id= "example1" class="table table-bordered table-striped table-sm">
     <thead>
         <tr>
-        <th scope="col">#</th>
-        {{-- <th scope="col">Referance No.</th> --}}
-        {{-- <th scope="col">Product Type</th> --}}
+        <th scope="col">Sl.No</th>
         <th scope="col">Product</th>
         <th scope="col">Quantity</th>
-        <th scope="col">Price</th>
-        <th scope="col">Pick Up Date</th>
-        <th scope="col">Gewog</th>
+        <th scope="col">Price per Unit</th>
+        <th scope="col">Pickup Date</th>
+        <th scope="col">Location</th>
         <th>Action</th>
         </tr>
     </thead>
@@ -44,13 +42,12 @@
           @foreach($product as $row)
           <tr>
              <td>{{$loop->iteration}}</td>
-             {{-- <td>{{$row->type}}</td> --}}
              <td>{{$row->product}}</td>
              <td>{{$row->quantity.' '.$row->unit}}</td>
              <td>Nu. {{$row->price}}</td>
              {{-- <!-- <td>{{$row->harvestDate}}</td> --> --}}
              <td>{{$row->tentativePickupDate}}</td>
-          <td>{{$row->gewog}}</td>
+             <td>{{$row->gewog}}</td>
 
              <td> 
                 @can('extension_edit_surplus_details') 

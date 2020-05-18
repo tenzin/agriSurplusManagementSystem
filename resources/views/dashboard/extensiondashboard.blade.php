@@ -1,75 +1,77 @@
 @extends('master')
+@section('custom_css')
+@include('includes/chart-css')
+
+@endsection
 @section('content')
-<div class="container-fluid">
-  <section class="content">
-      <div class="container-fluid">
-         <div class="row">
-            <div class="col-md-6">
-               <div class="card card-success">
-                  <div class="card-header">
-                     <h3 class="card-title">Surplus Information</h3>
-                  </div>
-               <div class="card-body">
-               <table class="table table-bordered">
-                        <div class="form-group row">
-                           <div class="col-md-6">
-                              ProductName:
-                              <select class="form-control" name="agency_code" id="agency" >
-                                  <option disabled>Please select your ProductName</option>
-                              </select>
-                           </div>
-                        </div>
-                        <thead>
-                          <tr>
-                           <th style="width: 10px">Sl.No</th>
-                           <th>Product Name</th>
-                           <th>Quantity</th>
-                           <th>FarmGet Price</th>
-                           <th>Submitted By</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                           <td>1</td>
-                           <td>Potatoes</td>
-                           <td>20 Acres</td>
-                           <td>30</td>
-                           <td>EO</td>
-                          </tr>
-                          <tr>
-                           <td>2</td>
-                           <td>Chilli</td>
-                           <td>10 Acres</td>
-                           <td>50</td>
-                           <td>LUC</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  
-               </div>
-            </div>
-         </div>
 
-         <!-- Demand Info -->
-         <div class="col-md-6">
-            <div class="card card-info">
-               <div class="card-header">
-                  <h3 class="card-title">Surplus Statistics</h3>
-               </div>
-               <div class="card-body">
-               
-               </div>
-            </div>
-         </div>
+<div class="content">
+  <div class="row center">
+  <div class="col-lg-4">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-title">Total Suppliers Info</h5>
+        </div>
+        <div class="card-body chart">
+          <canvas id="userStats" height="200px"></canvas>
+        </div>
       </div>
-   </section>
+   </div>
+    <div class="col-lg-4">
+      <div class="card type">
+        <div class="card-header">
+          <h4 class="card-title">Product Types</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                @foreach($producttype as $t)
+                <tr>
+                  <td>{{$t->type}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+   </div>
+    <div class="col-lg-4">
+      <div class="card product">
+      <div class="card-header">
+          <h4 class="card-title">Products</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                @foreach($product as $p)
+                <tr>
+                 <td>{{$p->product}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <div class="col-lg-6">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-category">Overall Surplus</h5>
+
+        </div>
+        <div class="card-body chart">
+          <canvas id="surplus" height="200px"></canvas>
+        </div>
+      </div>
+    </div>
    <!-- Area of cultivation info -->
-   <section class="content">
-      <div class="container-fluid">
-         <div class="row">
             <div class="col-md-6">
-               <div class="card card-success">
+               <div class="card card">
                   <div class="card-header">
                      <h3 class="card-title">Area of Cultivation</h3>
                   </div>
@@ -79,19 +81,16 @@
                            <div class="col-md-6">
                               ProductName:
                               <select class="form-control" name="agency_code" id="agency" >
-                                  <option disabled>Please select your ProductName</option>
+                                  <option disabled>select your ProductName</option>
                               </select>
                            </div>
                         </div>
                         <thead>
                           <tr>
-                           <th style="width: 10px">Sl.No</th>
+                           <th>Sl.No</th>
                            <th>Product Name</th>
                            <th>Quantity</th>
                            <th>Estimated Production</th>
-                           <th>Harvestion Date</th>
-                           <th>Year</th>
-                           <th>Submitted By</th>
                            </tr>
                         </thead>
                         <tbody>
@@ -100,72 +99,31 @@
                            <td>Potatoes</td>
                            <td>20 Acres</td>
                            <td>300kg</td>
-                           <td>30/07/2020</td>
-                           <td>2020</td>
-                           <td>EO</td>
                           </tr>
                           <tr>
                            <td>2</td>
                            <td>Chilli</td>
                            <td>10 Acres</td>
                            <td>300kg</td>
-                           <td>30/07/2020</td>
-                           <td>2020</td>
-                           <td>LUC</td>
                            </tr>
                         </tbody>
                      </table>
                   </div>
                </div>
             </div>
-   
-         <!-- Surplus from other CA -->
-            <div class="col-md-6">
-               <div class="card card-info">
-                 <div class="card-header">
-                    <h3 class="card-title">Contact Information</h3>
-                  </div>
-                  <div class="card-body">
-                     <table class="table table-bordered">
-                        <div class="form-group row">
-                           <div class="col-md-4">
-                              Location:
-                             <select class="form-control" name="date" id="agency" >
-                               <option disabled>Please select Location</option>
-                              </select>
-                           </div>
-                        </div>
-                        <thead>
-                          <tr>
-                           <th style="width: 10px">Sl.No</th>
-                           <th>Name</th>
-                           <th>Desgination</th>
-                           <th>Location</th>
-                           <th>Contact Number</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                           <td>1</td>
-                           <td>Tenzin</td>
-                           <td>CA</td>
-                           <td>Phaling</td>
-                           <td>17594899</td>
-                          </tr>
-                          <tr>
-                           <td>1</td>
-                           <td>Norbu</td>
-                           <td>VSC</td>
-                           <td>Lhuntse Town</td>
-                           <td>17594899</td>
-                          </tr>
-                         </tbody>
-                     </table>
-                  </div>
+            <div class="col-lg-6">
+              <div class="card card-chart">
+                <div class="card-header">
+                 <h5 class="card-category">Surplus vs. month</h5>
+                </div>
+              <div class="card-body chart">
+                   <canvas id="monthsurplus" height="200px"></canvas>
                </div>
             </div>
-         </div>
-      </div>   
-   </section>
+    </div>       
 </div>
+@endsection
+@section('custom_scripts')
+@include('includes/chart-js')
+@include('includes/ex-dashboard-stats')
 @endsection

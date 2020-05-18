@@ -120,8 +120,12 @@
            <!-- /.card-body -->
            @csrf
            <div class="card-footer">
-             <button type="submit" class="btn btn-primary">Submit</button>
-           </div>
+           <div class="form-group row mb-0">
+            <div class="col-md-6 offset-md-4">
+              <button type="submit"class="btn btn-success btn-sm">Submit</button>
+                <a class="btn btn-primary btn-sm" href="{{ route('system-user')}}">Go back</a>
+               </div>
+            </div>
    </div>
  </form>
 </div>

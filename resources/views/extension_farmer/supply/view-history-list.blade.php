@@ -2,10 +2,10 @@
 @section('content')
 <div class="container">
     <h3 class="text-primary text-center">Surplus List</h3>
-    <table class="table table-bordered table-striped table-sm">
+    <table id="example1" class="table table-bordered table-striped table-sm">
     <thead>
         <tr>
-        <th scope="col">#</th>
+        <th scope="col">SL.No</th>
         <th scope="col">Product Type</th>
         <th scope="col">Product</th>
         <th scope="col">Quantity</th>

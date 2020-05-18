@@ -352,9 +352,8 @@ class ExtensionSupplyController extends Controller
         else 
         {
            return redirect()->back()->with('msg','Deleted successfully!!');
-        }
+        }  
     }
-
 
     //Surplus Submitted Edit and Update 
     public function edit_submitted($id)

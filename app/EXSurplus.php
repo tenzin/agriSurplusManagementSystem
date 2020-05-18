@@ -32,7 +32,10 @@ class EXSurplus extends Model
    public function gewog()
    {
     return $this->belongsTo(Gewog::class,'gewog_id');
-    }
-
-
+  }
+     //link to transaction table using refNumber.
+     public function transaction()
+     {
+         return $this->belongsTo(Transaction::class,'refNumber','refNumber');
+     }
 }

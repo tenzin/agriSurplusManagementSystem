@@ -7,8 +7,8 @@
             <div class="card-header">
                Users List
                <hr/>
-               <a class="btn btn-primary" href="{{route('add-user')}}">Add New User</a>
-               <a class="btn btn-primary" href="{{route('user-reset')}}">User Reset Password</a>
+               <a class="btn btn-primary btn-sm" href="{{route('add-user')}}">Add New User</a>
+               <a class="btn btn-primary btn-sm" href="{{route('user-reset')}}">User Reset Password</a>
             </div>
             <!--card header-->
             <div class="card-body">

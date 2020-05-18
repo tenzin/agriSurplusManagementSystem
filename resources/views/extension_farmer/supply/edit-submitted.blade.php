@@ -12,10 +12,12 @@
   @foreach($demands as $demand)
   <h5>Ref. No: <b>{{$demand->refNumber}}</b></h5>
   <hr>
+  @endforeach
 </div>
+<div class="row justify-content-center">
 <form method="POST" action="{{route('update-submitted',$demand->id)}}" >
 @csrf
-<div class="row">
+<div class="form-group row">
   <input type="hidden" id="refno" name="refno" value="{{$demand->refNumber}}"/>
   <div class="col-md-12 order-md-1">
     <h4 class="mb-3">Product details</h4>
@@ -49,7 +51,7 @@
             Please provide a valid Product.
           </div>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="col-md-4 mb-3">
               <label for="unit">Price* (tentative)</label>
               <div class="input-group">
                   <div class="input-group-prepend">
@@ -61,10 +63,24 @@
                   </div>
               </div>
           </div>
-
       </div>
-
-      <div class="row">
+      <div class="form-group row">
+      <div class="col-md-4 mb-3">
+              <label for="unit">Status:<font color="red">*</font></label>
+              <div class="input-group">
+                  <select class="custom-select d-block w-100" id="status" name="status">
+                    <option required value="A" {{($demand->status == 'A') ? 'selected' : '' }}>
+                      Required</option>
+                      <option required value="S" {{($demand->status == 'S') ? 'selected' : '' }}>
+                      Supplied</option>
+                      <option required value="T" {{($demand->status == 'T') ? 'selected' : '' }}>
+                      Transaction</option>
+                  </select>
+                  <div class="invalid-feedback" style="width: 100%;">
+                  Status is required.
+                  </div>
+              </div>
+          </div>    
           <div class="col-md-4 mb-3">
               <label for="qty">Taken Quantity:<font color="red">*</font></label>
               <input type="hidden" id="hqty" name="hqty" value="{{$demand->quantity}}"/>
@@ -89,22 +105,6 @@
                   </div>
               </div>
           </div>
-          <div class="col-md-3 mb-3">
-              <label for="unit">Status:<font color="red">*</font></label>
-              <div class="input-group">
-                  <select class="custom-select d-block w-100" id="status" name="status" required>
-                    <option value="A" {{($demand->status == 'A') ? 'selected' : '' }}>
-                      Required</option>
-                      <option value="S" {{($demand->status == 'S') ? 'selected' : '' }}>
-                      Supplied</option>
-                      <option value="T" {{($demand->status == 'T') ? 'selected' : '' }}>
-                      Transaction</option>
-                  </select>
-                  <div class="invalid-feedback" style="width: 100%;">
-                  Status is required.
-                  </div>
-              </div>
-          </div>    
       </div>
 
       <div class="row">
@@ -118,10 +118,15 @@
           </div>
       </div>
 
-      <hr class="mb-4">
-      <button class="btn btn-primary btn-lg btn-block" type="submit">Update</button><br>
+      <hr>
+      <div class="form-group row mb-0">
+          <div class="col-md-6 offset-md-4">
+              <button type="submit" class="btn btn-success btn-sm">Update</button>
+                 <a class="btn btn-primary btn-sm" href="{{ route('view_supply_details')}}">Go back</a>
+            </div>
+      </div>
     </form>
-    @endforeach
+  </div>
   </div>
 </div>
 @endsection
