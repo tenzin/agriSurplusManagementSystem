@@ -48,7 +48,7 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true,
-      "autoWidth": false 
+      "autoWidth": true 
    });
    
 
@@ -60,10 +60,10 @@
   theme: 'bootstrap4'
   });
 
-  $("#example3").DataTable({
-  "responsive": true,
-  "autoWidth": false,
-    });
+  // $("#example3").DataTable({
+  // "responsive": true,
+  // "autoWidth": false,
+  //   });
 });
 </script>
 <!-- page script -->

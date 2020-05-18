@@ -21,7 +21,7 @@ class CreateTblCultivationsTable extends Migration
             $table->float('quantity');
             $table->string('sowing_date');
             $table->string('estimated_output');
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
             $table->foreignId('user_id')->constrained()->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('dzongkhag_id')->nullable()->constrained()->references('id')->on('tbl_dzongkhags')->onDelete('cascade');
             $table->foreignId('gewog_id')->nullable()->constrained()->references('id')->on('tbl_gewogs')->onDelete('cascade');

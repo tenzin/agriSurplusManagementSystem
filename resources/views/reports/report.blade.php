@@ -9,9 +9,6 @@
           <div class="card card-info">
                   <div class="card-header">
                     <h3 class="card-title">Search By:</h3>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                    </div>
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
@@ -118,17 +115,18 @@
                </div>
               
             </div>   
-            
-
                   <!-- /.card-body -->
                   @csrf
-                  <div class="card-footer mt-1">                   
+                  <div class="card-footer">                   
                     <button type="submit" class="btn btn-primary float-right ">Search</button>
                   </div>
           </div>
+          
         </form>            
-                 
-    </div>
+    </div>     
+      </div>  
+    </div> 
+@endsection
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -168,5 +166,3 @@
     });
 
 </script>
-    
-@endsection

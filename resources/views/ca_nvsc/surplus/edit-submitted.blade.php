@@ -57,11 +57,11 @@
         <div class="col-md-3 mb-3">
           <label for="unit">Status*</label>
           <div class="input-group">
-              <select class="custom-select d-block w-100" id="status" name="status" required>
-                <option value="A" {{($supply->status == 'A') ? 'selected' : '' }}>
+              <select class="custom-select d-block w-100" id="status" name="status" required readonly>
+                {{-- <option value="A" {{($supply->status == 'A') ? 'selected' : '' }}>
                   Required</option>
                   <option value="S" {{($supply->status == 'S') ? 'selected' : '' }}>
-                  Supplied</option>
+                  Supplied</option> --}}
                   <option value="T" {{($supply->status == 'T') ? 'selected' : '' }}>
                   Transaction</option>
               </select>

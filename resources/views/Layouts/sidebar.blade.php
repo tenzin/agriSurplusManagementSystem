@@ -37,7 +37,7 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!--  Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-      <li class="nav-item has-treeview">
+      <li class="nav-item has-treeview menu-open">
         <a href="#" class="nav-link">
            <p> Aggregator Level</p>
         </a>
@@ -51,6 +51,7 @@
                       </a>
                     </li>
                 @endcan
+
                 <li class="nav-item">
                   <a href="{{route('view-nation')}}" class="nav-link">
                   <i class="far fa-chart-bar"></i> 
@@ -69,10 +70,20 @@
                 <li class="nav-item">
                   <a href="{{route('date')}}" class="nav-link">
                     <i class="nav-icon far fa-calendar-alt"></i>
-                      <p>Add Surplus Information</p>
+                      <p>Submit Surplus</p>
                   </a>
 
                 @endcan
+
+                @can('aggregator_view_surplus')
+                <li class="nav-item">
+                    <a href="{{route('view_surplus_details')}}" class="nav-link">
+                      <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>View Surplus</p>
+                    </a>
+                </li>
+              </li>
+              @endcan
 
                 @can('aggregator_supply_history')
             
@@ -83,16 +94,6 @@
                     </a>
                   </li>
                  @endcan
-
-                @can('aggregator_view_surplus')
-                <li class="nav-item">
-                    <a href="{{route('view_surplus_details')}}" class="nav-link">
-                      <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>View Surplus Information</p>
-                    </a>
-                </li>
-              </li>
-              @endcan
 
             @can('aggregator_demand_surplus')
             
@@ -123,6 +124,8 @@
               </li>
           </li>
           @endcan
+
+          
 
           {{-- @can('aggregator_search_surplus')
           <li class="nav-item">

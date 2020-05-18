@@ -18,9 +18,10 @@ Route::post('login', 'AuthController@login');
 Route::post('logout', 'AuthController@logout')->name('logout');
 Route::get('logout', 'AuthController@logout');
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
+Route::get('/','MapController@index');
 
 // Dashboard
 Route::group(['middleware' => 'auth'], function () {
@@ -78,28 +79,27 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
 Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() {
 
       //Commercial Aggregator Supply Surplus Information Route
-      Route::get('date',['as'=>'date','uses'=>'CASurplusController@expriydate'])->middleware('can:aggregator_demand_surplus,Auth::user()');
-      Route::post('store',['as'=>'store','uses'=>'CASurplusController@ex_store_transcation']);
-      Route::get('ca-view',['as'=>'ca-view','uses'=>'CASurplusController@ex_store_transcation']);
-      Route::post('supply-store',['as'=>'supply-store','uses'=>'CASurplusController@store']);
-      Route::get('supply-edit/{id}',['as'=>'supply-edit','uses'=>'CASurplusController@edit']);
-      Route::post('ca-update/{id}',['as'=>'ca-update','uses'=>'CASurplusController@update']);
-      Route::get('/supply_temp', 'CASurplusController@supply_temp')->name('supply_temp');
+      Route::get('date',['as'=>'date','uses'=>'CASurplusController@ca_expriydate'])->middleware('can:aggregator_demand_surplus,Auth::user()');
+      Route::post('store',['as'=>'store','uses'=>'CASurplusController@ca_store_transcation']);
+      Route::get('ca-view',['as'=>'ca-view','uses'=>'CASurplusController@ca_store_transcation']);
+      Route::post('supply-store',['as'=>'supply-store','uses'=>'CASurplusController@ca_store']);
+      Route::get('supply-edit/{id}',['as'=>'supply-edit','uses'=>'CASurplusController@ca_edit']);
+      Route::post('ca-update/{id}',['as'=>'ca-update','uses'=>'CASurplusController@ca_update']);
+      Route::get('/ca_supply_temp', 'CASurplusController@ca_supply_temp')->name('ca_supply_temp');
       Route::get('/supply_view', 'CASurplusController@ca_supply_view')->name('supply_view');
       Route::get('supply-delete/{id}','CASurplusController@ca_destroy');
-      Route::get('supply-history','CASurplusController@show_history')->name('supply-history')->middleware('can:aggregator_supply_history,Auth::user()');
-      Route::get('showe/{id}','CASurplusController@show')->name('showe');
+      Route::get('supply-history','CASurplusController@ca_show_history')->name('supply-history')->middleware('can:aggregator_supply_history,Auth::user()');
+      Route::get('showe/{id}','CASurplusController@ca_show')->name('showe');
+      
+      Route::get('update/{id}',['as'=>'update','uses'=>'CASurplusController@zero']);
 
       Route::get('view-surplus-nation',['as'=>'view-surplus-nation','uses'=>'CASurplusController@view_surplus_nation_all']);
-      // Route::get('/json-product_type','CASurplusController@product_type');
-      // Route::get('/json-submit-supply','CASurplusController@submit_ca_suuply');
-      // Route::get('/json-ca-product-exist','CASurplusController@ca_product_exists');
-
+      
       //Commercial Aggregator Supply View Surplus Information Route
-      Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@view_surplus_details'])->middleware('can:aggregator_view_surplus,Auth::user()');
-      Route::get('/edit_submited/{id}','CASurplusController@edit_submitted')->name('edit-submited')->middleware('can:aggregator_edit_surplus_details,Auth::user()');
-      Route::post('update_submited/{id}',['as'=>'update_submited','uses'=>'CASurplusController@update_submitted']);
-      Route::get('view-details/{id}',['as'=>'view-details','uses'=>'CASurplusController@view_detail'])->middleware('can:aggregator_view_surplus_details,Auth::user()');
+      Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@ca_view_surplus_details'])->middleware('can:aggregator_view_surplus,Auth::user()');
+      Route::get('/edit_submited/{id}','CASurplusController@ca_edit_submitted')->name('edit-submited')->middleware('can:aggregator_edit_surplus_details,Auth::user()');
+      Route::post('update_submited/{id}',['as'=>'update_submited','uses'=>'CASurplusController@ca_update_submitted']);
+      Route::get('view-details/{id}',['as'=>'view-details','uses'=>'CASurplusController@ca_view_detail'])->middleware('can:aggregator_view_surplus_details,Auth::user()');
       // Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@view_surplus_details'])->middleware('can:aggregator_view_surplus,Auth::user()');
 
       //Commercial Aggregator Demand Surplus Information Route
@@ -184,37 +184,38 @@ Route::group(['middleware' => 'can:master_data, Auth::user()'], function() {
 });
 Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function() {
 
-    //Role Route
-    Route::get('view-role',['as'=>'view-role','uses'=>'AccessControlListController@indexRole']);
-    Route::get('add-role',['as'=>'add-role','uses'=>'AccessControlListController@addRole']);
-    Route::post('store-role',['as'=>'store-role','uses'=>'AccessControlListController@storeRole']);
-    Route::get('edit-role/{id}',['as'=>'edit-role','uses'=>'AccessControlListController@editRole']);
-    Route::post('update-role',['as'=>'update-role','uses'=>'AccessControlListController@updateRole']);
-    Route::get('destroy-role/{id}',['as'=>'destroy-role','uses'=>'AccessControlListController@destroyRole']);
-    
-    //Permission Route
-    Route::get('view-permission',['as'=>'view-permission','uses'=>'AccessControlListController@indexPermission']);
-    Route::get('add-permission',['as'=>'add-permission','uses'=>'AccessControlListController@addPermission']);
-    Route::post('store-permission',['as'=>'store-permission','uses'=>'AccessControlListController@storePermission']);
-    Route::post('update-permission',['as'=>'update-permission','uses'=>'AccessControlListController@updatePermission']);
-    Route::get('edit-permission/{id}',['as'=>'edit-permission','uses'=>'AccessControlListController@editPermission']);
-    Route::get('destroy-permission/{id}',['as'=>'destroy-permission','uses'=>'AccessControlListController@destroyPermission']);
-   
-    //User Route
-    Route::get('system-user',['as'=>'system-user','uses'=>'AccessControlListController@user']);
-    Route::get('user-view/{id}',['as'=>'user-view','uses'=>'AccessControlListController@userView']);
-    Route::get('add-user',['as'=>'add-user','uses'=>'AccessControlListController@add']);
-    Route::post('new-user',['as'=>'new-user','uses'=>'AccessControlListController@insert']);
-    Route::get('/json-dzongkhag','AccessControlListController@dzongkhag');
-  
-    Route::get('edit-user/{id}',['as'=>'edit-user','uses'=>'AccessControlListController@edit']);
-    Route::post('update-user',['as'=>'update-user','uses'=>'AccessControlListController@update']);
-    Route::get('delete-user/{id}',['as'=>'delete-user','uses'=>'AccessControlListController@userDelete']);
-  //user password reset
-    Route::get('user-reset',['as'=>'user-reset','uses'=>'AccessControlListController@userResetPassword']);
-    Route::get('user-resetpassword/{id}',['as'=>'user-resetpassword','uses'=>'AccessControlListController@passwordReset']);
-    Route::post('user-passupdate',['as'=>'user-passupdate','uses'=>'AccessControlListController@passwordUpdate']);
+      //Role Route
+      Route::get('view-role',['as'=>'view-role','uses'=>'AccessControlListController@indexRole']);
+      Route::get('add-role',['as'=>'add-role','uses'=>'AccessControlListController@addRole']);
+      Route::post('store-role',['as'=>'store-role','uses'=>'AccessControlListController@storeRole']);
+      Route::get('edit-role/{id}',['as'=>'edit-role','uses'=>'AccessControlListController@editRole']);
+      Route::post('update-role',['as'=>'update-role','uses'=>'AccessControlListController@updateRole']);
+      Route::get('destroy-role/{id}',['as'=>'destroy-role','uses'=>'AccessControlListController@destroyRole']);
       
+      //Permission Route
+      Route::get('view-permission',['as'=>'view-permission','uses'=>'AccessControlListController@indexPermission']);
+      Route::get('add-permission',['as'=>'add-permission','uses'=>'AccessControlListController@addPermission']);
+      Route::post('store-permission',['as'=>'store-permission','uses'=>'AccessControlListController@storePermission']);
+      Route::post('update-permission',['as'=>'update-permission','uses'=>'AccessControlListController@updatePermission']);
+      Route::get('edit-permission/{id}',['as'=>'edit-permission','uses'=>'AccessControlListController@editPermission']);
+      Route::get('destroy-permission/{id}',['as'=>'destroy-permission','uses'=>'AccessControlListController@destroyPermission']);
+      
+      //User Route
+      Route::get('system-user',['as'=>'system-user','uses'=>'AccessControlListController@user']);
+      Route::get('user-view/{id}',['as'=>'user-view','uses'=>'AccessControlListController@userView']);
+      Route::get('add-user',['as'=>'add-user','uses'=>'AccessControlListController@add']);
+      Route::post('new-user',['as'=>'new-user','uses'=>'AccessControlListController@insert']);
+      Route::get('/json-dzongkhag','AccessControlListController@dzongkhag');
+      
+      Route::get('edit-user/{id}',['as'=>'edit-user','uses'=>'AccessControlListController@edit']);
+      Route::post('update-user',['as'=>'update-user','uses'=>'AccessControlListController@update']);
+      Route::get('delete-user/{id}',['as'=>'delete-user','uses'=>'AccessControlListController@userDelete']);
+      
+      //user password reset
+      Route::get('user-reset',['as'=>'user-reset','uses'=>'AccessControlListController@userResetPassword']);
+      Route::get('user-resetpassword/{id}',['as'=>'user-resetpassword','uses'=>'AccessControlListController@passwordReset']);
+      Route::post('user-passupdate',['as'=>'user-passupdate','uses'=>'AccessControlListController@passwordUpdate']);
+            
 
   }); // end of acl group list
 
@@ -237,7 +238,6 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
         Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
         Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
 
-
         //Contact US
         Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contactUS']);
         Route::post('contact-post',['as'=>'contact-post','uses'=>'ContactUsController@contactUSPost']);
@@ -251,7 +251,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
 
       //CA Surplus
       Route::get('/json-product_type','CASurplusController@product_type');
-      Route::get('/json-submit-supply','CASurplusController@submit_ca_suuply');
+      Route::get('/json-submit-supply','CASurplusController@submit_ca_supply');
       Route::get('/json-ca-product-exist','CASurplusController@ca_product_exists');
 
       //CA Demand
