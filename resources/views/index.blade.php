@@ -2,7 +2,7 @@
 <html lang="en-US">
    <head>
       <meta charset="UTF-8">
-      <title>Crop-SMS</title>
+      <title>V-MIS</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="stylesheet" href="css/components.css">
       <link rel="stylesheet" href="css/responsee.css">
@@ -79,7 +79,7 @@
          <nav>
             <div class="line">
                <div class="s-12 l-2">
-                  <p class="logo">VMIS</p>
+                  <p class="logo">V-MIS</p>
                </div>
                <div class="top-nav s-12 l-10">
 
@@ -88,7 +88,13 @@
                      <!--<li><a href="#features">Process</a></li>
                      <li><a href="#services">Services</a></li> -->
                      <li><a href="#contact">Contact</a></li>
-                     <li><a href="{{url('login')}}">Login</a></li>
+                     <li>
+                        @if(Auth::check())
+                           <a href="{{url('/national')}}">Dashboard</a>
+                        @else
+                          <a href="{{url('login')}}">Login</a>
+                        @endif
+                     </li>
                   </ul>
                </div>
             </div>
@@ -181,6 +187,15 @@
             if(typeof gewog_layer == 'undefined') {
               //gewog_layer is not defined. Define now
               //alert('gewog_layer not defined');
+
+              
+
+                  // @foreach($gewog as $row)
+                  //    {{$row->gewog}}
+                  // @endforeach
+             // {{$gewog}}
+              //var gewog_name=[{{$gewog}},{{$gewog}},{{$gewog}},{{$gewog}}];
+              //var gewog_name=[{{$gewog}}];
               var gewog_name = ['Chokhor', 'Ura', 'Tang', 'Chhume'];
               var long = [90.71112766300, 90.91560670800, 90.87104712900, 90.69937767200];
               var lat = [27.60460129980, 27.48790712980, 27.57078822880, 27.49359672880];
@@ -288,8 +303,24 @@
              .filter(layer => layer.get('name') === layer_name)
              .forEach(layer => map.removeLayer(layer));
         }
-
         </script>
+         
+      {{-- <!-- <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                @foreach($map as $m)
+                <tr>
+                  <td>{{$m->gewog}}</td>
+                  <td>{{$m->latitude}}</td>
+                  <td>{{$m->longitude}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div> -->--}}
+        
 
          <!-- FIRST BLOCK -->
          <!-- <div id="first-block">

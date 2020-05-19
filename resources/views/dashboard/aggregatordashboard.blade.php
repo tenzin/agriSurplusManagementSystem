@@ -1,217 +1,123 @@
 @extends('master')
-@section('content')
 
+@section('content')
 <div class="container-fluid">
    <div class="row">
-      <div class="col-lg-3 col-6">
-         <div class="small-box bg-info">
+      <!-- CA info-->
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-info">
             <div class="inner">
-               <p>Commerical Aggregator</p>
-               <h3>20</h3>
+               <p>Commercial Aggregator</p>
+               <h3>{{$ca}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-bag"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
-
-      <div class="col-lg-3 col-6">
-         <div class="small-box bg-success">
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-success">
             <div class="inner">
-               <p>Vegetable Supply Company  </p>
-               <h3>10</h3>
+               <p>Vegetable Supply Company</p>
+               <h3>{{$vsc}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-stats-bars"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
-
-      <div class="col-lg-3 col-6">
-         <div class="small-box bg-info">
+     
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-warning">
             <div class="inner">
-               <p>Regional Office</p>
-               <h3>4</h3>
+               <p>Reginal Office</p>
+               <h3>{{$luc}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-stats-bars"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
-
-      <div class="col-lg-3 col-6">
-         <div class="small-box bg-warning">
+      <!-- LUC info-->
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-primary">
             <div class="inner">
-               <p>Extension officer</p>
-               <h3>10</h3>
+               <p>Land User Certificate</p>
+               <h3>{{$luc}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-person-add"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
+      </div>
+       <!-- EO info-->
+       <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-secondary">
+            <div class="inner">
+               <p>Extension Officer</p>
+               <h3>{{$ex}}</h3>
+            </div>
+            <div class="icon">
+               <i class="fas fa-users nav-icon"></i>
+            </div>
+         </div>
+      </div>
+      <!-- Farmer group info-->
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-dark">
+            <div class="inner">
+               <p>Farmer Groups</p>
+               <h3>{{$farmer}}</h3>
+            </div>
+            <div class="icon">
+               <i class="fas fa-users nav-icon"></i>
+            </div>
+         </div>
+      </div>
+   <hr>
+   <div class="col-lg-3">
+      <div class="card type">
+        <div class="card-header">
+          <h4 class="card-title">Product Types</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                @foreach($producttype as $t)
+                <tr>
+                  <td>{{$t->type}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
    </div>
-
-
-   <section class="content">
-      <div class="container-fluid">
-         <div class="row">
-            <div class="col-md-6">
-               <div class="card card-success">
-                  <div class="card-header">
-                     <h3 class="card-title">Surplus Information</h3>
-                  </div>
-               <div class="card-body">
-                  
-               </div>
-            </div>
-         </div>
-
-         <!-- Demand Info -->
-         <div class="col-md-6">
-            <div class="card card-info">
-               <div class="card-header">
-                  <h3 class="card-title">Demand information</h3>
-               </div>
-               <div class="card-body">
-               
-               </div>
-            </div>
-         </div>
+   <div class="col-lg-3">
+      <div class="card product">
+        <div class="card-header">
+          <h4 class="card-title">Products</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                @foreach($product as $p)
+                <tr>
+                 <td>{{$p->product}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-   </section>
-
-   <!-- Area of cultivation info -->
+   </div>
+</div>
    <section class="content">
-      <div class="container-fluid">
-         <div class="row">
-            <div class="col-md-6">
-               <div class="card card-success">
-                  <div class="card-header">
-                     <h3 class="card-title">Area of Cultivation</h3>
-                  </div>
-                  <div class="card-body">
-                     <table class="table table-bordered">
-                        <div class="form-group row">
-                           <div class="col-md-6">
-                              ProductName:
-                              <select class="form-control" name="agency_code" id="agency" >
-                                  <option disabled>Please select your ProductName</option>
-                              </select>
-                           </div>
-                           <div class="col-md-6">
-                              Geog:
-                              <select class="form-control" name="date" id="agency" >
-                                  <option disabled>Please select your Dzongkhag</option>
-                              </select>
-                           </div>
-                        </div>
-                        <thead>
-                          <tr>
-                           <th style="width: 10px">Sl.No</th>
-                           <th>Product Name</th>
-                           <th>Quantity</th>
-                           <th>Estimated Production</th>
-                           <th>Geog</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                           <td>1</td>
-                           <td>Potatoes</td>
-                           <td>20 Acres</td>
-                           <td>300kg</td>
-                           <td>Khoma</td>
-                          </tr>
-                          <tr>
-                           <td>2</td>
-                           <td>Chilli</td>
-                           <td>10 Acres</td>
-                           <td>300kg</td>
-                           <td>Minjey</td>
-                           </tr>
-                           <tr>
-                           <td>3</td>
-                           <td>Bringle</td>
-                           <td>2 Acres</td>
-                           <td>300kg</td>
-                           <td>Paro</td>
-                          </tr>
-                        </tbody>
-                     </table>
-                  </div>
-               </div>
-            </div>
-
-         <!-- Surplus from other CA -->
-            <div class="col-md-6">
-               <div class="card card-info">
-                 <div class="card-header">
-                    <h3 class="card-title">Surplus From Other CA</h3>
-                  </div>
-                  <div class="card-body">
-                     <table class="table table-bordered">
-                        <div class="form-group row">
-                           <div class="col-md-4">
-                              Product Name:
-                             <select class="form-control" name="date" id="agency" >
-                               <option disabled>Please select your Product Type</option>
-                              </select>
-                           </div>
-                           <div class="col-md-4">
-                             Status:
-                              <select class="form-control" name="date" id="agency" >
-                                  <option disabled>Please select your Product Type</option>
-                              </select>
-                           </div>
-                           <div class="col-md-4">
-                              Date:
-                               <select class="form-control" name="date" id="agency" >
-                                  <option disabled>Please select your Product Type</option>
-                              </select>
-                           </div>
-                        </div>
-                        <thead>
-                          <tr>
-                           <th style="width: 10px">Sl.No</th>
-                           <th>ProductName</th>
-                           <th>Product Type</th>
-                           <th>Quantity</th>
-                           <th>Tantitive Pickup Date</th>
-                           <th>Status</th>
-                           <th style="width: 40px">Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                           <td>1</td>
-                           <td>Cabbage</td>
-                           <td>Vegetable</td>
-                           <td>200kg</td>
-                           <td>23/06/2020</td>
-                           <td>New</td>
-                           <td>view</td>
-                          </tr>
-                           <tr>
-                           <td>1</td>
-                           <td>Cabbage</td>
-                           <td>Vegetable</td>
-                           <td>200kg</td>
-                           <td>23/06/2020</td>
-                           <td>New</td>
-                           <td>view</td>
-                           </tr>
-                         </tbody>
-                     </table>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>   
-   </section>
-
-   <section class="content">
-      <div class="card card-info">
+      <div class="card card">
          <div class="card-header">
             <h3 class="card-title">Extension Information</h3>
          </div>

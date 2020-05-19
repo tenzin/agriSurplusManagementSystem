@@ -5,7 +5,7 @@
     <div class="row">
 
         <div class="col-lg-12 text-center">
-            <div class="card card-success">
+            <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">Contact Us</h5>
                 </div>

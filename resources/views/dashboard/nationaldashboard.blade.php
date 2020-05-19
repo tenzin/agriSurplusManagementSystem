@@ -9,50 +9,73 @@
 <div class="container-fluid">
    <div class="row">
       <!-- CA info-->
-      <div class="col-lg-4 col-6">
-         <div class="small-box bg-info">
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-info">
             <div class="inner">
-               <p>Aggregator And Veg.Supply Company</p>
-               <h3>{{$vsc}}</h3>
+               <p>Commercial Aggregator</p>
+               <h3>{{$ca}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-bag"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
-      <!-- EO info-->
       <div class="col-lg-2 col-6">
-         <div class="small-box bg-success">
+         <div class="small-box btn-outline-success">
+            <div class="inner">
+               <p>Vegetable Supply Company</p>
+               <h3>{{$vsc}}</h3>
+            </div>
+            <div class="icon">
+               <i class="fas fa-users nav-icon"></i>
+            </div>
+         </div>
+      </div>
+     
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-warning">
+            <div class="inner">
+               <p>Reginal Office</p>
+               <h3>{{$luc}}</h3>
+            </div>
+            <div class="icon">
+               <i class="fas fa-users nav-icon"></i>
+            </div>
+         </div>
+      </div>
+      <!-- LUC info-->
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-primary">
+            <div class="inner">
+               <p>Land User Certificate</p>
+               <h3>{{$luc}}</h3>
+            </div>
+            <div class="icon">
+               <i class="fas fa-users nav-icon"></i>
+            </div>
+         </div>
+      </div>
+       <!-- EO info-->
+       <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-secondary">
             <div class="inner">
                <p>Extension Officer</p>
                <h3>{{$ex}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-stats-bars"></i>
-            </div>
-         </div>
-      </div>
-      <!-- LUC info-->
-      <div class="col-lg-3 col-6">
-         <div class="small-box bg-warning">
-            <div class="inner">
-               <p>Land User Certificate and ARDC</p>
-               <h3>{{$luc}}</h3>
-            </div>
-            <div class="icon">
-               <i class="ion ion-person-add"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
       <!-- Farmer group info-->
-      <div class="col-lg-3 col-6">
-         <div class="small-box bg-primary">
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-dark">
             <div class="inner">
                <p>Farmer Groups</p>
                <h3>{{$farmer}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-pie-graph"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
