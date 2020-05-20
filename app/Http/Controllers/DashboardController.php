@@ -44,8 +44,7 @@ class DashboardController extends Controller
      {
       $d=auth()->user()->dzongkhag_id;
 
-       $producttype = ProductType::all();
-       $product = Product::all();
+      $producttype = ProductType::all();
 
        $farmer = User::where('dzongkhag_id', '=', $d)
                  ->where('role_id','9')->count();
@@ -53,23 +52,17 @@ class DashboardController extends Controller
                  ->where('role_id','7')->count();
         $luc = User::where('dzongkhag_id', '=', $d)
                 ->where('role_id','8')->count();
-        $ardc = User::where('dzongkhag_id', '=', $d)
-                ->where('role_id','6')->count();
-        $vsc = User::where('role_id', '5')->count();
         $ca = User::where('role_id', '4')->count();
 
       $users_data = User::where('dzongkhag_id', '=', $d)
                        ->where('role_id', '=', 7)->with('gewog')->get(); ;
         return view('dashboard.aggregatordashboard',compact(
             'producttype',
-            'product',
             'users_data',
             'ca',
             'ex',
             'luc',
-            'vsc',
             'farmer',
-            'ardc'
          ));
      }
 
