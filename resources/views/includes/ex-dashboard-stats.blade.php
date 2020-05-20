@@ -5,15 +5,16 @@ var ctx = document.getElementById('userStats');
 var userStats = new Chart(ctx, {
     type: 'doughnut',
     data: {
-        labels: ['Farmer Group','Land User Certificate', 'ARDC','Vegetable Supply Company'],
+        labels: ['Commercial Aggregator','Farmer Group','Land User Certificate', 'ARDC','Vegetable Supply Company'],
         datasets: [{
             label: 'Statistics',
-            data: [{{$farmer}}, {{$luc}}, {{$ardc}},{{$vsc}}],
+            data: [{{$ca}},{{$farmer}}, {{$luc}}, {{$ardc}},{{$vsc}}],
             backgroundColor: [
                 'rgba(280, 99, 132, 0.8)',
                 'rgba(54, 162, 235, 0.8)',
                 'rgba(255, 206, 86, 0.8)',
                 'rgba(75, 192, 192, 0.2)',
+                'rgba(75, 255, 192, 0.8)',
             ],
             borderColor: [
 
