@@ -74,7 +74,7 @@ class FarmerController extends Controller
         
         $trans = Transaction::where('user_id','=',$user->id)
                             ->where('status','=','A')
-                            ->where('type', '=', 'S')
+                            ->where('type', '=', 'ES')
                             ->first();
 
                                    
@@ -93,38 +93,41 @@ class FarmerController extends Controller
         else
         {
             $date = date('Ym');
-            $type = "S"; //Transaction type D: Demand; S: Supply
+            $type = "E"; //Transaction type D: Demand; S: Supply
 
             //check if transaction exist with submitted list.
             $ref = DB::table('tbl_transactions')
                     ->where('user_id', '=' , $user->id)
                     ->where('status','!=','A')
-                    ->where('type', '=', 'S')
+                    ->where('type', '=', 'ES')
                     ->first();
                   //  dd($ref);
         
             //get max refnumber of any previous number used.
             if($ref == null) {
                  //create a new ref Number.
-                $number = 1;
-                $number = sprintf("%04d", $number);
-                $nextNumber = $type.$date.$user->id.$number;
-                Session::put('NextNumber', $nextNumber);
+                 $number = 1;
+                 $number = sprintf("%05d", $number);
+                 $nextNumber = $type.date('Ym').$number;
+                Session::put('NextNumber', $nextNumber);         
 
             } else 
             {      
                
-                $max = Transaction::where('user_id','=',$user->id)
-                                    ->where('status','!=','A')
-                                    ->where('type', '=', 'S')
-                                    ->where('refNumber','like',$type.$date.$user->id.'%')
+                // $max = Transaction::where('user_id','=',$user->id)
+                //                     ->where('status','!=','A')
+                //                     ->where('type', '=', 'ES')
+                //                     ->where('refNumber','like',$type.$date.$user->id.'%')
+                //                     ->max('refNumber');
+                $max=DB::table('tbl_transactions')
+                                    ->where('user_id', '=' , $user->id)
+                                    ->where('gewog_id','=',$user->gewog_id)
+                                    // ->where('refNumber', 'Like' , '%'.$refno.'%')
                                     ->max('refNumber');
 
-
-                $number = substr($max,strlen($max) - 4,strlen($max));
+                $number = substr($max,1,12);
                 $number=$number+1;
-                $number = sprintf("%04d", $number);
-                $nextNumber = $type.date('Ym').$user->id.$number;
+                $nextNumber = $type.$number;
             }
 
            

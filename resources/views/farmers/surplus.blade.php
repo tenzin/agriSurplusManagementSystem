@@ -2,7 +2,14 @@
 
 @section('content')
 <div class="container">
-<div>Entry of Surplus. &nbsp;&nbsp;&nbsp;Ref. No: &nbsp;<b>{{$nextNumber}}</b></div>
+  <div class="py-2 text-center">
+    <h1>Supply Form </h1>
+        <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
+        <p class="lead">Enter the Product Supply from Your Gewog.</p>
+    <hr>
+</div>
+{{-- Entry of Surplus. &nbsp;&nbsp;&nbsp;Ref. No: &nbsp;<b>{{$nextNumber}}</b> --}}
+</div>
       <!-- parent field -->
 <form method="POST" action = "{{route('farmer-store')}}">
   <input type="hidden" name="refnumber" id="refnumber" value="{{ $nextNumber}}">
@@ -70,7 +77,7 @@
               <div class="col">
                 <div class="row">    
                   <div class="col col-md-auto mt-1"><label for="remarks">Remark:</label></div>
-                  <div class="col"><input type="text" class="form-control" name="remark" id ="remark" value="{{$trans->remark ?? ''}}"></div>
+                  <div class="col"><textarea type="text" class="form-control" name="remark" id ="remark" value="{{$trans->remark ?? ''}}" rows="1"></textarea></div>
                 </div>
               </div>                 
 
@@ -138,11 +145,11 @@
     </div>    <!-- end for input row1 -->
 
    </div> <!-- end of card-body -->
-   <div class="card-footer"></div>
+   
   </div> <!-- end of card-body -->
- </div> <!-- end of card -->  
+ {{-- </div> <!-- end of card -->   --}}
 
-  <div class="card"> 
+<div class="card"> 
 <!-- list of items saved -->
   <div class="card-body"> 
     <div class="row text-center">

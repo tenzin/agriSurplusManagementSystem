@@ -41,15 +41,15 @@
         <tbody>
           @foreach($surplus as $report)
           <tr>
-            <td class="col-md-1">{{$loop->iteration}}</td>
+            <td>{{$loop->iteration}}</td>
             <td>{{$report->type}}</td>             
             <td>{{$report->product}}</td>
-            <td class="text-right col-md-1">{{date('d/m/Y',strtotime($report->harvestDate))}}</td> 
-            <td class="text-right col-md-1">{{$report->price}}</td>
+            <td>{{date('d/m/Y',strtotime($report->harvestDate))}}</td> 
+            <td>{{$report->price}}</td>
             @if(empty($gewogname))           
               <td>{{$report->gewog}}</td>
             @endif 
-            <td class="text-right col-md-1">{{$report->quantity}} {{$report->unit}}</td>                                                  
+            <td>{{$report->quantity}} {{$report->unit}}</td>                                                  
           </tr>
           @endforeach 
           
