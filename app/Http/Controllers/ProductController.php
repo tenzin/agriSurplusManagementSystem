@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\ProductType;
+use DB;
+
 class ProductController extends Controller
 {
     //create product.
@@ -56,5 +58,15 @@ class ProductController extends Controller
         return redirect('product-create')->with("success",'Successfully deleted the permission');
   
       }
+
+    //get product based on selected type.
+    public function product_type(Request $request){
+
+        $id = $request->product_type;
+        $product=DB::table('tbl_products')
+            ->where('productType_id', '=', $id)
+            ->get();
+        return response()->json($product);
+    }
 
 }
