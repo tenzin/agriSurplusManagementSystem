@@ -59,7 +59,13 @@
                     <i class="nav-icon far fa-calendar-alt"></i>
                       <p>Add Surplus Information</p>
                   </a>
-
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('aggregator_report')}}" class="nav-link">
+                    <i class="nav-icon far fa-calendar-alt"></i>
+                    <p>View Report</p>
+                  </a>
+                </li>     
                 @endcan
 
                 @can('aggregator_supply_history')
@@ -131,7 +137,8 @@
                     View Claim
                   </p>
                 </a>
-              </li>
+              </li>   
+
               @endcan
         <ul>
       </li>
@@ -165,6 +172,7 @@
                 <i class="nav-icon far fa-calendar-alt"></i>
                 <p>Supply Information</p>
               </a>
+            </li> 
             @endcan
 
             @can('view_extension_surplus')
@@ -174,6 +182,12 @@
                   <p>View Supply Information </p>
                 </a>
               </li>
+                <li class="nav-item">
+                  <a href="{{route('extension_report')}}" class="nav-link">
+                    <i class="nav-icon far fa-calendar-alt"></i>
+                    <p>View Report</p>
+                  </a>
+                </li>     
             </li>
           @endcan
           <li class="nav-item">
@@ -201,7 +215,7 @@
               <p>View Under Cultivation </p>
             </a>
           </li>
-          @endcan 
+          @endcan
           </li>
         <ul>
       </li>

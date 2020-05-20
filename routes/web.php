@@ -66,6 +66,10 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       Route::get('view_cultivation_details',['as'=>'view_cultivation_details','uses'=>'ExtensionUnderCultiavtionController@view_cultivation_details'])->middleware('can:extension_view_under_cultivation,Auth::user()');
       Route::get('update_cultivation_status/{id}',['as'=>'update_cultivation_status','uses'=>'ExtensionUnderCultiavtionController@update_cultivation_status']);
 
+      //Extension reports.
+      Route::get('extension_report',['as'=>'extension_report','uses'=>'EXReportController@searchby']);
+      Route::post('extension_dreport',['as'=>'extension_dreport','uses'=>'EXReportController@search_result']);
+
 });
 
 Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() {
@@ -92,6 +96,11 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('/edit_submited/{id}','CASurplusController@edit_submitted')->name('edit-submited')->middleware('can:aggregator_edit_surplus_details,Auth::user()');
       Route::post('update_submited/{id}',['as'=>'update_submited','uses'=>'CASurplusController@update_submitted']);
       Route::get('view-details/{id}',['as'=>'view-details','uses'=>'CASurplusController@view_detail'])->middleware('can:aggregator_view_surplus_details,Auth::user()');
+
+      //report for aggregator.
+      Route::get('aggregator_report',['as'=>'aggregator_report','uses'=>'CAReportController@searchby']);
+      Route::post('aggregator_dreport',['as'=>'aggregator_dreport','uses'=>'CAReportController@search_result']);
+      
       // Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@view_surplus_details'])->middleware('can:aggregator_view_surplus,Auth::user()');
 
       //Commercial Aggregator Demand Surplus Information Route
@@ -241,13 +250,29 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
       Route::get('/json-surplus-exist','ExtensionSupplyController@surplus_exists');
 
       //CA Surplus
-      Route::get('/json-product_type','CASurplusController@product_type');
+     Route::get('/json-product_type','CASurplusController@product_type');
       Route::get('/json-submit-supply','CASurplusController@submit_ca_suuply');
       Route::get('/json-ca-product-exist','CASurplusController@ca_product_exists');
 
       //CA Demand
       Route::get('/json-submit-demand','CADemandController@submit_demand');
       Route::get('/json-product-exist','CADemandController@product_exists');
-      Route::get('/json-product_type','CADemandController@product_type');
+     Route::get('/json-product_type','CADemandController@product_type');
 
 
+      //CA to view surplus of Gewogs.
+
+      Route::get('/surplusofgewogs','CAGewogController@gewogsurplus');
+
+      //farmers surplus.
+      // Route::get('/farmer-create','FarmerController@create');
+      Route::get('farmer-create',['as'=>'farmer-create','uses'=>'FarmerController@create']);
+      Route::post('farmer-store',['as'=>'farmer-store','uses'=>'FarmerController@store']);
+      Route::get('/json-farmer-product-exist','FarmerController@product_exists');
+      Route::get('/json-farmer-products','FarmerController@products');
+      Route::get('/json-farmer-unit_product','FarmerController@unit_product');
+      Route::get('farmer-edit/{id}',['as'=>'farmer-edit','uses'=>'FarmerController@edit']);
+      Route::post('farmer-update',['as'=>'farmer-update','uses'=>'FarmerController@update']);
+      Route::get('farmer-transactions',['as'=>'farmer-transactions','uses'=>'FarmerController@transactions']);
+      Route::get('farmer-batch/{id}',['as'=>'farmer-batch','uses'=>'FarmerController@batch']);
+      Route::get('farmer-remove/{id}',['as'=>'farmer-remove','uses'=>'FarmerController@delete']);
