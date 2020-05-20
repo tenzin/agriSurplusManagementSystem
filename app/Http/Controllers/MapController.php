@@ -10,7 +10,7 @@ class MapController extends Controller
 {
     public function index(){
 
-        // $mapping = Gewog::pluck();
+        // $mapping = Gewog::all()->toArray();
 
         // $mapping = DB::table('tbl_gewogs')->first();
 

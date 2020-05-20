@@ -72,7 +72,13 @@
                     <i class="nav-icon far fa-calendar-alt"></i>
                       <p>Submit Surplus</p>
                   </a>
-
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('aggregator_report')}}" class="nav-link">
+                    <i class="nav-icon far fa-calendar-alt"></i>
+                    <p>View Report</p>
+                  </a>
+                </li>     
                 @endcan
 
                 @can('aggregator_view_surplus')
@@ -180,6 +186,7 @@
                 <i class="nav-icon far fa-calendar-alt"></i>
                 <p>Submit Surplus</p>
               </a>
+            </li> 
             @endcan
 
             @can('view_extension_surplus')
@@ -189,6 +196,12 @@
                   <p>View Surplus</p>
                 </a>
               </li>
+                <li class="nav-item">
+                  <a href="{{route('extension_report')}}" class="nav-link">
+                    <i class="nav-icon far fa-calendar-alt"></i>
+                    <p>View Report</p>
+                  </a>
+                </li>     
             </li>
           @endcan
           <li class="nav-item">
@@ -216,7 +229,7 @@
               <p>View Under Cultivation </p>
             </a>
           </li>
-          @endcan 
+          @endcan
           </li>
         <ul>
       </li>

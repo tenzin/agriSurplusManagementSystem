@@ -44,8 +44,8 @@
                   <div class="col-md-2">
                     <select name="report_type" id="report_type" required>
                       <option value="">Select type</option>
-                      <option value="Surplus">Surplus</option>
-                      <option value="Demand">Demand</option>
+                      <option value="Surplus" selected>Surplus</option>
+                      <!-- <option value="Demand">Demand</option> -->
                     </select>
                   </div>
 

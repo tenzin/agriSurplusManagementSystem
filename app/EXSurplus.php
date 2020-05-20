@@ -1,11 +1,17 @@
 <?php
 
 namespace App;
-
+use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\Notifiable;
+use App\Notifications\ExtensionSurplus;
 
 class EXSurplus extends Model
 {
+
+    use Notifiable;
+
     protected $table = 'tbl_ex_surplus';
     protected $primaryKey = 'id';
     protected $fillable= ['refNumber','productType_id','product_id','quantity','unit_id','tentativePickupDate','price','status','remarks','harvestDate'];
@@ -37,5 +43,18 @@ class EXSurplus extends Model
      public function transaction()
      {
          return $this->belongsTo(Transaction::class,'refNumber','refNumber');
+     }
+
+     public static function boot(){
+
+        parent::boot();
+
+        static::created(function($model){
+
+            $users = User::where('role_id', '4','5')->get();
+
+            Notification::send($users, new ExtensionSurplus($model));
+
+        });
      }
 }
