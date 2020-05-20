@@ -55,80 +55,99 @@
    <hr>
 
    <!-- Search product -->
+ <form class="form-horizontal" method="POST" action = "{{route('search-surplus')}}">
+            @csrf
    <div class="col-md-12 order-md-1">
-      <h4 class="mb-3">Search Products NearBy You..</h4>
+      <h4 class="mb-3">Search Products...</h4>
      <div class="row">
-        <div class="col-md-4 mb-3">
+        <div class="col col-md-auto">
           <label for="product">Product-Type</label>
+       </div>
+          <div class="col-md-4 mb-3">
           <select class="custom-select d-block w-100" id="type" name="type" required>
-            <option>Select Product-Type</option>
+            <option>Select ProductType</option>
                @foreach($producttype as $type)
                 <option value="{{$type->id}}">{{$type->type}}</option>
                 @endforeach
            </select>  
          </div>
-        <div class="col-md-4 mb-3">
+        <div class="col col-md-auto">
           <label for="Location">Location</label>
-          <select class="custom-select d-block w-100" id="location" name="location" required>
+        </div>
+          <div class="col-md-4 mb-3">
+          <select class="custom-select d-block w-100" id="location" name="location" onchange="getValue();" required>
             <option>Select Location</option>
-          </select>
+               @foreach($location as $location)
+                <option value="{{$location->id}}">{{$location->location}}</option>
+                @endforeach
+           </select> 
          </div>
-         <div class="col-md-4 mb-3">
-              <label for="date">Date</label>
-              <div class="input-group">
-               <input type="date" class="form-control" name="date" id ="date">
-              </div>
-          </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary btn-sm float-right ">Search</button>
+            </div> 
+         </div>
       </div>
+</form>
    <hr>
-
+  
    <!-- Search Value -->
    <div class="col-md-12 order-md-1">
-      <h4 class="mb-3">Products For You..</h4>
+      <h4 class="mb-3">Selected Location...</h4>
      <div class="row">
         <div class="col-md-4 mb-3">
-          {{--  <!-- @if($location->$type-type)<span class="label">{{$type->type}}</span>
-                @else<span class="label">Location Name</span>
-            @endif -->
-          <!-- <label for="product">Products</label> -->--}}
+           <div class="input-group">
+             <input type="text" class="form-control" name="place" id ="place">
+            </div> 
           <div class="table-responsive">
+          <label>List of Products If You Need...</label>           
             <table class="table">
               <tbody>
-                @foreach($producttype as $t)
+               {{-- <!-- @foreach($producttype as $t)
                 <tr>
                   <td>{{$t->type}}</td>
                 </tr>
-                @endforeach
+                @endforeach -->--}}
               </tbody>
             </table>
          </div>
       </div>
 
-   <!-- Product outside Location -->
+   <!-- Product outside Location -->         
     <div class="col-md-8">
       <div class="card">
          <div class="card-header">
-            <h3 class="card-title">Products Avaliable Outside Your Location</h3>
-         </div>
+            <h4 class="card-title">Products Avaliable Based on Locations</h4>
+         </div> 
          <div class="card-body">
-            <table id="product" class="table table-bordered table-striped">
+         <div class="row">
+               <div class="col col-md-auto">
+                   <label for="date">Date</label>
+                </div>
+              <div class="col-md-4 mb-3">
+                  <div class="input-group">
+                     <input type="date" class="form-control" name="date" id ="date">
+                  </div>
+               </div>
+            </div>
+            <table id="product" class="table table-hover table-bordered table-striped">
                <thead>
                   <tr>
                      <th>Sl.No</th>
                      <th>Product</th>
                      <th>Product-Type</th>
+                     <th>Gewog</th>
                      <th>Location</th>
                      <th>Date</th>
                   </tr>
                </thead>
-                 @foreach($users_data as $ud)
+                 <!-- @foreach($users_data as $ud)
                  <tr>
                      <td>{{$loop->iteration}}</td>
                      <td>{{$ud->name}}</td>
                      <td>{{$ud->gewog['gewog']}}</td> 
                      <td>{{$ud->gewog['gewog']}}</td>  
                </tr>
-               @endforeach
+               @endforeach -->
             </table>
             </div>
          </div>
@@ -143,7 +162,7 @@
             <h3 class="card-title">Extension Officer Information</h3>
          </div>
          <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="example1" class="table-sm table-hover table-bordered table-striped">
                <thead>
                   <tr>
                      <th>Sl. no</th>
@@ -170,17 +189,37 @@
 
 <script>
 $(document).ready(function() {
-
-var table =  $('#product').DataTable();
-$('#type').on('change', function () {
-            table.columns(2).search( this.value ).draw();
-        });
-$('#location').on('change', function () {
-            table.columns(3).search( this.value ).draw();
-        });
-$('#date').on('change', function () {
-            table.columns(4).search( this.value ).draw();
+    var table =  $('#product').DataTable();
+       $('#date').on('change', function () {
+          table.columns(4).search( this.value ).draw();
    });
 
  });
+
+ function getValue(){
+    var name = document.getElementById("location");
+    var displayvalue= name.options[name.selectedIndex].text;
+    document.getElementById("place").value=displayvalue;
+ }
+
+
+ function search() {
+      
+      var loc = document.getElementById("location").value;
+     // alert(refNo);
+      $.get('/json-surplus-exist?refNo=' + refNo, function(data){
+        if(data == null || data ==''){
+            alert('Sorry:Please, Select atleast a option!!!');
+        } elseif {
+         alert('Sorry: You cannot Search the Surplus by Location!!Please,Aslo Select the Product-Type!');
+            //show some type of message to the user
+            if (confirm('Are you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
+              var id = document.getElementById("refnumber").value;
+              $.get('/json-submit-surplus?ref_number=' + id, function(data){
+                window.location = "/national/";
+              });
+            }
+        }
+      });
+      }
  </script>

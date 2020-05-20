@@ -43,8 +43,9 @@ class DashboardController extends Controller
      public function aggregator()
      {
       $d=auth()->user()->dzongkhag_id;
-
+      
       $producttype = ProductType::all();
+      $location=Transaction::all();
 
        $farmer = User::where('dzongkhag_id', '=', $d)
                  ->where('role_id','9')->count();
@@ -55,15 +56,22 @@ class DashboardController extends Controller
         $ca = User::where('role_id', '4')->count();
 
       $users_data = User::where('dzongkhag_id', '=', $d)
-                       ->where('role_id', '=', 7)->with('gewog')->get(); ;
+                       ->where('role_id', '=', 7)->with('gewog')->get(); 
+                      
         return view('dashboard.aggregatordashboard',compact(
             'producttype',
+            'location',
             'users_data',
             'ca',
             'ex',
             'luc',
             'farmer',
          ));
+     }
+  //CA Surplus Search part
+     public function search(){
+
+      return view('dashboard.aggregatordashboard');
      }
 
      public function national()

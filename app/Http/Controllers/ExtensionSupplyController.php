@@ -466,7 +466,7 @@ class ExtensionSupplyController extends Controller
                             'tbl_ex_surplus.id', 'tbl_units.unit', 'tbl_ex_surplus.tentativePickupDate','tbl_ex_surplus.harvestDate')
                             ->orderBy('id')->get();
             
-            }
+            } 
 
         Session::put('View_status', 'VS');
        
