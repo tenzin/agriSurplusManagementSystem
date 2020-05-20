@@ -29,7 +29,7 @@
           <tr>
             <td>{{$loop->iteration}}</td>
             <td>{{$c->product->product}}</td> 
-            <td>{{$c->quantity.' - '.$c->c_unit->unit}}</td>
+            <td>{{$c->quantity.' '.$c->c_unit->unit}}</td>
             <td>{{$c->sowing_date}}</td> 
             <td>@if($c->status == '1')<span class="label">Harvested</span>
               @else<span class="label">Under Cultivation</span>@endif </td>

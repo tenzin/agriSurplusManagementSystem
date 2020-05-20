@@ -259,4 +259,9 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
       Route::get('/json-product-exist','CADemandController@product_exists');
       Route::get('/json-product_type','CADemandController@product_type');
 
+      Route::get('maskAsRead', function(){
+            Auth::User()->unReadNotifications->markAsRead();
+            return redirect()->back();
+      })->name('read');
+
 

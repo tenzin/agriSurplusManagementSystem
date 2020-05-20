@@ -63,7 +63,8 @@ class DashboardController extends Controller
         $farmer = User::where('role_id','9')->count();
         $ex = User::where('role_id','7')->count();
         $luc = User::where('role_id','6','8')->count();
-        $vsc = User::where('role_id', '4','5')->count();
+        $vsc = User::where('role_id','4','5')->count();
+      //   dd($vsc);
         return view('dashboard.nationaldashboard',compact('producttype','product','farmer','ex','luc','vsc'));
 
      }
