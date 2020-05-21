@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
       Route::get('/national',['as'=>'national','uses'=>'DashboardController@national'])->middleware('can:view_national_dashboard,Auth::user()');
       Route::get('/extension',['as'=>'extension','uses'=>'DashboardController@extension'])->middleware('can:view_extension_dashboard,Auth::user()');
       Route::get('/aggregator',['as'=>'aggregator','uses'=>'DashboardController@aggregator'])->middleware('can:view_aggregator_dashboard,Auth::user()');
+      Route::post('/search-surplus',['as'=>'search-surplus','uses'=>'DashboardController@aggregator'])->middleware('can:view_aggregator_dashboard,Auth::user()');
+
 
 Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
 

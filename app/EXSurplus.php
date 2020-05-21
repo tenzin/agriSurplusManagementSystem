@@ -31,10 +31,11 @@ class EXSurplus extends Model
    {
         return $this->belongsTo(Unit::class, 'unit_id');
    }
-//    public function dzongkhag()
-//    {
-//        return $this->belongsTo(Dzongkhag::class,'dzongkhag_id');
-//    }
+   
+   public function dzongkhag()
+   {
+       return $this->belongsTo(Dzongkhag::class,'dzongkhag_id');
+   }
    public function gewog()
    {
     return $this->belongsTo(Gewog::class,'gewog_id');

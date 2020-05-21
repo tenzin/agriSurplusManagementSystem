@@ -19,8 +19,8 @@ class CreateTblTransactionsTable extends Migration
             $table->char('type', 2);
             $table->date('expiryDate', 12);
             $table->char('status', 1);
-            $table->string('phone',13);
-            $table->string('location',100);
+            $table->string('phone',13)->nullable();
+            $table->string('location',100)->nullable();
             $table->date('pickupdate',12)->nullable();
             $table->string('remark',100)->nullable();
             $table->foreignId('user_id')->constrained()->references('id')->on('users')->onDelete('cascade');

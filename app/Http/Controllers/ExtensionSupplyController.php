@@ -526,7 +526,7 @@ class ExtensionSupplyController extends Controller
                             'tbl_ex_surplus.id', 'tbl_units.unit','tbl_ex_surplus.harvestDate','tbl_transactions.location','tbl_transactions.pickupdate')
                             ->orderBy('id')->get();
             
-            }
+            } 
 
         Session::put('View_status', 'VS');
        
