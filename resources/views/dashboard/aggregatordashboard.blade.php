@@ -67,7 +67,7 @@
           <select class="custom-select d-block w-100" id="type" name="type" required>
             <option>Select ProductType</option>
                @foreach($producttype as $type)
-                <option value="{{$type->id}}">{{$type->type}}</option>
+                <option value="{{$type->type}}">{{$type->type}}</option>
                 @endforeach
            </select>  
          </div>
@@ -83,11 +83,11 @@
            </select> 
          </div>
             <div class="col-md-1">
-                <button type="submit" class="btn btn-primary btn-sm float-right ">Search</button>
+                <button type="submit" class="btn btn-primary btn-sm float-right" onclick="search()">Search</button>
             </div> 
          </div>
       </div>
-</form>
+   </form>
    <hr>
   
    <!-- Search Value -->
@@ -116,7 +116,7 @@
     <div class="col-md-8">
       <div class="card">
          <div class="card-header">
-            <h4 class="card-title">Products Avaliable Based on Locations</h4>
+            <h4 class="card-title">Products/Surplus Avaliable </h4>
          </div> 
          <div class="card-body">
          <div class="row">
@@ -134,45 +134,65 @@
                   <tr>
                      <th>Sl.No</th>
                      <th>Product</th>
-                     <th>Product-Type</th>
+                     <th>Dzongkhag</th> 
                      <th>Gewog</th>
-                     <th>Location</th>
                      <th>Date</th>
                   </tr>
                </thead>
-                 <!-- @foreach($users_data as $ud)
+                 @foreach($pro as $p)
                  <tr>
                      <td>{{$loop->iteration}}</td>
-                     <td>{{$ud->name}}</td>
-                     <td>{{$ud->gewog['gewog']}}</td> 
-                     <td>{{$ud->gewog['gewog']}}</td>  
+                     <td>{{$p->product_id['product']}}</td>
+                     <td>{{$p->dzongkhag_id['dzongkhag']}}</td>
+                     <td>{{$p->gewog_id['gewog']}}</td> 
+                     <td>{{$p->submittedDate}}</td>  
                </tr>
-               @endforeach -->
+               @endforeach
             </table>
             </div>
          </div>
       </div>
    </div>
-
+   <!-- product info -->
+ <div class="row">
+   <div class="col-md-3 mb-3">
+     <div class="card product">
+        <div class="card-header">
+          <h4 class="card-title">Products</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                @foreach($product as $p)
+                <tr>
+                 <td>{{$p->product}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
    <!-- contact Info -->
-   <hr>
-    <div class="col-md-12">
+   <div class="col-md-9">
       <div class="card">
          <div class="card-header">
-            <h3 class="card-title">Extension Officer Information</h3>
-         </div>
+            <h4 class="card-title">Extension Officer Information</h4>
+         </div> 
          <div class="card-body">
-            <table id="example1" class="table-sm table-hover table-bordered table-striped">
+            <table id="product" class="table table-hover table-bordered table-striped">
                <thead>
                   <tr>
-                     <th>Sl. no</th>
+                     <th>Sl.No</th>
                      <th>Name</th>
                      <th>Gewog</th>
                      <th>Email</th>
                      <th>Contact</th>
                   </tr>
                </thead>
-                 @foreach($users_data as $ud)
+               @foreach($users_data as $ud)
                  <tr>
                      <td>{{$loop->iteration}}</td>
                      <td>{{$ud->name}}</td>
@@ -184,7 +204,8 @@
             </table>
             </div>
          </div>
-      </div> 
+      </div>
+   </div>
 @endsection
 
 <script>
@@ -203,23 +224,13 @@ $(document).ready(function() {
  }
 
 
- function search() {
-      
-      var loc = document.getElementById("location").value;
-     // alert(refNo);
-      $.get('/json-surplus-exist?refNo=' + refNo, function(data){
-        if(data == null || data ==''){
-            alert('Sorry:Please, Select atleast a option!!!');
-        } elseif {
-         alert('Sorry: You cannot Search the Surplus by Location!!Please,Aslo Select the Product-Type!');
-            //show some type of message to the user
-            if (confirm('Are you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
-              var id = document.getElementById("refnumber").value;
-              $.get('/json-submit-surplus?ref_number=' + id, function(data){
-                window.location = "/national/";
-              });
-            }
-        }
-      });
-      }
+//  function search() {
+//    if(!empty("product")
+//       alert('Sorry:Please, Select atleast a option!!!');
+//         } else if (!empty("location"))
+//          alert('Sorry: You cannot Search the Surplus by Location!!Please,Aslo Select the Product-Type!');
+//             }
+//         }
+//     }
  </script>
+ 
