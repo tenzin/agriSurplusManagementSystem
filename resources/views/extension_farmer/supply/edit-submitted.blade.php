@@ -69,10 +69,10 @@
               <label for="unit">Status:<font color="red">*</font></label>
               <div class="input-group">
                   <select class="custom-select d-block w-100" id="status" name="status">
-                    <option required value="A" {{($demand->status == 'A') ? 'selected' : '' }}>
+                    {{-- <option required value="A" {{($demand->status == 'A') ? 'selected' : '' }}>
                       Required</option>
                       <option required value="S" {{($demand->status == 'S') ? 'selected' : '' }}>
-                      Supplied</option>
+                      Supplied</option> --}}
                       <option required value="T" {{($demand->status == 'T') ? 'selected' : '' }}>
                       Transaction</option>
                   </select>
@@ -106,17 +106,18 @@
               </div>
           </div>
       </div>
-
       <div class="row">
-          <div class="col-md-12 mb-3">
-              <label>Remarks</label>
-              <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" 
-              id="remarks">{{$demand->remarks}}</textarea>
-                  <div class="invalid-feedback" style="width: 100%;">
-                  Remarks is required.
-                  </div>
+        <div class="col-md-4 mb-3">
+          <label for="unit">Hravest Date</label>
+          <div class="input-group">
+             
+              <input type="text" value="{{ $demand->harvestDate}}" class="form-control" name="harvestDate" id="harvestDate" required>
+              
           </div>
       </div>
+      </div>
+
+     
 
       <hr>
       <div class="form-group row mb-0">

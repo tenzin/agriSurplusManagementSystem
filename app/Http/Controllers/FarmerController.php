@@ -108,22 +108,22 @@ class FarmerController extends Controller
                  //create a new ref Number.
                  $number = 1;
                  $number = sprintf("%05d", $number);
-                 $nextNumber = $type.date('Ym').$number;
+                 $nextNumber = $type.date('Ym').$number; 
                 Session::put('NextNumber', $nextNumber);         
 
             } else 
             {      
                
-                // $max = Transaction::where('user_id','=',$user->id)
-                //                     ->where('status','!=','A')
-                //                     ->where('type', '=', 'ES')
-                //                     ->where('refNumber','like',$type.$date.$user->id.'%')
-                //                     ->max('refNumber');
-                $max=DB::table('tbl_transactions')
-                                    ->where('user_id', '=' , $user->id)
-                                    ->where('gewog_id','=',$user->gewog_id)
-                                    // ->where('refNumber', 'Like' , '%'.$refno.'%')
+                $max = Transaction::where('user_id','=',$user->id)
+                                    ->where('status','!=','A')
+                                    ->where('type', '=', 'ES')
+                                    ->where('refNumber','like',$type.$date.'%')
                                     ->max('refNumber');
+                // $max=DB::table('tbl_transactions')
+                //                     ->where('user_id', '=' , $user->id)
+                //                     ->where('gewog_id','=',$user->gewog_id)
+                //                     // ->where('refNumber', 'Like' , '%'.$refno.'%')
+                //                     ->max('refNumber');
 
                 $number = substr($max,1,12);
                 $number=$number+1;
@@ -186,10 +186,10 @@ class FarmerController extends Controller
             $trans->remark = $request->remark;
             $trans->pickupdate = $request->pickupdate;
             //update status to submitted 'S' in transaction if the submit is clicked.
-            if($request->subutton == "Yes")
-            {
-                $trans->status = "S";
-            }
+            // if($request->subutton == "Yes")
+            // {
+            //     $trans->status = "S";
+            //}
     
             $trans->save(); 
 
@@ -198,7 +198,7 @@ class FarmerController extends Controller
         {  
             $trans = new Transaction;
             $trans->refNumber = $request->refnumber;
-            $trans->type = 'S';
+            $trans->type = 'ES';
             $trans->status = 'A';
             $trans->user_id = $user->id;
             $trans->dzongkhag_id = $user->dzongkhag_id;
@@ -210,10 +210,10 @@ class FarmerController extends Controller
             $trans->remark = $request->remark;
             $trans->pickupdate = $request->pickupdate;
             //update status to submitted 'S' in transaction if the submit is clicked.
-            if($request->subutton == "Yes")
-            {
-                $trans->status = "S";
-            }
+            // if($request->subutton == "Yes")
+            // {
+            //     $trans->status = "S";
+            // }
     
             $trans->save(); 
         }
@@ -239,14 +239,16 @@ class FarmerController extends Controller
                     ->orderBy('tbl_ex_surplus.created_at','DESC')
                     ->get();
          
-        if($request->subutton == "Yes")
-        {
-            return redirect('farmer-create')->with("message","successfully submitted!");
-        }
-        else {
+        // if($request->subutton == "Yes")
+        // {
+        //     return redirect('farmer-create')->with("message","successfully submitted!");
+        // }
+        // else {
      //  return redirect('farmer-store')->with('transid'=>$transid); //,compact('nextNumber','product_type'));
-        return view('farmers.surplus',compact('nextNumber','trans','product_type','supply','days','phone'))->with("message","successfully saved!");  
-        }
+        // return view('farmers.surplus',compact('nextNumber','trans','product_type','supply','phone'))->with("message","successfully saved!");  
+        // }
+
+        return redirect('farmer-create')->with("message","successfully submitted!");
 
     } //end of store.
 

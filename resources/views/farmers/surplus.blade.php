@@ -43,12 +43,13 @@
         <div class="card-header">         
           <div class="card-title">
             <!--start of row1 title -->
-            
+            <div><strong>Batch Detail</strong></div>
+            <hr/>
             <div class="row">
               <div class="col">
                <div class="form-group row">
                 <div class="col col-md-auto  mt-1"><label for="phone">Phone<font color="red">*</font>:</label></div>
-                <div class="col col-md-6"><input type="text"  class="form-control" name="phone" id="phone" value="{{ $trans->phone ?? $phone }}" required></div>                          
+                <div class="col col-md-6"><input type="text"  class="form-control" name="phone" id="phone" value="{{ $trans->phone ?? ''}}" required></div>                          
                </div> 
               </div>               
 
@@ -70,16 +71,22 @@
               <div class="col">
                 <div class="row">  
                   <div class="col col-md-auto mt-1"><label for="location">Location:</label></div>
-                  <div class="col"><input type="text"  class="form-control" name="location" id="location" value="{{$trans->location ?? ''}}"></div>             
+                  <div class="col"><input type="text"  class="form-control" name="location" id="location" value="{{ $trans->location ?? ''}}"></div>             
                 </div>
               </div> 
 
               <div class="col">
                 <div class="row">    
-                  <div class="col col-md-auto mt-1"><label for="remarks">Remark:</label></div>
-                  <div class="col"><textarea type="text" class="form-control" name="remark" id ="remark" value="{{$trans->remark ?? ''}}" rows="1"></textarea></div>
+                  <div class="col col-md-auto mt-1"><label for="remark">Remark:</label></div>
+                  <div class="col"><textarea type="text" class="form-control" name="remark" id ="remark" rows="1">{{ $trans->remark ?? ''}}</textarea></div>
                 </div>
-              </div>                 
+              </div>            
+              
+              <div class="col">
+                <div class="row">    
+                  <input id="editbatch" class="btn btn-primary" text="Edit" type="hidden">
+                </div>
+              </div>       
 
             </div>
                
@@ -87,14 +94,15 @@
 
         </div> <!-- end of card-header -->
   <div class="card-body">  
-
+    <div><strong>Add Item</strong></div>
+    <hr/>
     <div class="row">
           
         <div class="col-lg-3 col-md-3">
           <div class="form-group row"> 
             <div class="col-auto"><label for="producttype">Type:<font color="red">*</font></label></div>
             <div class="col">
-            <select class="form-control custom-select" id="producttype" name="producttype" required>
+            <select class="form-control custom-select" id="producttype" name="producttype" onclick="batchdetail()" required>
               <option value="">Choose...</option>
               @foreach($product_type as $row)
                   <option value="{{$row->id}}">{{$row->type}}</option>
@@ -118,7 +126,7 @@
         <div class="col-lg-3 col-md-3">
          <div class="form-group row"> 
                   <div class="col col-md-auto"><label for="harvestdate">Harvest<font color="red">*</font>:</label></div>
-                  <div class="col"><input type="date" class="form-control" name="harvestdate" id ="harvestdate" value="{{$trans->harvestdate ?? date('Y-m-d') }}" required></div>              
+                  <div class="col"><input type="date" class="form-control" name="harvestdate" id ="harvestdate" value="" required></div>              
           </div>
         </div>   
 
@@ -127,7 +135,7 @@
             <div class="col-auto"><label for="quantity">Qty:<font color="red">*</font></label></div>                   
             <div class="col"><input type="text" class="form-control  text-right" name="quantity" id ="quantity" required/></div> 
             <div class="col">
-              <select name="unit" id="unit">
+              <select name="unit" id="unit" class="form-control">
               </select>
             </div>              
           </div>
@@ -137,7 +145,7 @@
             <div class="form-group row">      
                <div class="col-auto"><label for="price">Price(Nu.):</label></div>     
                <div class="col"><input type="text" class="form-control" name="price" id ="price" /></div>       
-               <div class="col"><button class="btn btn-info" type="submit"><i class="fa fa-plus"></i></button></div>
+               <button class="btn btn-info" type="submit">Add New</button>
             </div>
         </div>  
            
@@ -197,7 +205,7 @@
                   <i>Your surplus items are saved temporarily. Unless it is submitted, other 
                     potential suppliers can not view it. 
                     You must <b>SUBMIT</b> your surplus list to make it viewable by others.</i>
-                    <p><button class="btn btn-success btn-lg text-white py-1" id="sbutton" type="submit" name="subutton" value="" onclick="submitFunction()">Submit</button></p>
+                    <p><button class="btn btn-success btn-lg text-white py-1" id="sbutton" type="button" name="subutton" value="" onclick="myFunction()">Submit</button></p>
           </div>
         </div>
     </div>  <!-- item list row ends -->
@@ -314,10 +322,13 @@
     {
       document.getElementById('sbutton').value = "Yes";
     }
+
+    
     
 </script>
 
 @endsection
+
 
 
 

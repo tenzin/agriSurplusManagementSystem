@@ -33,8 +33,9 @@
         <th scope="col">Product</th>
         <th scope="col">Quantity</th>
         <th scope="col">Price per Unit</th>
-        <th scope="col">Pickup Date</th>
-        <th scope="col">Location</th>
+        <th scope="col">PickUp Location</th>
+        <th scope="col">Pick Up Date</th>
+        <th scope="col">Gewog</th>
         <th>Action</th>
         </tr>
     </thead>
@@ -45,8 +46,8 @@
              <td>{{$row->product}}</td>
              <td>{{$row->quantity.' '.$row->unit}}</td>
              <td>Nu. {{$row->price}}</td>
-             {{-- <!-- <td>{{$row->harvestDate}}</td> --> --}}
-             <td>{{$row->tentativePickupDate}}</td>
+             <td>{{$row->location}}</td>
+             <td>{{$row->pickupdate}}</td>
              <td>{{$row->gewog}}</td>
 
              <td> 
@@ -78,6 +79,7 @@
             <th scope="col">Product</th>
             <th scope="col">Quantity</th>
             <th scope="col">Price</th>
+            <th scope="col">PickUp Location</th>
             <th scope="col">Pick Up Date</th>
             <th>Action</th>
             </tr>
@@ -90,8 +92,8 @@
                  <td>{{$row->product}}</td>
                  <td>{{$row->quantity.' '.$row->unit}}</td>
                  <td>Nu. {{$row->price}}</td>
-                 {{-- <!-- <td>{{$row->harvestDate}}</td> --> --}}
-                 <td>{{$row->tentativePickupDate}}</td>
+                <td>{{$row->location}}</td>
+                 <td>{{$row->pickupdate}}</td>
     
                  <td> 
                     @can('extension_edit_surplus_details') 
@@ -124,11 +126,11 @@
 
 var table =  $('#example1').DataTable();
 $('#location').on('change', function () {
-            table.columns(5).search( this.value ).draw();
+            table.columns(7).search( this.value ).draw();
         });
 
 $('#date').on('change', function () {
-  table.columns(4).search( this.value ).draw();
+  table.columns(6).search( this.value ).draw();
 });
  });
 

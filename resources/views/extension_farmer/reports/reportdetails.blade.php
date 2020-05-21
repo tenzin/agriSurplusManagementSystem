@@ -119,7 +119,7 @@
   $(document).ready( function () 
   {
     $("#example3").DataTable({
-      "processing" : true,
+      // "processing" : true,
     //  "serverSide" : true,
         dom: 'B<"clear">lfrtip',
         //buttons: [ 'copy','print','excel','pdf']
