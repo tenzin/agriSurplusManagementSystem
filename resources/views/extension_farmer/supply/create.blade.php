@@ -5,8 +5,11 @@
         <div class="text-center">
               <h1>Supply Form </h1>
                   <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
-                  <p class="lead">Enter the Product Supply from Your Gewog.</p>
-                 <h5>Batch Info:&nbsp;&nbsp;</h5><h6>Phone:&nbsp;<b>{{$ref->phone}}</b>&nbsp;&nbsp;Expiry_Date:&nbsp;<b>{{$ref->expiryDate}}</b>&nbsp;&nbsp;Locations:&nbsp;<b>{{$ref->location}}</b>&nbsp;&nbsp;PickupDate:&nbsp;<b>{{$ref->pickupdate}}</b></h6>
+                  <p class="lead">Enter the Product Surplus from Your Gewog.</p>
+        <a href="{{route('batch-edit',$nextNumber)}}">
+          {{-- <input type="text" value={{}}> --}}
+                    <h5>
+                      <i class="fa fa-edit"> </i>Batch Info:&nbsp;&nbsp;</h5></a><h6>Phone:&nbsp;<b>{{$table->phone}}</b>&nbsp;&nbsp;Expiry_Date:&nbsp;<b>{{$table->expiryDate}}</b>&nbsp;&nbsp;Locations:&nbsp;<b>{{$table->location}}</b>&nbsp;&nbsp;PickupDate:&nbsp;<b>{{$table->pickupdate}}</b></h6>
               <hr>
         </div>
       <form method="POST" action = "{{route('ex-supply-store')}}">

@@ -16,11 +16,10 @@
 16,aggregator_view_surplus,View Surplus Information-Aggregator
 17,aggregator_demand_surplus,Add Demand Information-Aggregator
 18,aggregator_view_demand_surplus,View Demand Information-Aggregator
-19,aggregator_search_surplus,Search Surplus-Aggregator
-20,aggregator_view_search_surplus,View Search Information-Aggregator
-21,aggregator_demand_history,Demand History-Aggregator
-22,aggregator_supply_history,Surplus History-Aggregator
-23,aggregator_view_surplus_details,View Surplus Details-Aggregator
-24,aggregator_edit_surplus_details,Edit Surplus Detail-Aggregator
-25,aggregator_edit_demand_details,Edit Demand Details-Aggregator
-26,aggregator_view_demand_details,View Demand Details-Aggregator
+19,aggregator_demand_history,Demand History-Aggregator
+20,aggregator_supply_history,Surplus History-Aggregator
+21,aggregator_view_surplus_details,View Surplus Details-Aggregator
+22,aggregator_edit_surplus_details,Edit Surplus Detail-Aggregator
+23,aggregator_edit_demand_details,Edit Demand Details-Aggregator
+24,aggregator_view_demand_details,View Demand Details-Aggregator
+25,view_surplus_nation,View CA Surplus National

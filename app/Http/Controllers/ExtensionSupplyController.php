@@ -112,21 +112,22 @@ class ExtensionSupplyController extends Controller
             return redirect('/ex_supply_view');   
         }
 
-        // $test = DB::table('tbl_transactions')
-        //         ->where('user_id', '=' , $user->id)
-        //         ->where('type', '=', 'ES')
-        //         ->where('status', '!=', 'S')
-        //         ->where('status', '!=', 'E')
-        //         ->where('refNumber', 'Like' , '%'.$refno.'%')
-        //         ->get();
+        $test = DB::table('tbl_transactions')
+                ->where('user_id', '=' , $user->id)
+                ->where('type', '=', 'ES')
+                ->where('status', '!=', 'S')
+                ->where('status', '!=', 'E')
+                ->where('refNumber', 'Like' , '%'.$refno.'%')
+                ->get('refNumber');
 
-        // if($test=$checkno) 
-        // {
-        //     // Session::put('NextNumber', $refno2);
-        //     return $this->ex_supply_temp();
-        // }
+        if($test->isNotEmpty())
+         {
+    
+        return redirect('/surplus-view');
+        }
  
         return view('extension_farmer.supply.expiryday');
+        
     }
 
     public function ex_store_transaction(Request $request)
@@ -161,6 +162,8 @@ class ExtensionSupplyController extends Controller
                 ->where('refNumber', 'Like' , '%'.$refno.'%')
                 ->get();
 
+                // dd($ref);
+
         if($ref->isEmpty()) 
         {
             $number = 1;
@@ -172,8 +175,9 @@ class ExtensionSupplyController extends Controller
             $max=DB::table('tbl_transactions')
                     ->where('user_id', '=' , $user->id)
                     ->where('gewog_id','=',$user->gewog_id)
-                    // ->where('refNumber', 'Like' , '%'.$refno.'%')
+                    ->where('refNumber', 'Like' , '%'.$refno.'%')
                     ->max('refNumber');
+                    // dd($max);
             // $max = Transaction::where('gewog_id','=',$user->gewog_id)->max('refNumber');
             // $max = Transaction::where('refNumber','like', '%'.$refno.'%')->get();
             $number = substr($max,1,12);
@@ -208,13 +212,17 @@ class ExtensionSupplyController extends Controller
             $product_type= ProductType::all();
             $unit=Unit::all();
 
-            $ref = DB::table('tbl_transactions')
+            $table = DB::table('tbl_transactions')
                 ->where('refNumber', 'Like' , '%'.$nextNumber.'%')
+                // ->where('status', '!=', 'S')
+                // ->where('status', '!=', 'E')
+                // ->where('type', '=', 'ES')
                 ->first();
+            // dd($table);
 
             Session::put('View_status', 'A');
     
-            return view('extension_farmer.supply.create',compact('nextNumber','product_type','unit','ref'));
+            return view('extension_farmer.supply.create',compact('nextNumber','product_type','unit','table'));
     }
 
     public function ex_supply_temp()
@@ -227,7 +235,7 @@ class ExtensionSupplyController extends Controller
         $unit=Unit::all();
 
 
-        $ref = DB::table('tbl_transactions')
+        $table = DB::table('tbl_transactions')
         ->where('refNumber', 'Like' , '%'.$nextNumber.'%')
         ->first();
         // dd($ref->phone);
@@ -248,7 +256,7 @@ class ExtensionSupplyController extends Controller
                     // ->where('user_id', '=' , $user->id)
                     ->count();
 
-        return view('extension_farmer.supply.create',compact('nextNumber','product_type','unit','supply','count','ref'));
+        return view('extension_farmer.supply.create',compact('nextNumber','product_type','unit','supply','count','table'));
     }
 
 
@@ -293,6 +301,7 @@ class ExtensionSupplyController extends Controller
     public function ex_store(Request $request)
 
     {
+
         $user = auth()->user();
         $request->session()->put('NextNumber', $request->input('refnumber'));
 
@@ -410,6 +419,36 @@ class ExtensionSupplyController extends Controller
         {
            return redirect()->back()->with('msg','Deleted successfully!!');
         }  
+    }
+
+
+    public function batch_edit($nextNumber){
+
+        $data =DB::table('tbl_transactions')
+                    ->where('tbl_transactions.refNumber','=', $nextNumber)
+                    ->first(); 
+        // $data = Transaction::find($nextNumber);
+        // dd($data);
+        $next = $nextNumber;
+        // dd($next);
+        return view('extension_farmer.supply.batch-edit',compact('data','next'));
+
+    }
+
+    public function update_batch(Request $request,$nextNumber){
+
+        DB::table('tbl_transactions')
+        ->where('refNumber', $nextNumber)
+        ->update([
+                'expiryDate' => $request->input('expiryday'),
+                'phone' => $request->input('phone'),
+                'location' =>$request->input('location'),
+                'remark' =>$request->input('remark'),
+                'pickupdate' => $request->input('pickupdate')
+                ]);
+
+        return redirect('/ex_supply_temp');
+        
     }
 
     //Surplus Submitted Edit and Update 
@@ -601,6 +640,45 @@ class ExtensionSupplyController extends Controller
                                                             ->with('msg','Your Surplus history');
     }
 
-    
+    public function zero(Request $request, $id){
+
+// dd('dhjsfs');
+        $data = DB::table('tbl_ex_surplus')
+                    ->where('id', '=', $id)
+                    ->select('refNumber','quantity','productType_id','product_id', 'price',
+                    'id','unit_id','status','harvestDate','dzongkhag_id','gewog_id')
+                    ->first();
+// dd($data);
+        $inserts = [];
+
+        $inserts[] =  [
+
+            'refNumber' => $data->refNumber,
+            'productType_id' => $data->productType_id,
+            'product_id' => $data->product_id,
+            'quantity' => $data->quantity,
+            'unit_id' =>$data->unit_id,
+            'price' => $data->price,
+            'harvestDate' => $data->harvestDate,
+            'status' => 'T',
+            'dzongkhag_id' => $data->dzongkhag_id,
+            'gewog_id' => $data->gewog_id
+            ]; 
+
+        DB::table('tbl_ex_surplus_history')->insert($inserts);
+
+        DB::table('tbl_ex_surplus')
+                ->where('id', $id)
+                ->update([
+                        'status' => 'T',
+                        'quantity' => '0'
+                        ]);
+
+        return redirect()->back()->with('success','Added successfully');
+        
+    }
+
+
+   
     
 }

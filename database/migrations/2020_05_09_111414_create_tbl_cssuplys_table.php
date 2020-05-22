@@ -21,7 +21,6 @@ class CreateTblCssuplysTable extends Migration
             $table->foreignId('product_id')->constrained()->references('id')->on('tbl_products')->onDelete('cascade');
             $table->float('quantity');
             $table->foreignId('unit_id')->constrained()->references('id')->on('tbl_units')->onDelete('cascade');
-            $table->date('tentativePickupDate');
             $table->date('harvestDate');
             $table->float('price');
             $table->char('status', 1);

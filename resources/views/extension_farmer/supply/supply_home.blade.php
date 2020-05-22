@@ -37,6 +37,7 @@
         <th scope="col">Pick Up Date</th>
         <th scope="col">Gewog</th>
         <th>Action</th>
+       
         </tr>
     </thead>
         <tbody>
@@ -51,18 +52,19 @@
              <td>{{$row->gewog}}</td>
 
              <td> 
-                @can('extension_edit_surplus_details') 
+                {{-- @can('extension_edit_surplus_details') 
                 <a href="{{route('editi-submitted',$row->id)}}">
                     <i class="fa fa-edit" aria-hidden="true"></i>Edit</a>
                 
                 &nbsp;
-                @endcan
+                @endcan --}}
 
                 @can('extension_view_surplus_details')
                 <a href="{{route('surplus-view-detail',$row->id)}}">
                     <i class="fa fa-eye" aria-hidden="true"></i>View</a>
                 @endcan
-             </td>  
+             </td> 
+             
              </tr>
         @endforeach
     </tbody>
@@ -82,6 +84,7 @@
             <th scope="col">PickUp Location</th>
             <th scope="col">Pick Up Date</th>
             <th>Action</th>
+            <th>Update</th>
             </tr>
         </thead>
             <tbody>
@@ -108,6 +111,12 @@
                         <i class="fa fa-eye" aria-hidden="true"></i>View</a>
                     @endcan
                  </td>  
+                 <td>
+                    <button type="button" class="btn btn-block bg-gradient-warning btn-xs" style="width:2cm;" onclick="return confirm('Are you sure all Quantity are Taken??');">
+                        <a href="{{route('updatee',$row->id)}}" >All Taken</a>
+                        </button>
+                    
+                </td> 
                  </tr>
             @endforeach
         </tbody>

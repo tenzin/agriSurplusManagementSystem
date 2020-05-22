@@ -34,7 +34,7 @@
         <th>Product</th>
         <th>Quantity</th>
         <th>Price</th>
-        <th>Pick Up Date</th>
+        {{-- <th>Pick Up Date</th> --}}
         <th>Action</th>
         </tr>
     </thead>
@@ -48,7 +48,7 @@
             <td>{{$row->product}}</td>
             <td>{{$row->quantity.' '.$row->unit}}</td>
             <td>{{$row->price}}</td>
-            <td>{{$row->tentativePickupDate}}</td>
+            {{-- <td>{{$row->tentativePickupDate}}</td> --}}
             <td>
               <a href="{{route('view-details',$row->id)}}">
                 <i class="fa fa-eye" aria-hidden="true"> </i> View</a>
