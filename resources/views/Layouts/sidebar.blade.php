@@ -191,12 +191,6 @@
               </a>
             </li> 
 
-            <li class="nav-item">
-                  <a href="{{route('extension-create')}}" class="nav-link">
-                    <i class="nav-icon far fa-calendar-alt"></i>
-                      <p>Entry Form</p>
-                  </a>
-            </li>
             @endcan
 
             @can('view_extension_surplus')

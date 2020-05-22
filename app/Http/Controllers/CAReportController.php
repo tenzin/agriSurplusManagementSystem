@@ -85,7 +85,7 @@ class CAReportController extends Controller
         
         $surplus = DB::select($sql);
 
-        return view('ca_nvsc.reports.reportdetails',compact('surplus','gewogname','fromdate','todate'));
+        return view('ca_nvsc.reports.reportdetails',compact('surplus','fromdate','todate'));
     }
 
     //searchsummaryby

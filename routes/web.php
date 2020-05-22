@@ -287,8 +287,6 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
       //call this controller to insert summary details into monthly table.
       // Route::get('/sum','SummaryController@sum_quantity_type');
       
-      //Dynamic input form.
-      Route::get('extension-create',['as'=>'extension-create','uses'=>'FarmerController@create']);
 
      
       
