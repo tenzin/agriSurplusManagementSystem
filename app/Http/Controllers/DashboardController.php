@@ -9,6 +9,7 @@ use App\ProductType;
 use App\User;
 use App\Transaction;
 use App\EXSurplus;
+
 use DB;
 use Carbon\Carbon;
 
@@ -41,7 +42,7 @@ class DashboardController extends Controller
      {
 
       $d=auth()->user()->dzongkhag_id;
-
+      $user = Auth()->user();
       $product = Product::all();
       $producttype = ProductType::all();
       $location=Transaction::all();
@@ -57,25 +58,34 @@ class DashboardController extends Controller
       $users_data = User::where('dzongkhag_id', '=', $d)
                        ->where('role_id', '=', 7)->with('gewog')->get(); 
 
-       $product_type = $request->type;
+      //  $product_type = $request->type;
       //  dd($producttype);
 
-       $pro =DB::table('tbl_ex_surplus')
-             ->where('tbl_ex_surplus.productType_id','=',$product_type)
-             ->select('tbl_ex_surplus.product_id','tbl_transactions.dzongkhag_id','tbl_transactions.gewog_id','tbl_transactions.submittedDate')
-             ->join('tbl_transactions','tbl_ex_surplus.refNumber','=','tbl_transactions.refNumber')
-             ->join('tbl_product_types','tbl_ex_surplus.productType_id','=','tbl_product_types.id')->get();
-                      
+      //  $pro =DB::table('tbl_ex_surplus')
+      //        ->where('tbl_ex_surplus.productType_id','=',$product_type)
+      //        ->select('tbl_ex_surplus.product_id','tbl_transactions.dzongkhag_id','tbl_transactions.gewog_id','tbl_transactions.submittedDate')
+      //        ->join('tbl_transactions','tbl_ex_surplus.refNumber','=','tbl_transactions.refNumber')
+      //        ->join('tbl_product_types','tbl_ex_surplus.productType_id','=','tbl_product_types.id')->get();
+         
+         $supplyProducts = [];
+        $demandProducts = [];
+        if ($request->query('crop') && $request->has('crop') || $request->query('location') && $request->has('location')) {
+
+            $supplyProducts = EXSurplus::search($request)->with('productType', 'product','unit','dzongkhag','gewog','transaction')->get();
+            // dd($supplyProducts);
+            $demandProducts = Transaction::search($request)->with('product')->get();
+        }
         return view('dashboard.aggregatordashboard',compact(
             'product',
             'producttype',
             'location',
-            'users_data',
-            'pro',
+            'users_data',  
             'ca',
             'ex',
             'luc',
             'farmer',
+            'supplyProducts',
+            'demandProducts'
          ));
      }
   //CA Surplus Search part

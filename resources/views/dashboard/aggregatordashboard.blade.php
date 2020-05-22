@@ -53,9 +53,38 @@
       </div>
    </div>
    <hr>
-
+   <form action="{{ url()->current() }}" method="GET">
+      <div class="row">
+        <div class="col-md-4">
+          <select name="crop" class="form-control select2bs4">
+            <option value="">--Select Crop--</option>
+            @foreach($producttype as $type)
+                <option value="{{$type->id}}" {{ Request::get('crop') == $type->id ? 'selected' : '' }}>{{$type->type}}</option>
+            @endforeach
+            {{-- @foreach ($crops as $crop)
+                <option value="{{ $crop->id }}" {{ Request::get('crop') == $crop->id ? 'selected' : '' }}>{{ $crop->name }}</option>
+            @endforeach --}}
+          </select>
+        </div>
+        <div class="col-md-5">
+          <select name="location" class="form-control select2bs4">
+            <option value="">--Select Location--</option>
+            @foreach($location as $location)
+            <option value="{{$location->location}}" {{ Request::get('location') == $location->id ? 'selected' : '' }}>{{$location->location}}</option>
+            @endforeach
+            {{-- @foreach ($locations as $location)
+                <option value="{{ $location->id }}" {{ Request::get('location') == $location->id ? 'selected' : '' }}>{{ $location->dzongkhag->name . ' - ' . $location->name }}</option>
+            @endforeach --}}
+          </select>
+        </div>
+        <div class="col-md-3">
+          <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> </button>
+          <a href="{{ url()->current() }}" class="btn btn-danger"><i class="fa fa-undo"></i> </a>
+        </div>
+      </div>
+    </form>
    <!-- Search product -->
- <form class="form-horizontal" method="POST" action = "{{route('search-surplus')}}">
+ {{-- <form class="form-horizontal" method="POST" action = "{{route('search-surplus')}}">
             @csrf
    <div class="col-md-12 order-md-1">
       <h4 class="mb-3">Search Products...</h4>
@@ -87,7 +116,7 @@
             </div> 
          </div>
       </div>
-   </form>
+   </form> --}}
    <hr>
   
    <!-- Search Value -->
@@ -137,15 +166,17 @@
                      <th>Dzongkhag</th> 
                      <th>Gewog</th>
                      <th>Date</th>
+                     <th>Locations</th>
                   </tr>
                </thead>
-                 @foreach($pro as $p)
+                 @foreach($supplyProducts as $p)
                  <tr>
                      <td>{{$loop->iteration}}</td>
-                     <td>{{$p->product_id['product']}}</td>
-                     <td>{{$p->dzongkhag_id['dzongkhag']}}</td>
-                     <td>{{$p->gewog_id['gewog']}}</td> 
-                     <td>{{$p->submittedDate}}</td>  
+                     <td>{{$p->product->product}}</td>
+                     <td>{{$p->gewog->dzongkhag->dzongkhag}}</td>
+                     <td>{{$p->gewog->gewog}}</td> 
+                     <td>{{$p->transaction->submittedDate}}</td> 
+                     <td>{{$p->transaction->location}}</td>  
                </tr>
                @endforeach
             </table>
@@ -164,7 +195,7 @@
           <div class="table-responsive">
             <table class="table">
               <tbody>
-                @foreach($product as $p)
+                @foreach($demandProducts as $p)
                 <tr>
                  <td>{{$p->product}}</td>
                 </tr>
