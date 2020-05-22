@@ -67,12 +67,14 @@ class FarmerController extends Controller
         $phone = $user->contact_number;
         $nextNumber;
         $days = 0;
-        $transid=null;
+       
         //check if there is any existing pending transaction that is not submitted the list.
         //status is A if saved but not submitted.
         
         
         $trans = Transaction::where('user_id','=',$user->id)
+                            ->where('gewog_id','=',$user->gewog_id)
+                            ->where('dzongkhag_id','=',$user->dzongkhag_id)
                             ->where('status','=','A')
                             ->where('type', '=', 'S')
                             ->first();
@@ -84,10 +86,8 @@ class FarmerController extends Controller
             $nextNumber = $trans->refNumber;
             Session::put('NextNumber', $nextNumber);   
 
-            $transid = $trans->id;
-
             $now = Carbon::now();
-            $days = $now->diffInDays($trans->expiryDate);
+            $days = $now->diffInDays($trans->expiryDate)+1;
 
         }
         else
@@ -98,6 +98,8 @@ class FarmerController extends Controller
             //check if transaction exist with submitted list.
             $ref = DB::table('tbl_transactions')
                     ->where('user_id', '=' , $user->id)
+                    ->where('gewog_id','=',$user->gewog_id)
+                    ->where('dzongkhag_id','=',$user->dzongkhag_id)
                     ->where('status','!=','A')
                     ->where('type', '=', 'S')
                     ->first();
@@ -107,24 +109,25 @@ class FarmerController extends Controller
             if($ref == null) {
                  //create a new ref Number.
                 $number = 1;
-                $number = sprintf("%04d", $number);
-                $nextNumber = $type.$date.$user->id.$number;
+                $number = sprintf("%05d", $number);
+                $nextNumber = $type.$date.$number;
                 Session::put('NextNumber', $nextNumber);
 
             } else 
             {      
                
                 $max = Transaction::where('user_id','=',$user->id)
+                                    ->where('gewog_id','=',$user->gewog_id)
+                                    ->where('dzongkhag_id','=',$user->dzongkhag_id)
                                     ->where('status','!=','A')
                                     ->where('type', '=', 'S')
-                                    ->where('refNumber','like',$type.$date.$user->id.'%')
+                                    ->where('refNumber','like',$type.$date.'%')
                                     ->max('refNumber');
 
-
-                $number = substr($max,strlen($max) - 4,strlen($max));
+                $number = substr($max,strlen($max) - 5,strlen($max));
                 $number=$number+1;
-                $number = sprintf("%04d", $number);
-                $nextNumber = $type.date('Ym').$user->id.$number;
+                $number = sprintf("%05d", $number);
+                $nextNumber = $type.date('Ym').$number;
             }
 
            
@@ -132,6 +135,9 @@ class FarmerController extends Controller
 
     //
     $supply = DB::table('tbl_ex_surplus')
+                    ->where('user_id','=',$user->id)
+                    ->where('gewog_id','=',$user->gewog_id)
+                    ->where('dzongkhag_id','=',$user->dzongkhag_id)
                     ->where('tbl_ex_surplus.refNumber','=',$nextNumber)
                     ->join('tbl_units','tbl_units.id','=','tbl_ex_surplus.unit_id')
                     ->join('tbl_products','tbl_products.id','=','tbl_ex_surplus.product_id')
@@ -141,6 +147,7 @@ class FarmerController extends Controller
   //  $unit=Unit::all();
 
      return view('farmers.surplus',compact('nextNumber','trans','product_type','supply','days','phone'));       
+   //     return view('farmers.surplus_dynamic_input',compact('nextNumber','trans','product_type','supply','days','phone'));       
 
     }
 
@@ -163,16 +170,24 @@ class FarmerController extends Controller
             $expiry = 7;
         }
             
-        //------Save Referance Number---
+        //------calculate expiry date. based on day(s) ---
         $current = Carbon::now();
         $trialExpires = $current->addDays($expiry);
 
-        $transs =  Transaction::where('refNumber', '=' , $request->refnumber)->first();
-
+       
+       //check if data exists.
+        $transExists =  DB::table('tbl_transactions')
+                            ->where('refNumber','=',$nextNumber)
+                            ->where('user_id', '=' , $user->id)
+                            ->where('gewog_id','=',$user->gewog_id)
+                            ->where('dzongkhag_id','=',$user->dzongkhag_id)
+                            ->where('status','=','A')
+                            ->where('type', '=', 'S')
+                            ->first();
         // if transaction exists for the given reference number then update or save a new record.
-        if($transs !== null)
+        if($transExists !== null)
         {
-            $trans =  $transs;
+            $trans = Transaction::find($transExists->id);
             //get different in days.
             $now = Carbon::now();
             $days = $now->diffInDays($trans->expiryDate);
@@ -182,11 +197,6 @@ class FarmerController extends Controller
             $trans->location = $request->location;
             $trans->remark = $request->remark;
             $trans->pickupdate = $request->pickupdate;
-            //update status to submitted 'S' in transaction if the submit is clicked.
-            if($request->subutton == "Yes")
-            {
-                $trans->status = "S";
-            }
     
             $trans->save(); 
 
@@ -206,12 +216,7 @@ class FarmerController extends Controller
             $trans->location = $request->location;
             $trans->remark = $request->remark;
             $trans->pickupdate = $request->pickupdate;
-            //update status to submitted 'S' in transaction if the submit is clicked.
-            if($request->subutton == "Yes")
-            {
-                $trans->status = "S";
-            }
-    
+                
             $trans->save(); 
         }
         
@@ -225,7 +230,10 @@ class FarmerController extends Controller
         $data->unit_id = $request->input('unit');
         $data->harvestDate = $request->harvestdate;
         $data->status = 'A';
+        $data->user_id = $user->id;
         $data->price = $request->input('price');
+        $data->gewog_id = $user->gewog_id;
+        $data->dzongkhag_id = $user->dzongkhag_id;
         $data->save();
 
         $supply = DB::table('tbl_ex_surplus')
@@ -236,14 +244,14 @@ class FarmerController extends Controller
                     ->orderBy('tbl_ex_surplus.created_at','DESC')
                     ->get();
          
-        if($request->subutton == "Yes")
-        {
-            return redirect('farmer-create')->with("message","successfully submitted!");
-        }
-        else {
+        // if($request->subutton == "Yes")
+        // {
+            return redirect('farmer-create');
+        // }
+        // else {
      //  return redirect('farmer-store')->with('transid'=>$transid); //,compact('nextNumber','product_type'));
-        return view('farmers.surplus',compact('nextNumber','trans','product_type','supply','days','phone'))->with("message","successfully saved!");  
-        }
+        // return view('farmers.surplus',compact('nextNumber','trans','product_type','supply','days','phone'))->with("message","successfully saved!");  
+        // }
 
     } //end of store.
 
@@ -330,5 +338,31 @@ class FarmerController extends Controller
         return redirect('farmer-create')->with("message","Deleted successfully!");
     }
    
+    //update the status to 'S' in both transaction and ex_suplus tables.
+    public function submit_surplus()
+    {
+        $user = auth()->user();
+        $id = $this->request->input('refNumber');
+        $current = Carbon::now();
+        DB::table('tbl_transactions')
+            ->where('refNumber', $id)
+            ->where('user_id', $user->id)
+            ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
+            ->where('gewog_id','=',$user->gewog->id)
+            ->update([
+                'status' => 'S',
+                'updated_at' => $current
+            ]);
 
+            DB::table('tbl_ex_surplus')
+            ->where('refNumber', $id)
+            ->where('user_id', $user->id)
+            ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
+            ->where('gewog_id','=',$user->gewog->id)
+            ->update([
+                'status' => 'S',
+                'updated_at' => $current
+            ]);
+        
+    }
 }

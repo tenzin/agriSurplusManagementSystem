@@ -23,8 +23,9 @@ class CreateTblExSurplusTable extends Migration
             $table->float('quantity');
             $table->foreignId('unit_id')->constrained()->references('id')->on('tbl_units')->onDelete('cascade');           
             $table->float('price');
-        //    $table->foreignId('dzongkhag_id')->nullable()->constrained()->references('id')->on('tbl_dzongkhags')->onDelete('cascade');
-         //   $table->foreignId('gewog_id')->nullable()->constrained()->references('id')->on('tbl_gewogs')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('dzongkhag_id')->nullable()->constrained()->references('id')->on('tbl_dzongkhags')->onDelete('cascade');
+            $table->foreignId('gewog_id')->nullable()->constrained()->references('id')->on('tbl_gewogs')->onDelete('cascade');
             $table->char('status', 1);
          //   $table->longText('remarks')->nullable();
            $table->timestamps();

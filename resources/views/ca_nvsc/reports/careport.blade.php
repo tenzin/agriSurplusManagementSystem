@@ -35,7 +35,7 @@
                   </div>
                   <div class="col col-md-4"> 
                       <select class="form-control select2bs4" id="gewog" name="gewog">
-                        <option value="">All</option>
+                        <option value="All">All</option>
                         @foreach($gewogs as $gewog)
                                 <option value="{{ $gewog->id }}">{{$gewog->gewog}}</option>
                         @endforeach                    

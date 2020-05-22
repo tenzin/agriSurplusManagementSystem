@@ -190,7 +190,7 @@
                   <i>Your surplus items are saved temporarily. Unless it is submitted, other 
                     potential suppliers can not view it. 
                     You must <b>SUBMIT</b> your surplus list to make it viewable by others.</i>
-                    <p><button class="btn btn-success btn-lg text-white py-1" id="sbutton" type="submit" name="subutton" value="" onclick="submitFunction()">Submit</button></p>
+                    <p><button class="btn btn-success btn-lg text-white py-1" id="sbutton" type="button" name="subutton" value="" onclick="myFunction()">Submit</button></p>
           </div>
         </div>
     </div>  <!-- item list row ends -->
@@ -284,8 +284,8 @@
             //show some type of message to the user
             if (confirm('Are you sure you want to submit your surplus list?. Once you submitted, you cannot add or delete or update.'))  {
               var id = document.getElementById("refnumber").value;
-              $.get('/json-submit-supply?ref_number=' + id, function(data){
-                window.location = "/farmer-create/";
+              $.get('/farmer-submit?refNumber=' + id, function(data){
+                window.location = "/farmer-create";
               });
             }
         }
