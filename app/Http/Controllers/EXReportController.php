@@ -41,8 +41,9 @@ class EXReportController extends Controller
         join tbl_products on tbl_ex_surplus.product_id = tbl_products.id 
         join tbl_units on tbl_ex_surplus.unit_id = tbl_units.id
         join tbl_gewogs on tbl_ex_surplus.gewog_id = tbl_gewogs.id
-        where tbl_ex_surplus.status IN ('S','E')";
-
+        where exists (select refNumber from tbl_transactions where status in ('S','E') and user_id = ".$user->id." and gewog_id = ".$user->gewog_id." and dzongkhag_id=".$user->dzongkhag_id.")
+       ";
+       // dd($sql);
      
        //status of submission. 'S'.
        $sql = $sql." and tbl_ex_surplus.gewog_id=".$user->gewog_id; 

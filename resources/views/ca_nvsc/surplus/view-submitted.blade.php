@@ -13,7 +13,8 @@
         <th scope="col">Product</th>
         <th scope="col">Quantity</th>
         <th scope="col">Price</th>
-        {{-- <th scope="col">Required Date</th> --}}
+        <th scope="col">Pick Up Location</th>
+        <th scope="col">Pick Date</th>
         <th>Action</th>
         <th>Update</th>
         
@@ -28,7 +29,8 @@
             <td>{{$row->product}}</td>
             <td>{{$row->quantity.' '.$row->unit}}</td>
             <td>Nu. {{$row->price}}</td>
-            {{-- <td>{{$row->tentativeRequiredDate}}</td> --}}
+            <td>{{$row->location}}</td>
+            <td>{{$row->pickupdate}}</td>
             <td>
                 @can('aggregator_edit_surplus_details')
               <a href="/edit_submited/{{$row->id}}">

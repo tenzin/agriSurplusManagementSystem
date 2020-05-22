@@ -76,7 +76,7 @@ class FarmerController extends Controller
                             ->where('gewog_id','=',$user->gewog_id)
                             ->where('dzongkhag_id','=',$user->dzongkhag_id)
                             ->where('status','=','A')
-                            ->where('type', '=', 'S')
+                            ->where('type', '=', 'ES')
                             ->first();
 
                                    
@@ -93,7 +93,7 @@ class FarmerController extends Controller
         else
         {
             $date = date('Ym');
-            $type = "S"; //Transaction type D: Demand; S: Supply
+            $type = "E"; //Transaction type D: Demand; S: Supply
 
             //check if transaction exist with submitted list.
             $ref = DB::table('tbl_transactions')
@@ -101,7 +101,7 @@ class FarmerController extends Controller
                     ->where('gewog_id','=',$user->gewog_id)
                     ->where('dzongkhag_id','=',$user->dzongkhag_id)
                     ->where('status','!=','A')
-                    ->where('type', '=', 'S')
+                    ->where('type', '=', 'ES')
                     ->first();
                   //  dd($ref);
         
@@ -120,9 +120,14 @@ class FarmerController extends Controller
                                     ->where('gewog_id','=',$user->gewog_id)
                                     ->where('dzongkhag_id','=',$user->dzongkhag_id)
                                     ->where('status','!=','A')
-                                    ->where('type', '=', 'S')
+                                    ->where('type', '=', 'ES')
                                     ->where('refNumber','like',$type.$date.'%')
                                     ->max('refNumber');
+                // $max=DB::table('tbl_transactions')
+                //                     ->where('user_id', '=' , $user->id)
+                //                     ->where('gewog_id','=',$user->gewog_id)
+                //                     // ->where('refNumber', 'Like' , '%'.$refno.'%')
+                //                     ->max('refNumber');
 
                 $number = substr($max,strlen($max) - 5,strlen($max));
                 $number=$number+1;
@@ -197,6 +202,11 @@ class FarmerController extends Controller
             $trans->location = $request->location;
             $trans->remark = $request->remark;
             $trans->pickupdate = $request->pickupdate;
+            //update status to submitted 'S' in transaction if the submit is clicked.
+            // if($request->subutton == "Yes")
+            // {
+            //     $trans->status = "S";
+            //}
     
             $trans->save(); 
 
@@ -205,7 +215,7 @@ class FarmerController extends Controller
         {  
             $trans = new Transaction;
             $trans->refNumber = $request->refnumber;
-            $trans->type = 'S';
+            $trans->type = 'ES';
             $trans->status = 'A';
             $trans->user_id = $user->id;
             $trans->dzongkhag_id = $user->dzongkhag_id;
@@ -216,7 +226,12 @@ class FarmerController extends Controller
             $trans->location = $request->location;
             $trans->remark = $request->remark;
             $trans->pickupdate = $request->pickupdate;
-                
+            //update status to submitted 'S' in transaction if the submit is clicked.
+            // if($request->subutton == "Yes")
+            // {
+            //     $trans->status = "S";
+            // }
+    
             $trans->save(); 
         }
         

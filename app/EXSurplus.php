@@ -31,10 +31,11 @@ class EXSurplus extends Model
    {
         return $this->belongsTo(Unit::class, 'unit_id');
    }
-//    public function dzongkhag()
-//    {
-//        return $this->belongsTo(Dzongkhag::class,'dzongkhag_id');
-//    }
+   
+   public function dzongkhag()
+   {
+       return $this->belongsTo(Dzongkhag::class,'dzongkhag_id');
+   }
    public function gewog()
    {
     return $this->belongsTo(Gewog::class,'gewog_id');
@@ -57,4 +58,22 @@ class EXSurplus extends Model
 
         });
      }
+
+    //  public function supplyFromGeowg()
+    // {
+    //     return $this->belongsTo(Transaction::class, 'location')->withDefault([
+    //         'location' => '--'
+    //     ]);
+    // }
+
+     public function scopeSearch($q, $request)
+    {
+        if ($request->query('crop') && $request->has('crop')) {
+            $q->where('productType_id', $request->query('crop'));
+        }
+
+        // if ($request->query('location') && $request->has('location')) {
+        //     $q->where('location', $request->query('location'));
+        // }
+    }
 }

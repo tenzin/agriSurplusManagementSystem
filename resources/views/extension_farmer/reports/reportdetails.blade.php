@@ -36,12 +36,12 @@
         <tbody>
           @foreach($surplus as $report)
           <tr>
-            <td class="col-md-1">{{$loop->iteration}}</td>
+            <td>{{$loop->iteration}}</td>
             <td>{{$report->type}}</td>             
             <td>{{$report->product}}</td>
-            <td class="text-right col-md-1">{{date('d/m/Y',strtotime($report->harvestDate))}}</td> 
-            <td class="text-right col-md-1">{{$report->price}}</td>
-            <td class="text-right col-md-1">{{$report->quantity}} {{$report->unit}}</td>                                                  
+            <td class="text-right">{{date('d/m/Y',strtotime($report->harvestDate))}}</td> 
+            <td class="text-right">{{$report->price}}</td>
+            <td class="text-right">{{$report->quantity}} {{$report->unit}}</td>                                                  
           </tr>
           @endforeach 
           
@@ -106,6 +106,7 @@
   $(document).ready( function () 
   {
     $("#example3").DataTable({
+      // "processing" : true,
     //  "serverSide" : true,
         dom: 'B<"clear">lfrtip',
         //buttons: [ 'copy','print','excel','pdf']

@@ -27,8 +27,8 @@ class CreateTblExSurplusTable extends Migration
             $table->foreignId('dzongkhag_id')->nullable()->constrained()->references('id')->on('tbl_dzongkhags')->onDelete('cascade');
             $table->foreignId('gewog_id')->nullable()->constrained()->references('id')->on('tbl_gewogs')->onDelete('cascade');
             $table->char('status', 1);
-         //   $table->longText('remarks')->nullable();
-           $table->timestamps();
+            $table->longText('remarks')->nullable();
+            $table->timestamps();
         });
     }
 

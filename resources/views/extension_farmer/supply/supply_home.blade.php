@@ -33,9 +33,11 @@
         <th scope="col">Product</th>
         <th scope="col">Quantity</th>
         <th scope="col">Price per Unit</th>
-        <th scope="col">Pickup Date</th>
-        <th scope="col">Location</th>
+        <th scope="col">PickUp Location</th>
+        <th scope="col">Pick Up Date</th>
+        <th scope="col">Gewog</th>
         <th>Action</th>
+       
         </tr>
     </thead>
         <tbody>
@@ -45,23 +47,24 @@
              <td>{{$row->product}}</td>
              <td>{{$row->quantity.' '.$row->unit}}</td>
              <td>Nu. {{$row->price}}</td>
-             {{-- <!-- <td>{{$row->harvestDate}}</td> --> --}}
-             <td>{{$row->tentativePickupDate}}</td>
+             <td>{{$row->location}}</td>
+             <td>{{$row->pickupdate}}</td>
              <td>{{$row->gewog}}</td>
 
              <td> 
-                @can('extension_edit_surplus_details') 
+                {{-- @can('extension_edit_surplus_details') 
                 <a href="{{route('editi-submitted',$row->id)}}">
                     <i class="fa fa-edit" aria-hidden="true"></i>Edit</a>
                 
                 &nbsp;
-                @endcan
+                @endcan --}}
 
                 @can('extension_view_surplus_details')
                 <a href="{{route('surplus-view-detail',$row->id)}}">
                     <i class="fa fa-eye" aria-hidden="true"></i>View</a>
                 @endcan
-             </td>  
+             </td> 
+             
              </tr>
         @endforeach
     </tbody>
@@ -78,8 +81,10 @@
             <th scope="col">Product</th>
             <th scope="col">Quantity</th>
             <th scope="col">Price</th>
+            <th scope="col">PickUp Location</th>
             <th scope="col">Pick Up Date</th>
             <th>Action</th>
+            <th>Update</th>
             </tr>
         </thead>
             <tbody>
@@ -90,8 +95,8 @@
                  <td>{{$row->product}}</td>
                  <td>{{$row->quantity.' '.$row->unit}}</td>
                  <td>Nu. {{$row->price}}</td>
-                 {{-- <!-- <td>{{$row->harvestDate}}</td> --> --}}
-                 <td>{{$row->tentativePickupDate}}</td>
+                <td>{{$row->location}}</td>
+                 <td>{{$row->pickupdate}}</td>
     
                  <td> 
                     @can('extension_edit_surplus_details') 
@@ -106,6 +111,12 @@
                         <i class="fa fa-eye" aria-hidden="true"></i>View</a>
                     @endcan
                  </td>  
+                 <td>
+                    <button type="button" class="btn btn-block bg-gradient-warning btn-xs" style="width:2cm;" onclick="return confirm('Are you sure all Quantity are Taken??');">
+                        <a href="{{route('updatee',$row->id)}}" >All Taken</a>
+                        </button>
+                    
+                </td> 
                  </tr>
             @endforeach
         </tbody>
@@ -124,11 +135,11 @@
 
 var table =  $('#example1').DataTable();
 $('#location').on('change', function () {
-            table.columns(5).search( this.value ).draw();
+            table.columns(7).search( this.value ).draw();
         });
 
 $('#date').on('change', function () {
-  table.columns(4).search( this.value ).draw();
+  table.columns(6).search( this.value ).draw();
 });
  });
 

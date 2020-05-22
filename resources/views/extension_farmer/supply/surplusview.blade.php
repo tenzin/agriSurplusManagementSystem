@@ -35,7 +35,7 @@
                   <div class="input-group-prepend">
                       <span class="input-group-text">Pickup Point</span>
                   </div>
-                  <input type="text" class="form-control" name="phone" id ="phone" readonly value=>
+                  <input type="text" class="form-control" name="phone" id ="phone" readonly value={{$table->location}}>
                 </div>    
               </div>
               <div class="col-md-6 mb-3">
@@ -43,7 +43,7 @@
                   <div class="input-group-prepend">
                       <span class="input-group-text">Phone</span>
                   </div>
-                  <input type="text" class="form-control" name="phone" id ="phone" readonly value=>
+                  <input type="text" class="form-control" name="phone" id ="phone" readonly value={{$table->phone}}>
                 </div>    
               </div>
           </div>
@@ -51,11 +51,11 @@
       <div class="form-group row">
         <div class="col-md-6 mb-3">
           <label >Product Type</label>
-          <input type="text" class="form-control" name="" iproductd ="product" readonly value={{$row->product->product}}>
+          <input type="text" class="form-control" name="product" id ="product" readonly value={{$row->product->productType->type}}>
         </div>
         <div class="col-md-6 mb-3">
           <label >Product</label>
-          <input type="text" class="form-control" name="producttype" id ="producttype" readonly value={{$row->product->productType->type}}>
+          <input type="text" class="form-control" name="producttype" id ="producttype" readonly value={{$row->product->product}}>
         </div>
       </div>
 
@@ -82,30 +82,21 @@
           </div>
           <div class="col-md-6 mb-3">
               <label for="unit">PickupDate(Tentative)</label>
-               <input type="date" class="form-control" name="pickupdate" id ="pickupdate" readonly value={{$row->tentativePickupDate}}>    
+               <input type="date" class="form-control" name="pickupdate" id ="pickupdate" readonly value={{$table->pickupdate}}>    
           </div>
         </div>
 
         <div class="form-group row">
           <div class="col-md-12 mb-3">
             <label>Remarks</label>
-            <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" id="remarks" readonly>{{$row->remarks}}></textarea>
+            <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" id="remarks" readonly>{{$table->remark}}</textarea>
           </div>
         </div>
       
-       {{-- <!-- <div class="row">
-           <div class="col-md-4 mb-3">
-              <label>Contact Number</label>
-               @foreach($table as $data)
-               <?php
-                $phone=$data->contact_number;
-                ?>
-               @endforeach
-              <input type="text" class="form-control" name="contact" id ="contact" readonly value={{$phone}}> 
-            </div>-->--}}
+      
          <div class="form-group row mb-0">
            <div class="col-md-6 offset-md-6">
-              <a class="btn btn-primary btn-sm" href="{{ route('view_supply_details')}}">Go back</a>
+              <a class="btn btn-primary btn-sm" href="{{ route('view_supply_details')}}">Next</a>
             </div>
             <hr> 
         </div>

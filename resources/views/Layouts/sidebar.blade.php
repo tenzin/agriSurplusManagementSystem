@@ -52,21 +52,16 @@
                     </li>
                 @endcan
 
-                <li class="nav-item">
-                  <a href="{{route('view-nation')}}" class="nav-link">
-                  <i class="far fa-chart-bar"></i> 
-                    <p>Demand - Nation</p>
-                  </a>
-                </li>
-
+            @can('view_surplus_nation')
                 <li class="nav-item">
                   <a href="{{route('view-surplus-nation')}}" class="nav-link">
                   <i class="far fa-chart-bar"></i> 
                     <p>Surplus - Nation</p>
                   </a>
                 </li>
-                @can('aggregator_add_surplus')
+               @endcan
 
+                @can('aggregator_add_surplus')
                 <li class="nav-item">
                   <a href="{{route('date')}}" class="nav-link">
                     <i class="nav-icon far fa-calendar-alt"></i>
