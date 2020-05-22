@@ -14,6 +14,9 @@ use App\Permission;
 use App\Product;
 use App\ProductType;
 use App\Region;
+use App\Unit;
+use App\Cunit;
+use App\MappingUnit;
 
 
 class masterImport extends Command
@@ -60,6 +63,9 @@ class masterImport extends Command
         $this->importPivot("permission_roles",new PermissionRole, 'permission_id','role_id');
         $this->importproduct_types("product_types", new ProductType);
         $this->importproducts("products", new Product);
+        $this->importunits("units", new Unit);
+        $this->importcultivationunits("cultivationunits", new Cunit);
+        $this->importunit_product_mappings("unit_product_mappings", new MappingUnit);
 
     }
 
@@ -317,4 +323,82 @@ public function importproducts($filename, Model $model) {
     $this->line($i." entries successfully added in the table.");
     }
 }
+
+public function importunits($filename, Model $model) {
+    if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
+        $this->line("Importing ".$filename." tables...");
+        $i=0;
+        while ( ($data = fgetcsv ( $handle, 100, ',' )) !== FALSE ) {
+            $data = [
+                'id' => $data[0],
+                'unit' => $data[1],
+            ];
+             try {
+                if($model::firstOrCreate($data)) {
+                    $i++;
+                }
+            } catch(\Exception $e) {
+                $this->error('Something went wrong!'.$e);
+                return;
+
+            }
+        }
+
+    fclose ( $handle );
+    $this->line($i." entries successfully added in the ".$filename." table.");
+}
+}
+public function importcultivationunits($filename, Model $model) {
+    if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
+        $this->line("Importing ".$filename." tables...");
+        $i=0;
+        while ( ($data = fgetcsv ( $handle, 100, ',' )) !== FALSE ) {
+            $data = [
+                'id' => $data[0],
+                'unit' => $data[1],
+            ];
+             try {
+                if($model::firstOrCreate($data)) {
+                    $i++;
+                }
+            } catch(\Exception $e) {
+                $this->error('Something went wrong!'.$e);
+                return;
+
+            }
+        }
+
+    fclose ( $handle );
+    $this->line($i." entries successfully added in the ".$filename." table.");
+}
+}
+
+
+public function importunit_product_mappings($filename, Model $model) {
+    if (($handle = fopen ( public_path () . '/master/'.$filename.'.csv', 'r' )) !== FALSE) {
+        $this->line("Importing ".$filename." tables...");
+        $i=0;
+        while ( ($data = fgetcsv ( $handle, 100, ',' )) !== FALSE ) {
+            $data = [
+                'id' => $data[0],
+                'product_id' => $data[1],
+                'unit_id' => ($data[2]=='' ? NULL:$data[2]),
+            ];
+             try {
+                if($model::firstOrCreate($data)) {
+                    $i++;
+                }
+            } catch(\Exception $e) {
+                $this->error('Something went wrong!'.$e);
+                return;
+
+            }
+        }
+
+    fclose ( $handle );
+    $this->line($i." entries successfully added in the ".$filename." table.");
+}
+}
+
+
 }

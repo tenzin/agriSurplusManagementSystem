@@ -72,7 +72,7 @@
           </div>
            <!-- Area of cultivation info -->
             <div class="col-md-6">
-               <div class="card card">
+               <div class="card cultivation">
                   <div class="card-header">
                      <h3 class="card-title">Area Under Cultivation</h3>
                   </div>
@@ -119,7 +119,7 @@
                </div>
             </div>
             <div class="col-md-6">
-               <div class="card card">
+               <div class="card info">
                   <div class="card-header">
                      <h3 class="card-title">Commercial Aggregator Details</h3>
                   </div>
@@ -150,7 +150,7 @@
                </div>
             </div>
             <div class="col-md-6">
-               <div class="card card">
+               <div class="card cultivation">
                   <div class="card-header">
                      <h3 class="card-title">Cultivation Harvested</h3>
                   </div>

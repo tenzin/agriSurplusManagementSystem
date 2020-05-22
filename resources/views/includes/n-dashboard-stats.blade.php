@@ -30,59 +30,55 @@ var productStats = new Chart(ctx, {
 
 });
 
-//product wise surplus
-var ctx = document.getElementById('productsurplus');
-var productsurplus = new Chart(ctx, {
-    type: 'line',
+
+//surplus info
+
+var ctx = document.getElementById('surplusStats');
+var surplusStats = new Chart(ctx, {
+    type: 'bar',
     data: {
-        labels: ['Jan','Feb', 'March', 'April','May','Jun','July','Aug','Sept','Oct','Nov','Dec'],
+        labels: ['Vegetable','Fruit', 'Cereal','nwfp','Maps','Livestock','Dairy'],
+
         datasets: [{
-            label: 'Statistics',
-            {{--// data: [{{$lob}}, {{$gov_count}}, {{$service_count}}, {{$app_count}}],--}}
-            data: [500, 5, 100, 10, 45, 6, 9],
-            backgroundColor: [
-                'rgba(280, 99, 132, 0.1)',
-                'rgba(54, 162, 235, 0.8)',
-                'rgba(255, 206, 86, 0.8)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(54, 162, 235, 0.8)',
-                'rgba(255, 206, 86, 0.8)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(280, 99, 132, 0.1)',
-
-
-            ],
+            label: 'EO-Surplus',
+            data: [56,56,89,90,25,45,60],
+    
+            backgroundColor: 'rgba(280, 99, 132, 1)',
             borderColor: [
-                'rgba(255, 99, 132, 1)',
-
             ],
             borderWidth: 1
-        }]
+        },
+        {
+            label: 'CA-Surplus',
+            data: [78,67,45,80,35,65,40],
+
+            backgroundColor: 'rgba(75, 192, 192, 0.5)',
+            borderColor: [
+            ],
+            borderWidth: 1
+        }
+      ]
     },
     options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        },
-        legend: {
-        	display: false
-        },
-      	tooltips: {
-        	callbacks: {
-          	label: function(tooltipItem) {
-            console.log(tooltipItem)
-            	return tooltipItem.yLabel;
-            }
-          }
+      scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true
+              }
+          }]
+      },
+    legend: {
+    	//display: false
+    },
+  	tooltips: {
+    	callbacks: {
+      	label: function(tooltipItem) {
+        console.log(tooltipItem)
+        	return tooltipItem.yLabel;
         }
+      }
     }
+  }
 });
 
 //whole surplus

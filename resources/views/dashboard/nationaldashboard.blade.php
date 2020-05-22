@@ -96,7 +96,7 @@
       </div>
    </div>
    <div class="col-md-6">
-               <div class="card card">
+               <div class="card productinfo">
                   <div class="card-header">
                      <h3 class="card-title">Recent Surplus</h3>
                   </div>
@@ -129,32 +129,23 @@
                   </div>
                </div>
             </div>
-    <div class="col-lg-6">
-      <div class="card card-chart">
-        <div class="card-header">
-          <h5 class="card-category">Product vs. Surplus</h5>
-        </div><br/>
-          <div class="row">
-           <div class="col col-md-3">
-               <label for="product">Products:</label>
-            </div>
-            <div class="col-md-6 mb-3">
-            <select class="custom-select" id="product" name="product" required>
-               <option>Select Product</option>
-                  @foreach($product as $pro)
-                     <option value="{{$pro->id}}">{{$pro->product}}</option>
-                   @endforeach
-                </select>  
-            </div>
-          </div>
-        <div class="card-body chart">
-          <canvas id="productsurplus" height="130px"></canvas>
+
+   <!-- EO Vs CA -->
+
+   <div class="col-lg-6">
+      <div class="card  card-tasks">
+         <div class="card-header ">
+            <h5 class="card-category">Extension-Level VS. Aggregrator</h5>
+         </div>
+        <div class="card-body ">
+            <canvas id="surplusStats" height="150px"></canvas>
         </div>
       </div>
    </div>
+
    <!-- Area of cultivation info -->
    <div class="col-md-6">
-               <div class="card card">
+               <div class="card cultinfo">
                   <div class="card-header">
                      <h3 class="card-title">Area Under Cultivation</h3>
                   </div>
@@ -204,17 +195,17 @@
             <div class="col-lg-6">
               <div class="card card-chart">
                 <div class="card-header">
-                 <h5 class="card-category">Surplus vs. Month</h5>
-                 <label>Total Surplus Entry in the System</label>
+                   <h5 class="card-category">Surplus VS. Month</h5>
+                    <label>Total Surplus Entry in the System</label>
                 </div>
-              <div class="card-body chart">
-                   <canvas id="wholesurplus" height="130px"></canvas>
+                  <div class="card-body chart">
+                     <canvas id="wholesurplus" height="130px"></canvas>
+                  </div>
                </div>
-            </div>
             </div>
 
             <div class="col-md-6">
-               <div class="card card">
+               <div class="card cultinfo">
                   <div class="card-header">
                      <h3 class="card-title">Cultivation Harvested</h3>
                   </div>

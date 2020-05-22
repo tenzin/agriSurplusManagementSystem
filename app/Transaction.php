@@ -8,13 +8,9 @@ class Transaction extends Model
 {
     protected $table = 'tbl_transactions';
     protected $primaryKey = 'id';
-    protected $fillable= ['refNumber','type','expiryDate','status','user_id','dzongkhag_id','gewog_id','remarks'];
+    protected $fillable= ['refNumber','type','expiryDate','status','phone','location','pickupdate','user_id','dzongkhag_id','gewog_id','remarks','submittedDate'];
     public $timestamps = false;
 
-    // protected $table ='tbl_surplus_transacations';
-    // protected $primaryKey = 'id';
-    // protected protected $fillable= ['refNumber','type','expiryDate','status','user_id','dzongkhag_id','gewog_id','remarks'];
-    // public $timestamps = false;
 
     public function productType()
     {
