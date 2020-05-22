@@ -299,8 +299,8 @@
             //show some type of message to the user
             if (confirm('Are you sure you want to submit your surplus list?. Once you submitted, you cannot add or delete or update.'))  {
               var id = document.getElementById("refnumber").value;
-              $.get('/json-submit-supply?ref_number=' + id, function(data){
-                window.location = "/farmer-create/";
+              $.get('/farmer-submit?refNumber=' + id, function(data){
+                window.location = "/farmer-create";
               });
             }
         }

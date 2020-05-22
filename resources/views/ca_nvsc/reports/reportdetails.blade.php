@@ -3,7 +3,7 @@
 @section('content')
 
     <!-- Content Header (Page header) -->
-    <!-- Extension-Farmer report details -->
+    <!-- CA detail report -->
 <div class="content-header">
   <div class="card card-info">
     <div class="card-header">
@@ -13,6 +13,9 @@
       <div class="row">
         <div class="col text-left">
           <strong>Details of Surplus 
+          @isset($gewogname)
+            for the Gewog: {{$gewogname->gewog}}
+          @endisset
           </strong>
         </div>
         <div class="col text-right">
@@ -30,25 +33,36 @@
             <th>Product</th>
             <th>Harvest</th>          
             <th>Rate</th>
+            @if(empty($gewogname))           
+              <th>Gewog</th>
+            @endif
             <th>Quantity</th>
           </tr>
         </thead>
         <tbody>
           @foreach($surplus as $report)
           <tr>
-            <td>{{$loop->iteration}}</td>
+            <td class="col-md-1">{{$loop->iteration}}</td>
             <td>{{$report->type}}</td>             
             <td>{{$report->product}}</td>
-            <td class="text-right">{{date('d/m/Y',strtotime($report->harvestDate))}}</td> 
-            <td class="text-right">{{$report->price}}</td>
-            <td class="text-right">{{$report->quantity}} {{$report->unit}}</td>                                                  
+            <td class="text-right col-md-1">{{date('d/m/Y',strtotime($report->harvestDate))}}</td> 
+            <td class="text-right col-md-1">{{$report->price}}</td>
+            @if(empty($gewogname))           
+              <td>{{$report->gewog}}</td>
+            @endif 
+            <td class="text-right col-md-1">{{$report->quantity}} {{$report->unit}}</td>                                                  
           </tr>
           @endforeach 
           
         </tbody>
         <tfoot>
           <tr>
-            <th class="text-right" colspan="5">Total</th>
+            @if(empty($gewogname)) 
+              <th class="text-right" colspan="6">Total</th>
+            @endif
+            @if(!empty($gewogname)) 
+              <th class="text-right" colspan="5">Total</th>
+            @endif
             <th><input class="form-control col-auto text-right" type="text" id="total" name="total" readonly/></th>  
           </tr>
         </tfoot>
@@ -106,7 +120,6 @@
   $(document).ready( function () 
   {
     $("#example3").DataTable({
-      // "processing" : true,
     //  "serverSide" : true,
         dom: 'B<"clear">lfrtip',
         //buttons: [ 'copy','print','excel','pdf']
@@ -137,7 +150,7 @@
 
       //  },
        drawCallback: function () {
-        var sum = $('#example3').DataTable().column(5).data().sum();
+        var sum = $('#example3').DataTable().column(6).data().sum();
        // console.log('sum:'+sum);
         document.getElementById('total').value = sum;
        },

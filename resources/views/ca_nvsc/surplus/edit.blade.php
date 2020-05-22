@@ -106,33 +106,17 @@
                   </div>
               </div>
           </div>
-          
           <div class="col-md-3 mb-3">
-              <label for="qty">Tentative Pickup Date*</label>
-              <input type="date" value="{{$individuals->tentativePickupDate}}" class="form-control" name="date" id="date" required>
-              {{-- {{Form::date('date',$individuals->tentativeRequiredDate,['class'=>'form-control','id'=>'date', 'placeholder' =>'Required Date'])}} --}}
-              <div class="invalid-feedback">
-                  Please enter date of requirement.
-              </div>
-          </div>
+            <label for="qty">Harvest Date<font color="red">*</font></label>
+            <input type="date" value="{{$individuals->harvestDate}}" class="form-control" name="harvestdate" id="harvestdate" required>
+            {{-- <input type="date" class="form-control" name="harvestdate" id ="harvestdate" placeholder ="Required Date"> --}}
+            <div class="invalid-feedback">
+                Please enter date of requirement.
+            </div>
+          
       </div>
-      <div class="row">
-      <div class="col-md-6 mb-3">
-        <label for="qty">Harvest Date<font color="red">*</font></label>
-        <input type="date" value="{{$individuals->harvestDate}}" class="form-control" name="harvestdate" id="harvestdate" required>
-        {{-- <input type="date" class="form-control" name="harvestdate" id ="harvestdate" placeholder ="Required Date"> --}}
-        <div class="invalid-feedback">
-            Please enter date of requirement.
-        </div>
-      </div>
-      <div class="col-md-6 mb-3">
-          <label for="unit">Remarks</label>
-          <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" 
-              id="remarks" placeholder="If any ....">{{$individuals->remarks}}</textarea>
-                  <div class="invalid-feedback" style="width: 100%;">
-                  Price is required.
-                  </div>
-      </div>
+      
+      
       </div>
     
       <hr class="mb-4">

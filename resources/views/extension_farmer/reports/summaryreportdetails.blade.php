@@ -3,7 +3,6 @@
 @section('content')
 
     <!-- Content Header (Page header) -->
-    <!-- Extension-Farmer report details -->
 <div class="content-header">
   <div class="card card-info">
     <div class="card-header">
@@ -12,44 +11,47 @@
       </div>
       <div class="row">
         <div class="col text-left">
-          <strong>Details of Surplus 
+          <strong>Summary of Surplus by type
           </strong>
         </div>
         <div class="col text-right">
-          <i>@isset($fromdate) From: {{date('d/m/Y',strtotime($fromdate))}} @endisset 
-           @isset($todate) - {{date('d/m/Y',strtotime($todate))}} @endisset</i>
+         <span>Year:{{$tyear}}, Month: 
+         @if($tmonth != "All") 
+          {{ date("F", mktime(0, 0, 0, $tmonth, 1)) }}
+         @else
+          All
+         @endif
+         </span>
         </div>
       </div>          
     </div>
     <div class="card-body">
       <table id="example3" class="display table table-bordered">
         <thead>                  
-          <tr>
+          <tr class="text-center">
             <th>Sl. #</th>
             <th>Type</th>
-            <th>Product</th>
-            <th>Harvest</th>          
-            <th>Rate</th>
+            <th>Month</th>          
+            <th>Year</th>
             <th>Quantity</th>
           </tr>
         </thead>
         <tbody>
-          @foreach($surplus as $report)
-          <tr>
+          @foreach($summary as $report)
+          <tr class="text-center">
             <td>{{$loop->iteration}}</td>
-            <td>{{$report->type}}</td>             
-            <td>{{$report->product}}</td>
-            <td class="text-right">{{date('d/m/Y',strtotime($report->harvestDate))}}</td> 
-            <td class="text-right">{{$report->price}}</td>
-            <td class="text-right">{{$report->quantity}} {{$report->unit}}</td>                                                  
+            <td class="text-left">{{$report->type}}</td>                         
+            <td>{{ date("F", mktime(0, 0, 0, $report->tmonth, 1)) }}</td> 
+            <td>{{$report->tyear}}</td>
+            <td class="text-right">{{$report->quantity}} {{$report->unit}}</td>                                             
           </tr>
           @endforeach 
           
         </tbody>
         <tfoot>
           <tr>
-            <th class="text-right" colspan="5">Total</th>
-            <th><input class="form-control col-auto text-right" type="text" id="total" name="total" readonly/></th>  
+              <th class="text-right" colspan="4">Total</th>
+            <th><input class="form-control text-right" type="text" id="total" name="total" readonly/></th>  
           </tr>
         </tfoot>
       </table>
@@ -66,35 +68,6 @@
     })
     $(document).ready(function () {
 
-        $("#product_type_id").on('change',function(e){
-            console.log(e);
-            var id = e.target.value;
-            //alert(id);
-            $.get('/json-product_type?product_type=' + id, function(data){
-                console.log(data);
-                $('#product').empty();
-                $('#product').append('<option value="0">All</option>');
-                $.each(data, function(index, ageproductObj){
-                    $('#product').append('<option value="'+ ageproductObj.id +'">'+ ageproductObj.product + '</option>');
-                })
-            });
-        });
-
-        $("#dzongkhag").on('change',function(e){
-            console.log(e);
-            var dzid = e.target.value;
-            //alert(id);
-            $.get('/json-dzongkhag?dzongkhag=' + dzid, function(data){
-                console.log(data);
-                $('#gewog').empty();
-                $('#gewog').append('<option value="0">All</option>');
-                $.each(data, function(index, gewogObj){
-                    $('#gewog').append('<option value="'+ gewogObj.id +'">'+ gewogObj.gewog + '</option>');
-                })
-            });
-        })
-
-
     });
 
 </script>
@@ -106,7 +79,6 @@
   $(document).ready( function () 
   {
     $("#example3").DataTable({
-      // "processing" : true,
     //  "serverSide" : true,
         dom: 'B<"clear">lfrtip',
         //buttons: [ 'copy','print','excel','pdf']
@@ -137,7 +109,7 @@
 
       //  },
        drawCallback: function () {
-        var sum = $('#example3').DataTable().column(5).data().sum();
+        var sum = $('#example3').DataTable().column(4).data().sum();
        // console.log('sum:'+sum);
         document.getElementById('total').value = sum;
        },

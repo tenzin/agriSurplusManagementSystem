@@ -29,12 +29,12 @@ class DashboardController extends Controller
        $product = Product::all();
 
        $user_ca = User::where('dzongkhag_id', '=', $d)
-                       ->where('role_id', '=', 4)->with('dzongkhag',)->get(); 
+                       ->where('role_id', '=', 4)->with('dzongkhag')->get(); 
    
         return view('dashboard.extensiondashboard',compact(
            'producttype',
            'product',
-           'user_ca',
+           'user_ca'
          ));
      }
 

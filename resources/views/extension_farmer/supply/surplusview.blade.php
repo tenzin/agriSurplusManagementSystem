@@ -51,11 +51,11 @@
       <div class="form-group row">
         <div class="col-md-6 mb-3">
           <label >Product Type</label>
-          <input type="text" class="form-control" name="product" id ="product" readonly value={{$row->product->productType->type}}/>
+          <input type="text" class="form-control" name="product" id ="product" readonly value={{$row->product->productType->type}}>
         </div>
         <div class="col-md-6 mb-3">
           <label >Product</label>
-          <input type="text" class="form-control" name="producttype" id ="producttype" readonly value={{$row->product->product}}/>
+          <input type="text" class="form-control" name="producttype" id ="producttype" readonly value={{$row->product->product}}>
         </div>
       </div>
 
@@ -93,16 +93,7 @@
           </div>
         </div>
       
-       {{-- <!-- <div class="row">
-           <div class="col-md-4 mb-3">
-              <label>Contact Number</label>
-               @foreach($table as $data)
-               <?php
-                $phone=$data->contact_number;
-                ?>
-               @endforeach
-              <input type="text" class="form-control" name="contact" id ="contact" readonly value={{$phone}}> 
-            </div>-->--}}
+      
          <div class="form-group row mb-0">
            <div class="col-md-6 offset-md-6">
               <a class="btn btn-primary btn-sm" href="{{ route('view_supply_details')}}">Next</a>

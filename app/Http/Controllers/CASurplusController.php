@@ -23,6 +23,7 @@ class CASurplusController extends Controller
         $this->middleware('auth');
     }
     
+
     public function product_type()
     
     {
@@ -48,6 +49,33 @@ class CASurplusController extends Controller
          {
             return response()->json($id);
          }
+    }
+
+
+    public function unit_product(){
+
+        $id = $this->request->input('product');
+
+        $product=DB::table('tbl_unit_product_mappings')
+                    ->where('product_id', '=', $id)
+                    ->join('tbl_units','tbl_units.id','=','tbl_unit_product_mappings.unit_id')
+                    ->select('tbl_units.unit','tbl_unit_product_mappings.unit_id')
+                    ->get();
+
+        $checkdata = DB::table('tbl_unit_product_mappings')->where('product_id', '=', $id)->exists();
+      
+        if($checkdata)
+        {
+            return response()->json($product);
+        }   
+        else
+        {
+            $units = DB::table('tbl_units')
+                            ->select('tbl_units.unit',DB::raw("tbl_units.id as unit_id"))
+                            ->get();
+            return response()->json($units);
+        }         
+      
     }
 
     public function ca_expriydate()
@@ -82,6 +110,20 @@ class CASurplusController extends Controller
                 Session::put('NextNumber', $refno2);
                 return redirect('/supply_view'); 
             }
+
+            $test = DB::table('tbl_transactions')
+                ->where('user_id', '=' , $user->id)
+                ->where('type', '=', 'S')
+                ->where('status', '!=', 'S')
+                ->where('status', '!=', 'E')
+                ->where('refNumber', 'Like' , '%'.$refno.'%')
+                ->get('refNumber');
+
+        if($test->isNotEmpty())
+         {
+    
+        return redirect('/ca-view');
+        }
 
         return view('ca_nvsc.surplus.expirydate');
     }
@@ -133,14 +175,15 @@ class CASurplusController extends Controller
             $max=DB::table('tbl_transactions')
                     ->where('user_id', '=' , $user->id)
                     ->where('dzongkhag_id','=',$user->dzongkhag_id)
-                    // ->where('refNumber', 'Like' , '%'.$refno.'%')
+                    ->where('refNumber', 'Like' , '%'.$refno.'%')
                     ->max('refNumber');
+                    // dd($max);
             $number = substr($max,1,12);
             $number=$number+1;
             $nextNumber = $type.$number;
         }
        
-        $expiry = $request->expirydate;
+        $expiry = $request->expiryday;
             
         //------Save Referance Number---
         $current = Carbon::now();
@@ -151,16 +194,25 @@ class CASurplusController extends Controller
         $data->type = 'S';
         $data->expiryDate = $trialExpires;
         $data->status = 'A';
+        $data->phone = $request->input('phone');
+        $data->location = $request->input('location');
+        $data->pickupdate = $request->input('pickupdate');
+        $data->remark = $request->input('remark');
         $data->user_id = $user->id;
         $data->dzongkhag_id = $user->dzongkhag_id;
         $data->gewog_id = $user->gewog_id;
         $data->save();
+        // dd($data);
 
         $product_type= ProductType::all();
         $unit=Unit::all();
+
+        $ref = DB::table('tbl_transactions')
+                ->where('refNumber', 'Like' , '%'.$nextNumber.'%')
+                ->first();
         
         Session::put('View_status', 'A');
-        return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit')); 
+        return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit','ref')); 
         
     }
     
@@ -171,6 +223,10 @@ class CASurplusController extends Controller
         $nextNumber =session('NextNumber');
         $product_type= ProductType::all();
         $unit=Unit::all();
+
+        $ref = DB::table('tbl_transactions')
+        ->where('refNumber', 'Like' , '%'.$nextNumber.'%')
+        ->first();
 
         $supply = DB::table('tbl_cssupply')
                     ->where('refNumber', '=', $nextNumber)
@@ -187,7 +243,7 @@ class CASurplusController extends Controller
                     ->count();
 
         Session::put('View_status', 'E');
-        return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit','supply','counts'));
+        return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit','supply','counts','ref'));
     }
 
 
@@ -219,7 +275,7 @@ class CASurplusController extends Controller
                     ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                     ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
                     ->select('tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-                    'tbl_cssupply.id', 'tbl_units.unit', 'tbl_cssupply.tentativePickupDate','tbl_cssupply.harvestDate')
+                    'tbl_cssupply.id', 'tbl_units.unit','tbl_cssupply.harvestDate')
                     ->paginate(15);
 
         Session::put('View_status', 'V');
@@ -253,11 +309,11 @@ class CASurplusController extends Controller
         $data->product_id = $request->input('product');
         $data->quantity = $request->input('quantity');
         $data->unit_id = $request->input('ut');
-        $data->tentativePickupDate = $request->input('date');
+        // $data->tentativePickupDate = $request->input('date');
         $data->harvestDate = $request->input('harvestdate');
         $data->price = $request->input('price');
         $data->status = 'A';
-        $data->remarks = $request->input('remarks');
+        // $data->remarks = $request->input('remarks');
         $data->dzongkhag_id = $user->dzongkhag_id;
         $data->save();
         
@@ -437,9 +493,7 @@ class CASurplusController extends Controller
                     $data->refNumber,
                 );
             }
-        // if($user->role_id==4 || $user->role_id==5)
-        // {
-        //     dd('shjf');
+        
                 $supply = DB::table('tbl_cssupply')
                             ->where('tbl_transactions.user_id', '=', $user->id)
                             ->where('tbl_transactions.status', '=', 'S')
@@ -451,26 +505,9 @@ class CASurplusController extends Controller
                             ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                             ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
                             ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-                            'tbl_cssupply.id', 'tbl_units.unit', 'tbl_cssupply.tentativePickupDate','tbl_cssupply.harvestDate')
+                            'tbl_cssupply.id', 'tbl_units.unit', 'tbl_cssupply.harvestDate','tbl_transactions.location','tbl_transactions.pickupdate')
                             ->get();
-            // } 
-            // else 
-            // {
-            //     dd('gayden');
-            //     $supply = DB::table('tbl_cssupply')
-            //                 //->where('tbl_transactions.user_id', '=', $user->id)
-            //                 ->where('tbl_transactions.status', '=', 'S')
-            //                 ->where('tbl_transactions.type', '=', 'S')
-            //                 //->where('tbl_cssupply.dzongkhag_id', '=', $user->dzongkhag_id)
-            //                 ->where('tbl_cssupply.quantity','>',0)
-            //                 ->join('tbl_transactions','tbl_cssupply.refNumber', '=', 'tbl_transactions.refNumber')
-            //                 ->join('tbl_product_types','tbl_cssupply.productType_id', '=', 'tbl_product_types.id')
-            //                 ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
-            //                 ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
-            //                 ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-            //                 'tbl_cssupply.id', 'tbl_units.unit', 'tbl_cssupply.tentativePickupDate','tbl_cssupply.harvestDate')
-            //                 ->get();
-            // }
+            
 
         Session::put('View_status', 'VS');
         return view('ca_nvsc.surplus.view-submitted')->with('supply',$supply)
@@ -483,11 +520,22 @@ class CASurplusController extends Controller
     {
         $user = auth()->user();
         $row = CASupply::findorfail($id);
+
+        $test =$row->refNumber;
+       
         $table = DB::table('tbl_transactions')
-                    ->where('tbl_transactions.user_id', '=', $user->id)
+                    ->where('tbl_transactions.user_id','=', $user->id)
+                    ->where('tbl_transactions.refNumber','=', $test)
                     ->join('users','tbl_transactions.user_id', '=','users.id')
-                    ->groupBy('users.id')
-                    ->select('users.contact_number')->get();
+                    ->select('phone','location','remark','pickupdate','users.contact_number')
+                    ->first();
+
+                    // dd($table);
+        // $table = DB::table('tbl_transactions')
+        //             ->where('tbl_transactions.user_id', '=', $user->id)
+        //             ->join('users','tbl_transactions.user_id', '=','users.id')
+        //             ->groupBy('users.id')
+        //             ->select('users.contact_number')->get();
 
         // $rows = Demand::with('dzongkhag')->get();
         return view('ca_nvsc.surplus.view-details', compact('row','table'));
@@ -543,7 +591,7 @@ class CASurplusController extends Controller
                     ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                     ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
                     ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-                    'tbl_cssupply.id', 'tbl_units.unit', 'tbl_cssupply.tentativePickupDate','tbl_cssupply.harvestDate')
+                    'tbl_cssupply.id', 'tbl_units.unit','tbl_cssupply.harvestDate')
                     ->orderBy('id')->paginate(10);
 
         Session::put('View_status', 'VS');
@@ -557,7 +605,7 @@ class CASurplusController extends Controller
         $data = DB::table('tbl_cssupply')
                     ->where('id', '=', $id)
                     ->select('refNumber','quantity','productType_id','product_id', 'price',
-                    'id','unit_id','tentativePickupDate','status','harvestDate','remarks','dzongkhag_id')
+                    'id','unit_id','status','harvestDate','dzongkhag_id')
                     ->first();
 
         $inserts = [];
@@ -569,10 +617,8 @@ class CASurplusController extends Controller
             'quantity' => $data->quantity,
             'unit_id' =>$data->unit_id,
             'price' => $data->price,
-            'tentativePickupDate' => $data->tentativePickupDate,
             'harvestDate' => $data->harvestDate,
             'status' => 'T',
-            'remarks' => $data->remarks,
             'dzongkhag_id' => $data->dzongkhag_id
             ]; 
 
@@ -586,6 +632,35 @@ class CASurplusController extends Controller
                         ]);
 
         return redirect()->back()->with('success','Added successfully');
+        
+    }
+
+    public function batch_edit($nextNumber){
+
+        $data =DB::table('tbl_transactions')
+                    ->where('tbl_transactions.refNumber','=', $nextNumber)
+                    ->first(); 
+        // $data = Transaction::find($nextNumber);
+        // dd($data);
+        $next = $nextNumber;
+        // dd($next);
+        return view('ca_nvsc.surplus..batch-edit',compact('data','next'));
+
+    }
+
+    public function update_batch(Request $request,$nextNumber){
+
+        DB::table('tbl_transactions')
+        ->where('refNumber', $nextNumber)
+        ->update([
+                'expiryDate' => $request->input('expiryday'),
+                'phone' => $request->input('phone'),
+                'location' =>$request->input('location'),
+                'remark' =>$request->input('remark'),
+                'pickupdate' => $request->input('pickupdate')
+                ]);
+
+        return redirect('/supply_view');
         
     }
 
