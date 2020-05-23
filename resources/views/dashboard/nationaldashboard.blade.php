@@ -13,7 +13,7 @@
          <div class="small-box btn-outline-info">
             <div class="inner">
                <p>Commercial Aggregator</p>
-               <h3>{{$ca}}</h3>
+               <h3>{{$ca_usres}}</h3>
             </div>
             <div class="icon">
                <i class="fas fa-users nav-icon"></i>
@@ -36,7 +36,7 @@
          <div class="small-box btn-outline-warning">
             <div class="inner">
                <p>Reginal Office</p>
-               <h3>{{$luc}}</h3>
+               <h3>{{$ardc}}</h3>
             </div>
             <div class="icon">
                <i class="fas fa-users nav-icon"></i>
@@ -48,7 +48,7 @@
          <div class="small-box btn-outline-primary">
             <div class="inner">
                <p>Land User Certificate</p>
-               <h3>{{$luc}}</h3>
+               <h3>{{$luc_users}}</h3>
             </div>
             <div class="icon">
                <i class="fas fa-users nav-icon"></i>
@@ -60,7 +60,7 @@
          <div class="small-box btn-outline-secondary">
             <div class="inner">
                <p>Extension Officer</p>
-               <h3>{{$ex}}</h3>
+               <h3>{{$extions}}</h3>
             </div>
             <div class="icon">
                <i class="fas fa-users nav-icon"></i>
@@ -72,7 +72,7 @@
          <div class="small-box btn-outline-dark">
             <div class="inner">
                <p>Farmer Groups</p>
-               <h3>{{$farmer}}</h3>
+               <h3>{{$farmers}}</h3>
             </div>
             <div class="icon">
                <i class="fas fa-users nav-icon"></i>

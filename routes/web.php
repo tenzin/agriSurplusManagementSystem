@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 //Login Route
 Route::get('login', 'AuthController@loginForm')->name('login');
 Route::post('login', 'AuthController@login');
@@ -23,14 +24,13 @@ Route::get('logout', 'AuthController@logout');
 // });
 Route::get('/','MapController@index');
 
-// Dashboard
+
+
+
 Route::group(['middleware' => 'auth'], function () {
 
-      Route::get('/national',['as'=>'national','uses'=>'DashboardController@national'])->middleware('can:view_national_dashboard,Auth::user()');
-      Route::get('/extension',['as'=>'extension','uses'=>'DashboardController@extension'])->middleware('can:view_extension_dashboard,Auth::user()');
-      Route::get('/aggregator',['as'=>'aggregator','uses'=>'DashboardController@aggregator'])->middleware('can:view_aggregator_dashboard,Auth::user()');
-      Route::post('/search-surplus',['as'=>'search-surplus','uses'=>'DashboardController@aggregator'])->middleware('can:view_aggregator_dashboard,Auth::user()');
-
+      // Dashboard
+      Route::get('/dashboard', 'DashboardController@index');
 
 Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
 
@@ -45,9 +45,11 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       Route::get('/ex_supply_temp', 'ExtensionSupplyController@ex_supply_temp')->name('ex_supply_temp');
       Route::get('surplus-delete/{id}','ExtensionSupplyController@destroy');
 
+      //Batch Info Update and Edit Route
       Route::get('batch-edit/{nextNumber}',['as'=>'batch-edit','uses'=>'ExtensionSupplyController@batch_edit']);
       Route::post('batch-update/{nextNumber}',['as'=>'batch-update','uses'=>'ExtensionSupplyController@update_batch']);
 
+      //Update to Zero Route
       Route::get('updatee/{id}',['as'=>'updatee','uses'=>'ExtensionSupplyController@zero']);
      
       //Extension Supply View Surplus Information Route
@@ -97,11 +99,14 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('supply-history','CASurplusController@ca_show_history')->name('supply-history')->middleware('can:aggregator_supply_history,Auth::user()');
       Route::get('showe/{id}','CASurplusController@ca_show')->name('showe');
 
+      //Batch Update and Edit Route
       Route::get('batch-editi/{nextNumber}',['as'=>'batch-editi','uses'=>'CASurplusController@batch_edit']);
       Route::post('batch-updatee/{nextNumber}',['as'=>'batch-updatee','uses'=>'CASurplusController@update_batch']);
 
-      
+      //Update to Zero Route
       Route::get('update/{id}',['as'=>'update','uses'=>'CASurplusController@zero']);
+
+      //All CA Surplus Route
       Route::get('view-surplus-nation',['as'=>'view-surplus-nation','uses'=>'CASurplusController@view_surplus_nation_all'])->middleware('can:view_surplus_nation,Auth::user()');
       
       //Commercial Aggregator Supply View Surplus Information Route
@@ -115,8 +120,6 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::post('aggregator_dreport',['as'=>'aggregator_dreport','uses'=>'CAReportController@search_result']);
       Route::get('aggregator_summary',['as'=>'aggregator_summary','uses'=>'CAReportController@searchsummaryby']);
       Route::post('aggregator_summaryreport',['as'=>'aggregator_summaryreport','uses'=>'CAReportController@summaryreport']);
-      
-      // Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@view_surplus_details'])->middleware('can:aggregator_view_surplus,Auth::user()');
 
       //Commercial Aggregator Demand Surplus Information Route
       Route::get('demand-date',['as'=>'demand-date','uses'=>'CADemandController@expriydate'])->middleware('can:aggregator_demand_surplus,Auth::user()');
@@ -130,9 +133,7 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::post('update-store/{id}',['as'=>'update-store','uses'=>'CADemandController@update']);
       Route::get('/demand_temp', 'CADemandController@demand_temp')->name('demand_temp');
       Route::get('/demand_view', 'CADemandController@demand_view')->name('demand_view');
-      // Route::get('/json-submit-demand','CADemandController@submit_demand');
-      // Route::get('/json-product-exist','CADemandController@product_exists');
-      // Route::get('/json-product_type','CADemandController@product_type');
+      
 
       Route::get('/json-transaction-exist','TransactionController@transaction_exists');
       Route::get('/json-dimport-exist/{id}','TransactionController@import_demand');
@@ -145,6 +146,7 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::post('update_submitted/{id}',['as'=>'update_submitted','uses'=>'CADemandController@update_submitted']);
       Route::get('view-detail/{id}',['as'=>'view-detail','uses'=>'CADemandController@view_detail'])->middleware('can:aggregator_view_demand_details,Auth::user()');
       
+      //Demand  CA View all Route
       Route::get('view-nation',['as'=>'view-nation','uses'=>'CADemandController@view_surplus_nation']);
 
 
@@ -231,7 +233,6 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
 
   }); // end of acl group list
 
-
         //User profile Route
         Route::get('profile',['as'=>'profile','uses'=>'ProfileController@userprofile']);
 
@@ -281,11 +282,9 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
       })->name('read');
 
 
-
       Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
       Route::post('extension_sreport',['as'=>'extension_sreport','uses'=>'EXReportController@summary_report']);
-      //call this controller to insert summary details into monthly table.
-      // Route::get('/sum','SummaryController@sum_quantity_type');
+      
       
 
      

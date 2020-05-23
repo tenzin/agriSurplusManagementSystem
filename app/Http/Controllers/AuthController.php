@@ -24,7 +24,7 @@ class AuthController extends Controller
               'email' => $request->email,
               'password' => $request->password])
           ){
-              return redirect('/national');
+              return redirect('/dashboard');
           }
           else return redirect('/login')->with('error', 'Invalid Email address or Password');
   

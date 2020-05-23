@@ -10,6 +10,20 @@
 <div class="sidebar">
   <!-- Sidebar Menu -->
 
+  @can('view_admin_dashboard')
+  <nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <!-- Add icons to the links using the .nav-icon class
+           with font-awesome or any other icon font library -->
+      <li class="nav-item has-treeview">
+      <a href="{{url('dashboard')}}" class="nav-link">
+            <p>Admin Dashboard</p>
+        </a>
+      </li>
+    </ul>
+  </nav>
+@endcan
+
 @can('view_national_dashboard')
   <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -21,9 +35,9 @@
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
-            <a href="{{route('national')}}" class="nav-link">
+            <a href="{{url('dashboard')}}" class="nav-link">
             <i class="far fa-chart-bar"></i> 
-              <p>National Dashboard</p>
+              <p>Dashboard</p>
             </a>
           </li>
         <ul>
@@ -45,7 +59,7 @@
 
               @can('view_aggregator_dashboard')
                     <li class="nav-item">
-                      <a href="{{route('aggregator')}}" class="nav-link">
+                      <a href="{{url('dashboard')}}" class="nav-link">
                       <i class="far fa-chart-bar"></i> 
                         <p>Aggregator Dashboard</p>
                       </a>
@@ -176,7 +190,7 @@
 
             @can('view_extension_dashboard')
               <li class="nav-item"> 
-                <a href="{{route('extension')}}" class="nav-link">
+                <a href="{{url('dashboard')}}" class="nav-link">
                 <i class="far fa-chart-bar"></i> 
                   <p>Extension Dashboard</p>
                 </a>
@@ -249,7 +263,7 @@
 @can('master_data')
   <nav class="mt-2">
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-   <li class="nav-item has-treeview">
+   <li class="nav-item has-treeview menu-open">
         <a href="#" class="nav-link">
           <p>Master Table</p>
         </a>
