@@ -6,7 +6,7 @@
 <div class="content-header">
   <form class="form-horizontal" method="POST" action = "{{route('extension_dreport')}}">
             @csrf
-        <div class="card card-info">
+        <div class="card card">
                   <div class="card-header">
                     <h3 class="card-title">Search details of surplus by:</h3>
                     <div class="card-tools">
@@ -17,43 +17,43 @@
          
           <div class="card-body">            
 <!-- supply/demand report and transaction date range. -->
-                <div class="row mb-1">               
-                  <div class="col col-md-auto text-right">
+                <div class="row">               
+                  <div class="col col-md-auto">
                     <label for="fromdate">From:</label>
                   </div>
-                  <div class="col col-md-2">
+                  <div class="col-md-3">
                     <input type="date" class="form-control" name="fromdate" id ="fromdate" value="">
                   </div>
-                  <div class="col col-md-auto text-right">
+                  <div class="col col-md-auto">
                     <label for="todate">To:</label>
                   </div>
-                  <div class="col col-md-2">
+                  <div class="col-md-3">
                     <input type="date" class="form-control" name="todate" id ="todate" value="">
                   </div>
-                </div>
+                </div></br>
 
                 <div class="row">
-                    <div class="col col-md-auto text-right">
+                    <div class="col col-md-auto">
                        <label for="product_type_id">Product Type:</label>
                     </div>
-                    <div class="col-md-4">
-                        <select  name="product_type" id="product_type_id" class="form-control select2bs4">
+                    <div class="col-md-3">
+                        <select  name="product_type" id="product_type_id" class="form-control">
                             <option value="">All</option>
                             @foreach($ptypes as $ptype)
                             <option value="{{ $ptype->id }}">{{$ptype->type}}</option>
                             @endforeach
                         </select>                               
                     </div>
-                    <div class="col col-md-auto text-right">
+                    <div class="col col-md-auto">
                        <label for="product">Product:</label>
                     </div>   
-                    <div class="col-md-4">
-                        <select class="custom-select d-block w-100" id="product" name="product">
+                    <div class="col-md-3">
+                        <select class="custom-select" id="product" name="product">
                             <option value="">All</option>
                         </select>
-                    </div>  
+                    </div> </br>
                     <div class="col-md-1">
-                      <button type="submit" class="btn btn-primary float-right ">Search</button>
+                      <button type="submit" class="btn btn-primary ">Search</button>
                     </div>                                                                  
               </div> <!--- row ends -->
           </div> 
@@ -63,6 +63,54 @@
       </div>
     </form>                             
 </div>
+
+
+<div class="content-header">
+  <form class="form-horizontal" method="POST" action = "{{route('extension_sreport')}}">
+            @csrf
+        <div class="card card">
+                  <div class="card-header">
+                    <h3 class="card-title">View summary of surplus by:</h3>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    </div>
+                  </div>
+                  <!-- /.card-header -->
+         
+          <div class="card-body">            
+<!-- supply/demand report and transaction date range. -->
+                <div class="row">               
+                  <div class="col col-md-auto">
+                    <label for="tyear">Year:</label>
+                  </div>
+                  <div class="col-md-3">
+                    <select class="form-control" name="tyear" id ="tyear">
+                      <option value="All" selected>All</option>                  
+                      <option value="2020">2020<option>
+                    </select>
+                  </div>
+                  <div class="col col-md-auto">
+                    <label for="tmonth">Month:</label>
+                  </div>
+                  <div class="col-md-3">
+                    <select class="form-control" name="tmonth" id ="tmonth">
+                      <option value="All" selected>All</option>
+                      <option value="5">May</option>
+                      <option value="6">June</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                  </div>  
+                </div>
+          </div> 
+                  <!-- /.card-body -->
+          <div class="card-footer">                               
+          </div>
+      </div>
+    </form>                             
+</div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

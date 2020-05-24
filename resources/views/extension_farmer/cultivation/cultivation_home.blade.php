@@ -2,23 +2,15 @@
 @extends('master')
     
 @section('content')
-{{-- @include('flash-message') --}}
 <section class="content">
-      {{-- <div class="card card-info"> --}}
-        <h1 class="text-center mt-1 mb-1 alert aqua">Crops Under Cultivation Details</h1>
-         {{-- <div class="card-header">
-            <h3 class="card-title">Crops Under Cultivation Details</h3>
-         </div> --}}
-  
+      <h1 class="text-center mt-1 mb-1 alert aqua">Crops Under Cultivation Details</h1>
     <div class="card-body">
       <table id="example1" class="table table-bordered table-striped">
         <thead>
           <tr>
-            <th>Sl. no</th>
-            <th>Crop_name</th>
-            <th>Quantity/Acerage & Unit</th>
-            <th>Sowing_Date</th>
-            <!-- <th>Estimated Output & Unit</th> -->
+            <th>Sl.No</th>
+            <th>Crop_Name</th>
+            <th>Quantity</th>
             <th>Status</th>
             <th>Update</th>
             <th>Action</th>
@@ -30,7 +22,6 @@
             <td>{{$loop->iteration}}</td>
             <td>{{$c->product->product}}</td> 
             <td>{{$c->quantity.' '.$c->c_unit->unit}}</td>
-            <td>{{$c->sowing_date}}</td> 
             <td>@if($c->status == '1')<span class="label">Harvested</span>
               @else<span class="label">Under Cultivation</span>@endif </td>
              <td> 

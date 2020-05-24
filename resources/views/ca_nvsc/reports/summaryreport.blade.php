@@ -18,29 +18,29 @@
           <div class="card-body">            
 <!-- supply/demand report and transaction date range. -->
                 <div class="row mb-1">               
-                  <div class="col col-md-auto text-right">
+                  <div class="col col-md-auto">
                     <label for="tyear">Year:</label>
                   </div>
-                  <div class="col col-md-2">
+                  <div class="col-md-2">
                     <select class="form-control" name="tyear" id ="tyear">
                       <option value="All" selected>All</option>
                       <option value="2020">2020<option>
                     </select>
                   </div>
-                  <div class="col col-md-auto text-right">
+                  <div class="col col-md-auto">
                     <label for="tmonth">Month:</label>
                   </div>
-                  <div class="col col-md-2">
+                  <div class="col-md-2">
                     <select class="form-control" name="tmonth" id ="tmonth">
                       <option value="All" selected>All</option>
                       <option value="5">May</option>
                     </select>
                   </div>
-                  <div class="col col-md-auto text-right">
+                  <div class="col col-md-auto">
                       <label for="gewog">Gewog:</label>
                   </div>
-                  <div class="col col-md-4"> 
-                      <select class="form-control select2bs4" id="gewog" name="gewog">
+                  <div class="col-md-3"> 
+                      <select class="form-control" id="gewog" name="gewog">
                         <option value="All">All</option>
                         @foreach($gewogs as $gewog)
                                 <option value="{{ $gewog->id }}">{{$gewog->gewog}}</option>
@@ -48,7 +48,7 @@
                       </select>
                   </div>
                   <div class="col col-md-1">
-                    <button type="submit" class="btn btn-primary float-right ">Search</button>
+                    <button type="submit" class="btn btn-primary ">Search</button>
                   </div>  
                 </div>
           </div> 

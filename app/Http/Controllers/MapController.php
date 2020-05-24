@@ -25,7 +25,7 @@ class MapController extends Controller
             ->get();
         //dd($gewog);
 
-          return view('index',compact('gewog'));
+          return view('index1',compact('gewog'));
 
     }
 }

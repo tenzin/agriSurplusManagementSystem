@@ -3,7 +3,7 @@
 <div class="content-header">
    <form class="form-horizontal" method="POST" action = "{{route('new-user')}}">
      @csrf
-   <div class="card card-info">
+   <div class="card card">
            <div class="card-header">
              <h3 class="card-title">Add New User</h3>
              

@@ -30,11 +30,54 @@ class DashboardController extends Controller
 
        $user_ca = User::where('dzongkhag_id', '=', $d)
                        ->where('role_id', '=', 4)->with('dzongkhag')->get(); 
-   
+
+      $g=auth()->user()->gewog_id;
+      $veg_count=DB::table('tbl_ex_surplus')
+                  ->where('gewog_id', '=', $g)
+                  ->where('productType_id','1')
+                  ->SUM('quantity') ;
+     $fruit_count=DB::table('tbl_ex_surplus')
+                  ->where('gewog_id', '=', $g)
+                  ->where('productType_id','2')
+                  ->SUM('quantity') ;
+
+     $dairy_count=DB::table('tbl_ex_surplus')
+                  ->where('gewog_id', '=', $g)
+                  ->where('productType_id','3')
+                  ->SUM('quantity') ;
+
+      $livestock_count=DB::table('tbl_ex_surplus')
+                  ->where('gewog_id', '=', $g)
+                  ->where('productType_id','4')
+                  ->SUM('quantity') ;
+
+      $nwfp_count=DB::table('tbl_ex_surplus')
+                  ->where('gewog_id', '=', $g)
+                  ->where('productType_id','5')
+                  ->SUM('quantity');
+
+      $maps_count=DB::table('tbl_ex_surplus')
+                  ->where('gewog_id', '=', $g)
+                  ->where('productType_id','6')
+                  ->SUM('quantity') ;
+
+      $cereal_count=DB::table('tbl_ex_surplus')
+                  ->where('gewog_id', '=', $g)
+                  ->where('productType_id','7')
+                  ->SUM('quantity') ;
+      
+      $surplus_count=DB::table('tbl_ex_surplus')
+                  ->where('gewog_id', '=', $g)
+                 // ->where()
+                  ->select('productType_id')
+                  ->count() ;
+
+
         return view('dashboard.extensiondashboard',compact(
-           'producttype',
-           'product',
-           'user_ca'
+           'producttype','product','user_ca',
+           'veg_count','fruit_count','dairy_count','livestock_count','nwfp_count','maps_count','cereal_count',
+           'surplus_count'
+
          ));
      }
 
@@ -109,14 +152,69 @@ class DashboardController extends Controller
         $vsc = User::where('role_id', '5')->count();
         $ca = User::where('role_id', '4')->count();
         //dd($vsc);
+        //EO Surplus
+        $veg_count=DB::table('tbl_ex_surplus')
+                     ->where('productType_id','1')
+                     ->SUM('quantity') ;
+
+         $fruit_count=DB::table('tbl_ex_surplus')
+               ->where('productType_id','2')
+               ->SUM('quantity') ;
+
+         $dairy_count=DB::table('tbl_ex_surplus')
+               ->where('productType_id','3')
+               ->SUM('quantity') ;
+
+         $livestock_count=DB::table('tbl_ex_surplus')
+               ->where('productType_id','4')
+               ->SUM('quantity') ;
+
+         $nwfp_count=DB::table('tbl_ex_surplus')
+               ->where('productType_id','5')
+               ->SUM('quantity');
+
+         $maps_count=DB::table('tbl_ex_surplus')
+               ->where('productType_id','6')
+               ->SUM('quantity') ;
+
+         $cereal_count=DB::table('tbl_ex_surplus')
+               ->where('productType_id','7')
+               ->SUM('quantity') ;
+
+   //CA surplus
+         $caveg_count=DB::table('tbl_cssupply')
+            ->where('productType_id','1')
+            ->SUM('quantity') ;
+
+         $cafruit_count=DB::table('tbl_cssupply')
+               ->where('productType_id','2')
+               ->SUM('quantity') ;
+
+         $cadairy_count=DB::table('tbl_cssupply')
+         ->where('productType_id','3')
+         ->SUM('quantity') ;
+
+         $calivestock_count=DB::table('tbl_cssupply')
+         ->where('productType_id','4')
+         ->SUM('quantity') ;
+
+         $canwfp_count=DB::table('tbl_cssupply')
+         ->where('productType_id','5')
+         ->SUM('quantity');
+
+         $camaps_count=DB::table('tbl_cssupply')
+         ->where('productType_id','6')
+         ->SUM('quantity') ;
+
+         $cacereal_count=DB::table('tbl_cssupply')
+         ->where('productType_id','7')
+         ->SUM('quantity') ;
+
         return view('dashboard.nationaldashboard',compact(
-           'producttype',
-           'product',
-           'farmer',
-           'ex',
-           'luc',
-           'vsc',
-           'ca',
-           'ardc'));
+           'producttype','product','farmer', 'ex','luc', 'vsc', 'ca','ardc',
+           'veg_count','fruit_count','dairy_count','livestock_count','nwfp_count','maps_count','cereal_count',
+           'caveg_count','cafruit_count','cadairy_count','calivestock_count','canwfp_count','camaps_count','cacereal_count'
+
+         ));
     }
 }

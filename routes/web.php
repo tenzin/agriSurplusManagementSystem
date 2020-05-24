@@ -19,7 +19,7 @@ Route::post('logout', 'AuthController@logout')->name('logout');
 Route::get('logout', 'AuthController@logout');
 
 // Route::get('/', function () {
-//     return view('index');
+//     return view('index1');
 // });
 Route::get('/','MapController@index');
 

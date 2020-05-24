@@ -1,7 +1,7 @@
 @extends('master')
 @section('content')
 <div class="container-fluid">
-   <div class="card card-info">
+   <div class="card card">
       <div class="card-header">
          <h3 class="card-title">Edit User</h3>
       </div>

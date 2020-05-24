@@ -3,7 +3,7 @@
 <div class="container normal-page">
    <div class="row justify-content-center">
       <div class="col-md-12">
-         <div class="card card-info">
+         <div class="card card">
             <div class="card-header">Password Reset List
             </div>
             <!--card header-->
