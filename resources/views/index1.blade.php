@@ -199,8 +199,8 @@
                 })
               ],
               view: new ol.View({
-                  center: ol.proj.fromLonLat([90.46,27.60]),
-                  zoom: 8.80
+                  center: ol.proj.fromLonLat([90.46,27.38]),
+                  zoom: 8.8
               }),
               controls: [], //These options disable map scroll
               interactions: []
@@ -251,49 +251,55 @@
 
           function show_gewog_layer() {
             if(typeof gewog_layer == 'undefined') {
-              //gewog_layer is not defined. Define now
-              //alert('gewog_layer not defined');
-              var gewog_name = ['Chokhor', 'Ura', 'Tang', 'Chhume'];
-              var long = [90.71112766300, 90.91560670800, 90.87104712900, 90.69937767200];
-              var lat = [27.60460129980, 27.48790712980, 27.57078822880, 27.49359672880];
               var pointerFeatures = [];
 
-              gewog_name.forEach(createFeatures);
-              function createFeatures(value, index, array) {
-                feature = new ol.Feature({
-                  geometry: new ol.geom.Point(ol.proj.fromLonLat([long[index],lat[index]])),
-                  type: 'Gewog',
-                  name: gewog_name[index]
+              const create_gewog_layer = async () => {
+                const response = await fetch('gewog_map');
+                const json = await response.json();
+                console.log(json);
+                console.log('after json');
+                json.gewogs.forEach(function(value, index, array){
+                  var lat = array[index].latitude;
+                  var long = array[index].longitude;
+                  feature = new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([long, lat])),
+                    type: 'Gewog',
+                    name: array[index].gewog
+                  });
+                  console.log('feature: ' + feature.getGeometry().getCoordinates());
+                  console.log("gewog: " + array[index].gewog);
+                  console.log("lat: " + lat);
+                  console.log("long: " + long);
+                  pointerFeatures.push(feature);
+                })
+                //console.log(pointerFeatures);
+                
+                var iconStyle = new ol.style.Style({
+                  image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+                    anchor: [0.5, 46],
+                    anchorXUnits: 'fraction',
+                    anchorYUnits: 'pixels',
+                    //opacity: 0.75,
+                    src: '../../images/extension.png'
+                  }))
                 });
-                //console.log(feature.get('gewog_name'));
-                pointerFeatures.push(feature);
+                gewog_layer = new ol.layer.Vector({
+                  name: 'Gewog',
+                  source: new ol.source.Vector({
+                    features: pointerFeatures,
+                  }),
+                  style: iconStyle
+                });
+                console.log('adding layer');
+                map.addLayer(gewog_layer);
               }
-              // create the marker stylesheet
-              var iconStyle = new ol.style.Style({
-                image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
-                  anchor: [0.5, 46],
-                  anchorXUnits: 'fraction',
-                  anchorYUnits: 'pixels',
-                  //opacity: 0.75,
-                  src: '../../images/extension.png'
-                }))
-              });
-              gewog_layer = new ol.layer.Vector({
-                name: 'Gewog',
-                source: new ol.source.Vector({
-                  features: pointerFeatures,
-                }),
-                style: iconStyle
-              });
+              create_gewog_layer();
             }
-            //Now add the layer
-            map.addLayer(gewog_layer);
-          }
 
-        // layer.getSource().forEachFeature(test_on_console);
-        // function test_on_console(feature) {
-        //   console.log(feature.get('gewog_name'));
-        // }
+            else {
+              map.addLayer(gewog_layer);
+            }
+          }
 
         //trypopup
         var container = document.getElementById('popup');
