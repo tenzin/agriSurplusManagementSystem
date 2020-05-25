@@ -194,7 +194,12 @@
  $('#product_name').on('change', function () {
              table.columns(1).search( this.value ).draw();
          });
+  });
+ 
+ </script>
 
+<script>
+  $(document).ready(function() {
    var table = $('#area_hv').DataTable();
  $('#product').on('change', function () {
              table.columns(1).search( this.value ).draw();

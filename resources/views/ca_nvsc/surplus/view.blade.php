@@ -95,7 +95,7 @@
             if (confirm('Are you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
               var id = document.getElementById("refnumber").value;
               $.get('/json-submit-supply?ref_number=' + id, function(data){
-                window.location = "/national/";
+                window.location = "/date/";
               });
             }
         }

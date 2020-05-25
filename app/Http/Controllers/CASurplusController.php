@@ -103,7 +103,7 @@ class CASurplusController extends Controller
         $list = DB::table('tbl_cssupply')
                     ->where('refNumber', '=' , $refno2)
                     ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
-                    // ->where('user_id', '=' , $user->id)
+                    ->where('user_id', '=' , $user->id)
                     ->first();
 
         if($checkno->isNotEmpty() && $list!='')
@@ -209,6 +209,7 @@ class CASurplusController extends Controller
         $unit=Unit::all();
 
         $ref = DB::table('tbl_transactions')
+                ->where('user_id', '=' , $user->id)
                 ->where('refNumber', 'Like' , '%'.$nextNumber.'%')
                 ->first();
         
@@ -529,11 +530,11 @@ class CASurplusController extends Controller
         $table = DB::table('tbl_transactions')
                     ->where('tbl_transactions.user_id','=', $user->id)
                     ->where('tbl_transactions.refNumber','=', $test)
-                    ->join('users','tbl_transactions.user_id', '=','users.id')
+                    // ->join('users','tbl_transactions.user_id', '=','users.id')
                     ->select('phone','location','remark','pickupdate','users.contact_number')
                     ->first();
 
-                    // dd($table);
+                     dd($table);
         // $table = DB::table('tbl_transactions')
         //             ->where('tbl_transactions.user_id', '=', $user->id)
         //             ->join('users','tbl_transactions.user_id', '=','users.id')
@@ -554,10 +555,11 @@ class CASurplusController extends Controller
                     ->where('tbl_cssupply.refNumber', '=', $id)
                     ->where('tbl_cssupply.dzongkhag_id','=',$user->dzongkhag_id)
                     ->join('tbl_product_types','tbl_cssupply.productType_id', '=', 'tbl_product_types.id')
+                    // ->join('tbl_transactions','tbl_transactions.refNumber','=', )
                     ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                     ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
                     ->select('tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-                    'tbl_cssupply.id','tbl_units.unit')
+                    'tbl_cssupply.id','tbl_units.unit',)
                     ->get();
 
         return view('ca_nvsc.surplus.view-history-list')->with('supply',$data);
@@ -585,19 +587,21 @@ class CASurplusController extends Controller
     {
 
         $user = auth()->user();
+
         $supply = DB::table('tbl_cssupply')
-                    ->where('tbl_transactions.user_id', '!=', $user->id)
+                    // ->where('tbl_transactions.user_id', '=', $user->id)
                     ->where('tbl_transactions.status', '=', 'S')
-                    // ->where('tbl_transactions.type', '=', 'S')
-                    // ->where('tbl_cssupply.tentativePickupDate', '=', $start)
+                    ->where('tbl_transactions.type', '=', 'S')
+                    ->where('tbl_cssupply.user_id', '!=', $user->id)
                     ->where('tbl_cssupply.quantity','>',0)
                     ->join('tbl_transactions','tbl_cssupply.refNumber', '=', 'tbl_transactions.refNumber')
                     ->join('tbl_product_types','tbl_cssupply.productType_id', '=', 'tbl_product_types.id')
                     ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                     ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
                     ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-                    'tbl_cssupply.id', 'tbl_units.unit','tbl_cssupply.harvestDate')
-                    ->orderBy('id')->paginate(10);
+                    'tbl_cssupply.id', 'tbl_units.unit','tbl_cssupply.harvestDate',)
+                    ->groupBy('tbl_cssupply.id')->get();
+                    dd($supply);
 
         Session::put('View_status', 'VS');
         return view('ca_nvsc.surplus.view-all')->with('supply',$supply);
