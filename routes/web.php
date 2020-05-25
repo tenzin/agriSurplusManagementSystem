@@ -19,10 +19,10 @@ Route::post('login', 'AuthController@login');
 Route::post('logout', 'AuthController@logout')->name('logout');
 Route::get('logout', 'AuthController@logout');
 
-// Route::get('/', function () {
-//     return view('index');
-// });
-Route::get('/','MapController@index');
+Route::get('/', function () {
+    return view('index');
+});
+Route::get('/gewog_map','MapController@index');
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -282,8 +282,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
 
       Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
       Route::post('extension_sreport',['as'=>'extension_sreport','uses'=>'EXReportController@summary_report']);
-      
-      
+
 
      
       
