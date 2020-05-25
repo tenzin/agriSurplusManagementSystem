@@ -29,7 +29,7 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-      <li class="nav-item has-treeview">
+      <li class="nav-item has-treeview menu-open">
         <a href="#" class="nav-link">
             <p>National Level</p>
         </a>
@@ -40,13 +40,13 @@
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item">
             <a href="/reports" class="nav-link">
-                <i class="nav-icon far fa-plus-square"></i>
-               <p>Reports</p>               
+                <i class="far fa-plus-square"></i>
+               <p>National Reports</p>               
             </a>
         </li>
-        </ul>
+      </ul>
       </li>
     </ul>
   </nav>

@@ -6,12 +6,10 @@
 <div class="content-header">
   <form class="form-horizontal" method="POST" action = "{{route('extension_treport')}}">
             @csrf
-        <div class="card card-info">
+        <div class="card card">
                   <div class="card-header">
                     <h3 class="card-title">Total surplus by:</h3>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                    </div>
+                    
                   </div>
                   <!-- /.card-header -->
          
