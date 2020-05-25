@@ -37,7 +37,7 @@
             <div class="col-md-3">
                <div class="form-group">
                   <label>CID No:<font color="red">*</font></label>
-                  <input  name="cid" id="cid" class="form-control" placeholder="Enter the CID" required>
+                  <input name="cid" id="cid" class="form-control" placeholder="Enter the CID" maxlength="13" required>
                </div>
                <div class="form-group">
                   <label>Name:<small></small>&nbsp;<font color="red">*</font></label>
@@ -56,7 +56,7 @@
             <div class="col-md-4">
                <div class="form-group">
                   <label>Dzongkhag:<font color="red">*</font></label>
-                  <select class="custom-select d-block w-100" id="dzongkhag" name="dzongkhag" required>
+                  <select class="custom-select d-block w-100" id="dzongkhag" name="dzongkhag">
                      <option value="">Choose...</option>
                      @foreach($dzongkhags as $row)
                          <option value="{{$row->id}}">{{$row->dzongkhag}}</option>
@@ -71,7 +71,7 @@
                </div>
                <div class="form-group">
                   <label>Gewog:<font color="red">*</font></label>
-                  <select class="custom-select d-block w-100" id="gewog" name="gewog" required>
+                  <select class="custom-select d-block w-100" id="gewog" name="gewog">
                      <option value="">Choose...</option>
                    </select>
                   {{-- <select  name="gewog" id="gewog" class="form-control" required>
@@ -107,7 +107,7 @@
                </div>
                <div class="form-group">
                   <label>Contact Number:<small></small>&nbsp;<font color="red">*</font></label>
-                  <input id="number" type="text" class="form-control" name="number"  placeholder="Enter the contact Number" required/>
+                  <input id="number" type="text" class="form-control" name="number"  placeholder="Enter the contact Number" maxlength="8" required/>
                </div>
                <div class="form-group">
                   <label>Is_Staff:<small></small>&nbsp;</label>

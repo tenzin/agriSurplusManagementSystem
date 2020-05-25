@@ -25,8 +25,6 @@ Route::get('logout', 'AuthController@logout');
 Route::get('/','MapController@index');
 
 
-
-
 Route::group(['middleware' => 'auth'], function () {
 
       // Dashboard

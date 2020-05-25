@@ -16,6 +16,7 @@ class CreateTblExSurplusTable extends Migration
         Schema::create('tbl_ex_surplus', function (Blueprint $table) {
             
             $table->id();
+            // $table->foreignId('trans_id')->constrained()->references('id')->on('tbl_transactions')->onDelete('cascade');
             $table->string('refNumber', 12);
             $table->foreignId('productType_id')->constrained()->references('id')->on('tbl_product_types')->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->references('id')->on('tbl_products')->onDelete('cascade');

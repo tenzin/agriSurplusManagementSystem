@@ -105,6 +105,7 @@ class CASurplusController extends Controller
                     ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
                     // ->where('user_id', '=' , $user->id)
                     ->first();
+
         if($checkno->isNotEmpty() && $list!='')
             { 
                 Session::put('NextNumber', $refno2);
@@ -231,6 +232,7 @@ class CASurplusController extends Controller
         $supply = DB::table('tbl_cssupply')
                     ->where('refNumber', '=', $nextNumber)
                     ->where('dzongkhag_id', '=', $user->dzongkhag_id)
+                    ->where('user_id', '=' , $user->id)
                     ->join('tbl_product_types','tbl_cssupply.productType_id', '=', 'tbl_product_types.id')
                     ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                     ->select('tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
@@ -240,6 +242,7 @@ class CASurplusController extends Controller
         $counts = DB::table('tbl_cssupply')
                     ->where('refNumber', '=', $nextNumber)
                     ->where('dzongkhag_id', '=', $user->dzongkhag_id)
+                    ->where('user_id', '=' , $user->id)
                     ->count();
 
         Session::put('View_status', 'E');
@@ -271,6 +274,7 @@ class CASurplusController extends Controller
         $supply = DB::table('tbl_cssupply')
                     ->where('refNumber', '=', $refno2)
                     ->where('dzongkhag_id', '=', $user->dzongkhag_id)
+                    ->where('user_id', '=' , $user->id)
                     ->join('tbl_product_types','tbl_cssupply.productType_id', '=', 'tbl_product_types.id')
                     ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                     ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
@@ -309,11 +313,10 @@ class CASurplusController extends Controller
         $data->product_id = $request->input('product');
         $data->quantity = $request->input('quantity');
         $data->unit_id = $request->input('ut');
-        // $data->tentativePickupDate = $request->input('date');
         $data->harvestDate = $request->input('harvestdate');
         $data->price = $request->input('price');
         $data->status = 'A';
-        // $data->remarks = $request->input('remarks');
+        $data->user_id = $user->id;
         $data->dzongkhag_id = $user->dzongkhag_id;
         $data->save();
         
@@ -580,8 +583,10 @@ class CASurplusController extends Controller
     public function view_surplus_nation_all()
 
     {
+
+        $user = auth()->user();
         $supply = DB::table('tbl_cssupply')
-                    // ->where('tbl_transactions.user_id', '=', $user->id)
+                    ->where('tbl_transactions.user_id', '!=', $user->id)
                     ->where('tbl_transactions.status', '=', 'S')
                     // ->where('tbl_transactions.type', '=', 'S')
                     // ->where('tbl_cssupply.tentativePickupDate', '=', $start)
@@ -637,7 +642,10 @@ class CASurplusController extends Controller
 
     public function batch_edit($nextNumber){
 
+
+        $user = auth()->user();
         $data =DB::table('tbl_transactions')
+                    ->where('user_id', '=' , $user->id)
                     ->where('tbl_transactions.refNumber','=', $nextNumber)
                     ->first(); 
         // $data = Transaction::find($nextNumber);
@@ -650,7 +658,10 @@ class CASurplusController extends Controller
 
     public function update_batch(Request $request,$nextNumber){
 
+        $user = auth()->user();
+
         DB::table('tbl_transactions')
+        ->where('user_id', '=' , $user->id)
         ->where('refNumber', $nextNumber)
         ->update([
                 'expiryDate' => $request->input('expiryday'),

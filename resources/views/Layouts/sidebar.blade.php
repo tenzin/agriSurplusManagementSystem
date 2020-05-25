@@ -82,22 +82,7 @@
                       <p>Submit Surplus</p>
                   </a>
                 </li>
-
-                <li class="nav-item">
-                  <a href="{{route('aggregator_report')}}" class="nav-link">
-                    <i class="nav-icon far fa-calendar-alt"></i>
-                    <p>View Report</p>
-                  </a>
-                </li>  
-
-                 <li class="nav-item">
-                  <a href="{{route('aggregator_summary')}}" class="nav-link">
-                    <i class="nav-icon far fa-calendar-alt"></i>
-                    <p>Summary Report</p>
-                  </a>
-                </li>      
                 @endcan
-
                 @can('aggregator_view_surplus')
                 <li class="nav-item">
                     <a href="{{route('view_surplus_details')}}" class="nav-link">
@@ -106,8 +91,22 @@
                     </a>
                 </li>
               </li>
-              @endcan
 
+              <li class="nav-item">
+                <a href="{{route('aggregator_report')}}" class="nav-link">
+                  <i class="nav-icon far fa-calendar-alt"></i>
+                  <p>View Report</p>
+                </a>
+              </li>  
+
+               <li class="nav-item">
+                <a href="{{route('aggregator_summary')}}" class="nav-link">
+                  <i class="nav-icon far fa-calendar-alt"></i>
+                  <p>Summary Report</p>
+                </a>
+              </li> 
+              @endcan     
+              
                 @can('aggregator_supply_history')
             
                   <li class="nav-item">

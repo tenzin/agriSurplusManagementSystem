@@ -41,30 +41,28 @@ class EXSurplus extends Model
     return $this->belongsTo(Gewog::class,'gewog_id');
   }
      //link to transaction table using refNumber.
-     public function transaction()
-     {
-         return $this->belongsTo(Transaction::class,'refNumber','refNumber');
-     }
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class,'refNumber','refNumber');
+    }
 
-     public static function boot(){
 
-        parent::boot();
+    //Notifications 
+    public static function boot()
+    
+    {
+    parent::boot();
 
-        static::created(function($model){
+    static::created(function($model){
 
-            $users = User::where('role_id', '4','5')->get();
+        $users = User::where('role_id', '4','5')->get();
 
-            Notification::send($users, new ExtensionSurplus($model));
+        Notification::send($users, new ExtensionSurplus($model));
 
-        });
-     }
+    });
+    }
 
-    //  public function supplyFromGeowg()
-    // {
-    //     return $this->belongsTo(Transaction::class, 'location')->withDefault([
-    //         'location' => '--'
-    //     ]);
-    // }
+    
 
      public function scopeSearch($q, $request)
     {
