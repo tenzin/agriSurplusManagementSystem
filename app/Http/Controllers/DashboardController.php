@@ -13,6 +13,7 @@ use DB;
 use App\Cultivation;
 use Carbon\Carbon;
 
+
 class DashboardController extends Controller
 {
 
@@ -67,14 +68,16 @@ class DashboardController extends Controller
 
          $farmers = User::where('role_id','9')->count();
          $extions = User::where('role_id','7')->count();
-        $luc_users = User::where('role_id','8')->count();
+         $luc_users = User::where('role_id','8')->count();
           $ardc = User::where('role_id','6')->count();
           $vsc = User::where('role_id', '5')->count();
           $ca_usres = User::where('role_id', '4')->count();
 
           //dd($vsc
-//EX surplus
-$veg_count=DB::table('tbl_ex_surplus')
+          //Over all Surplus by producttype
+
+        //EX surplus
+        $veg_count=DB::table('tbl_ex_surplus')
                      ->where('productType_id','1')
                      ->SUM('quantity') ;
 
@@ -132,6 +135,17 @@ $veg_count=DB::table('tbl_ex_surplus')
                   ->where('productType_id','7')
                   ->SUM('quantity') ;
 
+       for($i=0;$i < 12;$i++)
+                  {
+            $surplus=DB::table('tbl_ex_surplus as s')
+                        ->join('tbl_transactions as t', 's.refNumber', '=', 't.refNumber')
+                        ->where(DB::raw('month(t.submittedDate)'), '=', $i+1)
+                        ->where(DB::raw('year(t.submittedDate)'), '=', date('Y'))
+                        // ->where('s.gewog_id', '=', $g)
+                        ->count();
+                        $casurplus_count[$i]=$surplus;
+                  }
+
 
         return view('dashboard.nationaldashboard',compact(
            'producttype','product','farmers','extions','luc_users','ardc','vsc','ca_usres',
@@ -139,7 +153,8 @@ $veg_count=DB::table('tbl_ex_surplus')
            'caveg_count','cafruit_count','cadairy_count','calivestock_count','canwfp_count','camaps_count','cacereal_count',
            'area_uc',
            'area_hravested',
-           'last_row'
+           'last_row',
+           'casurplus_count'
          ));
      }
 
@@ -233,13 +248,28 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
        $cereal_count=DB::table('tbl_ex_surplus')
                    ->where('gewog_id', '=', $g)
                    ->where('productType_id','7')
-                   ->SUM('quantity') ;
+                   ->SUM('quantity');
 
 
-      $surplus_count=DB::table('tbl_ex_surplus')
-                  ->where('gewog_id', '=', $g)
-                  ->select('productType_id')
-                  ->count() ;
+      //    $surplus_count=DB::table('tbl_ex_surplus as s')
+      //       ->join('tbl_transactions as t', 's.refNumber', '=', 't.refNumber')
+      //       ->where(DB::raw('month(t.submittedDate)'), '=', date('n'))
+      //       ->where('s.gewog_id', '=', $g)
+      //       //->select(db::raw('month(t.submittedDate) as month'))
+      //       ->count();
+
+      for($i=0;$i < 12;$i++)
+      {
+            $surplus=DB::table('tbl_ex_surplus as s')
+            ->join('tbl_transactions as t', 's.refNumber', '=', 't.refNumber')
+            ->where(DB::raw('month(t.submittedDate)'), '=', $i+1)
+            ->where(DB::raw('year(t.submittedDate)'), '=', date('Y'))
+            ->where('s.gewog_id', '=', $g)
+            ->count();
+            $surplus_count[$i]=$surplus;
+      }
+
+     //dd($surplus_count);
 
         return view('dashboard.extensiondashboard',compact(
            'user_ca','producttype','product',

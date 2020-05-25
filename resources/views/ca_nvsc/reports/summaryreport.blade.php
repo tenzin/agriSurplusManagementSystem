@@ -6,7 +6,7 @@
 <div class="content-header">
   <form class="form-horizontal" method="POST" action = "{{route('aggregator_summaryreport')}}">
             @csrf
-        <div class="card card-info">
+        <div class="card card">
                   <div class="card-header">
                     <h3 class="card-title">View summary of surplus by:</h3>
                     <div class="card-tools">

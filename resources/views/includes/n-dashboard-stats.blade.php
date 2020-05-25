@@ -10,7 +10,8 @@ var productStats = new Chart(ctx, {
         datasets: [{
             label: 'Statistics',
             {{-- //data: [{{$farmer}}, {{$luc}},{{$vsc}}],--}}
-            data:[45, 67, 67, 34, 45, 67, 100],
+        
+           data:[45, 67, 67, 34, 45, 67, 100],
             backgroundColor: [
                 'rgba(280, 99, 132, 0.8)',
                 'rgba(0, 128, 0, 0.8)',
@@ -91,8 +92,10 @@ var wholesurplus = new Chart(ctx, {
         labels: ['Jan','Feb', 'March', 'April','May','Jun','July','Aug','Sept','Oct','Nov','Dec'],
         datasets: [{
             label: 'Statistics',
-            {{--// data: [{{$lob}}, {{$gov_count}}, {{$service_count}}, {{$app_count}}],--}}
-            data: [500, 5, 100, 10, 45, 6, 9],
+            data: [{{$casurplus_count[0]}},{{$casurplus_count[1]}},{{$casurplus_count[2]}},{{$casurplus_count[3]}},{{$casurplus_count[4]}},
+            {{$casurplus_count[5]}},{{$casurplus_count[6]}},{{$casurplus_count[7]}},
+            {{$casurplus_count[8]}},{{$casurplus_count[9]}},{{$casurplus_count[10]}},{{$casurplus_count[11]}}],
+
             backgroundColor: [
                 'rgba(280, 99, 132, 0.1)',
                 'rgba(54, 162, 235, 0.8)',

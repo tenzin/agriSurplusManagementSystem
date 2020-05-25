@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
 
       // Dashboard
       Route::get('/dashboard', 'DashboardController@index');
+      Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
+      Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
 
 Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
 
@@ -248,9 +250,6 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
         //Image Route
         Route::post('/avatar', 'UserController@update_avatar');
 
-        //National Reports.
-        Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
-        Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
 
         //Contact US
         Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contactUS']);
