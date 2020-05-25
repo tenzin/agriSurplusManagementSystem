@@ -52,13 +52,8 @@
              <td>{{$row->location}}</td>
              <td>{{$row->pickupdate}}</td>
              <td>{{$row->gewog}}</td>
-
-        
-                <td>{{$row->phone}}</td>
-             
-                <td>{{$row->remark}}</td>
-            
-             
+             <td>{{$row->phone}}</td>
+             <td>{{$row->remark}}</td>
              </tr>
         @endforeach
     </tbody>

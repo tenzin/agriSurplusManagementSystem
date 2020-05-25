@@ -98,7 +98,7 @@
    <div class="col-md-6">
                <div class="card productinfo">
                   <div class="card-header">
-                     <h3 class="card-title">Recent Surplus</h3>
+                     <h3 class="card-title">Recent Surplus From Extension</h3>
                   </div>
                   <div class="card-body">
                      <table class="table table-bordered">
@@ -112,18 +112,16 @@
                            </tr>
                         </thead>
                         <tbody>
-                          <!-- <tr>
-                           <td>1</td>
-                           <td>Potatoes</td>
-                           <td>20 Acres</td>
-                           <td>300kg</td>
-                          </tr>
-                          <tr>
-                           <td>2</td>
-                           <td>Chilli</td>
-                           <td>10 Acres</td>
-                           <td>300kg</td>
-                           </tr> -->
+                           @foreach($last_row as $last)
+                           <tr>
+                           <td>{{$loop->iteration}}</td>
+                           <td>{{$last->product->product}}</td>
+                           <td>{{$last->quantity.' '.$last->unit->unit}}</td>
+                           <td>{{$last->gewog->dzongkhag->dzongkhag}}</td>
+                           <td>{{$last->gewog->gewog}}</td>
+                             </tr>
+                           @endforeach
+                          
                         </tbody>
                      </table>
                   </div>
@@ -150,7 +148,7 @@
                      <h3 class="card-title">Area Under Cultivation</h3>
                   </div>
                   <div class="card-body">
-                     <table class="table table-bordered">
+                     <table id="area_uc" class="table table-bordered">
                         <div class="row">
                            <div class="col col-md-auto">
                             <label for="product">Products:</label>
@@ -170,22 +168,16 @@
                            <th>Sl.No</th>
                            <th>Product Name</th>
                            <th>Quantity</th>
-                           <th>Production</th>
                            </tr>
                         </thead>
                         <tbody> 
-                         <!-- <tr>
-                           <td>1</td>
-                           <td>Potatoes</td>
-                           <td>20 Acres</td>
-                           <td>300kg</td>
-                          </tr>
-                          <tr>
-                           <td>2</td>
-                           <td>Chilli</td>
-                           <td>10 Acres</td>
-                           <td>300kg</td>
-                           </tr> -->
+                           @foreach($area_uc as $a)
+                           <tr>
+                           <td>{{$loop->iteration}}</td>
+                           <td>{{$a->product->product}}</td>
+                           <td>{{$a->quantity}}</td>
+                           </tr>
+                           @endforeach
                         </tbody>
                      </table>
                   </div>
@@ -210,7 +202,7 @@
                      <h3 class="card-title">Cultivation Harvested</h3>
                   </div>
                   <div class="card-body">
-                     <table class="table table-bordered">
+                     <table id = "area_hv" class="table table-bordered">
                         <div class="row">
                            <div class="col col-md-auto">
                             <label for="product">Products:</label>
@@ -234,18 +226,14 @@
                            </tr>
                         </thead>
                         <tbody>
-                          <!-- <tr>
-                           <td>1</td>
-                           <td>Potatoes</td>
-                           <td>20 Acres</td>
-                           <td>300kg</td>
-                          </tr>
-                          <tr>
-                           <td>2</td>
-                           <td>Chilli</td>
-                           <td>10 Acres</td>
-                           <td>300kg</td>
-                           </tr> -->
+                           @foreach($area_hravested as $hv)
+                           <tr>
+                           <td>{{$loop->iteration}}</td>
+                           <td>{{$hv->product->product}}</td>
+                           <td>{{$hv->quantity}}</td>
+                           <td>{{$hv->estimated_output.' '.$hv->e_unit->unit}}</td>
+                           </tr>
+                           @endforeach
                         </tbody>
                      </table>
                   </div>
@@ -255,6 +243,21 @@
 </div>
 @endsection
 @section('custom_scripts')
+
+<script>
+   $(document).ready(function() {
+  var table = $('#area_uc').DataTable();
+  $('#product_name').on('change', function () {
+              table.columns(1).search( this.value ).draw();
+          });
+ 
+    var table = $('#area_hv').DataTable();
+  $('#product').on('change', function () {
+              table.columns(1).search( this.value ).draw();
+          });
+   });
+  
+  </script>
 @include('includes/chart-js')
 @include('includes/n-dashboard-stats')
 @endsection

@@ -10,6 +10,7 @@ use App\User;
 use App\Transaction;
 use App\EXSurplus;
 use DB;
+use App\Cultivation;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -46,7 +47,7 @@ class DashboardController extends Controller
   
 
      // $this->adminDashboard();
-   } elseif($role=='Head Quater') {
+   } elseif($role=='Head Quater' || $role=='Agriculture Research Development Center') {
 
       $date = Carbon::now()->format('Y-m-d');
 
@@ -65,7 +66,14 @@ class DashboardController extends Controller
         $ardc = User::where('role_id','6')->count();
         $vsc = User::where('role_id', '5')->count();
         $ca_usres= User::where('role_id', '4')->count();
-        //dd($vsc);
+
+        $area_uc = Cultivation::where('status','=', '0')->with('product')->get();
+        $area_hravested = Cultivation::where('status','=', '1')->with('product','e_unit')->get();
+
+        $last_row = EXSurplus::with('product','unit','gewog')->latest()->take(5)->get();
+
+      //   dd($last_row);
+      
         return view('dashboard.nationaldashboard',compact(
            'producttype',
            'product',
@@ -74,7 +82,10 @@ class DashboardController extends Controller
            'luc_users',
            'ardc',
            'vsc',
-           'ca_usres'));
+           'ca_usres',
+           'area_uc',
+           'area_hravested',
+           'last_row'));
    }
 elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
 
@@ -124,11 +135,18 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
 
    $user_ca = User::where('dzongkhag_id', '=', $d)
                    ->where('role_id', '=', 4)->with('dzongkhag')->get(); 
+   $area_uc = Cultivation::where('status','=', '0')
+                           ->where('gewog_id', '=',auth()->user()->gewog_id)->with('product')->get();
+   $area_hravested = Cultivation::where('status','=', '1')
+                                 ->where('gewog_id', '=',auth()->user()->gewog_id)->with('product','e_unit')->get();
 
+   // dd($area_uc);
     return view('dashboard.extensiondashboard',compact(
        'producttype',
        'product',
-       'user_ca'
+       'user_ca',
+       'area_uc',
+       'area_hravested'
      ));
  }
 }
