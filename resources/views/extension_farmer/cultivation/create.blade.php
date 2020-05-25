@@ -1,23 +1,19 @@
 @extends('master')
 
 @section('content')
-{{-- @include('flash-message') --}}
 <section class="content">
 <div class="container-fluid"> 
-{{-- <div class="card card-info"> --}}
 <div class="card-header">
   <h2 class="text-center mt-1 mb-1 alert aqua">Area Under Cultivation Form</h2>
-{{-- <h3 class="card-title">Area Under Cultivation Form</h3> --}}
 </div>
 <form role="form" method="POST" action="{{route('submit_cultivation_details')}}">
-{{-- <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}"> --}}
 @csrf
 <div class="card-body">
   <div class="row">
         <div class="col-md-4">
           <div class="form-group">
             <label>Crop Name:<font color="red">*</font></label>
-              <select  name="crop" id="crop" class="form-control select2bs4" required>
+              <select  name="crop" id="crop" class="form-control" required>
                 <option disabled selected value="">Select Product Type</option>
                 @foreach($product as $p)
                 <option value="{{ $p->id }}">{{$p->product.' - '. $p->productType->type}}</option>
@@ -37,7 +33,7 @@
             </div>
             <div class="form-group">
               <label>Estimated Output unit:&nbsp;<font color="red">*</font></label>
-              <select  name="e_unit" id="e_unit" class="form-control select2bs4" required>
+              <select  name="e_unit" id="e_unit" class="form-control" required>
                 <option disabled selected>Select Estimated Units</option>
                 @foreach($e_unit as $e)
                 <option value="{{ $e->id }}">{{$e->unit}}</option>
@@ -49,7 +45,7 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>units:&nbsp;<font color="red">*</font></label>
-              <select  name="unit" id="unit" class="form-control select2bs4" required>
+              <select  name="unit" id="unit" class="form-control" required>
               <option disabled selected>Select Units</option>
               @foreach($c_unit as $c)
                 <option value="{{ $c->id }}">{{$c->unit}}</option>
@@ -69,11 +65,8 @@
           </div>
         </div>            
         </div>
-        {{-- <div class="card-footer"> --}}
        <center> <button type="submit" class="btn btn-info">Submit</button></center>
-        {{-- </div> --}}
-</form>
-{{-- </div> --}}
+   </form>
 </div>
 </section>
 

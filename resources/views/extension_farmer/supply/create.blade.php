@@ -4,7 +4,7 @@
 <div class="container">
         <div class="text-center">
               <h1>Supply Form </h1>
-                  <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
+        <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
                   <p class="lead">Enter the Product Surplus from Your Gewog.</p>
         <a href="{{route('batch-edit',$nextNumber)}}">
           {{-- <input type="text" value={{}}> --}}
@@ -14,6 +14,7 @@
         </div>
       <form method="POST" action = "{{route('ex-supply-store')}}">
       <input type="hidden" name="refnumber" id="refnumber" value="{{ $nextNumber}}">
+      <input type="hidden" name="trans" id="trans" value="{{ $trans}}">
 @csrf
 <div class="row">
   <div class="col-md-4 order-md-2 mb-4">

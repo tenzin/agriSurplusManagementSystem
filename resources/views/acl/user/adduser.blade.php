@@ -3,7 +3,7 @@
 <div class="content-header">
    <form class="form-horizontal" method="POST" action = "{{route('new-user')}}">
      @csrf
-   <div class="card card-info">
+   <div class="card card">
            <div class="card-header">
              <h3 class="card-title">Add New User</h3>
              
@@ -56,7 +56,7 @@
             <div class="col-md-4">
                <div class="form-group">
                   <label>Dzongkhag:<font color="red">*</font></label>
-                  <select class="custom-select d-block w-100" id="dzongkhag" name="dzongkhag">
+                  <select class="custom-select d-block w-100" id="dzongkhag" name="dzongkhag" required>
                      <option value="">Choose...</option>
                      @foreach($dzongkhags as $row)
                          <option value="{{$row->id}}">{{$row->dzongkhag}}</option>
@@ -71,7 +71,7 @@
                </div>
                <div class="form-group">
                   <label>Gewog:<font color="red">*</font></label>
-                  <select class="custom-select d-block w-100" id="gewog" name="gewog">
+                  <select class="custom-select d-block w-100" id="gewog" name="gewog" required>
                      <option value="">Choose...</option>
                    </select>
                   {{-- <select  name="gewog" id="gewog" class="form-control" required>

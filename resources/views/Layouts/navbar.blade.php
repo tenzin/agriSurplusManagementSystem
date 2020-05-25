@@ -4,21 +4,30 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
-       <img class="img-responsive" src="{{URL::asset('/images/rgoblogo.png')}}"style="height:40px;width:40px;">
-       <h5><b>&nbsp;&nbsp;Ministry of Agriculture and Forests</b></h5>
     </ul>
+       {{-- <img class="img-responsive" src="{{URL::asset('/images/logo.jpg')}}"style="height:40px;width:40px;"> --}}
+       <h5><b>&nbsp;&nbsp;Vegetable Management Information System</b></h5>
+    
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li>
         <a class="nav-link">
+
           @if(Auth()->user()->role->role == 'Gewog Extension officer' || Auth()->user()->role->role == 'Land User Certificate' || Auth()->user()->role->role == 'Farmer Group' )
+
           {{Auth()->user()->name.' - '.Auth()->user()->role->role.' - '.Auth()->user()->gewog->gewog}} 
+
           @elseif(Auth()->user()->role->role == 'Commercial Aggregator' || Auth()->user()->role->role == 'Vegetable Supply Company' || Auth()->user()->role->role == 'Agriculture Research Development Center'  )
+
           {{Auth()->user()->name.' - '.Auth()->user()->role->role.' - '.Auth()->user()->dzongkhag->dzongkhag}}
+
           @else
+
           {{Auth()->user()->name.' - '.Auth()->user()->role->role}}
+          
           @endif
+
         </a> 
       </li>
       <!-- Messages Dropdown Menu -->

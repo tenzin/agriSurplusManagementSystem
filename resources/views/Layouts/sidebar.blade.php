@@ -1,9 +1,9 @@
 
 <!-- Brand Logo -->
-<a href="#" class="brand-link">
+<a href="{{url('/dashboard')}}" class="brand-link">
   <img src="{{asset('images/logo.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
        style="opacity: .8">
-  <span class="brand-text font-weight-light">DoA</span>
+  <span class="brand-text font-weight-light center"><b>VMIS</b></span>
 </a>
 
 <!-- Sidebar -->
@@ -98,13 +98,6 @@
                   <p>View Report</p>
                 </a>
               </li>  
-
-               <li class="nav-item">
-                <a href="{{route('aggregator_summary')}}" class="nav-link">
-                  <i class="nav-icon far fa-calendar-alt"></i>
-                  <p>Summary Report</p>
-                </a>
-              </li> 
               @endcan     
               
                 @can('aggregator_supply_history')
@@ -219,13 +212,6 @@
                     <p>View Report</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="{{route('extension-summary')}}" class="nav-link">
-                    <i class="nav-icon far fa-calendar-alt"></i>
-                    <p>Summary Report</p>
-                  </a>
-                </li>   
-            </li>
           @endcan
           <li class="nav-item">
             @can('extension_supply_history')

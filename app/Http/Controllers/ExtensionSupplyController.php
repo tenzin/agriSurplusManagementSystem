@@ -220,10 +220,10 @@ class ExtensionSupplyController extends Controller
                 // ->where('type', '=', 'ES')
                 ->first();
             // dd($table);
-
+            $trans = $data->id;
             Session::put('View_status', 'A');
     
-            return view('extension_farmer.supply.create',compact('nextNumber','product_type','unit','table'));
+            return view('extension_farmer.supply.create',compact('nextNumber','product_type','trans','unit','table'));
     }
 
     public function ex_supply_temp()
@@ -240,7 +240,8 @@ class ExtensionSupplyController extends Controller
         ->where('refNumber', 'Like' , '%'.$nextNumber.'%')
         ->where('user_id', '=' , $user->id)
         ->first();
-        // dd($ref->phone);
+
+        $trans = $table->id;
 
         $supply = DB::table('tbl_ex_surplus')
                     ->where('refNumber', '=', $nextNumber)
@@ -258,7 +259,9 @@ class ExtensionSupplyController extends Controller
                     ->where('user_id', '=' , $user->id)
                     ->count();
 
-        return view('extension_farmer.supply.create',compact('nextNumber','product_type','unit','supply','count','table'));
+       
+
+        return view('extension_farmer.supply.create',compact('nextNumber','trans','product_type','unit','supply','count','table'));
     }
 
 
@@ -307,6 +310,7 @@ class ExtensionSupplyController extends Controller
 
         $user = auth()->user();
         $request->session()->put('NextNumber', $request->input('refnumber'));
+        
 
         $data = new EXSurplus;
         $data->refNumber = $request->input('refnumber');
@@ -320,6 +324,8 @@ class ExtensionSupplyController extends Controller
         $data->user_id = $user->id;
         $data->dzongkhag_id = $user->dzongkhag_id;
         $data->gewog_id = $user->gewog_id;
+        $data->trans_id =$request->input('trans');
+        // dd($data);
         $data->save();
     
 
@@ -526,7 +532,7 @@ class ExtensionSupplyController extends Controller
             ->where('status', '!=', 'E')
             ->where('type', '=', 'ES')
             ->get();
-            // dd($checkno);
+            
         foreach($checkno as $data){
             $ref = array(
                 $data->refNumber,
@@ -538,17 +544,29 @@ class ExtensionSupplyController extends Controller
 
             $locations = Gewog::all(); 
     
-            $product = DB::table('tbl_ex_surplus')
+            // $product = DB::table('tbl_ex_surplus')
+            //                 ->where('tbl_ex_surplus.quantity','>',0)
+            //                 ->join('tbl_transactions','tbl_ex_surplus.refNumber', '=', 'tbl_transactions.refNumber')
+            //                 ->join('tbl_product_types','tbl_ex_surplus.productType_id', '=', 'tbl_product_types.id')
+            //                 ->join('tbl_products','tbl_ex_surplus.product_id', '=', 'tbl_products.id')
+            //                 ->join('tbl_units','tbl_ex_surplus.unit_id', '=', 'tbl_units.id')
+            //                 ->join('tbl_gewogs','tbl_ex_surplus.gewog_id', '=', 'tbl_gewogs.id')
+            //                 ->select('tbl_ex_surplus.refNumber','tbl_ex_surplus.quantity','tbl_gewogs.gewog','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
+            //                 'tbl_ex_surplus.id', 'tbl_units.unit','tbl_ex_surplus.harvestDate','tbl_transactions.location','tbl_transactions.pickupdate','tbl_transactions.phone','tbl_transactions.remark')
+            //                 ->groupBy('tbl_ex_surplus.id')->get();
+                            // dd($product);
+
+                            $product = DB::table('tbl_ex_surplus')
                             ->where('tbl_ex_surplus.quantity','>',0)
-                            ->join('tbl_transactions','tbl_ex_surplus.refNumber', '=', 'tbl_transactions.refNumber')
+                            // ->rightjoin('tbl_transactions','tbl_transactions.id', '=', 'tbl_ex_surplus.id')
+                            ->join('tbl_transactions','tbl_ex_surplus.trans_id', '=', 'tbl_transactions.id')
                             ->join('tbl_product_types','tbl_ex_surplus.productType_id', '=', 'tbl_product_types.id')
                             ->join('tbl_products','tbl_ex_surplus.product_id', '=', 'tbl_products.id')
                             ->join('tbl_units','tbl_ex_surplus.unit_id', '=', 'tbl_units.id')
                             ->join('tbl_gewogs','tbl_ex_surplus.gewog_id', '=', 'tbl_gewogs.id')
                             ->select('tbl_ex_surplus.refNumber','tbl_ex_surplus.quantity','tbl_gewogs.gewog','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
-                            'tbl_ex_surplus.id', 'tbl_units.unit','tbl_ex_surplus.harvestDate','tbl_transactions.location','tbl_transactions.pickupdate','tbl_transactions.phone','tbl_transactions.remark')
-                            ->groupBy('tbl_ex_surplus.id')->get();
-                            // dd($product);
+                            'tbl_ex_surplus.id','tbl_units.unit','tbl_ex_surplus.harvestDate','tbl_transactions.location','tbl_transactions.pickupdate','tbl_transactions.phone','tbl_transactions.remark')
+                            ->get('tbl_ex_surplus.trans_id');
 
             } 
             else 
@@ -586,10 +604,8 @@ class ExtensionSupplyController extends Controller
     {  
         $user=auth()->user();
         $row = EXSurplus::find($id);
-        // dd($row->product->product);
         $test =$row->refNumber;
-        // dd($row->id);
-    //    dd($test);
+       
         $table = DB::table('tbl_transactions')
                     ->where('tbl_transactions.user_id','=', $user->id)
                     ->where('tbl_transactions.refNumber','=', $test)
