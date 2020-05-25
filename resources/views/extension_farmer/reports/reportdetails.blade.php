@@ -12,7 +12,7 @@
       </div>
       <div class="row">
         <div class="col text-left">
-          <strong>Details of Surplus 
+          <strong>Details of {{$title}}
           </strong>
         </div>
         <div class="col text-right">

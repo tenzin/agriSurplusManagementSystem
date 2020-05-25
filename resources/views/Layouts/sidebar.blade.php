@@ -190,13 +190,6 @@
                 <p>Submit Surplus</p>
               </a>
             </li> 
-
-            <li class="nav-item">
-                  <a href="{{route('extension-create')}}" class="nav-link">
-                    <i class="nav-icon far fa-calendar-alt"></i>
-                      <p>Entry Form</p>
-                  </a>
-            </li>
             @endcan
 
             @can('view_extension_surplus')
@@ -210,6 +203,12 @@
                   <a href="{{route('extension_report')}}" class="nav-link">
                     <i class="nav-icon far fa-calendar-alt"></i>
                     <p>View Report</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('extension_total')}}" class="nav-link">
+                    <i class="nav-icon far fa-calendar-alt"></i>
+                      <p>Total Surplus</p>
                   </a>
                 </li>
                 <li class="nav-item">
