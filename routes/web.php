@@ -113,7 +113,7 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       //report for aggregator.
       Route::get('aggregator_report',['as'=>'aggregator_report','uses'=>'CAReportController@searchby']);
       Route::post('aggregator_dreport',['as'=>'aggregator_dreport','uses'=>'CAReportController@search_result']);
-      Route::get('aggregator_summary',['as'=>'aggregator_summary','uses'=>'CAReportController@searchsummaryby']);
+       Route::get('aggregator_summary',['as'=>'aggregator_summary','uses'=>'CAReportController@searchsummaryby']);
       Route::post('aggregator_summaryreport',['as'=>'aggregator_summaryreport','uses'=>'CAReportController@summaryreport']);
       
       // Route::get('view_surplus_details',['as'=>'view_surplus_details','uses'=>'CASurplusController@view_surplus_details'])->middleware('can:aggregator_view_surplus,Auth::user()');
@@ -282,7 +282,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
 
 
 
-      Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
+       Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
       Route::post('extension_sreport',['as'=>'extension_sreport','uses'=>'EXReportController@summary_report']);
       //call this controller to insert summary details into monthly table.
       // Route::get('/sum','SummaryController@sum_quantity_type');

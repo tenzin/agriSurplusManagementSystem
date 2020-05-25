@@ -133,7 +133,7 @@
         <div class="col-lg-8 text-center">
           <h2 class="text-white mt-0">V-MIS</h2>
           <hr class="divider light my-4">
-          <p class="text-white-50 mb-4">Start Bootstrap has everything you need to get your new website up and running in no time! Choose one of our open source, free to download, and easy to use themes! No strings attached!</p>
+          <p class="text-white-50 mb-4">V-MIS is the Vegetable management Information System!</p>
           <a class="btn btn-light btn-xl js-scroll-trigger" href="#login">Find Out More!</a>
         </div>
       </div>
@@ -143,7 +143,7 @@
   <!-- Call to Action Section -->
   <section class="page-section bg-dark text-white" id="login">
     <div class="container text-center">
-      <h2 class="mb-4">!</h2>
+      <h5 class="mb-4">Have you want to use the sytem?Get Credential From the MoAF!</h5>
       <a class="btn btn-light btn-xl" href="/login">Login To System</a>
     </div>
   </section>
@@ -165,8 +165,7 @@
         </div>
         <div class="col-lg-4 mr-auto text-center">
           <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
-          <!-- Make sure to change the email address in anchor text AND the link below! -->
-          <a class="d-block" href="mailto:contact@yourwebsite.com">contact@yourwebsite.com</a>
+          <div>contact@yourwebsite.com</div>
         </div>
       </div>
     </div>

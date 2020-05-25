@@ -75,13 +75,6 @@
                     <p>View Report</p>
                   </a>
                 </li>  
-
-                 <li class="nav-item">
-                  <a href="{{route('aggregator_summary')}}" class="nav-link">
-                    <i class="nav-icon far fa-calendar-alt"></i>
-                    <p>Summary Report</p>
-                  </a>
-                </li>      
                 @endcan
 
                 @can('aggregator_view_surplus')
@@ -206,13 +199,6 @@
                     <p>View Report</p>
                   </a>
                 </li>
-                <li class="nav-item">
-                  <a href="{{route('extension-summary')}}" class="nav-link">
-                    <i class="nav-icon far fa-calendar-alt"></i>
-                    <p>Summary Report</p>
-                  </a>
-                </li>   
-            </li>
           @endcan
           <li class="nav-item">
             @can('extension_supply_history')
