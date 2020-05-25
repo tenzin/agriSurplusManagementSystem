@@ -113,7 +113,7 @@
                  <li class="nav-item">
                    <a href="{{route('view-surplus-nation')}}" class="nav-link">
                    <i class="far fa-chart-bar"></i> 
-                     <p>Surplus - Nation</p>
+                     <p>View Surplus - Aggregators</p>
                    </a>
                  </li>
                 @endcan
