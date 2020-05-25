@@ -392,7 +392,7 @@ class CASurplusController extends Controller
         $data->quantity = $request->input('quantity');
         $data->unit_id = $request->input('unit');
         $data->tentativePickupDate = $request->input('date');
-        $data->harvestDate = $request->input('harvestdate');
+        // $data->harvestDate = $request->input('harvestdate');
         $data->price = $request->input('price');
         $data->status = 'A';
         $data->remarks = $request->input('remarks');
@@ -555,11 +555,10 @@ class CASurplusController extends Controller
                     ->where('tbl_cssupply.refNumber', '=', $id)
                     ->where('tbl_cssupply.dzongkhag_id','=',$user->dzongkhag_id)
                     ->join('tbl_product_types','tbl_cssupply.productType_id', '=', 'tbl_product_types.id')
-                    // ->join('tbl_transactions','tbl_transactions.refNumber','=', )
                     ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                     ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
                     ->select('tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-                    'tbl_cssupply.id','tbl_units.unit',)
+                    'tbl_cssupply.id','tbl_units.unit')
                     ->get();
 
         return view('ca_nvsc.surplus.view-history-list')->with('supply',$data);
@@ -599,9 +598,9 @@ class CASurplusController extends Controller
                     ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                     ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
                     ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-                    'tbl_cssupply.id', 'tbl_units.unit','tbl_cssupply.harvestDate',)
+                    'tbl_cssupply.id', 'tbl_units.unit','tbl_cssupply.harvestDate','tbl_transactions.phone','tbl_transactions.location','tbl_transactions.remark','tbl_transactions.pickupdate')
                     ->groupBy('tbl_cssupply.id')->get();
-                    dd($supply);
+                    // dd($supply);
 
         Session::put('View_status', 'VS');
         return view('ca_nvsc.surplus.view-all')->with('supply',$supply);

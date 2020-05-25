@@ -40,7 +40,13 @@
               <p>Dashboard</p>
             </a>
           </li>
-        <ul>
+          <li class="nav-item has-treeview">
+            <a href="/reports" class="nav-link">
+                <i class="nav-icon far fa-plus-square"></i>
+               <p>Reports</p>               
+            </a>
+        </li>
+        </ul>
       </li>
     </ul>
   </nav>
@@ -66,14 +72,7 @@
                     </li>
                 @endcan
 
-            @can('view_surplus_nation')
-                <li class="nav-item">
-                  <a href="{{route('view-surplus-nation')}}" class="nav-link">
-                  <i class="far fa-chart-bar"></i> 
-                    <p>Surplus - Nation</p>
-                  </a>
-                </li>
-               @endcan
+           
 
                 @can('aggregator_add_surplus')
                 <li class="nav-item">
@@ -109,6 +108,15 @@
                     </a>
                   </li>
                  @endcan
+
+                 @can('view_surplus_nation')
+                 <li class="nav-item">
+                   <a href="{{route('view-surplus-nation')}}" class="nav-link">
+                   <i class="far fa-chart-bar"></i> 
+                     <p>Surplus - Nation</p>
+                   </a>
+                 </li>
+                @endcan
 
             @can('aggregator_demand_surplus')
             
@@ -326,12 +334,7 @@
 
   <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item has-treeview">
-              <a href="/reports" class="nav-link">
-                  <i class="nav-icon far fa-plus-square"></i>
-                 <p>Reports</p>               
-              </a>
-          </li>
+          
         </ul>
       </nav>
 

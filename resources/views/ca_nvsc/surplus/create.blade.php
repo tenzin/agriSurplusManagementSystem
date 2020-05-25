@@ -71,14 +71,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-3 mb-3">
+        <div class="col-md-4 mb-3">
             <label for="qty">Quantity<font color="red">*</font></label>
             <input type="text" class="form-control" name="quantity" id ="quantity" placeholder ="Quantity">
             <div class="invalid-feedback">
                 Please enter Quantity.
             </div>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="col-md-4 mb-3">
             <label for="unit">Unit<font color="red">*</font></label>
             <div class="input-group">
               <select name="ut" id="ut" class="custom-select d-block w-100">
@@ -94,7 +94,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
+        <div class="col-md-4 mb-3">
             <label for="unit">Price<font color="red">*</font> (tentative)</label>
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -106,13 +106,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 mb-3">
+        {{-- <div class="col-md-3 mb-3">
           <label for="qty">Harvest Date<font color="red">*</font></label>
           <input type="date" class="form-control" name="harvestdate" id ="harvestdate" placeholder ="Required Date">
           <div class="invalid-feedback">
               Please enter date of requirement.
           </div>
-        </div>
+        </div> --}}
         
     </div>
 

@@ -9,9 +9,7 @@
         <div class="card card-info">
                   <div class="card-header">
                     <h3 class="card-title">Search details of surplus by:</h3>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                    </div>
+                    
                   </div>
                   <!-- /.card-header -->
          
@@ -79,7 +77,7 @@
             @csrf
         <div class="card card-info">
                   <div class="card-header">
-                    <h3 class="card-title">View summary of surplus by:</h3>
+                    <h3 class="card-title center">View summary of surplus by:</h3>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                     </div>
@@ -124,8 +122,7 @@
                 </div>
           </div> 
                   <!-- /.card-body -->
-          <div class="card-footer">                               
-          </div>
+  
       </div>
     </form>                             
 </div>
