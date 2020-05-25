@@ -12,7 +12,9 @@ class MapController extends Controller
     public function index(){
 
         $gewogs=DB::table('tbl_gewogs')
-                    ->select('gewog', 'latitude', 'longitude')
+                    //->where('tbl_gewogs.id','=','users.gewog_id')
+                    ->join('users','tbl_gewogs.id','=','users.gewog_id')
+                    ->select('gewog', 'latitude', 'longitude', 'users.name', 'users.contact_number')
                     ->get();
         //dd($gewogs);
 
