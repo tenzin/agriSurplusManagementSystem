@@ -37,11 +37,11 @@
                   @endif
 <!-- supply/demand report and transaction date range. -->
 
-                <div class="row mb-1">
-                  <div class="col-sm-2 text-right">
+                <div class="row">
+                  <div class="col-sm-1">
                     <label for="report_type">Type:<font color="red">*</font></label>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                     <select name="report_type" id="report_type" required>
                       <option value="">Select type</option>
                       <option value="Surplus" selected>Surplus</option>
@@ -49,54 +49,54 @@
                     </select>
                   </div>
 
-                  <div class="col-sm-2 text-right">
+                  <div class="col-sm-1">
                     <label for="fromdate">From:<font color="red">*</font></label>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                   <input type="date" class="form-control" name="fromdate" id ="fromdate" value="{{ date('Y-m-d') }}" required>
                   </div>
-                  <div class="col-sm-2 text-right">
+                  <div class="col-sm-1">
                     <label for="report_type">To:</label>
                   </div>
-                  <div class="col-md-2">
+                  <div class="col-md-3">
                   <input type="date" class="form-control" name="todate" id ="fromdate" value="{{ date('Y-m-d') }}">
                   </div>
 
-                </div>
+                </div></br>
 
                 <div class="row">
-                    <div class="col-sm-2 text-right">
+                    <div class="col-sm-1">
                        <label for="product_type_id">Product Type:</label>
                     </div>
-                    <div class="col-md-4">
-                        <select  name="product_type" id="product_type_id" class="form-control select2bs4">
+                    <div class="col-md-5">
+                        <select  name="product_type" id="product_type_id" class="form-control">
                             <option value="">All</option>
                             @foreach($ptypes as $ptype)
                             <option value="{{ $ptype->id }}">{{$ptype->type}}</option>
                             @endforeach
                         </select>                               
                     </div>
-                    <div class="col-sm-2 text-right">
+                    <div class="col-sm-1">
                        <label for="product">Product:</label>
                     </div>   
-                    <div class="col-md-4">
-                        <select class="custom-select d-block w-100" id="product" name="product">
+                    <div class="col-md-5">
+                        <select class="custom-select" id="product" name="product">
                             <option value="">All</option>
                         </select>
                     </div>  
                           <div class="invalid-feedback">
                             Please provide a valid input.
                           </div>                    
-                </div>
+                </div></br>
 
                   <!-- Selection of Dzongkhag and Gewog. -->
-            <div class="row mt-2">
-              <div class="col-sm-2 text-right">
+            <div class="row">
+              <div class="col-sm-1">
                   <label for="dzongkhag">Dzongkhag:</label>
               </div>
 
-              <div class="col-md-4">    
-                  <select class="form-control select2bs4" id="dzongkhag" name="dzongkhag">
+              <div class="col-md-5">    
+                  <select class="form-control" id="dzongkhag" name="dzongkhag">
                      <option value="">All</option>
                      @foreach($dzongkhags as $row)
                          <option value="{{$row->id}}">{{$row->dzongkhag}}</option>
@@ -104,18 +104,17 @@
                    </select>
               </div>       
                
-              <div class="col-sm-2 text-right">
+              <div class="col-sm-1">
                 <label for="gewog">Gewog:</label>
               </div>
 
-              <div class="col-md-4"> 
-                  <select class="form-control select2bs4" id="gewog" name="gewog">
+              <div class="col-md-5"> 
+                  <select class="form-control" id="gewog" name="gewog">
                      <option value="">All</option>
                    </select>
                </div>
               
             </div>   
-                  <!-- /.card-body -->
                   @csrf
                   <div class="card-footer">                   
                     <button type="submit" class="btn btn-primary float-right ">Search</button>
