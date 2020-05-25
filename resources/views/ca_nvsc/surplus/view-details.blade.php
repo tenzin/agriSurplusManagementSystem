@@ -77,10 +77,10 @@
   </div>
 
  <div class="form-group row">  
-     <div class="col-md-6 mb-3">
+     {{-- <div class="col-md-6 mb-3">
          <label for="unit">HarvestDate</label>
            <input type="date" class="form-control" name="harvestdate" id ="harvestdate" readonly value={{$row->harvestDate}}>     
-     </div>
+     </div> --}}
      <div class="col-md-6 mb-3">
          <label for="unit">PickupDate(Tentative)</label>
           <input type="date" class="form-control" name="pickupdate" id ="pickupdate" readonly value={{$table->pickupdate}}>    

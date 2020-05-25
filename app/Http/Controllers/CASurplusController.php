@@ -280,7 +280,7 @@ class CASurplusController extends Controller
                     ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                     ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
                     ->select('tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-                    'tbl_cssupply.id', 'tbl_units.unit','tbl_cssupply.harvestDate')
+                    'tbl_cssupply.id', 'tbl_units.unit')
                     ->paginate(15);
 
         Session::put('View_status', 'V');
@@ -314,7 +314,7 @@ class CASurplusController extends Controller
         $data->product_id = $request->input('product');
         $data->quantity = $request->input('quantity');
         $data->unit_id = $request->input('ut');
-        $data->harvestDate = $request->input('harvestdate');
+        // $data->harvestDate = $request->input('harvestdate');
         $data->price = $request->input('price');
         $data->status = 'A';
         $data->user_id = $user->id;
@@ -459,7 +459,6 @@ class CASurplusController extends Controller
                 'unit_id' =>$request->input('unit'),
                 'price' => $request->input('price'),
                 'tentativePickupDate' => $request->input('date'),
-                'harvestDate' => $request->input('harvestdate'),
                 'status' => $request->input('status')
             ]);
         }
@@ -509,7 +508,7 @@ class CASurplusController extends Controller
                             ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                             ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
                             ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-                            'tbl_cssupply.id', 'tbl_units.unit', 'tbl_cssupply.harvestDate','tbl_transactions.location','tbl_transactions.pickupdate')
+                            'tbl_cssupply.id', 'tbl_units.unit','tbl_transactions.location','tbl_transactions.pickupdate')
                             ->get();
             
 
@@ -598,7 +597,7 @@ class CASurplusController extends Controller
                     ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                     ->join('tbl_units','tbl_cssupply.unit_id', '=', 'tbl_units.id')
                     ->select('tbl_cssupply.refNumber','tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
-                    'tbl_cssupply.id', 'tbl_units.unit','tbl_cssupply.harvestDate','tbl_transactions.phone','tbl_transactions.location','tbl_transactions.remark','tbl_transactions.pickupdate')
+                    'tbl_cssupply.id', 'tbl_units.unit','tbl_transactions.phone','tbl_transactions.location','tbl_transactions.remark','tbl_transactions.pickupdate')
                     ->groupBy('tbl_cssupply.id')->get();
                     // dd($supply);
 
