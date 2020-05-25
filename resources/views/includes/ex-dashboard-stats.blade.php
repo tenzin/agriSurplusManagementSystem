@@ -4,11 +4,12 @@ var ctx = document.getElementById('surplus');
 var surplus = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ['Vegetable','Fruit', 'Livestock', 'Dairy','NWFP','MAPS','Cereal'],
+        labels: ['Vegetable','Fruit','Dairy','Livestock','NWFP','MAPS','Cereal'],
         datasets: [{
             label: 'Statistics',
-            {{--// data: [{{$lob}}, {{$gov_count}}, {{$service_count}}, {{$app_count}}],--}}
-            data: [500, 5, 100, 10, 45, 6, 9],
+            data: [{{$veg_count}}, {{$fruit_count}}, {{$dairy_count}}, {{$livestock_count}},{{$nwfp_count}},
+                  {{$maps_count}},{{$cereal_count}}],
+                  
             backgroundColor: [
                 'rgba(280, 99, 132, 0.1)',
                 'rgba(54, 162, 235, 0.8)',
@@ -28,7 +29,7 @@ var surplus = new Chart(ctx, {
     },
     options: {
         scales: {
-            yAxes: [{
+            yAxes: [{ 
                 ticks: {
                     beginAtZero: true
                 }
@@ -56,8 +57,8 @@ var monthsurplus = new Chart(ctx, {
         labels: ['Jan','Feb', 'March', 'April','May','Jun','July','Aug','Sept','Oct','Nov','Dec'],
         datasets: [{
             label: 'Statistics',
-            {{--// data: [{{$lob}}, {{$gov_count}}, {{$service_count}}, {{$app_count}}],--}}
-            data: [500, 5, 100, 10, 45, 6, 9],
+            data: [{{$surplus_count}}],
+           
             backgroundColor: [
                 'rgba(280, 99, 132, 0.1)',
                 'rgba(54, 162, 235, 0.8)',

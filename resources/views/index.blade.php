@@ -82,11 +82,10 @@
                   <p class="logo">V-MIS</p>
                </div>
                <div class="top-nav s-12 l-10">
-
                   <ul class="right">
                      <li class="active-item"><a href="#carousel">Home</a></li>
-                     <!--<li><a href="#features">Process</a></li>
-                     <li><a href="#services">Services</a></li> -->
+                    {{-- <!--<li><a href="#features">Process</a></li>
+                     <li><a href="#services">Services</a></li> -->--}}
                      <li><a href="#contact">Contact</a></li>
                      <li>
                         @if(Auth::check())
@@ -102,6 +101,7 @@
       </header>
       <section>
         <!-- Map Block -->
+        <div id="carousel">
          <div id="map" class="map"></div>
          <div id="popup" class="ol-popup">
            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
@@ -187,15 +187,6 @@
             if(typeof gewog_layer == 'undefined') {
               //gewog_layer is not defined. Define now
               //alert('gewog_layer not defined');
-
-              
-
-                  // @foreach($gewog as $row)
-                  //    {{$row->gewog}}
-                  // @endforeach
-             // {{$gewog}}
-              //var gewog_name=[{{$gewog}},{{$gewog}},{{$gewog}},{{$gewog}}];
-              //var gewog_name=[{{$gewog}}];
               var gewog_name = ['Chokhor', 'Ura', 'Tang', 'Chhume'];
               var long = [90.71112766300, 90.91560670800, 90.87104712900, 90.69937767200];
               var lat = [27.60460129980, 27.48790712980, 27.57078822880, 27.49359672880];
@@ -304,22 +295,7 @@
              .forEach(layer => map.removeLayer(layer));
         }
         </script>
-         
-      {{-- <!-- <div class="card-body">
-          <div class="table-responsive">
-            <table class="table">
-              <tbody>
-                @foreach($map as $m)
-                <tr>
-                  <td>{{$m->gewog}}</td>
-                  <td>{{$m->latitude}}</td>
-                  <td>{{$m->longitude}}</td>
-                </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
-        </div> -->--}}
+      
         
 
          <!-- FIRST BLOCK -->
@@ -396,7 +372,7 @@
                   <div class="s-12 m-12 l-4 margin-bottom right-align">
                      <h3>Ministry Of Agriculture and Forests</h3>
                      <h>Department of Agriculture</h4>
-                     <h5>Crop-Surplus Management System</h5>
+                     <h5>Vegetable Management Information System</h5>
                      <address>
                         <p><strong>Adress:</strong> Tashichho Dzong</p>
                         <p><strong>Post Box:</strong> 123</p>

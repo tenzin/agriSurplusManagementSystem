@@ -10,8 +10,8 @@
           <tr>
             <th>Sl.No</th>
             <th>Crop_name</th>
-            <th>Quantity/Acerage & Unit</th>
-            <th>Estimated Output & Unit</th>
+            <th>Quantity</th>
+            <th>Estimated Output</th>
             <th>Sowing_Date</th>
             <th>Status</th>
             <th>Remarks</th>
@@ -33,7 +33,7 @@
          </table>
          <hr>           
          <div class="form-group row mb-0">
-          <div class="col-md-6 offset-md-4">
+          <div class="col-md-6 offset-md-5">
                  <a class="btn btn-primary btn-sm" href="{{ route('view_cultivation_details')}}">Go back</a>
             </div>
       </div>

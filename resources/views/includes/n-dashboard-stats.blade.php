@@ -41,7 +41,8 @@ var surplusStats = new Chart(ctx, {
 
         datasets: [{
             label: 'EO-Surplus',
-            data: [56,56,89,90,25,45,60],
+            data: [{{$veg_count}}, {{$fruit_count}}, {{$dairy_count}}, {{$livestock_count}},{{$nwfp_count}},
+                  {{$maps_count}},{{$cereal_count}}],
     
             backgroundColor: 'rgba(280, 99, 132, 1)',
             borderColor: [
@@ -50,7 +51,8 @@ var surplusStats = new Chart(ctx, {
         },
         {
             label: 'CA-Surplus',
-            data: [78,67,45,80,35,65,40],
+            data: [{{$caveg_count}}, {{$cafruit_count}}, {{$cadairy_count}}, {{$calivestock_count}},{{$canwfp_count}},
+                  {{$camaps_count}},{{$cacereal_count}}],
 
             backgroundColor: 'rgba(75, 192, 192, 0.5)',
             borderColor: [

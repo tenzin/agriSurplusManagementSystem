@@ -22,13 +22,14 @@
 <div class="login-box">
   <div class="login-logo">
   <img class="img-responsive" src="{{URL::asset('/images/rgoblogo.png')}}"style="height:80px;width:80px; "></img><br>
-    <a href="../../index2.html"><b>Ministry of Agriculture and Forests</b></a>
+    <b>Ministry of Agriculture and Forests</b>
   </div>
   <!-- /.login-logo -->
+  <div id="login">
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to V-MIS</p>
-      {{-- @include('flash-message') --}}
+
     <form method="POST" action="{{url('login')}}">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="input-group mb-3">
@@ -73,8 +74,8 @@
     </div>
     <!-- /.login-card-body -->
   </div>
-  <div class="col-4">
-  <a href="{{ url('/') }}">BACK TO Home</a>         
+  <div class="col-6">
+  <a href="{{ url('/') }}">BACK TO HOME</a>         
    </div>
 </div>
 <!-- /.login-box -->

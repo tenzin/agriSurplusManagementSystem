@@ -47,7 +47,7 @@ class DashboardController extends Controller
   
 
      // $this->adminDashboard();
-   } elseif($role=='Head Quater' || $role=='Agriculture Research Development Center') {
+   } elseif($role=='Head Quater' || $role =='Agriculture Research Development Center') {
 
       $date = Carbon::now()->format('Y-m-d');
 
@@ -60,33 +60,90 @@ class DashboardController extends Controller
         $producttype = ProductType::all();
         $product = Product::all();
 
-        $farmers = User::where('role_id','9')->count();
-        $extions = User::where('role_id','7')->count();
-        $luc_users = User::where('role_id','8')->count();
-        $ardc = User::where('role_id','6')->count();
-        $vsc = User::where('role_id', '5')->count();
-        $ca_usres= User::where('role_id', '4')->count();
-
         $area_uc = Cultivation::where('status','=', '0')->with('product')->get();
         $area_hravested = Cultivation::where('status','=', '1')->with('product','e_unit')->get();
 
         $last_row = EXSurplus::with('product','unit','gewog')->latest()->take(5)->get();
 
-      //   dd($last_row);
-      
+         $farmers = User::where('role_id','9')->count();
+         $extions = User::where('role_id','7')->count();
+        $luc_users = User::where('role_id','8')->count();
+          $ardc = User::where('role_id','6')->count();
+          $vsc = User::where('role_id', '5')->count();
+          $ca_usres = User::where('role_id', '4')->count();
+
+          //dd($vsc
+//EX surplus
+$veg_count=DB::table('tbl_ex_surplus')
+                     ->where('productType_id','1')
+                     ->SUM('quantity') ;
+
+         $fruit_count=DB::table('tbl_ex_surplus')
+               ->where('productType_id','2')
+               ->SUM('quantity') ;
+
+         $dairy_count=DB::table('tbl_ex_surplus')
+               ->where('productType_id','3')
+               ->SUM('quantity') ;
+
+         $livestock_count=DB::table('tbl_ex_surplus')
+               ->where('productType_id','4')
+               ->SUM('quantity') ;
+
+         $nwfp_count=DB::table('tbl_ex_surplus')
+               ->where('productType_id','5')
+               ->SUM('quantity');
+
+         $maps_count=DB::table('tbl_ex_surplus')
+               ->where('productType_id','6')
+               ->SUM('quantity') ;
+
+         $cereal_count=DB::table('tbl_ex_surplus')
+               ->where('productType_id','7')
+               ->SUM('quantity') ;
+
+   
+      //CA surplus
+      $caveg_count=DB::table('tbl_cssupply')
+                  ->where('productType_id','1')
+                  ->SUM('quantity') ;
+
+      $cafruit_count=DB::table('tbl_cssupply')
+                  ->where('productType_id','2')
+                  ->SUM('quantity') ;
+
+      $cadairy_count=DB::table('tbl_cssupply')
+                  ->where('productType_id','3')
+                  ->SUM('quantity') ;
+
+      $calivestock_count=DB::table('tbl_cssupply')
+                  ->where('productType_id','4')
+                  ->SUM('quantity') ;
+
+      $canwfp_count=DB::table('tbl_cssupply')
+                  ->where('productType_id','5')
+                  ->SUM('quantity');
+
+      $camaps_count=DB::table('tbl_cssupply')
+                  ->where('productType_id','6')
+                  ->SUM('quantity') ;
+
+      $cacereal_count=DB::table('tbl_cssupply')
+                  ->where('productType_id','7')
+                  ->SUM('quantity') ;
+
+
         return view('dashboard.nationaldashboard',compact(
-           'producttype',
-           'product',
-           'farmers',
-           'extions',
-           'luc_users',
-           'ardc',
-           'vsc',
-           'ca_usres',
+           'producttype','product','farmers','extions','luc_users','ardc','vsc','ca_usres',
+           'veg_count','fruit_count','dairy_count','livestock_count','nwfp_count','maps_count','cereal_count',
+           'caveg_count','cafruit_count','cadairy_count','calivestock_count','canwfp_count','camaps_count','cacereal_count',
            'area_uc',
            'area_hravested',
-           'last_row'));
-   }
+           'last_row'
+         ));
+     }
+
+     
 elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
 
    $d=auth()->user()->dzongkhag_id;
@@ -128,11 +185,11 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
 
  elseif($role=='Gewog Extension officer' || $role=='Land User Certificate' || $role = 'Farmer Group' ) {
 
-   $d=auth()->user()->dzongkhag_id;
-
    $producttype = ProductType::all();
    $product = Product::all();
 
+   //CA info
+   $d=auth()->user()->dzongkhag_id;
    $user_ca = User::where('dzongkhag_id', '=', $d)
                    ->where('role_id', '=', 4)->with('dzongkhag')->get(); 
    $area_uc = Cultivation::where('status','=', '0')
@@ -140,15 +197,60 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
    $area_hravested = Cultivation::where('status','=', '1')
                                  ->where('gewog_id', '=',auth()->user()->gewog_id)->with('product','e_unit')->get();
 
-   // dd($area_uc);
-    return view('dashboard.extensiondashboard',compact(
-       'producttype',
-       'product',
-       'user_ca',
-       'area_uc',
-       'area_hravested'
-     ));
- }
-}
-}
+   //Ex surplus              
+    $g=auth()->user()->gewog_id;
 
+      $veg_count=DB::table('tbl_ex_surplus')
+                   ->where('gewog_id', '=', $g)
+                   ->where('productType_id','1')
+                   ->SUM('quantity') ;
+
+      $fruit_count=DB::table('tbl_ex_surplus')
+                   ->where('gewog_id', '=', $g)
+                   ->where('productType_id','2')
+                   ->SUM('quantity') ;
+ 
+      $dairy_count=DB::table('tbl_ex_surplus')
+                   ->where('gewog_id', '=', $g)
+                   ->where('productType_id','3')
+                   ->SUM('quantity') ;
+ 
+       $livestock_count=DB::table('tbl_ex_surplus')
+                   ->where('gewog_id', '=', $g)
+                   ->where('productType_id','4')
+                   ->SUM('quantity') ;
+ 
+       $nwfp_count=DB::table('tbl_ex_surplus')
+                   ->where('gewog_id', '=', $g)
+                   ->where('productType_id','5')
+                   ->SUM('quantity');
+ 
+       $maps_count=DB::table('tbl_ex_surplus')
+                   ->where('gewog_id', '=', $g)
+                   ->where('productType_id','6')
+                   ->SUM('quantity') ;
+ 
+       $cereal_count=DB::table('tbl_ex_surplus')
+                   ->where('gewog_id', '=', $g)
+                   ->where('productType_id','7')
+                   ->SUM('quantity') ;
+
+
+      $surplus_count=DB::table('tbl_ex_surplus')
+                  ->where('gewog_id', '=', $g)
+                  ->select('productType_id')
+                  ->count() ;
+
+        return view('dashboard.extensiondashboard',compact(
+           'user_ca','producttype','product',
+           'veg_count','fruit_count','dairy_count','livestock_count','nwfp_count','maps_count','cereal_count',
+           'surplus_count','producttype',
+           'product',
+           'user_ca',
+           'area_uc',
+           'area_hravested'
+
+         ));
+    }
+   }
+}
