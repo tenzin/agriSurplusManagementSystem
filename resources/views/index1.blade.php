@@ -98,7 +98,7 @@
           </li>
           <li class="nav-item">
               @if(Auth::check())
-                <a class="nav-link js-scroll-trigger" href="{{url('/national')}}">Dashboard</a>
+                <a class="nav-link js-scroll-trigger" href="{{url('/dashboard')}}">Dashboard</a>
                  @else
                     <a class="nav-link js-scroll-trigger"href="{{url('login')}}">Login</a>
                 @endif
@@ -143,7 +143,7 @@
   <!-- Call to Action Section -->
   <section class="page-section bg-dark text-white" id="login">
     <div class="container text-center">
-      <h5 class="mb-4">Have you want to use the sytem?Get Credential From the MoAF!</h5>
+      <h5 class="mb-4">Have you want to use the system?Get Credential From the MoAF!</h5>
       <a class="btn btn-light btn-xl" href="/login">Login To System</a>
     </div>
   </section>

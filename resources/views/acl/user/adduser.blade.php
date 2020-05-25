@@ -37,7 +37,7 @@
             <div class="col-md-3">
                <div class="form-group">
                   <label>CID No:<font color="red">*</font></label>
-                  <input  name="cid" id="cid" class="form-control" placeholder="Enter the CID" required>
+                  <input name="cid" id="cid" class="form-control" placeholder="Enter the CID" maxlength="13" required>
                </div>
                <div class="form-group">
                   <label>Name:<small></small>&nbsp;<font color="red">*</font></label>
@@ -107,7 +107,7 @@
                </div>
                <div class="form-group">
                   <label>Contact Number:<small></small>&nbsp;<font color="red">*</font></label>
-                  <input id="number" type="text" class="form-control" name="number"  placeholder="Enter the contact Number" required/>
+                  <input id="number" type="text" class="form-control" name="number"  placeholder="Enter the contact Number" maxlength="8" required/>
                </div>
                <div class="form-group">
                   <label>Is_Staff:<small></small>&nbsp;</label>

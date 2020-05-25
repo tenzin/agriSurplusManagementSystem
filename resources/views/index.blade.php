@@ -89,7 +89,7 @@
                      <li><a href="#contact">Contact</a></li>
                      <li>
                         @if(Auth::check())
-                           <a href="{{url('/national')}}">Dashboard</a>
+                           <a href="{{url('/dashboard')}}">Dashboard</a>
                         @else
                           <a href="{{url('login')}}">Login</a>
                         @endif

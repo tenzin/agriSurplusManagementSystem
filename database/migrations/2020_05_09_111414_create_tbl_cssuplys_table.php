@@ -25,6 +25,7 @@ class CreateTblCssuplysTable extends Migration
             $table->float('price');
             $table->char('status', 1);
             $table->longText('remarks')->nullable();
+            $table->foreignId('user_id')->constrained()->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('dzongkhag_id')->nullable()->constrained()->references('id')->on('tbl_dzongkhags')->onDelete('cascade');
             $table->timestamps();
         });

@@ -57,7 +57,7 @@ var monthsurplus = new Chart(ctx, {
         labels: ['Jan','Feb', 'March', 'April','May','Jun','July','Aug','Sept','Oct','Nov','Dec'],
         datasets: [{
             label: 'Statistics',
-             data: [{{$surplus_count}}],
+            data: [{{$surplus_count}}],
            
             backgroundColor: [
                 'rgba(280, 99, 132, 0.1)',
