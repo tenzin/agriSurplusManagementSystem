@@ -79,6 +79,9 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       //Extension reports.
       Route::get('extension_report',['as'=>'extension_report','uses'=>'EXReportController@searchby']);
       Route::post('extension_dreport',['as'=>'extension_dreport','uses'=>'EXReportController@search_result']);
+      //Total surplus reports.
+      Route::get('extension_total',['as'=>'extension_total','uses'=>'EXReportController@searchtotalby']);
+      Route::post('extension_treport',['as'=>'extension_treport','uses'=>'EXReportController@search_totalresult']);
 
 });
 
@@ -245,7 +248,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
         //Image Route
         Route::post('/avatar', 'UserController@update_avatar');
 
-        //Reports.
+        //National Reports.
         Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
         Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
 

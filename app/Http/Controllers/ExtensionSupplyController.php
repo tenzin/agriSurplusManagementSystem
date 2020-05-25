@@ -488,12 +488,14 @@ class ExtensionSupplyController extends Controller
     }
     
     public function update_submitted(Request $request, $id)
-
     {
+        $user = auth()->user();
+
         $qty=floatval($request->input('hqty')) -floatval($request->input('quantity'));
         if($request->input('status') =='T'){
             
             DB::table('tbl_ex_surplus_history')->insert([
+                'ex_surplus_id' =>$id,
                 'refNumber' => $request->input('refno'),
                 'productType_id' => $request->input('producttype'),
                 'product_id' => $request->input('product'),
@@ -501,7 +503,10 @@ class ExtensionSupplyController extends Controller
                 'unit_id' =>$request->input('unit'),
                 'price' => $request->input('price'),
                 'status' => $request->input('status'),
-                'harvestDate' => $request->input('harvestDate')
+                'harvestDate' => $request->input('harvestDate'),
+                'gewog_id' => $user->gewog_id,
+                'dzongkhag_id' => $user->dzongkhag_id
+
             ]);
         }
 
@@ -665,7 +670,7 @@ class ExtensionSupplyController extends Controller
         $inserts = [];
 
         $inserts[] =  [
-
+            'ex_surplus_id' => $data->id,
             'refNumber' => $data->refNumber,
             'productType_id' => $data->productType_id,
             'product_id' => $data->product_id,
