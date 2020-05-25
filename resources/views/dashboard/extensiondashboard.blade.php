@@ -79,8 +79,9 @@
                   <div class="card-body">
                     <table id="area_uc" class="table table-bordered">
                         <div class="row">
-                           <div class="col col-md-auto">
-                            <label for="product">Products:</label>
+                            <div class="col col-md-auto">
+                             <label for="product">Products:</label>
+                            </div>
                         </div>
                             <div class="col-md-6 mb-3">
                             <select class="custom-select d-block w-100" id="product_name" name="product">
