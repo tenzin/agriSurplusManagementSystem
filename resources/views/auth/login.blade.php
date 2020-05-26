@@ -22,7 +22,7 @@
 <div class="login-box">
   <div class="login-logo">
   <img class="img-responsive" src="{{URL::asset('/images/rgoblogo.png')}}"style="height:80px;width:80px; "></img><br>
-    <b>Ministry of Agriculture and Forests</b>
+    <b><strong>Vegetable Management Information System</strong></b>
   </div>
   <!-- /.login-logo -->
   <div id="login">

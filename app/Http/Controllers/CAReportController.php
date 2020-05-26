@@ -43,7 +43,8 @@ class CAReportController extends Controller
         join tbl_products on tbl_ex_surplus.product_id = tbl_products.id 
         join tbl_units on tbl_ex_surplus.unit_id = tbl_units.id
         join tbl_gewogs on tbl_ex_surplus.gewog_id = tbl_gewogs.id
-        where exists (select refNumber from tbl_transactions where status in ('S','E') and user_id = ".$user->id." and gewog_id = ".$user->gewog_id." and dzongkhag_id=".$user->dzongkhag_id.")";
+        where exists (select refNumber from tbl_transactions where status in ('S','E') and dzongkhag_id=".$user->dzongkhag_id.")";
+        // where exists (select refNumber from tbl_transactions where status in ('S','E') and user_id = ".$user->id." and gewog_id = ".$user->gewog_id." and dzongkhag_id=".$user->dzongkhag_id.")";
        
        //date between.         
        if(!empty($fromdate) && !empty($todate))
@@ -81,7 +82,7 @@ class CAReportController extends Controller
             $sql = $sql." and tbl_ex_surplus.product_id = ".$request->product;
         }
 
-        //dd($sql);
+       // dd($sql);
         
         $surplus = DB::select($sql);
 

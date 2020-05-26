@@ -79,7 +79,6 @@
 </head>
 
 <body id="page-top">
-
   <!-- Navigation -->
   
   <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
@@ -90,9 +89,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto my-2 my-lg-0">
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#about">About</a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
           </li>
@@ -107,8 +106,6 @@
       </div>
     </div>
   </nav>
-  
-
   <!-- Masthead -->
    <header class="page-section bg-info">
     
@@ -125,28 +122,6 @@
         </div> 
       </div>
       </header>
-
-  <!-- About Section -->
-  <section class="page-section bg-success" id="about">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-8 text-center">
-          <h2 class="text-white mt-0">V-MIS</h2>
-          <hr class="divider light my-4">
-          <p class="text-white-50 mb-4">V-MIS is the Vegetable management Information System!</p>
-          <a class="btn btn-light btn-xl js-scroll-trigger" href="#login">Find Out More!</a>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Call to Action Section -->
-  <section class="page-section bg-dark text-white" id="login">
-    <div class="container text-center">
-      <h5 class="mb-4">Have you want to use the system?Get Credential From the MoAF!</h5>
-      <a class="btn btn-light btn-xl" href="/login">Login To System</a>
-    </div>
-  </section>
 
   <!-- Contact Section -->
   <section class="page-section" id="contact">
