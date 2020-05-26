@@ -208,7 +208,6 @@
 
           var gewog_layer;
           var dzongkhag_layer;
-
           function show_dzongkhag_layer() {
             if(typeof dzongkhag_layer == 'undefined') {
               //alert('dzongkhag_layer not defined');
@@ -222,7 +221,7 @@
                 feature = new ol.Feature({
                   geometry: new ol.geom.Point(ol.proj.fromLonLat([long[index],lat[index]])),
                   type: 'Dzongkhag',
-                  name: dzongkhag_name[index]
+                  place_name: dzongkhag_name[index]
                 });
                 console.log(feature.get('gewog_name'));
                 pointerFeatures.push(feature);
@@ -264,7 +263,7 @@
                   feature = new ol.Feature({
                     geometry: new ol.geom.Point(ol.proj.fromLonLat([long, lat])),
                     type: 'Gewog',
-                    gewog_name: array[index].gewog,
+                    place_name: array[index].gewog,
                     name: array[index].name,
                     contact: array[index].contact_number
                   });
@@ -318,7 +317,7 @@
           //  var content = document.getElementById('popup');
           //  content.innerHTML = '<p>Position:'+coordinate+'</p><code>' +feature.get('ID') + '</code>';
           //content = '<p>Position:'+coordinate+'</p><code>' +feature.get('ID') + '</code>';
-          content.innerHTML= feature.get('type')+': '+feature.get('gewog_name')+"<br>Name: "+feature.get('name')+"<br>Contact: "+feature.get('contact');
+          content.innerHTML= feature.get('type')+': '+feature.get('place_name')+"<br>Name: "+feature.get('name')+"<br>Contact: "+feature.get('contact');
           overlay.setPosition(coordinate);
               // console.log("ID: " + feature.get('ID'));
               // alert("You clicked on " + feature.get('ID'));
