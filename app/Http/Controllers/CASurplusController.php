@@ -214,9 +214,10 @@ class CASurplusController extends Controller
                 ->where('user_id', '=' , $user->id)
                 ->where('refNumber', 'Like' , '%'.$nextNumber.'%')
                 ->first();
-       
+        $trans = $data->id;
+        // dd($trans);
         Session::put('View_status', 'A');
-        return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit','ref')); 
+        return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit','ref','trans')); 
         
     }
     
@@ -232,6 +233,8 @@ class CASurplusController extends Controller
         ->where('user_id', '=' , $user->id)
         ->where('refNumber', 'Like' , '%'.$nextNumber.'%')
         ->first();
+
+        $trans = $ref->id;
 
         $supply = DB::table('tbl_cssupply')
                     ->where('refNumber', '=', $nextNumber)
@@ -250,7 +253,7 @@ class CASurplusController extends Controller
                     ->count();
 
         Session::put('View_status', 'E');
-        return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit','supply','counts','ref'));
+        return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit','supply','counts','ref','trans'));
     }
 
 
@@ -322,6 +325,8 @@ class CASurplusController extends Controller
         $data->status = 'A';
         $data->user_id = $user->id;
         $data->dzongkhag_id = $user->dzongkhag_id;
+        $data->trans_id =$request->input('trans');
+        // dd($data);
         $data->save();
         
         return redirect('/ca_supply_temp')->with('nextNumber');
@@ -615,7 +620,7 @@ class CASurplusController extends Controller
         $data = DB::table('tbl_cssupply')
                     ->where('id', '=', $id)
                     ->select('refNumber','quantity','productType_id','product_id', 'price',
-                    'id','unit_id','status','dzongkhag_id')
+                    'id','unit_id','status','dzongkhag_id','trans_id')
                     ->first();
 
         $inserts = [];
@@ -627,7 +632,7 @@ class CASurplusController extends Controller
             'quantity' => $data->quantity,
             'unit_id' =>$data->unit_id,
             'price' => $data->price,
-            // 'harvestDate' => $data->harvestDate,
+            'trans_id' => $data->trans_id,
             'status' => 'T',
             'dzongkhag_id' => $data->dzongkhag_id
             ]; 

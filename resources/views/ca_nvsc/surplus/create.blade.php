@@ -14,6 +14,7 @@
         </div>
       <form method="POST" action = "{{route('supply-store')}}">
       <input type="hidden" name="refnumber" id="refnumber" value="{{ $nextNumber}}">
+      <input type="hidden" name="trans" id="trans" value="{{ $trans}}">
 @csrf
 <div class="row">
   <div class="col-md-4 order-md-2 mb-4">

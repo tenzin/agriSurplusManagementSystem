@@ -97,14 +97,14 @@
                           <tr>
                            <th>Sl.No</th>
                            <th>Product Name</th>
-                           <th>Quantity</th>
+                           <th>Acreage</th>
                            </tr>
                         </thead>
                         @foreach($area_uc as $a)
                         <tr>
                         <td>{{$loop->iteration}}</td>
                         <td>{{$a->product->product}}</td>
-                        <td>{{$a->quantity}}</td>
+                        <td>{{$a->quantity.' '.$a->c_unit->unit}}</td>
                         </tr>
                         @endforeach
                      </table>

@@ -72,7 +72,7 @@
         </div>
 
         <div class="col-md-4 mb-3">
-          <label for="unit">HarvestDate<font color="red">*</font></label>
+          <label for="unit">Harvest Date<font color="red">*</font></label>
           <div class="input-group">
            <input type="date" class="form-control" name="harvestdate" id ="harvestdate" placeholder ="Required Date" required>
               <div class="invalid-feedback" style="width: 100%;">
