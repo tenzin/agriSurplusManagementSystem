@@ -283,9 +283,10 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
 
 
 
-       Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
+      Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
       Route::post('extension_sreport',['as'=>'extension_sreport','uses'=>'EXReportController@summary_report']);
 
-
-     
+      //Dzongkhag/Thromde Reports.
+      Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
+      Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
       
