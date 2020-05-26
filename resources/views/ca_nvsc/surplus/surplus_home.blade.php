@@ -18,7 +18,7 @@
             <th>Quantity</th>
             <th>CostPrice</th>
             <th>Tentitive Pickup Date</th>
-            <th>Harvest Date</th>
+            {{-- <th>Harvest Date</th> --}}
             <th>Remarks</th>
             <th>Status</th>
             <th>Action</th>
@@ -34,7 +34,7 @@
                   <td>{{$row->quantity.' '.$row->unit->unit}}</td>
                   <td>Nu. {{$row->price}}</td>
                   <td>{{$row->tentativePickupDate}}</td>
-                  <td>{{$row->harvestDate}}</td>
+                  {{-- <td>{{$row->harvestDate}}</td> --}}
                   <td>{{$row->remarks}}</td>
                   <td>{{$row->status}}</td>
                   <td></td>

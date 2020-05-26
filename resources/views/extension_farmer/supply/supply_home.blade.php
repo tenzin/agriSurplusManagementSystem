@@ -3,10 +3,10 @@
 @section('content')
 
 <div class="container">
-    <h2 class="text-primary text-center">Surplus List </h3>
-    <center><p class="text-muted">{{$msg}}</p></center>
-    @if($user->role_id==4 || $user->role_id==5)
     
+    @if($user->role_id==4 || $user->role_id==5)
+    <h2 class="text-primary text-center">Surplus List </h3>
+        <center><p class="text-muted">{{$msg}} From Extensions/Land User/Farmers Group</p></center>
     <br>
 
     <div class="row" >
@@ -60,7 +60,8 @@
     </table>
 
     @else
-
+    <h2 class="text-primary text-center">Surplus List </h3>
+        <center><p class="text-muted">{{$msg}}</p></center>
     <table id= "example1" class="table table-bordered table-striped table-sm">
         <thead>
             <tr>

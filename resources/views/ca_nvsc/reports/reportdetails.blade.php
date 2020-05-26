@@ -12,7 +12,7 @@
       </div>
       <div class="row">
         <div class="col text-left">
-          <strong>Details of Surplus 
+          <strong>Details of Surplus Submitted
           @isset($gewogname)
             for the Gewog: {{$gewogname->gewog}}
           @endisset

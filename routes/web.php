@@ -19,10 +19,10 @@ Route::post('login', 'AuthController@login');
 Route::post('logout', 'AuthController@logout')->name('logout');
 Route::get('logout', 'AuthController@logout');
 
-// Route::get('/', function () {
-//     return view('index1');
-// });
-Route::get('/','MapController@index');
+Route::get('/', function () {
+    return view('index1');
+});
+Route::get('/gewog_map','MapController@index');
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -79,8 +79,11 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       Route::get('cultivation-delete/{id}',['as'=>'cultivation-delete','uses'=>'ExtensionUnderCultiavtionController@cultivationDelete']);
 
       //Extension reports.
-      Route::get('extension_report',['as'=>'extension_report','uses'=>'EXReportController@searchby']);
+      Route::get('extension_report',['as'=>'extension_report','uses'=>'EXReportController@searchby'])->middleware('can:extension_view_report,Auth::user()');
       Route::post('extension_dreport',['as'=>'extension_dreport','uses'=>'EXReportController@search_result']);
+      //Total surplus reports.
+      Route::get('extension_total',['as'=>'extension_total','uses'=>'EXReportController@searchtotalby']);
+      Route::post('extension_treport',['as'=>'extension_treport','uses'=>'EXReportController@search_totalresult']);
 
 });
 
@@ -116,9 +119,9 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('view-details/{id}',['as'=>'view-details','uses'=>'CASurplusController@ca_view_detail'])->middleware('can:aggregator_view_surplus_details,Auth::user()');
 
       //report for aggregator.
-      Route::get('aggregator_report',['as'=>'aggregator_report','uses'=>'CAReportController@searchby']);
+      Route::get('aggregator_report',['as'=>'aggregator_report','uses'=>'CAReportController@searchby'])->middleware('can:aggregator_view_report,Auth()::user()');
       Route::post('aggregator_dreport',['as'=>'aggregator_dreport','uses'=>'CAReportController@search_result']);
-       Route::get('aggregator_summary',['as'=>'aggregator_summary','uses'=>'CAReportController@searchsummaryby']);
+      Route::get('aggregator_summary',['as'=>'aggregator_summary','uses'=>'CAReportController@searchsummaryby']);
       Route::post('aggregator_summaryreport',['as'=>'aggregator_summaryreport','uses'=>'CAReportController@summaryreport']);
 
       //Commercial Aggregator Demand Surplus Information Route
@@ -247,9 +250,6 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
         //Image Route
         Route::post('/avatar', 'UserController@update_avatar');
 
-        //Reports.
-      //   Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
-      //   Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
 
         //Contact US
         Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contactUS']);
@@ -285,8 +285,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
 
        Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
       Route::post('extension_sreport',['as'=>'extension_sreport','uses'=>'EXReportController@summary_report']);
-      
-      
+
 
      
       

@@ -11,7 +11,7 @@
       </div>
       <div class="row">
         <div class="col text-left">
-          <strong>Summary of Surplus by type</strong>
+          <strong>Summary of Submitted Surplus by Type</strong>
         </div>
         <div class="col text-right">
          <span>Year:{{$tyear}}, Month: 

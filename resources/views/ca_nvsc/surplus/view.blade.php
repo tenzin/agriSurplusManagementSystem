@@ -32,8 +32,6 @@
                           <th scope="col">Product</th>
                           <th scope="col">Quantity</th>
                           <th scope="col">Price</th>
-                          {{-- <th scope="col">Required Date</th> --}}
-                          <th scope="col">Harvest Date</th>
                           <th>Action</th>
                           </tr>
                       </thead>
@@ -46,9 +44,6 @@
                 <td>{{$row->product}}</td>
                 <td>{{$row->quantity.' '.$row->unit}}</td>
                 <td>Nu. {{$row->price}}</td>
-                {{-- <td>{{$row->tentativePickupDate}}</td> --}}
-                <td>{{$row->harvestDate}}</td>
-                
                   <td>
                     
 
@@ -95,7 +90,7 @@
             if (confirm('Are you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
               var id = document.getElementById("refnumber").value;
               $.get('/json-submit-supply?ref_number=' + id, function(data){
-                window.location = "/national/";
+                window.location = "/date/";
               });
             }
         }

@@ -74,7 +74,7 @@
       if (confirm('Are you sure you want to submit your Surplus list?.'))  {
         var id = document.getElementById("refnumber").value;
         $.get('/json-submit-surplus?ref_number=' + id, function(data){
-          window.location = "/national";
+          window.location = "/ex-day/";
         });
       }
       else {
