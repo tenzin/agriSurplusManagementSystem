@@ -32,7 +32,7 @@
                <input id="quantity" type="text" class="form-control" name="quantity" maxlength="5" placeholder="Enter the Quantity" required/>
             </div>
             <div class="form-group">
-              <label>Estimated Output unit:&nbsp;<font color="red">*</font></label>
+              <label>Estimated Output Unit:&nbsp;<font color="red">*</font></label>
               <select  name="e_unit" id="e_unit" class="form-control" required>
                 <option disabled selected>Select Estimated Units</option>
                 @foreach($e_unit as $e)
@@ -44,7 +44,7 @@
 
           <div class="col-md-4">
             <div class="form-group">
-              <label>units:&nbsp;<font color="red">*</font></label>
+              <label>Units:&nbsp;<font color="red">*</font></label>
               <select  name="unit" id="unit" class="form-control" required>
               <option disabled selected>Select Units</option>
               @foreach($c_unit as $c)
@@ -53,7 +53,7 @@
               </select>
             </div>
             <div class="form-group">
-              <label>Sowing_date:&nbsp;<font color="red">*</font></label>
+              <label>Sowing_Month:&nbsp;<font color="red">*</font></label>
               <input id="pickup_date" type="month" class="form-control" name="pickup_date" required/>
             </div>
           </div>

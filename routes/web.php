@@ -19,9 +19,11 @@ Route::post('login', 'AuthController@login');
 Route::post('logout', 'AuthController@logout')->name('logout');
 Route::get('logout', 'AuthController@logout');
 
-Route::get('/', function () {
+Route::get('/', function ()
+ {
     return view('index1');
 });
+
 Route::get('/gewog_map','MapController@index');
 
 
@@ -33,7 +35,6 @@ Route::group(['middleware' => 'auth'], function () {
       Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
 
 Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
-
 
       //Extension Supply Information Route
       Route::get('ex-day',['as'=>'ex-day','uses'=>'ExtensionSupplyController@ex_expiryday'])->middleware('can:extension_add_surplus,Auth::user()');
@@ -81,9 +82,14 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       //Extension reports.
       Route::get('extension_report',['as'=>'extension_report','uses'=>'EXReportController@searchby'])->middleware('can:extension_view_report,Auth::user()');
       Route::post('extension_dreport',['as'=>'extension_dreport','uses'=>'EXReportController@search_result']);
+
       //Total surplus reports.
       Route::get('extension_total',['as'=>'extension_total','uses'=>'EXReportController@searchtotalby']);
       Route::post('extension_treport',['as'=>'extension_treport','uses'=>'EXReportController@search_totalresult']);
+
+      //Summary surplus reports.
+      Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
+      Route::post('extension_sreport',['as'=>'extension_sreport','uses'=>'EXReportController@summary_report']);
 
 });
 
@@ -281,10 +287,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
             return redirect()->back();
       })->name('read');
 
-
-
-       Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
-      Route::post('extension_sreport',['as'=>'extension_sreport','uses'=>'EXReportController@summary_report']);
+      
 
 
      

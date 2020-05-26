@@ -39,7 +39,8 @@ class ExtensionUnderCultiavtionController extends Controller
     }
 
     public function view_cultivation_details(){
-        $cultivations = Cultivation::with('c_unit','e_unit','product')->where('gewog_id', Auth::user()->gewog_id)->latest()->get();;
+
+        $cultivations = Cultivation::with('c_unit','e_unit','product')->where('gewog_id', Auth::user()->gewog_id)->latest()->get();
         return view('extension_farmer.cultivation.cultivation_home',compact('cultivations'));
     }
 
