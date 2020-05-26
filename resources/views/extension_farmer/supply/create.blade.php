@@ -209,10 +209,10 @@
      // alert(refNo);
       $.get('/json-surplus-exist?refNo=' + refNo, function(data){
         if(data == null || data ==''){
-            alert('Unsuccessful: To submit the demand you need at least one or more product!');
+            alert('Unsuccessful: To submit the Surplus you need at least one or more product!');
         } else {
             //show some type of message to the user
-            if (confirm('Are you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
+            if (confirm('Are you sure you want to submit your Surplus list?. Once you submit, you cannot add or delete or update.'))  {
               var id = document.getElementById("refnumber").value;
               $.get('/json-submit-surplus?ref_number=' + id, function(data){
                 window.location = "/ex-day/";

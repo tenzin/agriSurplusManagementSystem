@@ -95,7 +95,7 @@
             </div>
         </div>
         <div class="col-md-4 mb-3">
-            <label for="unit">Price<font color="red">*</font> (tentative)</label>
+          <label for="unit">Unit Price<font color="red">*</font> (tentative)</label>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">Nu.</span>
@@ -203,10 +203,10 @@
       var refNo = document.getElementById("refnumber").value;
       $.get('/json-ca-product-exist?refNo=' + refNo, function(data){
         if(data == null || data ==''){
-            alert('Unsuccessful: To submit the demand you need at least one or more product!');
+            alert('Unsuccessful: To submit the Surplus you need at least one or more product!');
         } else {
             //show some type of message to the user
-            if (confirm('Are you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
+            if (confirm('Are you sure you want to submit your Surplus list?. Once you submit, you cannot add or delete or update.'))  {
               var id = document.getElementById("refnumber").value;
               $.get('/json-submit-supply?ref_number=' + id, function(data){
                 window.location = "/date/";

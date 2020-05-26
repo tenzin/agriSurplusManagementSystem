@@ -107,25 +107,25 @@
     </div>
   </nav>
   <!-- Masthead -->
-   <header class="page-section bg-info">
-    
+   <header class="bg-info py-5">
+  </header>
    <div id="map" class="map"></div>
          <div id="popup" class="ol-popup">
            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
            <div id="popup-content"></div>
          </div></br>
        
-       <div class="row h-100 align-items-center justify-content-center text-center"> 
-         <div class="col-lg-8 align-self-baseline">
-           <label><input type='checkbox' onclick='handleClickGewog(this);'>Gewog Extension</label>&nbsp;&nbsp;&nbsp;
-           <label><input type='checkbox' onclick='handleClickFG(this);'>Farmer's Group</label>&nbsp;&nbsp;&nbsp;
-           <label><input type='checkbox' onclick='handleClickLUC(this);'>LUC</label>&nbsp;&nbsp;&nbsp;
-           <label><input type='checkbox' onclick='handleClickCA(this);'>Commercial Aggrigator</label>&nbsp;&nbsp;&nbsp;
-           <label><input type='checkbox' onclick='handleClickVSC(this);'>VSC</label>&nbsp;&nbsp;&nbsp;
-           <label><input type='checkbox' onclick='handleClickDzongkhag(this);'>Dzongkhag</label>&nbsp;&nbsp;&nbsp;
+       <div class="row align-items-center justify-content-center text-center"> 
+         <div class="align-self-baseline">
+           <label><input type='checkbox' onclick='handleClickGewog(this);'>&nbsp;Gewog Extension</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickFG(this);'>&nbsp;Farmer's Group</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickLUC(this);'>&nbsp;LUC</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickCA(this);'>&nbsp;Commercial Aggrigator</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickVSC(this);'>&nbsp;VSC</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickDzongkhag(this);'>&nbsp;Dzongkhag</label>&nbsp;&nbsp;&nbsp;
         </div> 
       </div>
-      </header>
+    
 
   <!-- Contact Section -->
   <section class="page-section" id="contact">

@@ -4,9 +4,12 @@
 <section class="content">
 <div class="container-fluid"> 
 <div class="card card-info">
-<div class="card-header">
+  <div class="card-header">
+    <h2 class="text-center mt-1 mb-1 alert aqua">Edit Area Under Cultivation Form</h2>
+  </div>
+{{-- <div class="card-header">
 <h3 class="card-title">Edit Area Under Cultivation</h3>
-</div>
+</div> --}}
 <form role="form" method="POST" action="{{route('cultivation-update',$cultivation->id)}}">
  @csrf
 <div class="card-body">
