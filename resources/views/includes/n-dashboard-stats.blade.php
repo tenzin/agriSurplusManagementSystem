@@ -10,8 +10,8 @@ var productStats = new Chart(ctx, {
         datasets: [{
             label: 'Statistics',
             {{-- //data: [{{$farmer}}, {{$luc}},{{$vsc}}],--}}
-        
-           data:[45, 67, 67, 34, 45, 67, 100],
+            data: [{{$allveg_count}}],
+            // data:[45, 67, 67, 34, 45, 67, 100],
             backgroundColor: [
                 'rgba(280, 99, 132, 0.8)',
                 'rgba(0, 128, 0, 0.8)',

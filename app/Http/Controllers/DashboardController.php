@@ -72,11 +72,37 @@ class DashboardController extends Controller
          $ardc = User::where('role_id','6')->count();
          $vsc = User::where('role_id', '5')->count();
          $ca_usres = User::where('role_id', '4')->count();
- 
-          //dd($vsc
+          
           //Over all Surplus by producttype
+      $surplustemp = DB::statement("CREATE TEMPORARY TABLE IF NOT EXISTS tmpSurplus(
+                        id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                        refNumber varchar(50),
+                        productType_id varchar(5),
+                        product_id varchar(10),
+                        quantity float(10),
+                        submittedDate  DATE
+           )");
+          //INSERT INTO tmpSurplus
 
-        //EX surplus
+           $sqlex="INSERT INTO tmpSurplus(refNumber,productType_id,product_id,quantity,submittedDate) 
+                  select tbl_ex_surplus.refNumber,productType_id,product_id,quantity,submittedDate from tbl_ex_surplus
+                  join tbl_transactions on tbl_transactions.id = tbl_ex_surplus.trans_id";
+
+           DB::statement($sqlex);
+
+      //      $sqlca="INSERT INTO tmpSurplus(refNumber,productType_id,product_id,quantity,submittedDate) 
+      //      select tbl_cssupply.refNumber,productType_id,product_id,quantity,submittedDate from tbl_cssupply
+      //      join tbl_transactions on tbl_transactions.id = tbl_cssupply.trans_id";
+
+      //      DB::statement($sqlca);
+
+
+          $allveg_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',1)
+                ->SUM('quantity');
+      
+        DB::statement("DROP TEMPORARY TABLE IF EXISTS tmpSurplus");       
+      //EX surplus
         $veg_count=DB::table('tbl_ex_surplus')
                      ->where('productType_id','1')
                      ->SUM('quantity') ;
@@ -154,7 +180,8 @@ class DashboardController extends Controller
            'area_uc',
            'area_hravested',
            'last_row',
-           'casurplus_count'
+           'casurplus_count',
+           'allveg_count'
          ));
      }
 
