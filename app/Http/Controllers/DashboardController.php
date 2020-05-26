@@ -194,7 +194,7 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
             'ex',
             'luc',
             'farmer',
-            'supplyProducts',
+            'supplyProducts'
          ));
 }
 
