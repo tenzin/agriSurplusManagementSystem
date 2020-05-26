@@ -79,7 +79,7 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       Route::get('cultivation-delete/{id}',['as'=>'cultivation-delete','uses'=>'ExtensionUnderCultiavtionController@cultivationDelete']);
 
       //Extension reports.
-      Route::get('extension_report',['as'=>'extension_report','uses'=>'EXReportController@searchby']);
+      Route::get('extension_report',['as'=>'extension_report','uses'=>'EXReportController@searchby'])->middleware('can:extension_view_report,Auth::user()');
       Route::post('extension_dreport',['as'=>'extension_dreport','uses'=>'EXReportController@search_result']);
       //Total surplus reports.
       Route::get('extension_total',['as'=>'extension_total','uses'=>'EXReportController@searchtotalby']);
@@ -119,9 +119,9 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('view-details/{id}',['as'=>'view-details','uses'=>'CASurplusController@ca_view_detail'])->middleware('can:aggregator_view_surplus_details,Auth::user()');
 
       //report for aggregator.
-      Route::get('aggregator_report',['as'=>'aggregator_report','uses'=>'CAReportController@searchby']);
+      Route::get('aggregator_report',['as'=>'aggregator_report','uses'=>'CAReportController@searchby'])->middleware('can:aggregator_view_report,Auth()::user()');
       Route::post('aggregator_dreport',['as'=>'aggregator_dreport','uses'=>'CAReportController@search_result']);
-       Route::get('aggregator_summary',['as'=>'aggregator_summary','uses'=>'CAReportController@searchsummaryby']);
+      Route::get('aggregator_summary',['as'=>'aggregator_summary','uses'=>'CAReportController@searchsummaryby']);
       Route::post('aggregator_summaryreport',['as'=>'aggregator_summaryreport','uses'=>'CAReportController@summaryreport']);
 
       //Commercial Aggregator Demand Surplus Information Route

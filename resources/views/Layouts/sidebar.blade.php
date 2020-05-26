@@ -30,8 +30,8 @@
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
       <li class="nav-item has-treeview menu-open">
-        <a href="#" class="nav-link">
-            <p>National Level</p>
+        <a href="#">
+            <p>National/HQ</p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
@@ -58,8 +58,8 @@
       <!--  Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
       <li class="nav-item has-treeview menu-open">
-        <a href="#" class="nav-link">
-           <p> Aggregator Level</p>
+        <a href="#">
+           <p> Aggregator/VSC</p>
         </a>
         <ul class="nav nav-treeview">
 
@@ -67,7 +67,7 @@
                     <li class="nav-item">
                       <a href="{{url('dashboard')}}" class="nav-link">
                       <i class="far fa-chart-bar"></i> 
-                        <p>Aggregator Dashboard</p>
+                        <p>Dashboard</p>
                       </a>
                     </li>
                 @endcan
@@ -90,7 +90,8 @@
                     </a>
                 </li>
               </li>
-
+              @endcan
+              @can('aggregator_view_report')
               <li class="nav-item">
                 <a href="{{route('aggregator_report')}}" class="nav-link">
                   <i class="nav-icon far fa-calendar-alt"></i>
@@ -147,30 +148,6 @@
               </li>
           </li>
           @endcan
-
-          
-
-          {{-- @can('aggregator_search_surplus')
-          <li class="nav-item">
-            <a href="{{route('scopefilter')}}" class="nav-link">
-                <i class="nav-icon far fa-calendar-alt"></i>
-                <p>
-                  Search and Claim
-                </p>
-              </a>
-            </li>
-          @endcan
-
-          @can('aggregator_view_search_surplus')
-            <li class="nav-item">
-              <a href="{{route('view_claim')}}" class="nav-link">
-                  <i class="nav-icon far fa-calendar-alt"></i>
-                  <p>
-                    View Claim
-                  </p>
-                </a>
-              </li>
-              @endcan --}}
         <ul>
       </li>
     </ul>
@@ -183,8 +160,8 @@
         <!--  Add icons to the links using the .nav-icon class
             with font-awesome or any other icon font library -->
         <li class="nav-item has-treeview menu-open">
-          <a href="#" class="nav-link">
-            <p>Extension Level</p>
+          <a href="#">
+            <p>Extension/LUC/Farmers Group</p>
           </a>
           <ul class="nav nav-treeview">
 
@@ -192,7 +169,7 @@
               <li class="nav-item"> 
                 <a href="{{url('dashboard')}}" class="nav-link">
                 <i class="far fa-chart-bar"></i> 
-                  <p>Extension Dashboard</p>
+                  <p>Dashboard</p>
                 </a>
               </li>
             @endcan
@@ -213,6 +190,9 @@
                   <p>View Surplus</p>
                 </a>
               </li>
+              @endcan
+
+              @can('extension_view_report')
                 <li class="nav-item">
                   <a href="{{route('extension_report')}}" class="nav-link">
                     <i class="nav-icon far fa-calendar-alt"></i>
@@ -343,17 +323,6 @@
       <ul>
   </nav>
   @endcan
-<<<<<<< HEAD
-
-  <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          
-        </ul>
-      </nav>
-
-
-=======
->>>>>>> Dashboard
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item has-treeview">

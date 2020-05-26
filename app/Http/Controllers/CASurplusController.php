@@ -120,6 +120,8 @@ class CASurplusController extends Controller
                 ->where('refNumber', 'Like' , '%'.$refno.'%')
                 ->get('refNumber');
 
+                // dd($test);
+
         if($test->isNotEmpty())
          {
     
@@ -212,7 +214,7 @@ class CASurplusController extends Controller
                 ->where('user_id', '=' , $user->id)
                 ->where('refNumber', 'Like' , '%'.$nextNumber.'%')
                 ->first();
-        
+       
         Session::put('View_status', 'A');
         return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit','ref')); 
         
@@ -227,6 +229,7 @@ class CASurplusController extends Controller
         $unit=Unit::all();
 
         $ref = DB::table('tbl_transactions')
+        ->where('user_id', '=' , $user->id)
         ->where('refNumber', 'Like' , '%'.$nextNumber.'%')
         ->first();
 
@@ -529,11 +532,11 @@ class CASurplusController extends Controller
         $table = DB::table('tbl_transactions')
                     ->where('tbl_transactions.user_id','=', $user->id)
                     ->where('tbl_transactions.refNumber','=', $test)
-                    // ->join('users','tbl_transactions.user_id', '=','users.id')
+                    ->join('users','tbl_transactions.user_id', '=','users.id')
                     ->select('phone','location','remark','pickupdate','users.contact_number')
                     ->first();
 
-                     dd($table);
+                    //  dd($table);
         // $table = DB::table('tbl_transactions')
         //             ->where('tbl_transactions.user_id', '=', $user->id)
         //             ->join('users','tbl_transactions.user_id', '=','users.id')
@@ -612,7 +615,7 @@ class CASurplusController extends Controller
         $data = DB::table('tbl_cssupply')
                     ->where('id', '=', $id)
                     ->select('refNumber','quantity','productType_id','product_id', 'price',
-                    'id','unit_id','status','harvestDate','dzongkhag_id')
+                    'id','unit_id','status','dzongkhag_id')
                     ->first();
 
         $inserts = [];
@@ -624,7 +627,7 @@ class CASurplusController extends Controller
             'quantity' => $data->quantity,
             'unit_id' =>$data->unit_id,
             'price' => $data->price,
-            'harvestDate' => $data->harvestDate,
+            // 'harvestDate' => $data->harvestDate,
             'status' => 'T',
             'dzongkhag_id' => $data->dzongkhag_id
             ]; 
