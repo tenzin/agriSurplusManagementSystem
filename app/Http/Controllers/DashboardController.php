@@ -69,10 +69,10 @@ class DashboardController extends Controller
          $farmers = User::where('role_id','9')->count();
          $extions = User::where('role_id','7')->count();
          $luc_users = User::where('role_id','8')->count();
-          $ardc = User::where('role_id','6')->count();
-          $vsc = User::where('role_id', '5')->count();
-          $ca_usres = User::where('role_id', '4')->count();
-
+         $ardc = User::where('role_id','6')->count();
+         $vsc = User::where('role_id', '5')->count();
+         $ca_usres = User::where('role_id', '4')->count();
+ 
           //dd($vsc
           //Over all Surplus by producttype
 
