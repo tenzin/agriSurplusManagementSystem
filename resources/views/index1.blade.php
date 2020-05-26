@@ -117,8 +117,12 @@
        
        <div class="row h-100 align-items-center justify-content-center text-center"> 
          <div class="col-lg-8 align-self-baseline">
-           <label><input type='checkbox' onclick='handleClickGewog(this);'>Gewog</label>
-           <label><input type='checkbox' onclick='handleClickDzongkhag(this);'>Dzongkhag</label>
+           <label><input type='checkbox' onclick='handleClickGewog(this);'>Gewog Extension</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickFG(this);'>Farmer's Group</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickLUC(this);'>LUC</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickCA(this);'>Commercial Aggrigator</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickVSC(this);'>VSC</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickDzongkhag(this);'>Dzongkhag</label>&nbsp;&nbsp;&nbsp;
         </div> 
       </div>
       </header>
