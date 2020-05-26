@@ -46,14 +46,14 @@
           @foreach($product as $row)
           <tr>
              <td>{{$loop->iteration}}</td>
-             <td>{{$row->product}}</td>
-             <td>{{$row->quantity.' '.$row->unit}}</td>
+             <td>{{$row->product->product}}</td>
+             <td>{{$row->quantity.' '.$row->unit->unit}}</td>
              <td>Nu. {{$row->price}}</td>
-             <td>{{$row->location}}</td>
-             <td>{{$row->pickupdate}}</td>
-             <td>{{$row->gewog}}</td>
-             <td>{{$row->phone}}</td>
-             <td>{{$row->remark}}</td>
+             <td>{{$row->transaction->location}}</td>
+             <td>{{$row->transaction->pickupdate}}</td>
+             <td>{{$row->gewog->gewog.' '.$row->gewog->dzongkhag->dzongkhag}}</td>
+             <td>{{$row->transaction->phone}}</td>
+             <td>{{$row->transaction->remark}}</td>
              </tr>
         @endforeach
     </tbody>

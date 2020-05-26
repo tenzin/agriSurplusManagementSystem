@@ -662,7 +662,7 @@ class CASurplusController extends Controller
         // dd($data);
         $next = $nextNumber;
         // dd($next);
-        return view('ca_nvsc.surplus..batch-edit',compact('data','next'));
+        return view('ca_nvsc.surplus.batch-edit',compact('data','next'));
 
     }
 
@@ -681,7 +681,7 @@ class CASurplusController extends Controller
                 'pickupdate' => $request->input('pickupdate')
                 ]);
 
-        return redirect('/supply_view');
+        return redirect('/ca_supply_temp');
         
     }
 

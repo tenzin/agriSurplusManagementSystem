@@ -3,7 +3,7 @@
 <a href="{{url('/dashboard')}}" class="brand-link">
   <img src="{{asset('images/logo.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
        style="opacity: .8">
-  <span class="brand-text font-weight-light center"><b>VMIS</b></span>
+  <span class="brand-text font-weight-light center"><b>V-MIS</b></span>
 </a>
 
 <!-- Sidebar -->
@@ -235,7 +235,7 @@
           <li class="nav-item">
             <a href="{{route('view_cultivation_details')}}" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
-              <p>View Under Cultivation </p>
+              <p>View Area Under Cultivation </p>
             </a>
           </li>
           @endcan

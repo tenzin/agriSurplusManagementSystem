@@ -6,7 +6,7 @@
       </li>
     </ul>
        {{-- <img class="img-responsive" src="{{URL::asset('/images/logo.jpg')}}"style="height:40px;width:40px;"> --}}
-       <h5><b>&nbsp;&nbsp;Vegetable Management Information System</b></h5>
+       <h5><b>&nbsp;&nbsp;Vegetable Market Information System</b></h5>
     
 
     <!-- Right navbar links -->

@@ -47,8 +47,8 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       Route::get('surplus-delete/{id}','ExtensionSupplyController@destroy');
 
       //Batch Info Update and Edit Route
-      Route::get('batch-edit/{nextNumber}',['as'=>'batch-edit','uses'=>'ExtensionSupplyController@batch_edit']);
-      Route::post('batch-update/{nextNumber}',['as'=>'batch-update','uses'=>'ExtensionSupplyController@update_batch']);
+      Route::get('batch-edit/{next}',['as'=>'batch-edit','uses'=>'ExtensionSupplyController@batch_edit']);
+      Route::post('batch-update/{next}',['as'=>'batch-update','uses'=>'ExtensionSupplyController@update_batch']);
 
       //Update to Zero Route
       Route::get('updatee/{id}',['as'=>'updatee','uses'=>'ExtensionSupplyController@zero']);

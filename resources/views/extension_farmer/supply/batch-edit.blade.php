@@ -11,7 +11,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-      <form  method="POST" action={{route('batch-updatee',$next)}}>
+      <form  method="POST" action={{route('batch-update',$next)}}>
         @csrf
         <div class="row">
           <div class="col-sm-6">

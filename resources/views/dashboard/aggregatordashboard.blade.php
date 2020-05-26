@@ -95,8 +95,8 @@
                      <th>Product</th>
                      <th>Dzongkhag</th> 
                      <th>Gewog</th>
-                     {{-- <th>Locations</th>
-                     <th>Date</th> --}}
+                     <th>Action</th>
+                     {{-- <th>Date</th> --}}
                   </tr>
                </thead>
                  @foreach($supplyProducts as $p)
@@ -104,8 +104,8 @@
                      <td>{{$p->product->product}}</td>
                      <td>{{$p->gewog->dzongkhag->dzongkhag}}</td>
                      <td>{{$p->gewog->gewog}}</td> 
-                     {{-- <td>{{$p->transaction->location}}</td>  
-                     <td>{{$p->transaction->submittedDate}}</td>  --}}
+                     <td></td>  
+                     {{-- <td>{{$p->transaction->submittedDate}}</td>  --}}
                  </tr>
                 @endforeach
             </table>

@@ -120,7 +120,7 @@
            <label><input type='checkbox' onclick='handleClickGewog(this);'>&nbsp;Gewog Extension</label>&nbsp;&nbsp;&nbsp;
            <label><input type='checkbox' onclick='handleClickFG(this);'>&nbsp;Farmer's Group</label>&nbsp;&nbsp;&nbsp;
            <label><input type='checkbox' onclick='handleClickLUC(this);'>&nbsp;LUC</label>&nbsp;&nbsp;&nbsp;
-           <label><input type='checkbox' onclick='handleClickCA(this);'>&nbsp;Commercial Aggrigator</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickCA(this);'>&nbsp;Commercial Aggregator</label>&nbsp;&nbsp;&nbsp;
            <label><input type='checkbox' onclick='handleClickVSC(this);'>&nbsp;VSC</label>&nbsp;&nbsp;&nbsp;
            <label><input type='checkbox' onclick='handleClickDzongkhag(this);'>&nbsp;Dzongkhag</label>&nbsp;&nbsp;&nbsp;
         </div> 

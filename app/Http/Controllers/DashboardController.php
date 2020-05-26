@@ -182,9 +182,10 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
       
          if ($request->query('crop') && $request->has('crop')){
 
-            $supplyProducts = EXSurplus::search($request)->with('product','dzongkhag','gewog','transaction')->get();
+            $supplyProducts = EXSurplus::search($request)->where('quantity','>',0)->with('product','dzongkhag','gewog')->get();
             
         }
+
         return view('dashboard.aggregatordashboard',compact(
             'product',
             'producttype',
