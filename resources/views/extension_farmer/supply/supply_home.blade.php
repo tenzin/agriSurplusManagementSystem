@@ -35,7 +35,7 @@
         <th scope="col">Price per Unit</th>
         <th scope="col">PickUp Location</th>
         <th scope="col">Pick Up Date</th>
-        <th scope="col">Gewog</th> 
+        <th scope="col">Gewog-Dzongkhga</th> 
         <th scope="col">Phone</th>
         <th scope="col">Remarks</th>  
       
