@@ -90,18 +90,50 @@ class DashboardController extends Controller
 
            DB::statement($sqlex);
 
-      //      $sqlca="INSERT INTO tmpSurplus(refNumber,productType_id,product_id,quantity,submittedDate) 
-      //      select tbl_cssupply.refNumber,productType_id,product_id,quantity,submittedDate from tbl_cssupply
-      //      join tbl_transactions on tbl_transactions.id = tbl_cssupply.trans_id";
+           $sqlca="INSERT INTO tmpSurplus(refNumber,productType_id,product_id,quantity,submittedDate) 
+           select tbl_cssupply.refNumber,productType_id,product_id,quantity,submittedDate from tbl_cssupply
+           join tbl_transactions on tbl_transactions.id = tbl_cssupply.trans_id";
 
-      //      DB::statement($sqlca);
-
+           DB::statement($sqlca);
 
           $allveg_count=DB::table('tmpSurplus')
                 ->where('productType_id','=',1)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+
+          $allfruit_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',2)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+
+          $alldairy_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',3)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+
+          $alllivestock_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',4)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+         $allnwfp_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',5)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+
+        $allmaps_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',6)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+
+       $allcereal_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',7)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
                 ->SUM('quantity');
       
-        DB::statement("DROP TEMPORARY TABLE IF EXISTS tmpSurplus");       
+        DB::statement("DROP TEMPORARY TABLE IF EXISTS tmpSurplus"); 
+
+
+
       //EX surplus
         $veg_count=DB::table('tbl_ex_surplus')
                      ->where('productType_id','1')
@@ -177,11 +209,9 @@ class DashboardController extends Controller
            'producttype','product','farmers','extions','luc_users','ardc','vsc','ca_usres',
            'veg_count','fruit_count','dairy_count','livestock_count','nwfp_count','maps_count','cereal_count',
            'caveg_count','cafruit_count','cadairy_count','calivestock_count','canwfp_count','camaps_count','cacereal_count',
-           'area_uc',
-           'area_hravested',
-           'last_row',
-           'casurplus_count',
-           'allveg_count'
+           'area_uc', 'area_hravested', 'last_row', 'casurplus_count',
+           'allveg_count','allfruit_count','alllivestock_count','allnwfp_count','allmaps_count','allcereal_count',
+           'alldairy_count'
          ));
      }
 

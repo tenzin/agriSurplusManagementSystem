@@ -9,9 +9,8 @@ var productStats = new Chart(ctx, {
         labels: ['Vegetable','Fruit', 'Cereal','nwfp','Maps','Livestock','Dairy'],
         datasets: [{
             label: 'Statistics',
-            {{-- //data: [{{$farmer}}, {{$luc}},{{$vsc}}],--}}
-            data: [{{$allveg_count}}],
-            // data:[45, 67, 67, 34, 45, 67, 100],
+            data: [{{$allveg_count}},{{$allfruit_count}},{{$allcereal_count}},{{$allnwfp_count}},{{$allmaps_count}},
+                     {{$alllivestock_count}},{{$alldairy_count}}],
             backgroundColor: [
                 'rgba(280, 99, 132, 0.8)',
                 'rgba(0, 128, 0, 0.8)',
