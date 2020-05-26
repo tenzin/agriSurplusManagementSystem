@@ -12,8 +12,10 @@
         <th>Product</th>
         <th>Quantity</th>
         <th>Price</th>
-        {{-- <th>Pick Up Date</th> --}}
-        <th>Action</th>
+        <th>Contact Number</th>
+        <th>Pick Up Locations</th>
+        <th>Pick Up Date</th>
+        <th>Remarks</th>
         </tr>
     </thead>
     <tbody>
@@ -26,15 +28,11 @@
             <td>{{$row->product}}</td>
             <td>{{$row->quantity.' '.$row->unit}}</td>
             <td>{{$row->price}}</td>
-            {{-- <td>{{$row->tentativePickupDate}}</td> --}}
-            <td>
-              <a href="{{route('view-details',$row->id)}}">
-                <i class="fa fa-eye" aria-hidden="true"> </i> View</a>
-              </a>
-            </td>
-            {{-- @empty
-            <td colspan="7" class="text-center text-danger">Please choose an appropriate filters to search</td>
-            @endforelse --}}
+            <td>{{$row->phone}}</td>
+            <td>{{$row->location}}</td>
+            <td>{{$row->pickupdate}}</td>
+            <td>{{$row->remark}}</td>
+            
         </tr>
         @endforeach
     </tbody>

@@ -6,12 +6,10 @@
 <div class="content-header">
   <form class="form-horizontal" method="POST" action = "{{route('aggregator_dreport')}}">
             @csrf
-        <div class="card card-info">
+        <div class="card card">
                   <div class="card-header">
                     <h3 class="card-title">Search details of surplus by:</h3>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                    </div>
+                    
                   </div>
                   <!-- /.card-header -->
          
@@ -77,12 +75,9 @@
 <div class="content-header">
   <form class="form-horizontal" method="POST" action = "{{route('aggregator_summaryreport')}}">
             @csrf
-        <div class="card card-info">
+        <div class="card card">
                   <div class="card-header">
-                    <h3 class="card-title">View summary of surplus by:</h3>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-                    </div>
+                    <h3 class="card-title center">View summary of surplus by:</h3>
                   </div>
                   <!-- /.card-header -->
          
@@ -124,8 +119,7 @@
                 </div>
           </div> 
                   <!-- /.card-body -->
-          <div class="card-footer">                               
-          </div>
+  
       </div>
     </form>                             
 </div>

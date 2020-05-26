@@ -10,7 +10,6 @@ use App\Http\Controllers\SummaryController;
 class EXReportController extends Controller
 {
     //
-    
     public function __construct() {
       
         $this->middleware('auth');
@@ -26,23 +25,31 @@ class EXReportController extends Controller
 
     }
 
-    public function search_result(Request $request)
+    //filter total surplus.
+    public function searchtotalby()
     {
-      
-        $user = auth()->user();
-
+        $ptypes = DB::table('tbl_product_types')->get();
         
+        return view('extension_farmer.reports.totalsurplus',compact('ptypes'));
+    }
+
+    //view total surplus.
+    public function search_totalresult(Request $request)
+    {
+        $user = auth()->user();
+        $title = "Total Surplus";
         $fromdate = $request->fromdate;
         $todate = $request->todate;
 
-        $sql = "select tbl_ex_surplus.status,tbl_product_types.type,tbl_products.product,tbl_ex_surplus.quantity,tbl_units.unit,
+        $sql = "select tbl_ex_surplus.status,tbl_product_types.type,tbl_products.product, tbl_units.unit,
+        tbl_ex_surplus.quantity + IFNULL((select sum(quantity) from tbl_ex_surplus_history where tbl_ex_surplus_history.ex_surplus_id=tbl_ex_surplus.id),0) as quantity,
         tbl_ex_surplus.harvestDate,tbl_ex_surplus.price,tbl_gewogs.gewog from tbl_ex_surplus join tbl_product_types on 
         tbl_ex_surplus.productType_id = tbl_product_types.id
+        join tbl_transactions on tbl_transactions.id = tbl_ex_surplus.trans_id
         join tbl_products on tbl_ex_surplus.product_id = tbl_products.id 
         join tbl_units on tbl_ex_surplus.unit_id = tbl_units.id
         join tbl_gewogs on tbl_ex_surplus.gewog_id = tbl_gewogs.id
-        where exists (select refNumber from tbl_transactions where status in ('S','E') and user_id = ".$user->id." and gewog_id = ".$user->gewog_id." and dzongkhag_id=".$user->dzongkhag_id.")
-       ";
+        where tbl_transactions.status in ('S','E')";
        // dd($sql);
      
        //status of submission. 'S'.
@@ -78,7 +85,75 @@ class EXReportController extends Controller
         
         $surplus = DB::select($sql);
 
-        return view('extension_farmer.reports.reportdetails',compact('surplus','fromdate','todate'));
+        return view('extension_farmer.reports.reportdetails',compact('surplus','fromdate','todate','title'));
+
+    }
+
+    public function search_result(Request $request)
+    {
+      
+        $user = auth()->user();
+
+        $title = "Surplus Balance";
+        $fromdate = $request->fromdate;
+        $todate = $request->todate;
+
+        // $sql = "select tbl_ex_surplus.status,tbl_product_types.type,tbl_products.product,tbl_ex_surplus.quantity,tbl_units.unit,
+        // tbl_ex_surplus.harvestDate,tbl_ex_surplus.price,tbl_gewogs.gewog from tbl_ex_surplus join tbl_product_types on 
+        // tbl_ex_surplus.productType_id = tbl_product_types.id
+        // join tbl_products on tbl_ex_surplus.product_id = tbl_products.id 
+        // join tbl_units on tbl_ex_surplus.unit_id = tbl_units.id
+        // join tbl_gewogs on tbl_ex_surplus.gewog_id = tbl_gewogs.id
+        // where exists (select refNumber from tbl_transactions where status in ('S','E') and user_id = ".$user->id." and gewog_id = ".$user->gewog_id." and dzongkhag_id=".$user->dzongkhag_id."
+        // and tbl_transactions.refNumber=tbl_ex_surplus.refNumber)";
+
+
+        $sql = "select tbl_ex_surplus.status,tbl_product_types.type,tbl_products.product,tbl_ex_surplus.quantity,tbl_units.unit,
+        tbl_ex_surplus.harvestDate,tbl_ex_surplus.price,tbl_gewogs.gewog from tbl_ex_surplus join tbl_product_types on 
+        tbl_ex_surplus.productType_id = tbl_product_types.id
+        join tbl_transactions on tbl_transactions.id = tbl_ex_surplus.trans_id
+        join tbl_products on tbl_ex_surplus.product_id = tbl_products.id 
+        join tbl_units on tbl_ex_surplus.unit_id = tbl_units.id
+        join tbl_gewogs on tbl_ex_surplus.gewog_id = tbl_gewogs.id
+        where tbl_transactions.status in ('S','E')";
+      
+
+       // dd($sql);
+     
+       //status of submission. 'S'.
+       $sql = $sql." and tbl_ex_surplus.gewog_id=".$user->gewog_id; 
+       
+       //date between.         
+       if(!empty($fromdate) && !empty($todate))
+       {
+          $sql = $sql. " and tbl_ex_surplus.harvestDate between '".$fromdate."' and '".$todate."'";   
+       } 
+       elseif(!empty($fromdate)){
+            $sql = $sql. " and tbl_ex_surplus.harvestDate >= '".$fromdate."'";   
+
+       }elseif( !empty($todate)) {
+           //only $todate is set.
+            $sql = $sql. " and tbl_ex_surplus.harvestDate <= '".$todate."'"; 
+
+       }
+       
+    //    dd($sql);
+
+        if(!empty($request->product_type))
+        {
+            $sql = $sql." and tbl_ex_surplus.productType_id = ".$request->product_type;
+        }
+
+        if(!empty($request->product))
+        {
+            $sql = $sql." and tbl_ex_surplus.product_id = ".$request->product;
+        }
+
+        //dd($sql);
+        
+        $surplus = DB::select($sql);
+
+        return view('extension_farmer.reports.reportdetails',compact('surplus','fromdate','todate','title'));
     }
 
     public function searchby_summary(){
@@ -113,7 +188,6 @@ class EXReportController extends Controller
         $summary = DB::select($sql);
        // dd($sql);
 
-        //dd($sql);
 
         return view('extension_farmer.reports.summaryreportdetails',compact('summary','tyear','tmonth'));
     }

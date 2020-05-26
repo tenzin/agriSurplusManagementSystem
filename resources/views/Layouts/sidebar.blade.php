@@ -29,9 +29,9 @@
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-      <li class="nav-item has-treeview">
-        <a href="#" class="nav-link">
-            <p>National Level</p>
+      <li class="nav-item has-treeview menu-open">
+        <a href="#">
+            <p>National/HQ</p>
         </a>
         <ul class="nav nav-treeview">
           <li class="nav-item">
@@ -40,7 +40,13 @@
               <p>Dashboard</p>
             </a>
           </li>
-        <ul>
+          <li class="nav-item">
+            <a href="/reports" class="nav-link">
+                <i class="far fa-plus-square"></i>
+               <p>National Reports</p>               
+            </a>
+        </li>
+      </ul>
       </li>
     </ul>
   </nav>
@@ -52,8 +58,8 @@
       <!--  Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
       <li class="nav-item has-treeview menu-open">
-        <a href="#" class="nav-link">
-           <p> Aggregator Level</p>
+        <a href="#">
+           <p> Aggregator/VSC</p>
         </a>
         <ul class="nav nav-treeview">
 
@@ -61,19 +67,12 @@
                     <li class="nav-item">
                       <a href="{{url('dashboard')}}" class="nav-link">
                       <i class="far fa-chart-bar"></i> 
-                        <p>Aggregator Dashboard</p>
+                        <p>Dashboard</p>
                       </a>
                     </li>
                 @endcan
 
-            @can('view_surplus_nation')
-                <li class="nav-item">
-                  <a href="{{route('view-surplus-nation')}}" class="nav-link">
-                  <i class="far fa-chart-bar"></i> 
-                    <p>Surplus - Nation</p>
-                  </a>
-                </li>
-               @endcan
+           
 
                 @can('aggregator_add_surplus')
                 <li class="nav-item">
@@ -91,7 +90,8 @@
                     </a>
                 </li>
               </li>
-
+              @endcan
+              @can('aggregator_view_report')
               <li class="nav-item">
                 <a href="{{route('aggregator_report')}}" class="nav-link">
                   <i class="nav-icon far fa-calendar-alt"></i>
@@ -109,6 +109,15 @@
                     </a>
                   </li>
                  @endcan
+
+                 @can('view_surplus_nation')
+                 <li class="nav-item">
+                   <a href="{{route('view-surplus-nation')}}" class="nav-link">
+                   <i class="far fa-chart-bar"></i> 
+                     <p>View Surplus - Aggregators</p>
+                   </a>
+                 </li>
+                @endcan
 
             @can('aggregator_demand_surplus')
             
@@ -139,30 +148,6 @@
               </li>
           </li>
           @endcan
-
-          
-
-          {{-- @can('aggregator_search_surplus')
-          <li class="nav-item">
-            <a href="{{route('scopefilter')}}" class="nav-link">
-                <i class="nav-icon far fa-calendar-alt"></i>
-                <p>
-                  Search and Claim
-                </p>
-              </a>
-            </li>
-          @endcan
-
-          @can('aggregator_view_search_surplus')
-            <li class="nav-item">
-              <a href="{{route('view_claim')}}" class="nav-link">
-                  <i class="nav-icon far fa-calendar-alt"></i>
-                  <p>
-                    View Claim
-                  </p>
-                </a>
-              </li>
-              @endcan --}}
         <ul>
       </li>
     </ul>
@@ -175,8 +160,8 @@
         <!--  Add icons to the links using the .nav-icon class
             with font-awesome or any other icon font library -->
         <li class="nav-item has-treeview menu-open">
-          <a href="#" class="nav-link">
-            <p>Extension Level</p>
+          <a href="#">
+            <p>Extension/LUC/Farmers Group</p>
           </a>
           <ul class="nav nav-treeview">
 
@@ -184,7 +169,7 @@
               <li class="nav-item"> 
                 <a href="{{url('dashboard')}}" class="nav-link">
                 <i class="far fa-chart-bar"></i> 
-                  <p>Extension Dashboard</p>
+                  <p>Dashboard</p>
                 </a>
               </li>
             @endcan
@@ -196,7 +181,6 @@
                 <p>Submit Surplus</p>
               </a>
             </li> 
-
             @endcan
 
             @can('view_extension_surplus')
@@ -206,12 +190,28 @@
                   <p>View Surplus</p>
                 </a>
               </li>
+              @endcan
+
+              @can('extension_view_report')
                 <li class="nav-item">
                   <a href="{{route('extension_report')}}" class="nav-link">
                     <i class="nav-icon far fa-calendar-alt"></i>
                     <p>View Report</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="{{route('extension_total')}}" class="nav-link">
+                    <i class="nav-icon far fa-calendar-alt"></i>
+                      <p>Total Surplus</p>
+                  </a>
+                </li>
+                {{-- <li class="nav-item">
+                  <a href="{{route('extension-summary')}}" class="nav-link">
+                    <i class="nav-icon far fa-calendar-alt"></i>
+                    <p>Summary Report</p>
+                  </a>
+                </li>    --}}
+            </li>
           @endcan
           <li class="nav-item">
             @can('extension_supply_history')
@@ -323,19 +323,6 @@
       <ul>
   </nav>
   @endcan
-
-  <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item has-treeview">
-              <a href="/reports" class="nav-link">
-                  <i class="nav-icon far fa-plus-square"></i>
-                 <p>Reports</p>               
-              </a>
-          </li>
-        </ul>
-      </nav>
-
-
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item has-treeview">

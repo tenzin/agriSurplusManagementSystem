@@ -5,14 +5,14 @@
     <!-- Content Header (Page header) -->
     <!-- CA detail report -->
 <div class="content-header">
-  <div class="card card-info">
+  <div class="card card">
     <div class="card-header">
       <div class="card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
       </div>
       <div class="row">
         <div class="col text-left">
-          <strong>Details of Surplus 
+          <strong>Details of Surplus Submitted
           @isset($gewogname)
             for the Gewog: {{$gewogname->gewog}}
           @endisset

@@ -106,15 +106,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-md-3 mb-3">
-            <label for="qty">Harvest Date<font color="red">*</font></label>
-            <input type="date" value="{{$individuals->harvestDate}}" class="form-control" name="harvestdate" id="harvestdate" required>
-            {{-- <input type="date" class="form-control" name="harvestdate" id ="harvestdate" placeholder ="Required Date"> --}}
-            <div class="invalid-feedback">
-                Please enter date of requirement.
-            </div>
-          
-      </div>
+         
       
       
       </div>
