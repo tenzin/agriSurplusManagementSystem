@@ -48,7 +48,7 @@ class DashboardController extends Controller
   
 
      // $this->adminDashboard();
-   } elseif($role=='Head Quater' || $role =='Agriculture Research Development Center') {
+   } elseif($role=='Headquarter' || $role =='Agriculture Research Development Center') {
 
       $date = Carbon::now()->format('Y-m-d');
 
