@@ -331,6 +331,14 @@
                  <p>Contact Us</p>
               </a>
           </li>
+
+          <li class="nav-item has-treeview">
+              <a href="{{route('dzongkhagreport')}}" class="nav-link">
+                  <i class="nav-icon far fa-plus-square"></i>
+                 <p>Dzongkhag/Thromde Report</p>
+              </a>
+          </li>
+
         </ul>
       </nav>
 </div>
