@@ -7,11 +7,11 @@
   {{-- <div class="card card-warning"> --}}
     <div class="card-header">
       <h2 class="text-center">Update Batch Details</h2>
-    <h5 class="text-center">Ref No.&nbsp;&nbsp;<b>{{$nextNumber}}</b></h5>
+    <h5 class="text-center">Ref No.&nbsp;&nbsp;<b>{{$data->refNumber}}</b></h5>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-      <form  method="POST" action={{route('batch-updatee',$nextNumber)}}>
+      <form  method="POST" action={{route('batch-updatee',$data->id)}}>
         @csrf
         <div class="row">
           <div class="col-sm-6">

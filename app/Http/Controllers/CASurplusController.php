@@ -235,6 +235,7 @@ class CASurplusController extends Controller
         ->first();
 
         $trans = $ref->id;
+        
 
         $supply = DB::table('tbl_cssupply')
                     ->where('refNumber', '=', $nextNumber)
@@ -643,29 +644,29 @@ class CASurplusController extends Controller
         
     }
 
-    public function batch_edit($nextNumber){
+    public function batch_edit($id){
 
         $user = auth()->user();
         $data =DB::table('tbl_transactions')
                     ->where('user_id', '=' , $user->id)
-                    ->where('tbl_transactions.refNumber','=', $nextNumber)
+                    ->where('tbl_transactions.id','=', $id)
                     ->first(); 
         // $data = Transaction::find($nextNumber);
     //    dd($data->refNumber);
         
-       $next = $nextNumber;
+      // $next = $nextNumber;
        
-        return view('ca_nvsc.surplus.batch-edit',compact('data','next'));
+        return view('ca_nvsc.surplus.batch-edit',compact('data'));
 
     }
 
-    public function update_batch(Request $request,$nextNumber){
+    public function update_batch(Request $request,$id){
 
         $user = auth()->user();
 
         DB::table('tbl_transactions')
         ->where('user_id', '=' , $user->id)
-        ->where('refNumber', $nextNumber)
+        ->where('id', $id)
         ->update([
                 'expiryDate' => $request->input('expiryday'),
                 'phone' => $request->input('phone'),
@@ -674,7 +675,7 @@ class CASurplusController extends Controller
                 'pickupdate' => $request->input('pickupdate')
                 ]);
 
-        return redirect('/ca_supply_temp');
+        return redirect('/ca-view');
         
     }
     
