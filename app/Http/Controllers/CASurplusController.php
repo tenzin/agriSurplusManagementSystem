@@ -645,15 +645,15 @@ class CASurplusController extends Controller
 
     public function batch_edit($nextNumber){
 
-
         $user = auth()->user();
         $data =DB::table('tbl_transactions')
                     ->where('user_id', '=' , $user->id)
                     ->where('tbl_transactions.refNumber','=', $nextNumber)
                     ->first(); 
         // $data = Transaction::find($nextNumber);
-       
-        $next = $nextNumber;
+    //    dd($data->refNumber);
+        
+       $next = $nextNumber;
        
         return view('ca_nvsc.surplus.batch-edit',compact('data','next'));
 
