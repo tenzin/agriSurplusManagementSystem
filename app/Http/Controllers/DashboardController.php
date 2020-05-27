@@ -9,6 +9,7 @@ use App\ProductType;
 use App\User;
 use App\Transaction;
 use App\EXSurplus;
+use App\Dzongkhag;
 use DB;
 use App\Cultivation;
 use Carbon\Carbon;
@@ -22,6 +23,13 @@ class DashboardController extends Controller
       $this->middleware('auth');
       $this->user = \Auth::user();
   }
+
+  public function view($id){
+
+      $user=auth()->user();
+      $supplyProducts = EXSurplus::find($id);
+   return view('dashboard.exsurplusview',compact('supplyProducts'));
+}
 
   public function index(Request $request) {
 
@@ -39,12 +47,7 @@ class DashboardController extends Controller
         $ca_usres= User::where('role_id', '4')->count();
         //dd($vsc);
         return view('dashboard.admindashboard',compact(
-           'farmers',
-           'extions',
-           'luc_users',
-           'ardc',
-           'vsc',
-           'ca_usres'));
+           'farmers', 'extions', 'luc_users', 'ardc', 'vsc', 'ca_usres'));
   
 
      // $this->adminDashboard();
@@ -244,15 +247,8 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
         }
 
         return view('dashboard.aggregatordashboard',compact(
-            'product',
-            'producttype',
-            'location',
-            'users_data',  
-            'ca',
-            'ex',
-            'luc',
-            'farmer',
-            'supplyProducts'
+            'product', 'producttype', 'location','users_data',  'ca',  'ex',  'luc',
+            'farmer', 'supplyProducts'
          ));
 }
 
@@ -332,11 +328,7 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
         return view('dashboard.extensiondashboard',compact(
            'user_ca','producttype','product',
            'veg_count','fruit_count','dairy_count','livestock_count','nwfp_count','maps_count','cereal_count',
-           'surplus_count','producttype',
-           'product',
-           'user_ca',
-           'area_uc',
-           'area_hravested'
+           'surplus_count','producttype', 'product',  'user_ca', 'area_uc','area_hravested'
 
          ));
     }
