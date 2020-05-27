@@ -113,8 +113,8 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
 
        
       //Batch Update and Edit Route
-      Route::get('batch-editi/{nextNumber}',['as'=>'batch-editi','uses'=>'CASurplusController@batch_edit']);
-      Route::post('batch-updatee/{nextNumber}',['as'=>'batch-updatee','uses'=>'CASurplusController@update_batch']);
+      Route::get('batch-editi/{next}',['as'=>'batch-editi','uses'=>'CASurplusController@batch_edit']);
+      Route::post('batch-updatee/{next}',['as'=>'batch-updatee','uses'=>'CASurplusController@update_batch']);
 
       //Update to Zero Route
       Route::get('update/{id}',['as'=>'update','uses'=>'CASurplusController@zero']);
@@ -290,8 +290,6 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
             Auth::User()->unReadNotifications->markAsRead();
             return redirect()->back();
       })->name('read');
-
-      
 
       //Dzongkhag/Thromde Reports.
       Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);

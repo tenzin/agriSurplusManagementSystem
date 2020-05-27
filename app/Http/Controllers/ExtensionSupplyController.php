@@ -442,7 +442,7 @@ class ExtensionSupplyController extends Controller
                     ->where('tbl_transactions.refNumber','=', $nextNumber)
                     ->first(); 
         // $data = Transaction::find($nextNumber);
-        // dd($data);
+        
         $next = $nextNumber;
         // dd($next);
         return view('extension_farmer.supply.batch-edit',compact('data','next'));
