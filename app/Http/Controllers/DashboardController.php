@@ -31,6 +31,7 @@ class DashboardController extends Controller
    return view('dashboard.exsurplusview',compact('supplyProducts'));
 }
 
+
   public function index(Request $request) {
 
    $role = \Auth::user()->role->role;
@@ -252,7 +253,7 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
          ));
 }
 
- elseif($role=='Gewog Extension officer' || $role=='Land User Certificate' || $role = 'Farmer Group' ) {
+ elseif($role=='Gewog Extension officer' || $role=='Land User Certificate' || $role == 'Farmer Group' ) {
 
    $producttype = ProductType::all();
    $product = Product::all();
@@ -304,14 +305,6 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
                    ->where('productType_id','7')
                    ->SUM('quantity');
 
-
-      //    $surplus_count=DB::table('tbl_ex_surplus as s')
-      //       ->join('tbl_transactions as t', 's.refNumber', '=', 't.refNumber')
-      //       ->where(DB::raw('month(t.submittedDate)'), '=', date('n'))
-      //       ->where('s.gewog_id', '=', $g)
-      //       //->select(db::raw('month(t.submittedDate) as month'))
-      //       ->count();
-
       for($i=0;$i < 12;$i++)
       {
             $surplus=DB::table('tbl_ex_surplus as s')
@@ -332,5 +325,18 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
 
          ));
     }
-   }
+  
+  
+    elseif( $role=='Dzongkhag Agriculture Officer'){
+          
+            $d=auth()->user()->dzongkhag_id;
+            
+            $causer = User::where('dzongkhag_id', '=', $d)
+                           ->where('role_id', '=', 4)->get(); 
+            $exuser = User::where('dzongkhag_id', '=', $d)
+                           ->where('role_id', '=', 7)->get(); 
+      
+         return view('dashboard.daodashboard',compact('causer','exuser'));
+    }
+  }
 }
