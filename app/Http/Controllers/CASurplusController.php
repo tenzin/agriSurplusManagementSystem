@@ -677,5 +677,5 @@ class CASurplusController extends Controller
         return redirect('/ca_supply_temp');
         
     }
-
+    
 }

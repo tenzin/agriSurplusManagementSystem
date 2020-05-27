@@ -30,7 +30,10 @@ Route::get('/gewog_map','MapController@index');
 Route::group(['middleware' => 'auth'], function () {
 
       // Dashboard
-      Route::get('/dashboard', 'DashboardController@index');
+      Route::get('/dashboard',['as'=>'dashboard','uses'=>'DashboardController@index']);  
+      //CA route for view the EX surplus
+      Route::get('exsurplus-view/{id}',['as'=>'exsurplus-view','uses'=>'DashboardController@view']);
+      
       Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
       Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
 
@@ -108,6 +111,7 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('supply-history','CASurplusController@ca_show_history')->name('supply-history')->middleware('can:aggregator_supply_history,Auth::user()');
       Route::get('showe/{id}','CASurplusController@ca_show')->name('showe');
 
+       
       //Batch Update and Edit Route
       Route::get('batch-editi/{nextNumber}',['as'=>'batch-editi','uses'=>'CASurplusController@batch_edit']);
       Route::post('batch-updatee/{nextNumber}',['as'=>'batch-updatee','uses'=>'CASurplusController@update_batch']);

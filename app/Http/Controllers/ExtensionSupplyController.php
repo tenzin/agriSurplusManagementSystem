@@ -13,6 +13,7 @@ use App\Product;
 use App\Unit;
 use App\User;
 use App\Gewog;
+use App\CASupply;
 use Session;
 use Carbon\Carbon;
 
@@ -689,8 +690,5 @@ class ExtensionSupplyController extends Controller
         return redirect()->back()->with('success','Added successfully');
         
     }
-
-
-   
     
 }
