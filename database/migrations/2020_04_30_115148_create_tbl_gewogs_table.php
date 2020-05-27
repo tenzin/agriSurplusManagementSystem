@@ -19,7 +19,7 @@ class CreateTblGewogsTable extends Migration
             $table->foreignId('dzongkhag_id')->constrained()->references('id')->on('tbl_dzongkhags')->onDelete('cascade');
             $table->string('gewog');
             $table->string('latitude')->nullable();
-            $table->string('longitude')->nunable();
+            $table->string('longitude')->nullable();
             $table->timestamps();
         });
     }
