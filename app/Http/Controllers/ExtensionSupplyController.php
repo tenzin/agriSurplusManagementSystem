@@ -505,7 +505,8 @@ class ExtensionSupplyController extends Controller
                 'status' => $request->input('status'),
                 'harvestDate' => $request->input('harvestDate'),
                 'gewog_id' => $user->gewog_id,
-                'dzongkhag_id' => $user->dzongkhag_id
+                'dzongkhag_id' => $user->dzongkhag_id,
+                'trans_id' => $request->input('trans_id')
 
             ]);
         }
@@ -601,6 +602,7 @@ class ExtensionSupplyController extends Controller
     {  
         $user=auth()->user();
         $row = EXSurplus::find($id);
+
         $test =$row->refNumber;
        
         $table = DB::table('tbl_transactions')

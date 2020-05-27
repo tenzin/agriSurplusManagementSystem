@@ -7,7 +7,7 @@
   <h5>Ref. No: <b>{{$nextNumber}}</b></h5>
   <hr>
 </div>
-{{-- {!! Form::open(['action' => ['DemandController@update',$individuals->id],'method' => 'POST','enctype'=>'multipart/form-data']) !!} --}}
+
 <form method="POST" action={{route('ca-update',$individuals->id)}}  >
     @csrf
 <div class="row">
@@ -69,7 +69,7 @@
       </div>
 
       <div class="row">
-          <div class="col-md-3 mb-3">
+          <div class="col-md-4 mb-3">
               <label for="qty">Quantity*</label>
               <input type="text" value="{{ $individuals->quantity}}" class="form-control" name="quantity" id="quantity" required>
               {{-- {{Form::text('quantity',$demand->quantity,['class'=>'form-control','id'=>'quantity', 'placeholder' =>'Quantity'])}} --}}
@@ -77,7 +77,7 @@
                   Please enter Quantity.
               </div>
           </div>
-          <div class="col-md-3 mb-3">
+          <div class="col-md-4 mb-3">
               <label for="unit">Unit*</label>
               <div class="input-group">
                   <select class="custom-select d-block w-100" id="unit" name="unit" required>
@@ -93,7 +93,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-md-3 mb-3">
+          <div class="col-md-4 mb-3">
               <label for="unit">Price* (tentative)</label>
               <div class="input-group">
                   <div class="input-group-prepend">

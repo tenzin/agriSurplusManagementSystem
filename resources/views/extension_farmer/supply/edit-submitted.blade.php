@@ -19,6 +19,8 @@
 @csrf
 <div class="form-group row">
   <input type="hidden" id="refno" name="refno" value="{{$demand->refNumber}}"/>
+  {{-- <input type="hidden" id="refno" name="refno" value="{{$demand->refNumber}}"/> --}}
+  <input type="text" id="trans_id" name="trans_id" value="{{$demand->trans_id}}"/>
   <div class="col-md-12 order-md-1">
     <h4 class="mb-3">Product details</h4>
     <form class="needs-validation" novalidate>
