@@ -35,7 +35,7 @@
                   <div class="input-group-prepend">
                       <span class="input-group-text">Pickup Point</span>
                   </div>
-                  <input type="text" class="form-control" name="phone" id ="phone" readonly value={{$table->location}}>
+                  <input type="text" class="form-control" name="locations" id ="locations" readonly value="{{$table->location}}">
                 </div>    
               </div>
               <div class="col-md-6 mb-3">
@@ -51,11 +51,11 @@
       <div class="form-group row">
         <div class="col-md-6 mb-3">
           <label >Product Type</label>
-          <input type="text" class="form-control" name="product" id ="product" readonly value={{$row->product->productType->type}}>
+          <input type="text" class="form-control" name="product" id ="product" readonly value="{{$row->product->productType->type}}">
         </div>
         <div class="col-md-6 mb-3">
           <label >Product</label>
-          <input type="text" class="form-control" name="producttype" id ="producttype" readonly value={{$row->product->product}}>
+          <input type="text" class="form-control" name="producttype" id ="producttype" readonly value="{{$row->product->product}}">
         </div>
       </div>
 
@@ -71,7 +71,7 @@
             </div> 
           <div class="col-md-6 mb-3">
               <label for="qty">Quantity</label>
-              <input type="text" class="form-control" name="quantity" id ="quantity" readonly value={{$row->quantity.' '.$row->unit->unit}}>
+              <input type="text" class="form-control" name="quantity" id ="quantity" readonly value="{{$row->quantity.' '.$row->unit->unit}}">
           </div> 
        </div>
 
@@ -95,9 +95,9 @@
       
       
          <div class="form-group row mb-0">
-           <div class="col-md-6 offset-md-6">
+           {{-- <div class="col-md-6 offset-md-6">
               <a class="btn btn-primary btn-sm" href="{{ route('view_supply_details')}}">Next</a>
-            </div>
+            </div> --}}
             <hr> 
         </div>
     </form>

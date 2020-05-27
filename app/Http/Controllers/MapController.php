@@ -14,9 +14,9 @@ class MapController extends Controller
         $gewogs=DB::table('tbl_gewogs')
                     //->where('tbl_gewogs.id','=','users.gewog_id')
                     ->join('users','tbl_gewogs.id','=','users.gewog_id')
-                    ->select('gewog', 'latitude', 'longitude', 'users.name', 'users.contact_number')
+                    ->select('gewog', 'tbl_gewogs.latitude', 'tbl_gewogs.longitude', 'users.name', 'users.contact_number')
                     ->get();
-        //dd($gewogs);
+       
 
         return Response::json(array(
             'status' => 'success',

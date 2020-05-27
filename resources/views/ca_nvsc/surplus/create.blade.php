@@ -121,9 +121,9 @@
       <button class="btn btn-primary btn-lg btn-block" type="submit">ADD NEW</button><br>
       <div class="jumbotron py-3" style="background-color: orange">
       <h3>Important!!!</h3>
-          <i>Your demand list are saved temporarily. Unless it is submitted, other 
+          <i>Your Surplus list are saved temporarily. Unless it is submitted, other 
             potential suppliers cannot view it. 
-            You must <b>SUBMIT</b> your demand list inorder to viewed by others.</i><br>
+            You must <b>SUBMIT</b> your Surplus list inorder to viewed by others.</i><br>
           <p><a class="btn btn-success btn-lg text-white py-1" onclick="myFunction()">Submit</a></p>
       </div>
     </form>

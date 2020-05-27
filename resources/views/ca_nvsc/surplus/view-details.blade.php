@@ -26,7 +26,7 @@
              <div class="input-group-prepend">
                  <span class="input-group-text">CA Number</span>
              </div>
-                  <input type="text" class="form-control" name="phone" id ="phone" readonly value={{$table->contact_number}}>
+                  <input type="text" class="form-control" name="phone" id ="phone" readonly value="{{$table->contact_number}}">
            </div>
          </div>
        </div>
@@ -52,11 +52,11 @@
  <div class="form-group row">
    <div class="col-md-6 mb-3">
      <label >Product Type</label>
-     <input type="text" class="form-control" name="product" id ="product" readonly value={{$row->product->productType->type}}>
+     <input type="text" class="form-control" name="product" id ="product" value="{{$row->product->productType->type}}" readonly >
    </div>
    <div class="col-md-6 mb-3">
      <label >Product</label>
-     <input type="text" class="form-control" name="producttype" id ="producttype" readonly value={{$row->product->product}}>
+     <input type="text" class="form-control" name="producttype" id ="producttype" value="{{$row->product->product}}" readonly >
    </div>
  </div>
 
@@ -72,16 +72,12 @@
        </div> 
      <div class="col-md-6 mb-3">
          <label for="qty">Quantity</label>
-         <input type="text" class="form-control" name="quantity" id ="quantity" readonly value={{$row->quantity.' '.$row->unit->unit}}>
+         <input type="text" class="form-control" name="quantity" id ="quantity" readonly value="{{$row->quantity.' '.$row->unit->unit}}">
      </div> 
   </div>
 
  <div class="form-group row">  
   
-     {{-- <div class="col-md-6 mb-3">
-         <label for="unit">HarvestDate</label>
-           <input type="date" class="form-control" name="harvestdate" id ="harvestdate" readonly value={{$row->harvestDate}}>     
-     </div> --}}
      <div class="col-md-6 mb-3">
          <label for="unit">PickupDate(Tentative)</label>
           <input type="date" class="form-control" name="pickupdate" id ="pickupdate" readonly value={{$table->pickupdate}}>    
@@ -94,14 +90,6 @@
    </div>
 
    
- 
- 
-    {{-- <div class="form-group row mb-0">
-      <div class="col-md-6 offset-md-6">
-         <a class="btn btn-primary btn-sm" href="{{ route('view_surplus_details')}}">Next</a>
-       </div>
-       <hr> 
-   </div> --}}
 </form>
 </div>
 </div>

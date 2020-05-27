@@ -22,7 +22,7 @@
           </div> 
           <div class="form-group">
             <label>Estimated Output:&nbsp;<font color="red">*</font></label>
-            <input id="output" type="text" class="form-control" name="output"  maxlength="5" placeholder="Enter the Price Per Kg" required/>
+            <input id="output" type="text" class="form-control" name="output"  maxlength="5" placeholder="Enter Estimated Output" required/>
           </div>
         </div>
         

@@ -13,6 +13,7 @@ use App\Product;
 use App\Unit;
 use App\User;
 use App\Gewog;
+use App\CASupply;
 use Session;
 use Carbon\Carbon;
 
@@ -441,7 +442,7 @@ class ExtensionSupplyController extends Controller
                     ->where('tbl_transactions.refNumber','=', $nextNumber)
                     ->first(); 
         // $data = Transaction::find($nextNumber);
-        // dd($data);
+        
         $next = $nextNumber;
         // dd($next);
         return view('extension_farmer.supply.batch-edit',compact('data','next'));
@@ -505,7 +506,8 @@ class ExtensionSupplyController extends Controller
                 'status' => $request->input('status'),
                 'harvestDate' => $request->input('harvestDate'),
                 'gewog_id' => $user->gewog_id,
-                'dzongkhag_id' => $user->dzongkhag_id
+                'dzongkhag_id' => $user->dzongkhag_id,
+                'trans_id' => $request->input('trans_id')
 
             ]);
         }
@@ -601,6 +603,7 @@ class ExtensionSupplyController extends Controller
     {  
         $user=auth()->user();
         $row = EXSurplus::find($id);
+
         $test =$row->refNumber;
        
         $table = DB::table('tbl_transactions')
@@ -687,8 +690,5 @@ class ExtensionSupplyController extends Controller
         return redirect()->back()->with('success','Added successfully');
         
     }
-
-
-   
     
 }

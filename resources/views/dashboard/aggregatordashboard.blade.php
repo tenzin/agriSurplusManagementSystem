@@ -55,10 +55,10 @@
    <hr>
 
    <form action="{{ url()->current() }}" method="GET">
-   <div class="row justify-content-center">
-         <div class="col-md-3 mb-3">
+   <div class="row">
+         <div class="col-md-4 mb-3">
           <select name="crop" class="form-control">
-            <option value="">--Select Crop Type--</option>
+            <option value="">Select Crop Type</option>
             @foreach($producttype as $type)
                 <option value="{{$type->id}}" {{ Request::get('crop') == $type->id ? 'selected' : '' }}>{{$type->type}}</option>
             @endforeach
@@ -68,17 +68,17 @@
           <button type="submit" class="btn btn-success"><i class="fa fa-search"></i> </button>
           <a href="{{ url()->current() }}" class="btn btn-danger"><i class="fa fa-undo"></i> </a>
         </div>
-         <div class="col col-md-auto">
+
+         <div class="col-md-auto">
             <label>FilterBy Date:</label>
          </div>
-         <div class="col-md-2 mb-3">
+         <div class="col-md-3 mb-3">
             <div class="input-group">
                <input type="date" class="form-control" name="date" id ="date">
             </div>
          </div>
          </div>
       </div>
-   
     </form> 
    <hr>
 
@@ -92,20 +92,23 @@
             <table id="example1" class="table table-hover table-bordered table-striped">
                <thead>
                   <tr>
+                     <th>Sl.No</th>
                      <th>Product</th>
                      <th>Dzongkhag</th> 
                      <th>Gewog</th>
+                     <th>SubmittedDate</th>
                      <th>Action</th>
-                     {{-- <th>Date</th> --}}
                   </tr>
                </thead>
-                 @foreach($supplyProducts as $p)
+                 @foreach($supplyProducts as $row)
                  <tr>
-                     <td>{{$p->product->product}}</td>
-                     <td>{{$p->gewog->dzongkhag->dzongkhag}}</td>
-                     <td>{{$p->gewog->gewog}}</td> 
-                     <td></td>  
-                     {{-- <td>{{$p->transaction->submittedDate}}</td>  --}}
+                     <td>{{$loop->iteration}}</td>
+                     <td>{{$row->product->product}}</td>
+                     <td>{{$row->gewog->dzongkhag->dzongkhag}}</td>
+                     <td>{{$row->gewog->gewog}}</td> 
+                     <td>{{$row->transaction->submittedDate}}</td> 
+                     <td> <a href="{{route('exsurplus-view',$row->id)}}">
+                    <i class="fa fa-eye" aria-hidden="true"> </i>View</a></td>  
                  </tr>
                 @endforeach
             </table>
@@ -175,25 +178,8 @@ $(document).ready(function() {
        $('#date').on('change', function () {
           table.columns(4).search( this.value ).draw();
    });
-
- });
-
-//  function getValue(){
-//     var name = document.getElementById("location");
-//     var displayvalue= name.options[name.selectedIndex].text;
-//     document.getElementById("place").value=displayvalue;
-//  }
-
-
-//  function search() {
-//    if(!empty("product")
-//       alert('Sorry:Please, Select atleast a option!!!');
-//         } else if (!empty("location"))
-//          alert('Sorry: You cannot Search the Surplus by Location!!Please,Aslo Select the Product-Type!');
-//             }
-//         }
-//     }
- </script>
+});
+</script>
  @endsection
  
  
