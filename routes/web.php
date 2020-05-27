@@ -30,12 +30,16 @@ Route::get('/gewog_map','MapController@index');
 Route::group(['middleware' => 'auth'], function () {
 
       // Dashboard
-      Route::get('/dashboard',['as'=>'dashboard','uses'=>'DashboardController@index']);  
+      Route::get('/dashboard',['as'=>'dashboard','uses'=>'DashboardController@index']); 
+
       //CA route for view the EX surplus
       Route::get('exsurplus-view/{id}',['as'=>'exsurplus-view','uses'=>'DashboardController@view']);
-      
+      //National report
       Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
       Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
+
+      //DAO report
+
 
 Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
 
