@@ -172,7 +172,8 @@ class AccessControlListController extends Controller
         $insert->isStaff=$request->staff;
         $insert->email=$request->email;
         $insert->password=Hash::make($request->password);
-        // $insert->submitted_by=Auth::user()->id;
+        $insert->longitude=$request->longitude;
+        $insert->latitude=$request->latitude;
         $insert->save();
        
         return redirect('system-user')->with('success','Added successfully');

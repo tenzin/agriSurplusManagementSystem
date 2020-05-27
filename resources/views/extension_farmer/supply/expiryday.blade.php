@@ -34,7 +34,7 @@
             <!-- textarea -->
             <div class="form-group">
               <label for="pickupdate">Pickup Date<font color="red">*</font>:</label>
-              <input type="date" class="form-control" name="pickupdate" id ="pickupdate"  required>
+              <input type="date" class="form-control" name="pickupdate" id ="pickupdate" placeholder="yyyy-mm-dd" required>
             </div>
           </div>
           <div class="col-sm-6">

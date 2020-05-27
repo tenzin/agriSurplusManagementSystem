@@ -20,7 +20,7 @@
                 </div> 
 
                 <div class="col-md-3 mb-3">
-                 <label>FarmGet Price</label>
+                 <label>Farm Gate Price</label>
                  <div class="input-group">
                  <div class="input-group-prepend">
                      <span class="input-group-text">Nu.</span>

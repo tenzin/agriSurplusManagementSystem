@@ -67,7 +67,7 @@ class DashboardController extends Controller
         $area_uc = Cultivation::where('status','=', '0')->with('product','c_unit')->get();
         $area_hravested = Cultivation::where('status','=', '1')->with('product','e_unit')->get();
 
-        $last_row = EXSurplus::with('product','unit','gewog')->latest()->take(5)->get();
+        $last_row = EXSurplus::with('product','unit','gewog')->where('quantity','>',0)->latest()->take(5)->get();
 
          $farmers = User::where('role_id','9')->count();
          $extions = User::where('role_id','7')->count();
@@ -221,6 +221,14 @@ class DashboardController extends Controller
      
 elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
 
+      $date = Carbon::now()->format('Y-m-d');
+
+      Transaction::where('expiryDate', '<', $date)
+         ->where('status','=', 'S')
+         ->update([
+           'status' => 'E'
+        ]);
+        
    $d=auth()->user()->dzongkhag_id;
       $user = Auth()->user();
       $product = Product::all();
@@ -252,7 +260,16 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
          ));
 }
 
- elseif($role=='Gewog Extension officer' || $role=='Land User Certificate' || $role = 'Farmer Group' ) {
+ elseif($role=='Gewog Extension officer' || $role=='Land User Certificate' || $role == 'Farmer Group' ) {
+
+
+      $date = Carbon::now()->format('Y-m-d');
+
+      Transaction::where('expiryDate', '<', $date)
+         ->where('status','=', 'S')
+         ->update([
+           'status' => 'E'
+        ]);
 
    $producttype = ProductType::all();
    $product = Product::all();
