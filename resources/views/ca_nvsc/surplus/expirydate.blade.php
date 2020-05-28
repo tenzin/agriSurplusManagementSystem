@@ -25,12 +25,7 @@
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="phone">Phone<small>(Contact number)</small><font color="red">*</font>:</label>
-<<<<<<< HEAD
-                <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==8) return false;" class="form-control" name="phone" id="phone"  required/>
-                {{-- <input type="text"  class="form-control" name="phone" id="phone"  maxlength= 8 required> --}}
-=======
                 <input type="text" class="form-control" name="phone" id="phone"  maxlength= 8 required>
->>>>>>> Dashboard
               </div>
             </div>
           </div>
@@ -46,11 +41,7 @@
               <!-- textarea -->
               <div class="form-group">
                 <label for="location">Location<small>(Pick Up Locations)</small><font color="red">*</font>:</label>
-<<<<<<< HEAD
-                <input type="text"  class="form-control" name="location" id="location"  required>
-=======
                 <input type="text"  class="form-control" name="location" id="location" maxlength= 15 required>
->>>>>>> Dashboard
               </div>
             </div>
           </div>
@@ -65,7 +56,7 @@
           <hr> 
           <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-6">
-              <button type="submit" onclick="onClick(document.form1)" class="btn btn-primary">Save</button>
+              <button type="submit" class="btn btn-primary">Save</button>
             </div>
              </div>
          </div>
