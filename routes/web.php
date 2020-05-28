@@ -40,8 +40,6 @@ Route::group(['middleware' => 'auth'], function () {
       Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
       Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
 
-      //DAO report
-
 
 Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
 
@@ -56,8 +54,8 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       Route::get('surplus-delete/{id}','ExtensionSupplyController@destroy');
 
       //Batch Info Update and Edit Route
-      Route::get('batch-edit/{next}',['as'=>'batch-edit','uses'=>'ExtensionSupplyController@batch_edit']);
-      Route::post('batch-update/{next}',['as'=>'batch-update','uses'=>'ExtensionSupplyController@update_batch']);
+      Route::get('batch-edit/{id}',['as'=>'batch-edit','uses'=>'ExtensionSupplyController@batch_edit']);
+      Route::post('batch-update/{id}',['as'=>'batch-update','uses'=>'ExtensionSupplyController@update_batch']);
 
       //Update to Zero Route
       Route::get('updatee/{id}',['as'=>'updatee','uses'=>'ExtensionSupplyController@zero']);
@@ -119,8 +117,8 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
 
        
       //Batch Update and Edit Route
-      Route::get('batch-editi/{next}',['as'=>'batch-editi','uses'=>'CASurplusController@batch_edit']);
-      Route::post('batch-updatee/{next}',['as'=>'batch-updatee','uses'=>'CASurplusController@update_batch']);
+      Route::get('batch-editi/{id}',['as'=>'batch-editi','uses'=>'CASurplusController@batch_edit']);
+      Route::post('batch-updatee/{id}',['as'=>'batch-updatee','uses'=>'CASurplusController@update_batch']);
 
       //Update to Zero Route
       Route::get('update/{id}',['as'=>'update','uses'=>'CASurplusController@zero']);
@@ -297,7 +295,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
             return redirect()->back();
       })->name('read');
 
-      //Dzongkhag/Thromde Reports.
-      Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
-      Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
-      
+     //Dzongkhag Reports.
+     Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
+     Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
+     

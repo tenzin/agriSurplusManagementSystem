@@ -433,29 +433,29 @@ class ExtensionSupplyController extends Controller
     }
 
 
-    public function batch_edit($nextNumber){
+    public function batch_edit($id){
 
         $user = auth()->user();
 
         $data =DB::table('tbl_transactions')
                     ->where('user_id', '=' , $user->id)
-                    ->where('tbl_transactions.refNumber','=', $nextNumber)
+                    ->where('tbl_transactions.id','=', $id)
                     ->first(); 
         // $data = Transaction::find($nextNumber);
         
-        $next = $nextNumber;
+        // $next = $nextNumber;
         // dd($next);
-        return view('extension_farmer.supply.batch-edit',compact('data','next'));
+        return view('extension_farmer.supply.batch-edit',compact('data'));
 
     }
 
-    public function update_batch(Request $request,$nextNumber){
+    public function update_batch(Request $request,$id){
 
         $user = auth()->user();
 
         DB::table('tbl_transactions')
         ->where('user_id', '=' , $user->id)
-        ->where('refNumber', $nextNumber)
+        ->where('id', $id)
         ->update([
                 'expiryDate' => $request->input('expiryday'),
                 'phone' => $request->input('phone'),
@@ -464,7 +464,7 @@ class ExtensionSupplyController extends Controller
                 'pickupdate' => $request->input('pickupdate')
                 ]);
 
-        return redirect('/ex_supply_temp');
+        return redirect('/surplus-view');
         
     }
 

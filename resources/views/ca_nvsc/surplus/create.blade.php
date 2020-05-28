@@ -7,7 +7,7 @@
                   <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
                   {{-- <p class="lead">Enter Surplus Information.</p> --}}
                   <p class="lead">Enter the Product Surplus from Your Dzongkhag.</p>
-                  <a href="{{route('batch-editi',$nextNumber)}}">
+                  <a href="{{route('batch-editi',$ref->id)}}">
                     <h5>
                     <i class="fa fa-edit"> </i>Batch Info:&nbsp;&nbsp;</h5></a><h6>Phone:&nbsp;<b>{{$ref->phone}}</b>&nbsp;&nbsp;Expiry_Date:&nbsp;<b>{{$ref->expiryDate}}</b>&nbsp;&nbsp;Locations:&nbsp;<b>{{$ref->location}}</b>&nbsp;&nbsp;PickupDate:&nbsp;<b>{{$ref->pickupdate}}</b></h6>
               <hr>
