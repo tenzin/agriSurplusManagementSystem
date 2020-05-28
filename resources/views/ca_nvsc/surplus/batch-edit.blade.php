@@ -11,6 +11,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
+      @include('Layouts.message') 
       <form  method="POST" action={{route('batch-updatee',$data->id)}}>
         @csrf
         <div class="row">

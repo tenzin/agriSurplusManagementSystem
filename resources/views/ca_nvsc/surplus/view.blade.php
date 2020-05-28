@@ -8,6 +8,7 @@
   <div class="row">
       <div class="col-md">
           <div class="card">
+            @include('Layouts.message') 
               <div class="card-header"><center><p class="text-muted">{{$msg}}</p></center>
                 {{-- <hr/>
               <a class="btn btn-primary" href="{{route('add-permission')}}">Add a new Product</a> --}}
@@ -87,7 +88,7 @@
             alert('Unsuccessful: To submit the demand you need at least one or more product!');
         } else {
             //show some type of message to the user
-            if (confirm('Are you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
+            if (confirm('Are you sure you want to submit your Surplus list?'))  {
               var id = document.getElementById("refnumber").value;
               $.get('/json-submit-supply?ref_number=' + id, function(data){
                 window.location = "/date/";

@@ -180,12 +180,12 @@ class CASurplusController extends Controller
                     ->where('dzongkhag_id','=',$user->dzongkhag_id)
                     ->where('refNumber', 'Like' , '%'.$refno.'%')
                     ->max('refNumber');
-                    // dd($max);
+                     dd($max);
             $number = substr($max,1,12);
             $number=$number+1;
             $nextNumber = $type.$number;
         }
-       
+
         $expiry = $request->expiryday;
             
         //------Save Referance Number---
@@ -293,7 +293,7 @@ class CASurplusController extends Controller
         Session::put('View_status', 'V');
         return view('ca_nvsc.surplus.view')->with('supply',$supply)
                                             ->with('nextNumber',$refno2)
-                                            ->with('msg','Your demand(s) not submitted');
+                                            ->with('msg','Your Surplus(s) not submitted');
 
         // $refno =session('NextNumber');
         // $refno1 = str_replace('[{"refNumber":"','',$refno);
@@ -576,7 +576,7 @@ class CASurplusController extends Controller
                     ->paginate(15);
 
         return view('ca_nvsc.surplus.view-history')->with('supply',$data)
-                                                   ->with('msg','Your demand history');
+                                                   ->with('msg','Your Surplus History');
     }
 
 

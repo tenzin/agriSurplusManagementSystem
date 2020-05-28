@@ -12,6 +12,7 @@
       </div>
       <!-- /.card-header -->
       <div class="card-body">
+        @include('Layouts.message') 
         <form  method="POST" action={{route('store')}}>
           @csrf
           <div class="row">
@@ -41,7 +42,7 @@
               <!-- textarea -->
               <div class="form-group">
                 <label for="location">Location<small>(Pick Up Locations)</small><font color="red">*</font>:</label>
-                <input type="text"  class="form-control" name="location" id="location" required>
+                <input type="text"  class="form-control" name="location" id="location" maxlength= 10 required>
               </div>
             </div>
           </div>
@@ -66,36 +67,5 @@
       </div>
       <!-- /.card-body -->
     </div>
-  
-
-{{-- <div class="lockscreen-wrapper">
-    <div class="lockscreen-logo">
-      <a href="../../index2.html"><b>Expiry_</b>Day</a>
-    </div>
-    <!-- START LOCK SCREEN ITEM -->
-    <div class="lockscreen-item">
-         <!-- lockscreen image -->
-    <div class="lockscreen-image">
-        <img src="{{asset('images/logo.jpg')}}" alt="User Image">
-      </div>
-      <!-- lockscreen credentials (contains the form) -->
-      <form class="lockscreen-credentials" method="POST" action={{route('store')}}>
-        @csrf
-        <div class="input-group">
-          
-          <input type="text" class="form-control" placeholder="Please enter expiry day" maxlength="2" name="expirydate" id="expirydate" required/>
-  
-          <div class="input-group-append">
-            <button type="submit" class="btn"><i class="fas fa-arrow-right text-muted"></i></button>
-          </div>
-        </div>
-      </form>
-      <!-- /.lockscreen credentials -->
-  
-    </div>
-    <!-- /.lockscreen-item -->
-    <div class="help-block text-center">
-      Enter Expiry Day for this batch of product
-    </div>
-  </div> --}}
+ 
 @endsection

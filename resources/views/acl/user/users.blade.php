@@ -12,16 +12,7 @@
             </div>
             <!--card header-->
             <div class="card-body">
-               @if (session('success'))
-               <div class="alert alert-success" id="session_message">
-                  {{ session('success') }}
-               </div>
-               @endif
-               @if (session('error'))
-               <div class="alert alert-warning" id="session_message">
-                  {{ session('error') }}
-               </div>
-               @endif
+               @include('Layouts.message') 
                <table id="example1" class="table table-bordered table-striped">
                   <thead>
                      <tr>

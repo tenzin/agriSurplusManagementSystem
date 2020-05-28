@@ -8,6 +8,7 @@
              <h5>Ref. No:&nbsp;<b>{{$row->refNumber}}</b></h5>
          <hr>
    </div>
+   @include('Layouts.message') 
  <div class="row justify-content-center">
  <form>
    <div class="col-md-12 order-md-1">

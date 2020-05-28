@@ -7,7 +7,7 @@
   <h5>Ref. No: <b>{{$nextNumber}}</b></h5>
   <hr>
 </div>
-
+@include('Layouts.message') 
 <form method="POST" action={{route('ca-update',$individuals->id)}}  >
     @csrf
 <div class="row">

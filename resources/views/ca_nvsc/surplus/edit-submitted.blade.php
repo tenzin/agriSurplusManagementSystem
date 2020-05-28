@@ -14,6 +14,7 @@
     <h5>Ref. No: <b>{{$supply->refNumber}}</b></h5>
     <hr>
  @endforeach
+ @include('Layouts.message') 
 </div>
 <div class="row justify-content-center">
 <form method="POST" action="{{route('update_submited',$supply->id)}}" >
