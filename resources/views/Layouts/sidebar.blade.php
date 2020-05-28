@@ -30,7 +30,7 @@
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
       <li class="nav-item has-treeview menu-open">
-        <a href="#">
+        <a href="">
             <p>National/HQ</p>
         </a>
         <ul class="nav nav-treeview">
@@ -58,7 +58,7 @@
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
       <li class="nav-item has-treeview menu-open">
-        <a href="#">
+        <a href="">
             <p>Dzongkhag Agriculture Officer</p>
         </a>
         <ul class="nav nav-treeview">
@@ -87,7 +87,7 @@
       <!--  Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
       <li class="nav-item has-treeview menu-open">
-        <a href="#">
+        <a href="">
            <p> Aggregator/VSC</p>
         </a>
         <ul class="nav nav-treeview">
@@ -158,8 +158,7 @@
           </li>
             @endcan
 
-            @can('aggregator_demand_history')
-            
+            @can('aggregator_demand_history') 
           <li class="nav-item">
             <a href="{{route('demand-history')}}" class="nav-link">
             <i class="fas fa-shopping-cart"> </i> &nbsp;
@@ -189,7 +188,7 @@
         <!--  Add icons to the links using the .nav-icon class
             with font-awesome or any other icon font library -->
         <li class="nav-item has-treeview menu-open">
-          <a href="#">
+          <a href="">
             <p>Extension/LUC/Farmers Group</p>
           </a>
           <ul class="nav nav-treeview">
@@ -234,12 +233,6 @@
                       <p>Total Surplus</p>
                   </a>
                 </li>
-                {{-- <li class="nav-item">
-                  <a href="{{route('extension-summary')}}" class="nav-link">
-                    <i class="nav-icon far fa-calendar-alt"></i>
-                    <p>Summary Report</p>
-                  </a>
-                </li>    --}}
             </li>
           @endcan
           <li class="nav-item">
@@ -278,7 +271,7 @@
   <nav class="mt-2">
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
    <li class="nav-item has-treeview menu-open">
-        <a href="#" class="nav-link">
+        <a href="" class="nav-link">
           <p>Master Table</p>
         </a>
 
@@ -326,7 +319,7 @@
   <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link">
+            <a href="" class="nav-link">
                   <p> User Management</p>
               </a>
 

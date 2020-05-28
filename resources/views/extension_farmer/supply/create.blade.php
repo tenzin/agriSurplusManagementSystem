@@ -3,15 +3,14 @@
 @section('content')
 <div class="container">
         <div class="text-center">
-              <h1>Supply Form </h1>
-        <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
+            <h1>Supply Form </h1>
+            <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
                   <p class="lead">Enter the Product Surplus from Your Gewog.</p>
 
         <a href="{{route('batch-edit',$table->id)}}">
-          {{-- <input type="text" value={{}}> --}}
-                    <h5>
-                      <i class="fa fa-edit"> </i>Batch Info:&nbsp;&nbsp;</h5></a><h6>Phone:&nbsp;<b>{{$table->phone}}</b>&nbsp;&nbsp;Expiry_Date:&nbsp;<b>{{$table->expiryDate}}</b>&nbsp;&nbsp;Locations:&nbsp;<b>{{$table->location}}</b>&nbsp;&nbsp;PickupDate:&nbsp;<b>{{$table->pickupdate}}</b></h6>
-              <hr>
+          <h5>
+            <i class="fa fa-edit"> </i>Batch Info:&nbsp;&nbsp;</h5></a><h6>Phone:&nbsp;<b>{{$table->phone}}</b>&nbsp;&nbsp;Expiry_Date:&nbsp;<b>{{$table->expiryDate}}</b>&nbsp;&nbsp;Locations:&nbsp;<b>{{$table->location}}</b>&nbsp;&nbsp;PickupDate:&nbsp;<b>{{$table->pickupdate}}</b></h6>
+          <hr>
         </div>
       <form method="POST" action = "{{route('ex-supply-store')}}">
       <input type="hidden" name="refnumber" id="refnumber" value="{{ $nextNumber}}">
@@ -55,9 +54,9 @@
           <label for="producttype">Product Type<font color="red">*</font></label>
           <select class="custom-select d-block w-100" id="producttype" name="producttype" required>
             <option value="">Choose...</option>
-            @foreach($product_type as $row)
+              @foreach($product_type as $row)
                 <option value="{{$row->id}}">{{$row->type}}</option>
-            @endforeach
+              @endforeach
           </select>
           <div class="invalid-feedback">
             Please select a valid country.
@@ -81,13 +80,13 @@
               Harvest date is required.
               </div>
           </div>
-      </div>
+        </div>
       </div>
 
       <div class="row">
           <div class="col-md-4 mb-3">
               <label for="qty">Quantity<font color="red">*</font></label>
-              <input type="text" class="form-control" name="quantity" id ="quantity" placeholder ="Quantity">
+              <input type="text" class="form-control" name="quantity" id ="quantity" placeholder ="Quantity" required>
               <div class="invalid-feedback">
                   Please enter Quantity.
               </div>
@@ -95,16 +94,10 @@
           <div class="col-md-4 mb-3">
               <label for="unit">Unit<font color="red">*</font></label>
               <div class="input-group">
-                <select name="unit" id="unit" class="custom-select d-block w-100">
+                <select name="unit" id="unit" class="custom-select" required>
                 </select>
-                  {{-- <select class="custom-select d-block w-100" id="unit" name="unit" required>
-                  <option value="">Choose...</option>
-                  @foreach($unit as $data)
-                      <option value="{{$data->id}}">{{$data->unit}}</option>
-                  @endforeach
-                  </select> --}}
                   <div class="invalid-feedback" style="width: 100%;">
-                  Unit is required.
+                     Unit is required.
                   </div>
               </div>
           </div>
@@ -114,7 +107,7 @@
                   <div class="input-group-prepend">
                       <span class="input-group-text">Nu.</span>
                   </div>
-                  <input type="text" class="form-control" name="price" id ="price" placeholder ="Price">
+                  <input type="text" class="form-control" name="price" id ="price" placeholder ="Price" required>
                   <div class="invalid-feedback" style="width: 100%;">
                    Price is required.
                   </div>

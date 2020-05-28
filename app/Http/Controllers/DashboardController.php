@@ -23,7 +23,7 @@ class DashboardController extends Controller
       $this->middleware('auth');
       $this->user = \Auth::user();
   }
-
+//EX surplus view
   public function view($id){
 
       $user=auth()->user();
@@ -78,7 +78,7 @@ class DashboardController extends Controller
          $ca_usres = User::where('role_id', '4')->count();
           
           //Over all Surplus by producttype
-      $surplustemp = DB::statement("CREATE TEMPORARY TABLE IF NOT EXISTS tmpSurplus(
+         $surplustemp = DB::statement("CREATE TEMPORARY TABLE IF NOT EXISTS tmpSurplus(
                         id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
                         refNumber varchar(50),
                         productType_id varchar(5),
@@ -101,122 +101,162 @@ class DashboardController extends Controller
            DB::statement($sqlca);
 
           $allveg_count=DB::table('tmpSurplus')
-                ->where('productType_id','=',1)
-                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
-                ->SUM('quantity');
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->where('productType_id','=',1)
+                  ->where('tbl_transactions.status','=','S')
+                  ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
+                  ->SUM('quantity');
 
           $allfruit_count=DB::table('tmpSurplus')
-                ->where('productType_id','=',2)
-                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
-                ->SUM('quantity');
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->where('productType_id','=',2)
+                  ->where('tbl_transactions.status','=','S')
+                  ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
+                  ->SUM('quantity');
 
           $alldairy_count=DB::table('tmpSurplus')
-                ->where('productType_id','=',3)
-                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
-                ->SUM('quantity');
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->where('productType_id','=',3)
+                  ->where('tbl_transactions.status','=','S')
+                  ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
+                  ->SUM('quantity');
 
           $alllivestock_count=DB::table('tmpSurplus')
-                ->where('productType_id','=',4)
-                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
-                ->SUM('quantity');
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->where('productType_id','=',4)
+                  ->where('tbl_transactions.status','=','S')
+                  ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
+                  ->SUM('quantity');
+
          $allnwfp_count=DB::table('tmpSurplus')
-                ->where('productType_id','=',5)
-                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
-                ->SUM('quantity');
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->where('productType_id','=',5)
+                  ->where('tbl_transactions.status','=','S')
+                  ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
+                  ->SUM('quantity');
 
         $allmaps_count=DB::table('tmpSurplus')
-                ->where('productType_id','=',6)
-                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
-                ->SUM('quantity');
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->where('productType_id','=',6)
+                  ->where('tbl_transactions.status','=','S')
+                  ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
+                  ->SUM('quantity');
 
        $allcereal_count=DB::table('tmpSurplus')
-                ->where('productType_id','=',7)
-                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
-                ->SUM('quantity');
-      
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->where('productType_id','=',7)
+                  ->where('tbl_transactions.status','=','S')
+                  ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
+                  ->SUM('quantity');
+                  
         DB::statement("DROP TEMPORARY TABLE IF EXISTS tmpSurplus"); 
 
 
 
       //EX surplus
         $veg_count=DB::table('tbl_ex_surplus')
-                     ->where('productType_id','1')
-                     ->SUM('quantity') ;
+                   ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                   ->where('productType_id',1)
+                   ->where('tbl_transactions.status','S')
+                   ->SUM('quantity') ;
 
          $fruit_count=DB::table('tbl_ex_surplus')
-               ->where('productType_id','2')
-               ->SUM('quantity') ;
+                  ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                  ->where('productType_id',2)
+                  ->where('tbl_transactions.status','S')
+                  ->SUM('quantity') ;
+
 
          $dairy_count=DB::table('tbl_ex_surplus')
-               ->where('productType_id','3')
-               ->SUM('quantity') ;
+                  ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                  ->where('productType_id',3)
+                  ->where('tbl_transactions.status','S')
+                  ->SUM('quantity') ;
 
          $livestock_count=DB::table('tbl_ex_surplus')
-               ->where('productType_id','4')
-               ->SUM('quantity') ;
+                  ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                  ->where('productType_id',4)
+                  ->where('tbl_transactions.status','S')
+                  ->SUM('quantity') ;
 
          $nwfp_count=DB::table('tbl_ex_surplus')
-               ->where('productType_id','5')
-               ->SUM('quantity');
+                  ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                  ->where('productType_id',5)
+                  ->where('tbl_transactions.status','S')
+                  ->SUM('quantity') ;
 
          $maps_count=DB::table('tbl_ex_surplus')
-               ->where('productType_id','6')
-               ->SUM('quantity') ;
+                  ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                  ->where('productType_id',6)
+                  ->where('tbl_transactions.status','S')
+                  ->SUM('quantity') ;
 
          $cereal_count=DB::table('tbl_ex_surplus')
-               ->where('productType_id','7')
-               ->SUM('quantity') ;
-
+                  ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                  ->where('productType_id',7)
+                  ->where('tbl_transactions.status','S')
+                  ->SUM('quantity') ;
    
       //CA surplus
-      $caveg_count=DB::table('tbl_cssupply')
-                  ->where('productType_id','1')
-                  ->SUM('quantity') ;
+            $caveg_count=DB::table('tbl_cssupply')
+                              ->join('tbl_transactions','tbl_transactions.id','=','tbl_cssupply.trans_id')
+                              ->where('productType_id',1)
+                              ->where('tbl_transactions.status','S')
+                              ->SUM('quantity') ;
 
-      $cafruit_count=DB::table('tbl_cssupply')
-                  ->where('productType_id','2')
-                  ->SUM('quantity') ;
+            $cafruit_count=DB::table('tbl_cssupply')
+                              ->join('tbl_transactions','tbl_transactions.id','=','tbl_cssupply.trans_id')
+                              ->where('productType_id',2)
+                              ->where('tbl_transactions.status','S')
+                              ->SUM('quantity') ;
 
-      $cadairy_count=DB::table('tbl_cssupply')
-                  ->where('productType_id','3')
-                  ->SUM('quantity') ;
+            $cadairy_count=DB::table('tbl_cssupply')
+                              ->join('tbl_transactions','tbl_transactions.id','=','tbl_cssupply.trans_id')
+                              ->where('productType_id',3)
+                              ->where('tbl_transactions.status','S')
+                              ->SUM('quantity') ;
 
-      $calivestock_count=DB::table('tbl_cssupply')
-                  ->where('productType_id','4')
-                  ->SUM('quantity') ;
+            $calivestock_count=DB::table('tbl_cssupply')
+                              ->join('tbl_transactions','tbl_transactions.id','=','tbl_cssupply.trans_id')
+                              ->where('productType_id',4)
+                              ->where('tbl_transactions.status','S')
+                              ->SUM('quantity') ;
 
-      $canwfp_count=DB::table('tbl_cssupply')
-                  ->where('productType_id','5')
-                  ->SUM('quantity');
+            $canwfp_count=DB::table('tbl_cssupply')
+                              ->join('tbl_transactions','tbl_transactions.id','=','tbl_cssupply.trans_id')
+                              ->where('productType_id',5)
+                              ->where('tbl_transactions.status','S')
+                              ->SUM('quantity') ;
 
-      $camaps_count=DB::table('tbl_cssupply')
-                  ->where('productType_id','6')
-                  ->SUM('quantity') ;
+            $camaps_count=DB::table('tbl_cssupply')
+                              ->join('tbl_transactions','tbl_transactions.id','=','tbl_cssupply.trans_id')
+                              ->where('productType_id',6)
+                              ->where('tbl_transactions.status','S')
+                              ->SUM('quantity') ;
 
-      $cacereal_count=DB::table('tbl_cssupply')
-                  ->where('productType_id','7')
-                  ->SUM('quantity') ;
+            $cacereal_count=DB::table('tbl_cssupply')
+                              ->join('tbl_transactions','tbl_transactions.id','=','tbl_cssupply.trans_id')
+                              ->where('productType_id',7)
+                              ->where('tbl_transactions.status','S')
+                              ->SUM('quantity') ;
 
-       for($i=0;$i < 12;$i++)
-                  {
-            $surplus=DB::table('tbl_ex_surplus as s')
-                        ->join('tbl_transactions as t', 's.refNumber', '=', 't.refNumber')
-                        ->where(DB::raw('month(t.submittedDate)'), '=', $i+1)
-                        ->where(DB::raw('year(t.submittedDate)'), '=', date('Y'))
-                        // ->where('s.gewog_id', '=', $g)
-                        ->count();
-                        $casurplus_count[$i]=$surplus;
-                  }
+              for($i=0;$i < 12;$i++){
+                    $surplus=DB::table('tbl_ex_surplus as s')
+                              ->join('tbl_transactions as t', 's.refNumber', '=', 't.refNumber')
+                              ->where(DB::raw('month(t.submittedDate)'), '=', $i+1)
+                              ->where(DB::raw('year(t.submittedDate)'), '=', date('Y'))
+                              ->count();
+                    $casurplus_count[$i]=$surplus;
+                   }
 
-
-        return view('dashboard.nationaldashboard',compact(
-           'producttype','product','farmers','extions','luc_users','ardc','vsc','ca_usres',
-           'veg_count','fruit_count','dairy_count','livestock_count','nwfp_count','maps_count','cereal_count',
-           'caveg_count','cafruit_count','cadairy_count','calivestock_count','canwfp_count','camaps_count','cacereal_count',
-           'area_uc', 'area_hravested', 'last_row', 'casurplus_count',
-           'allveg_count','allfruit_count','alllivestock_count','allnwfp_count','allmaps_count','allcereal_count',
-           'alldairy_count'
-         ));
+            return view('dashboard.nationaldashboard',compact(
+            'producttype','product','farmers','extions','luc_users','ardc','vsc','ca_usres',
+            'veg_count','fruit_count','dairy_count','livestock_count','nwfp_count','maps_count','cereal_count',
+            'caveg_count','cafruit_count','cadairy_count','calivestock_count','canwfp_count','camaps_count','cacereal_count',
+            'area_uc', 'area_hravested', 'last_row', 'casurplus_count',
+            'allveg_count','allfruit_count','alllivestock_count','allnwfp_count','allmaps_count','allcereal_count',
+            'alldairy_count'
+            ));
      }
 
      
@@ -254,10 +294,8 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
             $supplyProducts = EXSurplus::search($request)->where('quantity','>',0)->with('product','dzongkhag','gewog')->get();
             
         }
-
         return view('dashboard.aggregatordashboard',compact(
-            'product', 'producttype', 'location','users_data',  'ca',  'ex',  'luc',
-            'farmer', 'supplyProducts'
+            'product','producttype','location','users_data','ca','ex','luc','farmer','supplyProducts'
          ));
 }
 
@@ -288,38 +326,52 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
     $g=auth()->user()->gewog_id;
 
       $veg_count=DB::table('tbl_ex_surplus')
-                   ->where('gewog_id', '=', $g)
-                   ->where('productType_id','1')
+                   ->where('tbl_ex_surplus.gewog_id', '=', $g)
+                   ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                   ->where('productType_id',1)
+                   ->where('tbl_transactions.status','S')
                    ->SUM('quantity') ;
 
       $fruit_count=DB::table('tbl_ex_surplus')
-                   ->where('gewog_id', '=', $g)
-                   ->where('productType_id','2')
-                   ->SUM('quantity') ;
+                   ->where('tbl_ex_surplus.gewog_id', '=', $g)
+                   ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                   ->where('productType_id',2)
+                   ->where('tbl_transactions.status','S')
+                      ->SUM('quantity') ;
  
       $dairy_count=DB::table('tbl_ex_surplus')
-                   ->where('gewog_id', '=', $g)
-                   ->where('productType_id','3')
-                   ->SUM('quantity') ;
+                   ->where('tbl_ex_surplus.gewog_id', '=', $g)
+                   ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                   ->where('productType_id',3)
+                   ->where('tbl_transactions.status','S')
+                      ->SUM('quantity') ;
  
        $livestock_count=DB::table('tbl_ex_surplus')
-                   ->where('gewog_id', '=', $g)
-                   ->where('productType_id','4')
+                   ->where('tbl_ex_surplus.gewog_id', '=', $g)
+                   ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                   ->where('productType_id',4)
+                   ->where('tbl_transactions.status','S')
                    ->SUM('quantity') ;
  
        $nwfp_count=DB::table('tbl_ex_surplus')
-                   ->where('gewog_id', '=', $g)
-                   ->where('productType_id','5')
+                   ->where('tbl_ex_surplus.gewog_id', '=', $g)
+                   ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                   ->where('productType_id',5)
+                   ->where('tbl_transactions.status','S')
                    ->SUM('quantity');
  
        $maps_count=DB::table('tbl_ex_surplus')
-                   ->where('gewog_id', '=', $g)
-                   ->where('productType_id','6')
+                   ->where('tbl_ex_surplus.gewog_id', '=', $g)
+                   ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                   ->where('productType_id',6)
+                   ->where('tbl_transactions.status','S')
                    ->SUM('quantity') ;
  
        $cereal_count=DB::table('tbl_ex_surplus')
-                   ->where('gewog_id', '=', $g)
-                   ->where('productType_id','7')
+                   ->where('tbl_ex_surplus.gewog_id', '=', $g)
+                   ->join('tbl_transactions','tbl_transactions.id','=','tbl_ex_surplus.trans_id')
+                   ->where('productType_id',7)
+                   ->where('tbl_transactions.status','S')
                    ->SUM('quantity');
 
       for($i=0;$i < 12;$i++)
@@ -329,6 +381,7 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
             ->where(DB::raw('month(t.submittedDate)'), '=', $i+1)
             ->where(DB::raw('year(t.submittedDate)'), '=', date('Y'))
             ->where('s.gewog_id', '=', $g)
+            ->where('t.status','S')
             ->count();
             $surplus_count[$i]=$surplus;
       }

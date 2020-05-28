@@ -37,7 +37,7 @@ var ctx = document.getElementById('surplusStats');
 var surplusStats = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Vegetable','Fruit', 'Cereal','nwfp','Maps','Livestock','Dairy'],
+        labels: ['Vegetable','Fruit','Dairy','Livestock','nwfp','Maps','Cereal'],
 
         datasets: [{
             label: 'EO-Surplus',

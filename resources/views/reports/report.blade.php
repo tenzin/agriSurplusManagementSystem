@@ -6,7 +6,7 @@
     <div class="content-header">
           <form class="form-horizontal" method="POST" action = "{{route('report-details')}}">
             @csrf
-          <div class="card card-info">
+          <div class="card card">
                   <div class="card-header">
                     <h3 class="card-title">Search By:</h3>
                   </div>
