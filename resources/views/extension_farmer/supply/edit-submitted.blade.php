@@ -20,7 +20,7 @@
 <div class="form-group row">
   <input type="hidden" id="refno" name="refno" value="{{$demand->refNumber}}"/>
   {{-- <input type="hidden" id="refno" name="refno" value="{{$demand->refNumber}}"/> --}}
-  <input type="text" id="trans_id" name="trans_id" value="{{$demand->trans_id}}"/>
+  <input type="hidden" id="trans_id" name="trans_id" value="{{$demand->trans_id}}"/>
   <div class="col-md-12 order-md-1">
     <h4 class="mb-3">Product details</h4>
     <form class="needs-validation" novalidate>
@@ -59,7 +59,7 @@
                   <div class="input-group-prepend">
                       <span class="input-group-text">Nu.</span>
                   </div>
-                  <input type="text" value="{{ $demand->price}}" class="form-control" name="price" id="price" required>
+                  <input type="text" value="{{ $demand->price}}" class="form-control" name="price" id="price" readonly required>
                   <div class="invalid-feedback" style="width: 100%;">
                   Price is required.
                   </div>
@@ -86,7 +86,8 @@
           <div class="col-md-4 mb-3">
               <label for="qty">Taken Quantity:<font color="red">*</font></label>
               <input type="hidden" id="hqty" name="hqty" value="{{$demand->quantity}}"/>
-              <input type="hidden" value="{{ $demand->quantity}}" class="form-control" name="quantity" id="quantity" required>
+              
+              <input type="text" value="{{ $demand->quantity}}" class="form-control" name="quantity" id="quantity" required>
               <div class="invalid-feedback">
                   Please enter Quantity.
               </div>
@@ -94,8 +95,8 @@
           <div class="col-md-4 mb-3">
               <label for="unit">Unit*</label>
               <div class="input-group">
-                  <select class="custom-select d-block w-100" id="unit" name="unit" required>
-                  <option readonly value="">Choose...</option>
+                  <select class="custom-select d-block w-100" id="unit" name="unit" readonly required>
+                  <option  value="">Choose...</option>
                   @foreach($units as $row)
                     <option value="
                       {{$row->id}}" {{($demand->unit_id == $row->id) ? 'selected' : '' }}>

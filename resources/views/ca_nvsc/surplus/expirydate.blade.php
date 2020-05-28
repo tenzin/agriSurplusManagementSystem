@@ -19,13 +19,13 @@
               <div class="form-group">
                 <label for="expiryday">Expiry Day(s)<font color="red">*</font>:</label>
                 <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" class="form-control" name="expiryday" id ="expiryday" required/>
-                {{-- <input type="number" class="form-control" name="expiryday" id ="expiryday" required> --}}
+                
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="phone">Phone<small>(Contact number)</small><font color="red">*</font>:</label>
-                <input type="text" class="form-control" name="phone" id="phone"  maxlength= 8 required>
+                <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==8) return false;" class="form-control" name="phone" id="phone"  required/>
               </div>
             </div>
           </div>
@@ -41,7 +41,7 @@
               <!-- textarea -->
               <div class="form-group">
                 <label for="location">Location<small>(Pick Up Locations)</small><font color="red">*</font>:</label>
-                <input type="text"  class="form-control" name="location" id="location" maxlength= 15 required>
+                <input type="text"  class="form-control" name="location" id="location"  required>
               </div>
             </div>
           </div>
