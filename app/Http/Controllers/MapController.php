@@ -40,7 +40,7 @@ class MapController extends Controller
                         ['users.latitude','!=',null],
                         ['users.longitude','!=',null]
                     ])
-                    ->where('users.role_id','=','7')
+                    ->where('users.role_id','=','8')
                     ->where('tbl_transactions.status', '=', 'S') //show only sibmitted/active quantities
                     ->groupBy('users.id')
                     ->get();
