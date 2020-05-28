@@ -24,8 +24,8 @@
                   </div>
                   
                      <div class="form-group">
-                        <label>latitude:<small></small>&nbsp;</label>
-                        <input id="longitude" type="text" class="form-control" name="longitude"  value="{{$users->latitude}}"/>
+                        <label>longitude:<small></small>&nbsp;</label>
+                        <input id="longitude" type="text" class="form-control" name="longitude"  value="{{$users->longitude}}"/>
                      </div>
                </div>
                <div class="col-md-4">
@@ -47,8 +47,8 @@
                      </select>
                   </div>
                      <div class="form-group">
-                        <label>longitude:<small></small>&nbsp;</label>
-                        <input id="latitude" type="text" class="form-control" name="latitude" value="{{$users->longitude}}"/>
+                        <label>latitude:<small></small>&nbsp;</label>
+                        <input id="latitude" type="text" class="form-control" name="latitude" value="{{$users->latitude}}"/>
                      </div>
                  
                </div>
@@ -125,8 +125,8 @@
                      <input id="name" type="text" class="form-control" name="name" readonly value="{{$users->name}}" required/>
                   </div>
                   <div class="form-group">
-                     <label>latitude:<small></small>&nbsp;</label>
-                     <input id="longitude" type="text" class="form-control" name="longitude"  value="{{$users->latitude}}"/>
+                     <label>longitude:<small></small>&nbsp;</label>
+                     <input id="longitude" type="text" class="form-control" name="longitude"  value="{{$users->longitude}}"/>
                   </div>
                </div>
                <div class="col-md-4">
@@ -170,8 +170,8 @@
                      </select>
                   </div>
                   <div class="form-group">
-                     <label>longitude:<small></small>&nbsp;</label>
-                     <input id="latitude" type="text" class="form-control" name="latitude" value="{{$users->longitude}}"/>
+                     <label>latitude:<small></small>&nbsp;</label>
+                     <input id="latitude" type="text" class="form-control" name="latitude" value="{{$users->latitude}}"/>
                   </div>
                </div>
                <div class="col-md-4">
@@ -242,8 +242,8 @@
                         <input id="name" type="text" class="form-control" name="name" readonly value="{{$users->name}}" required/>
                      </div>
                      <div class="form-group">
-                        <label>latitude:<small></small>&nbsp;</label>
-                        <input id="longitude" type="text" class="form-control" name="longitude"  value="{{$users->latitude}}"/>
+                        <label>longitude:<small></small>&nbsp;</label>
+                        <input id="longitude" type="text" class="form-control" name="longitude"  value="{{$users->longitude}}"/>
                      </div>
                   </div>
                   <div class="col-md-4">
@@ -275,8 +275,8 @@
                         </select>
                      </div>
                      <div class="form-group">
-                        <label>longitude:<small></small>&nbsp;</label>
-                        <input id="latitude" type="text" class="form-control" name="latitude" value="{{$users->longitude}}"/>
+                        <label>latitude:<small></small>&nbsp;</label>
+                        <input id="latitude" type="text" class="form-control" name="latitude" value="{{$users->latitude}}"/>
                      </div>
                   </div>
                   <div class="col-md-4">

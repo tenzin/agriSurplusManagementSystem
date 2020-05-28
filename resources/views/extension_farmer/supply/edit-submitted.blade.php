@@ -86,7 +86,7 @@
           <div class="col-md-4 mb-3">
               <label for="qty">Taken Quantity:<font color="red">*</font></label>
               <input type="hidden" id="hqty" name="hqty" value="{{$demand->quantity}}"/>
-              <input type="text" value="{{ $demand->quantity}}" class="form-control" name="quantity" id="quantity" required>
+              <input type="hidden" value="{{ $demand->quantity}}" class="form-control" name="quantity" id="quantity" required>
               <div class="invalid-feedback">
                   Please enter Quantity.
               </div>
