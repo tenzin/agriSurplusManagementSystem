@@ -5,7 +5,6 @@
         <div class="py-2 text-center">
               <h1>Surplus Form </h1>
                   <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
-                  {{-- <p class="lead">Enter Surplus Information.</p> --}}
                   <p class="lead">Enter the Product Surplus from Your Dzongkhag.</p>
                   <a href="{{route('batch-editi',$ref->id)}}">
                     <h5>
@@ -74,7 +73,7 @@
       <div class="row">
         <div class="col-md-4 mb-3">
             <label for="qty">Quantity<font color="red">*</font></label>
-            <input type="text" class="form-control" name="quantity" id ="quantity" placeholder ="Quantity">
+            <input type="text" class="form-control" name="quantity" id ="quantity" placeholder ="Quantity" required>
             <div class="invalid-feedback">
                 Please enter Quantity.
             </div>
@@ -82,14 +81,8 @@
         <div class="col-md-4 mb-3">
             <label for="unit">Unit<font color="red">*</font></label>
             <div class="input-group">
-              <select name="ut" id="ut" class="custom-select d-block w-100">
+              <select name="ut" id="ut" class="custom-select" required>
               </select>
-                {{-- <select class="custom-select d-block w-100" id="ut" name="ut" required>
-                <option value="">Choose...</option>
-                @foreach($unit as $data)
-                    <option value="{{$data->id}}">{{$data->unit}}</option>
-                @endforeach
-                </select> --}}
                 <div class="invalid-feedback" style="width: 100%;">
                 Unit is required.
                 </div>
@@ -101,20 +94,12 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text">Nu.</span>
                 </div>
-                <input type="text" class="form-control" name="price" id ="price" placeholder ="Price">
+                <input type="text" class="form-control" name="price" id ="price" placeholder ="Price" required>
                 <div class="invalid-feedback" style="width: 100%;">
                 Price is required.
                 </div>
             </div>
         </div>
-        {{-- <div class="col-md-3 mb-3">
-          <label for="qty">Harvest Date<font color="red">*</font></label>
-          <input type="date" class="form-control" name="harvestdate" id ="harvestdate" placeholder ="Required Date">
-          <div class="invalid-feedback">
-              Please enter date of requirement.
-          </div>
-        </div> --}}
-        
     </div>
 
       <hr class="mb-4">
