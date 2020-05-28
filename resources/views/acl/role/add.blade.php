@@ -8,14 +8,7 @@
                 <div class="card-header">Add new system role</div>
 
                 <div class="card-body">
-                  @if ( session('error') || $errors->any())
-                  <div class="alert alert-danger" id="session_message">
-                    {{ session('error') }}
-                    @foreach ($errors->all() as $error)
-                       <li>{{ $error }}</li>
-                   @endforeach
-                  </div>
-                  @endif
+                    @include('Layouts.message') 
                 <form method="POST" action="{{route('store-role')}}">
                         @csrf
 

@@ -10,29 +10,7 @@
            </div>
            <!-- /.card-header --->
            <div class="card-body">
-             @if ($errors->any())
-             <div class="col-sm-12">
-                 <div class="alert  alert-warning alert-dismissible fade show" role="alert">
-                     @foreach ($errors->all() as $error)
-                         <span><p>{{ $error }}</p></span>
-                     @endforeach
-                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                         </button>
-                 </div>
-             </div>
-         @endif
- 
-         @if (session('success'))
-             <div class="col-sm-12">
-                 <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                     {{ session('success') }}
-                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                         </button>
-                 </div>
-             </div>
-         @endif
+            @include('Layouts.message') 
          <div class="row">
             <div class="col-md-3">
                <div class="form-group">
@@ -56,30 +34,18 @@
             <div class="col-md-4">
                <div class="form-group">
                   <label>Dzongkhag:<font color="red">*</font></label>
-                  <select class="custom-select d-block w-100" id="dzongkhag" name="dzongkhag" required>
+                  <select class="custom-select d-block w-100" id="dzongkhag" name="dzongkhag">
                      <option value="">Choose...</option>
                      @foreach($dzongkhags as $row)
                          <option value="{{$row->id}}">{{$row->dzongkhag}}</option>
                      @endforeach
                    </select>
-                  {{-- <select  name="dzongkhag" id="dzongkhag" class="form-control" onclick="getGewogs(this.value)" required>
-                     <option disabled selected value="">Select Dzongkhag</option>
-                     @foreach($dzongkhags as $dzongkhag)
-                     <option value="{{$dzongkhag->id}}">{{$dzongkhag->dzongkhag}}</option>
-                     @endforeach
-                  </select> --}}
                </div>
                <div class="form-group">
                   <label>Gewog:<font color="red">*</font></label>
-                  <select class="custom-select d-block w-100" id="gewog" name="gewog" required>
+                  <select class="custom-select d-block w-100" id="gewog" name="gewog">
                      <option value="">Choose...</option>
                    </select>
-                  {{-- <select  name="gewog" id="gewog" class="form-control" required>
-                     <option disabled selected value="">Select Gewog</option>
-                     @foreach($gewogs as $gewog)
-                     <option value="{{$gewog->id}}">{{$gewog->gewog}}</option>
-                     @endforeach
-                  </select> --}}
                </div>
                <div class="form-group">
                   <label>Role:<font color="red">*</font></label>
@@ -168,21 +134,5 @@
     
 </script>
 
-{{-- @section('custom_scripts')
-<script type="text/javascript">
-
-$(function() {
-    $(document).on('change', '#role', function() {
-        var input = $('input[name="longitude"]');
-
-        if ($.trim($('option:selected', this).text()) == 'Gewog Extension Officer') {
-            input.prop('readonly', true);
-        } else {
-            input.prop('readonly', false);
-        }
-    });
-});
-</script>
-@endsection --}}
 
 

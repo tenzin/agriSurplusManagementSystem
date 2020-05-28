@@ -8,6 +8,7 @@
    <form role="form" method="POST" action="{{route('user-passupdate')}}">
       @csrf
       <div class="card-body">
+         @include('Layouts.message') 
          <div class="row">
             <div class="col-md-4">
                <div class="form-group">

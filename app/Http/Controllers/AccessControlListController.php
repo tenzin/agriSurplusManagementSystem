@@ -17,7 +17,7 @@ class AccessControlListController extends Controller
         public function __construct(Request $request)
         {  
           $this->request = $request;
-            $this->middleware('auth');
+          $this->middleware('auth');
         }
           
 //Role 
@@ -176,7 +176,7 @@ class AccessControlListController extends Controller
         $insert->latitude=$request->latitude;
         $insert->save();
        
-        return redirect('system-user')->with('success','Added successfully');
+        return redirect('system-user')->with('success','User Added successfully');
     
         }
 
@@ -185,7 +185,9 @@ class AccessControlListController extends Controller
         $users    = User::find($id);
         $dzongkhags = Dzongkhag::all();
         $roles = Role::all();
-        $gewogs = Gewog::where('dzongkhag_id',$users->dzongkhag->id)->get();
+       $gewogs = Gewog::all();
+        // $gewogs = Gewog::where('dzongkhag_id',$users->dzongkhag->id)->get();
+        // dd($gewogs);
         return view('acl.user.useredit',compact('users','dzongkhags','roles','gewogs'));
   
     }
@@ -203,10 +205,13 @@ class AccessControlListController extends Controller
         $users->isAdmin=$request->admin;
         $users->isActive=$request->active;
         $users->isStaff=$request->staff;
+        $users->longitude = $request->longitude;
+        $users->latitude = $request->latitude;
+
         // $insert->submitted_by=Auth::user()->id;
         $users->save();
        
-        return redirect('system-user')->with('success','Added successfully');
+        return redirect('system-user')->with('success','Users Infomations Updated successfully');
     
         }
         public function userDelete($id)

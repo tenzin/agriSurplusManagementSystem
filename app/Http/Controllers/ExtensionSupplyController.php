@@ -301,7 +301,7 @@ class ExtensionSupplyController extends Controller
         Session::put('View_status', 'V');
         return view('extension_farmer.supply.view')->with('supply',$supply)
                                                     ->with('nextNumber',$refno2)
-                                                    ->with('msg','Your demand(s) not submitted');
+                                                    ->with('msg','Your Surplus(s) not submitted');
         
     }
 
@@ -650,7 +650,7 @@ class ExtensionSupplyController extends Controller
                     ->paginate(15);
                 
         return view('extension_farmer.supply.supplyhistory')->with('supply',$data)
-                                                            ->with('msg','Your Surplus history');
+                                                            ->with('msg','Your Surplus History');
     }
 
     public function zero(Request $request, $id){

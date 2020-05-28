@@ -8,16 +8,9 @@
                 <div class="card-header">{{ __('Add Permission form') }}</div>
 
                 <div class="card-body">
-                 @if ($errors->any())
-                 <div class="alert alert-danger">
-                 <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                 </ul>
-                </div>
-                 <br />
-                     @endif
+                 
+                     @include('Layouts.message') 
+
             <form method="POST" action="{{route('store-permission')}}">
                     @csrf
                         <div class="form-group">
