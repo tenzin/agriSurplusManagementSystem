@@ -20,6 +20,21 @@ use Carbon\Carbon;
 
 class ExtensionSupplyController extends Controller
 {
+
+    private $trans_rule = [
+
+        'phone' => 'required|integer',
+        'location' => 'required',
+        'pickupdate' => 'required|date',
+        'remark' => 'required'
+    ];
+
+
+    private $submit_rule = [
+        
+        'quantity' => 'required',
+        'price' => 'required',
+    ];
     
     public function __construct(Request $request) {
         
@@ -187,6 +202,7 @@ class ExtensionSupplyController extends Controller
         }
 
         //    dd($nextNumber );
+            $this->validate($request, $this->trans_rule);
 
             $expiry = $request->expiryday;
             
@@ -312,6 +328,7 @@ class ExtensionSupplyController extends Controller
         $user = auth()->user();
         $request->session()->put('NextNumber', $request->input('refnumber'));
         
+        $this->validate($request, $this->submit_rule);
 
         $data = new EXSurplus;
         $data->refNumber = $request->input('refnumber');
@@ -659,7 +676,7 @@ class ExtensionSupplyController extends Controller
         $data = DB::table('tbl_ex_surplus')
                     ->where('id', '=', $id)
                     ->select('refNumber','quantity','productType_id','product_id', 'price',
-                    'id','unit_id','status','harvestDate','dzongkhag_id','gewog_id')
+                    'id','unit_id','status','harvestDate','dzongkhag_id','gewog_id','trans_id')
                     ->first();
 
         $inserts = [];
@@ -675,7 +692,8 @@ class ExtensionSupplyController extends Controller
             'harvestDate' => $data->harvestDate,
             'status' => 'T',
             'dzongkhag_id' => $data->dzongkhag_id,
-            'gewog_id' => $data->gewog_id
+            'gewog_id' => $data->gewog_id,
+            'trans_id' => $data->trans_id
             ]; 
 
         DB::table('tbl_ex_surplus_history')->insert($inserts);

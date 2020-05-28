@@ -248,26 +248,23 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
 
   }); // end of acl group list
 
-        //User profile Route
-        Route::get('profile',['as'=>'profile','uses'=>'ProfileController@userprofile']);
+      //User profile Route
+      Route::get('profile',['as'=>'profile','uses'=>'ProfileController@userprofile']);
 
-       //change Password & Email & Contact Route
-        Route::post('/changePassword','UpdateDetailsController@changePassword');
-        Route::post('/changeEmail','UpdateDetailsController@changeEmail');
-        Route::post('/changeContact','UpdateDetailsController@changeContact');
-        Route::post('/changePassword','UpdateDetailsController@changePassword')->name('changePassword');
-        Route::post('/changeEmail','UpdateDetailsController@changeEmail')->name('changeEmail');
-        Route::post('/changeContact','UpdateDetailsController@changeContact')->name('changeContact');
+      //change Password & Email & Contact Route
+      Route::post('/changePassword','UpdateDetailsController@changePassword');
+      Route::post('/changeEmail','UpdateDetailsController@changeEmail');
+      Route::post('/changeContact','UpdateDetailsController@changeContact');
+      Route::post('/changePassword','UpdateDetailsController@changePassword')->name('changePassword');
+      Route::post('/changeEmail','UpdateDetailsController@changeEmail')->name('changeEmail');
+      Route::post('/changeContact','UpdateDetailsController@changeContact')->name('changeContact');
 
-        //Image Route
-        Route::post('/avatar', 'UserController@update_avatar');
+      //Image Route
+      Route::post('/avatar', 'UserController@update_avatar');
 
-
-        //Contact US
-        Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contactUS']);
-        Route::post('contact-post',['as'=>'contact-post','uses'=>'ContactUsController@contactUSPost']);
-
-});
+      //Contact US
+      Route::get('contact-us',['as'=>'contact-us','uses'=>'ContactUsController@contactUS']);
+      Route::post('contact-post',['as'=>'contact-post','uses'=>'ContactUsController@contactUSPost']);
 
       // Extension 
       Route::get('/json-product_type','ExtensionSupplyController@product_type');
@@ -293,7 +290,12 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
             return redirect()->back();
       })->name('read');
 
-     //Dzongkhag Reports.
-     Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
-     Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
+      //Dzongkhag Reports.
+      Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
+      Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
+
+
+});
+
+     
      

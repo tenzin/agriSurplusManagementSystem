@@ -17,6 +17,21 @@ use Carbon\Carbon;
 class CASurplusController extends Controller
 {
 
+    private $trans_rule = [
+
+        'phone' => 'required|integer',
+        'location' => 'required',
+        'pickupdate' => 'required|date',
+        'remark' => 'required'
+    ];
+
+
+    private $submit_rule = [
+        
+        'quantity' => 'required',
+        'price' => 'required',
+    ];
+
     public function __construct(Request $request) {
         
         $this->request = $request;
@@ -134,6 +149,8 @@ class CASurplusController extends Controller
     public function ca_store_transcation(Request $request)
     
     {
+        // $this->validate($request, $this->trans_rule);
+
         $user = auth()->user();
         // $user_dzo = auth()->user()->dzongkhag_id;
         $date = date('Ym');
@@ -185,6 +202,8 @@ class CASurplusController extends Controller
             $number=$number+1;
             $nextNumber = $type.$number;
         }
+
+        $this->validate($request, $this->trans_rule);
 
         $expiry = $request->expiryday;
             
@@ -314,6 +333,8 @@ class CASurplusController extends Controller
     {
         $user = auth()->user();
         $request->session()->put('NextNumber', $request->input('refnumber'));
+
+        $this->validate($request, $this->submit_rule);
 
         $data = new CASupply;
         $data->refNumber = $request->input('refnumber');

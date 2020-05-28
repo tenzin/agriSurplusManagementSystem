@@ -30,6 +30,10 @@
                   <input type="radio" name="admin" id="admin" value="1"> : TRUE</input>
                   <input type="radio" name="admin" id="admin1" value="0"> : FALSE</input>
                </div>
+               <div class="form-group">
+                  <label>longitude:<small></small>&nbsp;<font color="red">*</font></label>
+                 <input id="longitude" type="text" class="form-control" name="longitude"  placeholder="Enter the longitude"/>
+              </div>
             </div>
             <div class="col-md-4">
                <div class="form-group">
@@ -61,6 +65,11 @@
                   <input type="radio" name="active" id="active" value="1"> : TRUE</input>
                   <input type="radio" name="active" id="active1" value="0"> : FALSE</input>
                </div>
+
+               <div class="form-group">
+                  <label>latitude:<small></small>&nbsp;<font color="red">*</font></label>
+                  <input id="latitude" type="text" class="form-control" name="latitude" placeholder="Enter the latitude"/>
+              </div>
             </div>
 
             <div class="col-md-4">
@@ -82,14 +91,7 @@
                   <input type="radio" name="staff" id="staff1" value="0"> : FALSE</input>
                </div>
             </div>
-               <div class="col-md-4">
-                   <label>longitude:<small></small>&nbsp;<font color="red">*</font></label>
-                  <input id="longitude" type="text" class="form-control" name="longitude"  placeholder="Enter the longitude"/>
-               </div>
-               <div class="col-md-4">
-                  <label>latitude:<small></small>&nbsp;<font color="red">*</font></label>
-                  <input id="latitude" type="text" class="form-control" name="latitude" placeholder="Enter the latitude"/>
-              </div>
+               
          
          </div>
       </div>
