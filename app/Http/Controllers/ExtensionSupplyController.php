@@ -510,6 +510,8 @@ class ExtensionSupplyController extends Controller
         $user = auth()->user();
 
         $qty=floatval($request->input('hqty')) -floatval($request->input('quantity'));
+
+        // dd($qty);
         if($request->input('status') =='T'){
             
             DB::table('tbl_ex_surplus_history')->insert([
@@ -604,7 +606,7 @@ class ExtensionSupplyController extends Controller
                             ->select('tbl_ex_surplus.refNumber','tbl_ex_surplus.quantity','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
                             'tbl_ex_surplus.id', 'tbl_units.unit','tbl_ex_surplus.harvestDate','tbl_transactions.location','tbl_transactions.pickupdate')
                             ->orderBy('id')->get();
-                            // dd($product);
+                            //  dd($product);
             
             } 
 

@@ -19,7 +19,7 @@
             <div class="form-group">
               <label for="expiryday">Expiry Day(s)<font color="red">*</font>:</label>
               <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" class="form-control" name="expiryday" id ="expiryday" required/>
-              {{-- <input type="tel" class="form-control" name="expiryday" id ="expiryday" maxlength= 2 required> --}}
+              
             </div>
           </div>
           <div class="col-sm-6">

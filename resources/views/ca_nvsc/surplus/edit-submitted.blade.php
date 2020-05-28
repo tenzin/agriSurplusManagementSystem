@@ -60,7 +60,7 @@
                  <div class="input-group-prepend">
                      <span class="input-group-text">Nu.</span>
                  </div>
-                 <input type="text" value="{{$supply->price}}" name="price" id="price" class="form-control">
+                 <input type="text" value="{{$supply->price}}" name="price" id="price" readonly class="form-control">
                  <div class="invalid-feedback" style="width: 100%;">
                  Price is required.
                  </div>
@@ -85,7 +85,7 @@
              </div>
          </div>    
          <div class="col-md-4 mb-3">
-          <label for="qty">Taken Quantity*</label>
+          <label for="qty">Taken Quantity<font color="red">*</font></label>
           <input type="hidden" id="hqty" name="hqty" value="{{$supply->quantity}}"/>
           <input type="text" value="{{ $supply->quantity}}" class="form-control" name="quantity" id="quantity" required>
              <div class="invalid-feedback">
