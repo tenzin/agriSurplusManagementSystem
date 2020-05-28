@@ -7,7 +7,7 @@
                   <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
                   {{-- <p class="lead">Enter Surplus Information.</p> --}}
                   <p class="lead">Enter the Product Surplus from Your Dzongkhag.</p>
-                  <a href="{{route('batch-editi',$nextNumber)}}">
+                  <a href="{{route('batch-editi',$ref->id)}}">
                     <h5>
                     <i class="fa fa-edit"> </i>Batch Info:&nbsp;&nbsp;</h5></a><h6>Phone:&nbsp;<b>{{$ref->phone}}</b>&nbsp;&nbsp;Expiry_Date:&nbsp;<b>{{$ref->expiryDate}}</b>&nbsp;&nbsp;Locations:&nbsp;<b>{{$ref->location}}</b>&nbsp;&nbsp;PickupDate:&nbsp;<b>{{$ref->pickupdate}}</b></h6>
               <hr>
@@ -121,9 +121,9 @@
       <button class="btn btn-primary btn-lg btn-block" type="submit">ADD NEW</button><br>
       <div class="jumbotron py-3" style="background-color: orange">
       <h3>Important!!!</h3>
-          <i>Your demand list are saved temporarily. Unless it is submitted, other 
+          <i>Your Surplus list are saved temporarily. Unless it is submitted, other 
             potential suppliers cannot view it. 
-            You must <b>SUBMIT</b> your demand list inorder to viewed by others.</i><br>
+            You must <b>SUBMIT</b> your Surplus list inorder to viewed by others.</i><br>
           <p><a class="btn btn-success btn-lg text-white py-1" onclick="myFunction()">Submit</a></p>
       </div>
     </form>
@@ -207,7 +207,7 @@
             alert('Unsuccessful: To submit the Surplus you need at least one or more product!');
         } else {
             //show some type of message to the user
-            if (confirm('Are you sure you want to submit your Surplus list?. Once you submit, you cannot add or delete or update.'))  {
+            if (confirm('Are you sure you want to submit your Surplus list?'))  {
               var id = document.getElementById("refnumber").value;
               $.get('/json-submit-supply?ref_number=' + id, function(data){
                 window.location = "/date/";

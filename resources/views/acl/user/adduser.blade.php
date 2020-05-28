@@ -96,6 +96,7 @@
                   <input type="radio" name="active" id="active1" value="0"> : FALSE</input>
                </div>
             </div>
+
             <div class="col-md-4">
                <div class="form-group">
                   <label>Email:<small></small>&nbsp;<font color="red">*</font></label>
@@ -115,8 +116,17 @@
                   <input type="radio" name="staff" id="staff1" value="0"> : FALSE</input>
                </div>
             </div>
+               <div class="col-md-4">
+                   <label>longitude:<small></small>&nbsp;<font color="red">*</font></label>
+                  <input id="longitude" type="text" class="form-control" name="longitude"  placeholder="Enter the longitude"/>
+               </div>
+               <div class="col-md-4">
+                  <label>latitude:<small></small>&nbsp;<font color="red">*</font></label>
+                  <input id="latitude" type="text" class="form-control" name="latitude" placeholder="Enter the latitude"/>
+              </div>
+         
          </div>
-           </div>
+      </div>
            <!-- /.card-body -->
            @csrf
            <div class="card-footer">
@@ -157,5 +167,22 @@
     });
     
 </script>
+
+{{-- @section('custom_scripts')
+<script type="text/javascript">
+
+$(function() {
+    $(document).on('change', '#role', function() {
+        var input = $('input[name="longitude"]');
+
+        if ($.trim($('option:selected', this).text()) == 'Gewog Extension Officer') {
+            input.prop('readonly', true);
+        } else {
+            input.prop('readonly', false);
+        }
+    });
+});
+</script>
+@endsection --}}
 
 

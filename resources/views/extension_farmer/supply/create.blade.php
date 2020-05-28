@@ -6,7 +6,8 @@
               <h1>Supply Form </h1>
         <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
                   <p class="lead">Enter the Product Surplus from Your Gewog.</p>
-        <a href="{{route('batch-edit',$nextNumber)}}">
+
+        <a href="{{route('batch-edit',$table->id)}}">
           {{-- <input type="text" value={{}}> --}}
                     <h5>
                       <i class="fa fa-edit"> </i>Batch Info:&nbsp;&nbsp;</h5></a><h6>Phone:&nbsp;<b>{{$table->phone}}</b>&nbsp;&nbsp;Expiry_Date:&nbsp;<b>{{$table->expiryDate}}</b>&nbsp;&nbsp;Locations:&nbsp;<b>{{$table->location}}</b>&nbsp;&nbsp;PickupDate:&nbsp;<b>{{$table->pickupdate}}</b></h6>
@@ -107,7 +108,7 @@
               </div>
           </div>
           <div class="col-md-4 mb-3">
-              <label for="unit">Unit Price<font color="red">*</font> (tentative)</label>
+              <label for="unit">Farmgate Price Per Unit<font color="red">*</font><small>(tentative)</small></label>
               <div class="input-group">
                   <div class="input-group-prepend">
                       <span class="input-group-text">Nu.</span>
@@ -212,7 +213,7 @@
             alert('Unsuccessful: To submit the Surplus you need at least one or more product!');
         } else {
             //show some type of message to the user
-            if (confirm('Are you sure you want to submit your Surplus list?. Once you submit, you cannot add or delete or update.'))  {
+            if (confirm('Are you sure you want to submit your Surplus list?'))  {
               var id = document.getElementById("refnumber").value;
               $.get('/json-submit-surplus?ref_number=' + id, function(data){
                 window.location = "/ex-day/";

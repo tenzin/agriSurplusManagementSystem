@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
     <h2 class="text-primary text-center">Surplus List</h2>
-    
+    <center><p class="text-muted">Submitted Surplus By Other Aggregator</p></center>
     <table id="example1"class="table table-bordered table-striped table-sm">
     <thead>
         <tr>

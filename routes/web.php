@@ -30,9 +30,14 @@ Route::get('/gewog_map','MapController@index');
 Route::group(['middleware' => 'auth'], function () {
 
       // Dashboard
-      Route::get('/dashboard', 'DashboardController@index');
+      Route::get('/dashboard',['as'=>'dashboard','uses'=>'DashboardController@index']); 
+
+      //CA route for view the EX surplus
+      Route::get('exsurplus-view/{id}',['as'=>'exsurplus-view','uses'=>'DashboardController@view']);
+      //National report
       Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
       Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
+
 
 Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
 
@@ -47,8 +52,8 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       Route::get('surplus-delete/{id}','ExtensionSupplyController@destroy');
 
       //Batch Info Update and Edit Route
-      Route::get('batch-edit/{nextNumber}',['as'=>'batch-edit','uses'=>'ExtensionSupplyController@batch_edit']);
-      Route::post('batch-update/{nextNumber}',['as'=>'batch-update','uses'=>'ExtensionSupplyController@update_batch']);
+      Route::get('batch-edit/{id}',['as'=>'batch-edit','uses'=>'ExtensionSupplyController@batch_edit']);
+      Route::post('batch-update/{id}',['as'=>'batch-update','uses'=>'ExtensionSupplyController@update_batch']);
 
       //Update to Zero Route
       Route::get('updatee/{id}',['as'=>'updatee','uses'=>'ExtensionSupplyController@zero']);
@@ -108,9 +113,10 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('supply-history','CASurplusController@ca_show_history')->name('supply-history')->middleware('can:aggregator_supply_history,Auth::user()');
       Route::get('showe/{id}','CASurplusController@ca_show')->name('showe');
 
+       
       //Batch Update and Edit Route
-      Route::get('batch-editi/{nextNumber}',['as'=>'batch-editi','uses'=>'CASurplusController@batch_edit']);
-      Route::post('batch-updatee/{nextNumber}',['as'=>'batch-updatee','uses'=>'CASurplusController@update_batch']);
+      Route::get('batch-editi/{id}',['as'=>'batch-editi','uses'=>'CASurplusController@batch_edit']);
+      Route::post('batch-updatee/{id}',['as'=>'batch-updatee','uses'=>'CASurplusController@update_batch']);
 
       //Update to Zero Route
       Route::get('update/{id}',['as'=>'update','uses'=>'CASurplusController@zero']);
@@ -287,12 +293,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
             return redirect()->back();
       })->name('read');
 
-
-
-      Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
-      Route::post('extension_sreport',['as'=>'extension_sreport','uses'=>'EXReportController@summary_report']);
-
-      //Dzongkhag/Thromde Reports.
-      Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
-      Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
-      
+     //Dzongkhag Reports.
+     Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
+     Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
+     

@@ -13,6 +13,7 @@ use App\Product;
 use App\Unit;
 use App\User;
 use App\Gewog;
+use App\CASupply;
 use Session;
 use Carbon\Carbon;
 
@@ -432,29 +433,29 @@ class ExtensionSupplyController extends Controller
     }
 
 
-    public function batch_edit($nextNumber){
+    public function batch_edit($id){
 
         $user = auth()->user();
 
         $data =DB::table('tbl_transactions')
                     ->where('user_id', '=' , $user->id)
-                    ->where('tbl_transactions.refNumber','=', $nextNumber)
+                    ->where('tbl_transactions.id','=', $id)
                     ->first(); 
         // $data = Transaction::find($nextNumber);
-        // dd($data);
-        $next = $nextNumber;
+        
+        // $next = $nextNumber;
         // dd($next);
-        return view('extension_farmer.supply.batch-edit',compact('data','next'));
+        return view('extension_farmer.supply.batch-edit',compact('data'));
 
     }
 
-    public function update_batch(Request $request,$nextNumber){
+    public function update_batch(Request $request,$id){
 
         $user = auth()->user();
 
         DB::table('tbl_transactions')
         ->where('user_id', '=' , $user->id)
-        ->where('refNumber', $nextNumber)
+        ->where('id', $id)
         ->update([
                 'expiryDate' => $request->input('expiryday'),
                 'phone' => $request->input('phone'),
@@ -463,7 +464,7 @@ class ExtensionSupplyController extends Controller
                 'pickupdate' => $request->input('pickupdate')
                 ]);
 
-        return redirect('/ex_supply_temp');
+        return redirect('/surplus-view');
         
     }
 
@@ -505,7 +506,8 @@ class ExtensionSupplyController extends Controller
                 'status' => $request->input('status'),
                 'harvestDate' => $request->input('harvestDate'),
                 'gewog_id' => $user->gewog_id,
-                'dzongkhag_id' => $user->dzongkhag_id
+                'dzongkhag_id' => $user->dzongkhag_id,
+                'trans_id' => $request->input('trans_id')
 
             ]);
         }
@@ -549,29 +551,21 @@ class ExtensionSupplyController extends Controller
 
             $locations = Gewog::all(); 
     
-            // $product = DB::table('tbl_ex_surplus')
-            //                 ->where('tbl_ex_surplus.quantity','>',0)
-            //                 ->join('tbl_transactions','tbl_ex_surplus.refNumber', '=', 'tbl_transactions.refNumber')
-            //                 ->join('tbl_product_types','tbl_ex_surplus.productType_id', '=', 'tbl_product_types.id')
-            //                 ->join('tbl_products','tbl_ex_surplus.product_id', '=', 'tbl_products.id')
-            //                 ->join('tbl_units','tbl_ex_surplus.unit_id', '=', 'tbl_units.id')
-            //                 ->join('tbl_gewogs','tbl_ex_surplus.gewog_id', '=', 'tbl_gewogs.id')
-            //                 ->select('tbl_ex_surplus.refNumber','tbl_ex_surplus.quantity','tbl_gewogs.gewog','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
-            //                 'tbl_ex_surplus.id', 'tbl_units.unit','tbl_ex_surplus.harvestDate','tbl_transactions.location','tbl_transactions.pickupdate','tbl_transactions.phone','tbl_transactions.remark')
-            //                 ->groupBy('tbl_ex_surplus.id')->get();
-                            // dd($product);
+        
 
-                            $product = DB::table('tbl_ex_surplus')
-                            ->where('tbl_ex_surplus.quantity','>',0)
-                            // ->rightjoin('tbl_transactions','tbl_transactions.id', '=', 'tbl_ex_surplus.id')
-                            ->join('tbl_transactions','tbl_ex_surplus.trans_id', '=', 'tbl_transactions.id')
-                            ->join('tbl_product_types','tbl_ex_surplus.productType_id', '=', 'tbl_product_types.id')
-                            ->join('tbl_products','tbl_ex_surplus.product_id', '=', 'tbl_products.id')
-                            ->join('tbl_units','tbl_ex_surplus.unit_id', '=', 'tbl_units.id')
-                            ->join('tbl_gewogs','tbl_ex_surplus.gewog_id', '=', 'tbl_gewogs.id')
-                            ->select('tbl_ex_surplus.refNumber','tbl_ex_surplus.quantity','tbl_gewogs.gewog','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
-                            'tbl_ex_surplus.id','tbl_units.unit','tbl_ex_surplus.harvestDate','tbl_transactions.location','tbl_transactions.pickupdate','tbl_transactions.phone','tbl_transactions.remark')
-                            ->get('tbl_ex_surplus.trans_id');
+                            $product =EXSurplus::with('product','gewog','unit','transaction') ->where('tbl_ex_surplus.quantity','>',0) 
+                            ->join('tbl_transactions','tbl_ex_surplus.trans_id', '=', 'tbl_transactions.id')->get();
+
+                            // $product = DB::table('tbl_ex_surplus')
+                            // ->where('tbl_ex_surplus.quantity','>',0)
+                            // ->join('tbl_transactions','tbl_ex_surplus.trans_id', '=', 'tbl_transactions.id')
+                            // ->join('tbl_product_types','tbl_ex_surplus.productType_id', '=', 'tbl_product_types.id')
+                            // ->join('tbl_products','tbl_ex_surplus.product_id', '=', 'tbl_products.id')
+                            // ->join('tbl_units','tbl_ex_surplus.unit_id', '=', 'tbl_units.id')
+                            // // ->join('tbl_gewogs','tbl_ex_surplus.gewog_id', '=', 'tbl_gewogs.id')
+                            // ->select('tbl_ex_surplus.refNumber','tbl_ex_surplus.quantity','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
+                            // 'tbl_ex_surplus.id','tbl_units.unit','tbl_ex_surplus.harvestDate','tbl_transactions.location','tbl_transactions.pickupdate','tbl_transactions.phone','tbl_transactions.remark')
+                            // ->get('tbl_ex_surplus.trans_id');
 
             } 
             else 
@@ -609,6 +603,7 @@ class ExtensionSupplyController extends Controller
     {  
         $user=auth()->user();
         $row = EXSurplus::find($id);
+
         $test =$row->refNumber;
        
         $table = DB::table('tbl_transactions')
@@ -695,8 +690,5 @@ class ExtensionSupplyController extends Controller
         return redirect()->back()->with('success','Added successfully');
         
     }
-
-
-   
     
 }

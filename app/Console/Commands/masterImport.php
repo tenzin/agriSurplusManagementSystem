@@ -201,6 +201,8 @@ public function importusers($filename, Model $model) {
                 'avatar' => ($data[13]=='' ? NULL:$data[13]),
                 'email_verified_at' => ($data[14]=='' ? NULL:$data[14]),
                 'password' => $data[15],
+                'latitude' => ($data[16]=='' ? NULL:$data[16]),
+                'longitude' => ($data[17]=='' ? NULL:$data[17]),
 
             ];
              try {

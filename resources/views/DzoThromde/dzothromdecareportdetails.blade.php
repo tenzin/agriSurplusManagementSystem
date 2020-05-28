@@ -13,9 +13,6 @@
       <div class="row">
         <div class="col text-left">
           <strong>{{$title}}
-          @isset($gewogname)
-            for the Gewog: {{$gewogname->gewog}}
-          @endisset
           </strong>
         </div>
         <div class="col text-right">
@@ -31,9 +28,8 @@
             <th>Sl. #</th>
             <th>Type</th>
             <th>Product</th>
-            <th>Harvest</th>          
+            {{-- <th>Harvest</th>           --}}
             <th>Rate</th>         
-            <th>Gewog</th>
             <th>Quantity</th>
           </tr>
         </thead>
@@ -43,17 +39,16 @@
             <td>{{$loop->iteration}}</td>
             <td>{{$report->type}}</td>             
             <td>{{$report->product}}</td>
-            <td>{{date('d/m/Y',strtotime($report->harvestDate))}}</td> 
-            <td>{{$report->price}}</td>        
-            <td>{{$report->gewog}}</td>
-            <td>{{$report->quantity}} {{$report->unit}}</td>                                                  
+            {{-- <td class="text-right col-md-1">{{date('d/m/Y',strtotime($report->harvestDate))}}</td>  --}}
+            <td class="text-right">{{$report->price}}</td>        
+            <td class="text-right">{{$report->quantity}} {{$report->unit}}</td>                                                  
           </tr>
           @endforeach 
           
         </tbody>
         <tfoot>
           <tr>
-              <th class="text-right" colspan="6">Total</th>
+              <th class="text-right" colspan="4">Total</th>
             <th><input class="form-control col-auto text-right" type="text" id="total" name="total" readonly/></th>  
           </tr>
         </tfoot>
@@ -111,6 +106,8 @@
   $(document).ready( function () 
   {
     $("#example3").DataTable({
+      "responsive": true,
+      "autoWidth": false,
     //  "serverSide" : true,
         dom: 'B<"clear">lfrtip',
         //buttons: [ 'copy','print','excel','pdf']
@@ -141,11 +138,20 @@
 
       //  },
        drawCallback: function () {
-        var sum = $('#example3').DataTable().column(6).data().sum();
+        var sum = $('#example3').DataTable().column(4).data().sum();
        // console.log('sum:'+sum);
         document.getElementById('total').value = sum;
        },
-          
+          //get sum of quantity.
+          // drawCallback: function () 
+          //   {
+          //   var api = this.api();
+          //   $( api.table().footer() ).html
+          //     (
+          //       api.column( 3, {page:'current'} ).data().sum()
+          //     );
+              
+          //   },
     });
  });
 

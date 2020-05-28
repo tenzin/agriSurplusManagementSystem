@@ -24,7 +24,7 @@
           </div>
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="phone">Phone<font color="red">*</font>:</label>
+              <label for="phone">Phone<small>(Contact number)</small><font color="red">*</font>:</label>
               <input type="text"  class="form-control" name="phone" id="phone"  maxlength= 8 required>
             </div>
           </div>
@@ -33,14 +33,14 @@
           <div class="col-sm-6">
             <!-- textarea -->
             <div class="form-group">
-              <label for="pickupdate">Pickup<font color="red">*</font>:</label>
-              <input type="date" class="form-control" name="pickupdate" id ="pickupdate"  required>
+              <label for="pickupdate">Pickup Date<font color="red">*</font>:</label>
+              <input type="date" class="form-control" name="pickupdate" id ="pickupdate" placeholder="yyyy-mm-dd" required>
             </div>
           </div>
           <div class="col-sm-6">
             <!-- textarea -->
             <div class="form-group">
-              <label for="location">Location<font color="red">*</font>:</label>
+              <label for="location">Location<small>(Pick Up Locations)</small><font color="red">*</font>:</label>
               <input type="text"  class="form-control" name="location" id="location"  required>
             </div>
           </div>

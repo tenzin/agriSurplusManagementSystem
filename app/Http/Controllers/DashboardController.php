@@ -9,6 +9,7 @@ use App\ProductType;
 use App\User;
 use App\Transaction;
 use App\EXSurplus;
+use App\Dzongkhag;
 use DB;
 use App\Cultivation;
 use Carbon\Carbon;
@@ -22,6 +23,14 @@ class DashboardController extends Controller
       $this->middleware('auth');
       $this->user = \Auth::user();
   }
+
+  public function view($id){
+
+      $user=auth()->user();
+      $supplyProducts = EXSurplus::find($id);
+   return view('dashboard.exsurplusview',compact('supplyProducts'));
+}
+
 
   public function index(Request $request) {
 
@@ -39,16 +48,11 @@ class DashboardController extends Controller
         $ca_usres= User::where('role_id', '4')->count();
         //dd($vsc);
         return view('dashboard.admindashboard',compact(
-           'farmers',
-           'extions',
-           'luc_users',
-           'ardc',
-           'vsc',
-           'ca_usres'));
+           'farmers', 'extions', 'luc_users', 'ardc', 'vsc', 'ca_usres'));
   
 
      // $this->adminDashboard();
-   } elseif($role=='Head Quater' || $role =='Agriculture Research Development Center') {
+   } elseif($role=='Headquarter' || $role =='Agriculture Research Development Center') {
 
       $date = Carbon::now()->format('Y-m-d');
 
@@ -64,19 +68,77 @@ class DashboardController extends Controller
         $area_uc = Cultivation::where('status','=', '0')->with('product','c_unit')->get();
         $area_hravested = Cultivation::where('status','=', '1')->with('product','e_unit')->get();
 
-        $last_row = EXSurplus::with('product','unit','gewog')->latest()->take(5)->get();
+        $last_row = EXSurplus::with('product','unit','gewog')->where('quantity','>',0)->latest()->take(5)->get();
 
          $farmers = User::where('role_id','9')->count();
          $extions = User::where('role_id','7')->count();
          $luc_users = User::where('role_id','8')->count();
-          $ardc = User::where('role_id','6')->count();
-          $vsc = User::where('role_id', '5')->count();
-          $ca_usres = User::where('role_id', '4')->count();
-
-          //dd($vsc
+         $ardc = User::where('role_id','6')->count();
+         $vsc = User::where('role_id', '5')->count();
+         $ca_usres = User::where('role_id', '4')->count();
+          
           //Over all Surplus by producttype
+      $surplustemp = DB::statement("CREATE TEMPORARY TABLE IF NOT EXISTS tmpSurplus(
+                        id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                        refNumber varchar(50),
+                        productType_id varchar(5),
+                        product_id varchar(10),
+                        quantity float(10),
+                        submittedDate  DATE
+           )");
+          //INSERT INTO tmpSurplus
 
-        //EX surplus
+           $sqlex="INSERT INTO tmpSurplus(refNumber,productType_id,product_id,quantity,submittedDate) 
+                  select tbl_ex_surplus.refNumber,productType_id,product_id,quantity,submittedDate from tbl_ex_surplus
+                  join tbl_transactions on tbl_transactions.id = tbl_ex_surplus.trans_id";
+
+           DB::statement($sqlex);
+
+           $sqlca="INSERT INTO tmpSurplus(refNumber,productType_id,product_id,quantity,submittedDate) 
+           select tbl_cssupply.refNumber,productType_id,product_id,quantity,submittedDate from tbl_cssupply
+           join tbl_transactions on tbl_transactions.id = tbl_cssupply.trans_id";
+
+           DB::statement($sqlca);
+
+          $allveg_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',1)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+
+          $allfruit_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',2)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+
+          $alldairy_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',3)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+
+          $alllivestock_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',4)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+         $allnwfp_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',5)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+
+        $allmaps_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',6)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+
+       $allcereal_count=DB::table('tmpSurplus')
+                ->where('productType_id','=',7)
+                ->where(DB::raw('month(submittedDate)'), '=',date('n'))
+                ->SUM('quantity');
+      
+        DB::statement("DROP TEMPORARY TABLE IF EXISTS tmpSurplus"); 
+
+
+
+      //EX surplus
         $veg_count=DB::table('tbl_ex_surplus')
                      ->where('productType_id','1')
                      ->SUM('quantity') ;
@@ -151,16 +213,23 @@ class DashboardController extends Controller
            'producttype','product','farmers','extions','luc_users','ardc','vsc','ca_usres',
            'veg_count','fruit_count','dairy_count','livestock_count','nwfp_count','maps_count','cereal_count',
            'caveg_count','cafruit_count','cadairy_count','calivestock_count','canwfp_count','camaps_count','cacereal_count',
-           'area_uc',
-           'area_hravested',
-           'last_row',
-           'casurplus_count'
+           'area_uc', 'area_hravested', 'last_row', 'casurplus_count',
+           'allveg_count','allfruit_count','alllivestock_count','allnwfp_count','allmaps_count','allcereal_count',
+           'alldairy_count'
          ));
      }
 
      
 elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
 
+      $date = Carbon::now()->format('Y-m-d');
+
+      Transaction::where('expiryDate', '<', $date)
+         ->where('status','=', 'S')
+         ->update([
+           'status' => 'E'
+        ]);
+        
    $d=auth()->user()->dzongkhag_id;
       $user = Auth()->user();
       $product = Product::all();
@@ -182,23 +251,26 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
       
          if ($request->query('crop') && $request->has('crop')){
 
-            $supplyProducts = EXSurplus::search($request)->with('product','dzongkhag','gewog','transaction')->get();
+            $supplyProducts = EXSurplus::search($request)->where('quantity','>',0)->with('product','dzongkhag','gewog')->get();
             
         }
+
         return view('dashboard.aggregatordashboard',compact(
-            'product',
-            'producttype',
-            'location',
-            'users_data',  
-            'ca',
-            'ex',
-            'luc',
-            'farmer',
-            'supplyProducts'
+            'product', 'producttype', 'location','users_data',  'ca',  'ex',  'luc',
+            'farmer', 'supplyProducts'
          ));
 }
 
- elseif($role=='Gewog Extension officer' || $role=='Land User Certificate' || $role = 'Farmer Group' ) {
+ elseif($role=='Gewog Extension officer' || $role=='Land User Certificate' || $role == 'Farmer Group' ) {
+
+
+      $date = Carbon::now()->format('Y-m-d');
+
+      Transaction::where('expiryDate', '<', $date)
+         ->where('status','=', 'S')
+         ->update([
+           'status' => 'E'
+        ]);
 
    $producttype = ProductType::all();
    $product = Product::all();
@@ -250,14 +322,6 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
                    ->where('productType_id','7')
                    ->SUM('quantity');
 
-
-      //    $surplus_count=DB::table('tbl_ex_surplus as s')
-      //       ->join('tbl_transactions as t', 's.refNumber', '=', 't.refNumber')
-      //       ->where(DB::raw('month(t.submittedDate)'), '=', date('n'))
-      //       ->where('s.gewog_id', '=', $g)
-      //       //->select(db::raw('month(t.submittedDate) as month'))
-      //       ->count();
-
       for($i=0;$i < 12;$i++)
       {
             $surplus=DB::table('tbl_ex_surplus as s')
@@ -274,13 +338,22 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
         return view('dashboard.extensiondashboard',compact(
            'user_ca','producttype','product',
            'veg_count','fruit_count','dairy_count','livestock_count','nwfp_count','maps_count','cereal_count',
-           'surplus_count','producttype',
-           'product',
-           'user_ca',
-           'area_uc',
-           'area_hravested'
+           'surplus_count','producttype', 'product',  'user_ca', 'area_uc','area_hravested'
 
          ));
     }
-   }
+  
+  
+    elseif( $role=='Dzongkhag Agriculture Officer'){
+          
+            $d=auth()->user()->dzongkhag_id;
+            
+            $causer = User::where('dzongkhag_id', '=', $d)
+                           ->where('role_id', '=', 4)->get(); 
+            $exuser = User::where('dzongkhag_id', '=', $d)
+                           ->where('role_id', '=', 7)->get(); 
+      
+         return view('dashboard.daodashboard',compact('causer','exuser'));
+    }
+  }
 }
