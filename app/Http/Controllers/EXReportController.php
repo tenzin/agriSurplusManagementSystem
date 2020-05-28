@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Carbon\Carbon;
 use App\Http\Controllers\SummaryController;
+use App\Months;
 
 class EXReportController extends Controller
 {
@@ -20,8 +21,15 @@ class EXReportController extends Controller
     {
 
         $ptypes = DB::table('tbl_product_types')->get();
-        
-        return view('extension_farmer.reports.report',compact('ptypes'));
+        $years = DB::table('tbl_transactions')
+                        ->select(DB::raw('year(submittedDate) as year'))
+                        ->distinct()
+                        ->get();
+
+        $json_months_data = Months::getMonths();
+        $months = $json_months_data->getData();
+       // dd($months); 
+        return view('extension_farmer.reports.report',compact('ptypes','years','months'));
 
     }
 
@@ -29,8 +37,9 @@ class EXReportController extends Controller
     public function searchtotalby()
     {
         $ptypes = DB::table('tbl_product_types')->get();
+        $months = Months::getMonths();
         
-        return view('extension_farmer.reports.totalsurplus',compact('ptypes'));
+        return view('extension_farmer.reports.totalsurplus',compact('ptypes','months'));
     }
 
     //view total surplus.
@@ -42,7 +51,7 @@ class EXReportController extends Controller
         $todate = $request->todate;
 
         $sql = "select tbl_ex_surplus.status,tbl_product_types.type,tbl_products.product, tbl_units.unit,
-        tbl_ex_surplus.quantity + IFNULL((select sum(quantity) from tbl_ex_surplus_history where tbl_ex_surplus_history.ex_surplus_id=tbl_ex_surplus.id),0) as quantity,
+        tbl_ex_surplus.quantity,IFNULL((select sum(quantity) from tbl_ex_surplus_history where tbl_ex_surplus_history.ex_surplus_id=tbl_ex_surplus.id),0) as quantity,
         tbl_ex_surplus.harvestDate,tbl_ex_surplus.price,tbl_gewogs.gewog from tbl_ex_surplus join tbl_product_types on 
         tbl_ex_surplus.productType_id = tbl_product_types.id
         join tbl_transactions on tbl_transactions.id = tbl_ex_surplus.trans_id
@@ -94,21 +103,13 @@ class EXReportController extends Controller
       
         $user = auth()->user();
 
-        $title = "Surplus Balance";
+        $title = "Surplus Submitted";
         $fromdate = $request->fromdate;
         $todate = $request->todate;
 
-        // $sql = "select tbl_ex_surplus.status,tbl_product_types.type,tbl_products.product,tbl_ex_surplus.quantity,tbl_units.unit,
-        // tbl_ex_surplus.harvestDate,tbl_ex_surplus.price,tbl_gewogs.gewog from tbl_ex_surplus join tbl_product_types on 
-        // tbl_ex_surplus.productType_id = tbl_product_types.id
-        // join tbl_products on tbl_ex_surplus.product_id = tbl_products.id 
-        // join tbl_units on tbl_ex_surplus.unit_id = tbl_units.id
-        // join tbl_gewogs on tbl_ex_surplus.gewog_id = tbl_gewogs.id
-        // where exists (select refNumber from tbl_transactions where status in ('S','E') and user_id = ".$user->id." and gewog_id = ".$user->gewog_id." and dzongkhag_id=".$user->dzongkhag_id."
-        // and tbl_transactions.refNumber=tbl_ex_surplus.refNumber)";
 
-
-        $sql = "select tbl_ex_surplus.status,tbl_product_types.type,tbl_products.product,tbl_ex_surplus.quantity,tbl_units.unit,
+        $sql = "select tbl_ex_surplus.status,tbl_product_types.type,tbl_products.product, tbl_units.unit,
+        tbl_ex_surplus.quantity,IFNULL((select sum(quantity) from tbl_ex_surplus_history where tbl_ex_surplus_history.ex_surplus_id=tbl_ex_surplus.id),0) as taken,
         tbl_ex_surplus.harvestDate,tbl_ex_surplus.price,tbl_gewogs.gewog from tbl_ex_surplus join tbl_product_types on 
         tbl_ex_surplus.productType_id = tbl_product_types.id
         join tbl_transactions on tbl_transactions.id = tbl_ex_surplus.trans_id
@@ -136,8 +137,12 @@ class EXReportController extends Controller
             $sql = $sql. " and tbl_ex_surplus.harvestDate <= '".$todate."'"; 
 
        }
+       else {
+           //when dates are not selected. then year should be selected. default is current year.
+           $sql = $sql. " and year(tbl_ex_surplus.harvestDate) = ".$request->tyear; 
+       }
        
-    //    dd($sql);
+       // dd($sql);
 
         if(!empty($request->product_type))
         {

@@ -93,8 +93,8 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       Route::post('extension_dreport',['as'=>'extension_dreport','uses'=>'EXReportController@search_result']);
 
       //Total surplus reports.
-      Route::get('extension_total',['as'=>'extension_total','uses'=>'EXReportController@searchtotalby']);
-      Route::post('extension_treport',['as'=>'extension_treport','uses'=>'EXReportController@search_totalresult']);
+      // Route::get('extension_total',['as'=>'extension_total','uses'=>'EXReportController@searchtotalby']);
+      // Route::post('extension_treport',['as'=>'extension_treport','uses'=>'EXReportController@search_totalresult']);
 
       //Summary surplus reports.
       Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
@@ -294,12 +294,19 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
             return redirect()->back();
       })->name('read');
 
-      //Dzongkhag Reports.
-      Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
-      Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
+      // //Dzongkhag Reports.
+      // Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
+      // Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
+
+       //Dzongkhag Reports.
+     Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
+     Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
+     Route::post('dzosummaryreport',['as'=>'dzosummaryreport','uses'=>'DzoThromdeReportController@dzosummaryreport']);
 
 
 });
 
      
+     
+    
      

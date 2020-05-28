@@ -13,9 +13,6 @@
       <div class="row">
         <div class="col text-left">
           <strong>{{$title}}
-          @isset($gewogname)
-            for the Gewog: {{$gewogname->gewog}}
-          @endisset
           </strong>
         </div>
         <div class="col text-right">
@@ -34,7 +31,9 @@
             <th>Harvest</th>          
             <th>Rate</th>         
             <th>Gewog</th>
-            <th>Quantity</th>
+            <th>Balance</th>
+            <th>Taken</th>
+            <th>Total Quantity</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +45,9 @@
             <td>{{date('d/m/Y',strtotime($report->harvestDate))}}</td> 
             <td>{{$report->price}}</td>        
             <td>{{$report->gewog}}</td>
-            <td>{{$report->quantity}} {{$report->unit}}</td>                                                  
+            <td>{{$report->quantity}}</td>
+            <td>{{$report->taken}}</td>
+            <td>{{$report->quantity+$report->taken}} {{$report->unit}}</td>                                                  
           </tr>
           @endforeach 
           
@@ -54,7 +55,9 @@
         <tfoot>
           <tr>
               <th class="text-right" colspan="6">Total</th>
-            <th><input class="form-control col-auto text-right" type="text" id="total" name="total" readonly/></th>  
+            <th><div id="btotal"></div></th>  
+            <th><div id="ttotal"></div></th>  
+            <th><div id="gtotal"></div></th>  
           </tr>
         </tfoot>
       </table>
@@ -132,6 +135,8 @@
               {
                   extend: 'pdfHtml5',
                   title: 'Details of Surplus',
+                  orientation: 'landscape',
+                  pageSize: 'A4',
                   
               }
           ],
@@ -141,9 +146,13 @@
 
       //  },
        drawCallback: function () {
-        var sum = $('#example3').DataTable().column(6).data().sum();
+        var bsum = $('#example3').DataTable().column(6).data().sum();
+        var tsum = $('#example3').DataTable().column(7).data().sum();
+        var gsum = $('#example3').DataTable().column(8).data().sum();
        // console.log('sum:'+sum);
-        document.getElementById('total').value = sum;
+        document.getElementById('btotal').innerHTML = '<div id="btotal">'+bsum+'</div>';
+        document.getElementById('ttotal').innerHTML = '<div id="btotal">'+tsum+'</div>';
+        document.getElementById('gtotal').innerHTML = '<div id="btotal">'+gsum+'</div>';
        },
           
     });

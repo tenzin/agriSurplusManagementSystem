@@ -227,12 +227,12 @@
                     <p>View Report</p>
                   </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                   <a href="{{route('extension_total')}}" class="nav-link">
                     <i class="nav-icon far fa-calendar-alt"></i>
                       <p>Total Surplus</p>
                   </a>
-                </li>
+                </li> --}}
             </li>
           @endcan
           <li class="nav-item">

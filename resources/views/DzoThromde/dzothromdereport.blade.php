@@ -39,6 +39,24 @@
                         @endforeach                    
                       </select>
                   </div>
+
+                  <div class="col col-md-auto">
+                    <label for="tyear">Year:</label>
+                  </div>
+                  <div class="col-md-1">
+                    <select name="tyear" id="tyear">
+                      <option value="All">All</option>
+                    @foreach($years as $year)
+                      @if($year->year == date('Y'))
+                        <option value="{{$year->year}}" selected>{{$year->year}}</option>
+                      @else  
+                      <option value="{{$year->year}}">{{$year->year}}</option>
+                      @endif
+                    @endforeach
+                    </select>
+                  </div>
+
+
                 </div></br>
 
                 <div class="row">
@@ -78,7 +96,7 @@
     </form>                             
 </div>
 <div class="content-header">
-  <form class="form-horizontal" method="POST" action = "{{route('aggregator_summaryreport')}}">
+  <form class="form-horizontal" method="POST" action = "{{route('dzosummaryreport')}}">
             @csrf
         <div class="card card">
                   <div class="card-header">
@@ -89,22 +107,35 @@
           <div class="card-body">            
 <!-- supply/demand report and transaction date range. -->
                 <div class="row mb-1">               
-                  <div class="col col-md-auto">
+                <div class="col col-md-auto">
                     <label for="tyear">Year:</label>
                   </div>
-                  <div class="col-md-2">
-                    <select class="form-control" name="tyear" id ="tyear">
-                      <option value="All" selected>All</option>
-                      <option value="2020">2020<option>
+                  <div class="col-md-1">
+                    <select name="tyear" id="tyear">
+                    <option value="All">All</option>
+                    @foreach($years as $year)
+                      @if($year->year == date('Y'))
+                        <option value="{{$year->year}}" selected>{{$year->year}}</option>
+                      @else  
+                      <option value="{{$year->year}}">{{$year->year}}</option>
+                      @endif
+                    @endforeach
                     </select>
                   </div>
+
                   <div class="col col-md-auto">
                     <label for="tmonth">Month:</label>
                   </div>
                   <div class="col-md-2">
-                    <select class="form-control" name="tmonth" id ="tmonth">
-                      <option value="All" selected>All</option>
-                      <option value="5">May</option>
+                    <select class="form-control" name="tmonth" id ="tsmonth">
+                      <option value="All">All</option>
+                      @foreach($months as $key => $value)
+                        @if($key == date('n'))
+                        <option value="{{$key}}" selected>{{$value}}</option>
+                        @else
+                        <option value="{{$key}}">{{$value}}</option>
+                        @endif
+                      @endforeach
                     </select>
                   </div>
                   <div class="col col-md-auto">
