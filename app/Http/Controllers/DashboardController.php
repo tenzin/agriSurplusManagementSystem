@@ -61,7 +61,7 @@ class DashboardController extends Controller
         $producttype = ProductType::all();
         $product = Product::all();
 
-        $area_uc = Cultivation::where('status','=', '0')->with('product')->get();
+        $area_uc = Cultivation::where('status','=', '0')->with('product','c_unit')->get();
         $area_hravested = Cultivation::where('status','=', '1')->with('product','e_unit')->get();
 
         $last_row = EXSurplus::with('product','unit','gewog')->latest()->take(5)->get();

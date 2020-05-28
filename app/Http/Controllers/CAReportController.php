@@ -83,7 +83,7 @@ class CAReportController extends Controller
             $sql = $sql." and tbl_ex_surplus.product_id = ".$request->product;
         }
 
-        //dd($sql);
+       // dd($sql);
         
         $surplus = DB::select($sql);
 

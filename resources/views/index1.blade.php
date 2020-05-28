@@ -79,7 +79,6 @@
 </head>
 
 <body id="page-top">
-
   <!-- Navigation -->
   
   <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
@@ -90,9 +89,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto my-2 my-lg-0">
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#about">About</a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
           </li>
@@ -107,46 +106,26 @@
       </div>
     </div>
   </nav>
-  
-
   <!-- Masthead -->
-   <header class="page-section bg-info">
-    
+   <header class="bg-info py-5">
+  </header>
    <div id="map" class="map"></div>
          <div id="popup" class="ol-popup">
            <a href="#" id="popup-closer" class="ol-popup-closer"></a>
            <div id="popup-content"></div>
          </div></br>
        
-       <div class="row h-100 align-items-center justify-content-center text-center"> 
-         <div class="col-lg-8 align-self-baseline">
-           <label><input type='checkbox' onclick='handleClickGewog(this);'>Gewog</label>
-           <label><input type='checkbox' onclick='handleClickDzongkhag(this);'>Dzongkhag</label>
+       <div class="row align-items-center justify-content-center text-center"> 
+         <div class="align-self-baseline">
+           <label><input type='checkbox' onclick='handleClickGewog(this);'>&nbsp;Gewog Extension</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickFG(this);'>&nbsp;Farmer's Group</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickLUC(this);'>&nbsp;LUC</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickCA(this);'>&nbsp;Commercial Aggrigator</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickVSC(this);'>&nbsp;VSC</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickDzongkhag(this);'>&nbsp;Dzongkhag</label>&nbsp;&nbsp;&nbsp;
         </div> 
       </div>
-      </header>
-
-  <!-- About Section -->
-  <section class="page-section bg-success" id="about">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-8 text-center">
-          <h2 class="text-white mt-0">V-MIS</h2>
-          <hr class="divider light my-4">
-          <p class="text-white-50 mb-4">V-MIS is the Vegetable management Information System!</p>
-          <a class="btn btn-light btn-xl js-scroll-trigger" href="#login">Find Out More!</a>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Call to Action Section -->
-  <section class="page-section bg-dark text-white" id="login">
-    <div class="container text-center">
-      <h5 class="mb-4">Have you want to use the system?Get Credential From the MoAF!</h5>
-      <a class="btn btn-light btn-xl" href="/login">Login To System</a>
-    </div>
-  </section>
+    
 
   <!-- Contact Section -->
   <section class="page-section" id="contact">
@@ -161,11 +140,11 @@
       <div class="row">
         <div class="col-lg-4 ml-auto text-center mb-5 mb-lg-0">
           <i class="fas fa-phone fa-3x mb-3 text-muted"></i>
-          <div>+1 (202) 555-0149</div>
+          <div>+975-2-322228</div>
         </div>
         <div class="col-lg-4 mr-auto text-center">
           <i class="fas fa-envelope fa-3x mb-3 text-muted"></i>
-          <div>contact@yourwebsite.com</div>
+          <div>test@test.com</div>
         </div>
       </div>
     </div>
@@ -208,7 +187,6 @@
 
           var gewog_layer;
           var dzongkhag_layer;
-
           function show_dzongkhag_layer() {
             if(typeof dzongkhag_layer == 'undefined') {
               //alert('dzongkhag_layer not defined');
@@ -222,7 +200,7 @@
                 feature = new ol.Feature({
                   geometry: new ol.geom.Point(ol.proj.fromLonLat([long[index],lat[index]])),
                   type: 'Dzongkhag',
-                  name: dzongkhag_name[index]
+                  place_name: dzongkhag_name[index]
                 });
                 console.log(feature.get('gewog_name'));
                 pointerFeatures.push(feature);
@@ -264,7 +242,7 @@
                   feature = new ol.Feature({
                     geometry: new ol.geom.Point(ol.proj.fromLonLat([long, lat])),
                     type: 'Gewog',
-                    gewog_name: array[index].gewog,
+                    place_name: array[index].gewog,
                     name: array[index].name,
                     contact: array[index].contact_number
                   });
@@ -318,7 +296,7 @@
           //  var content = document.getElementById('popup');
           //  content.innerHTML = '<p>Position:'+coordinate+'</p><code>' +feature.get('ID') + '</code>';
           //content = '<p>Position:'+coordinate+'</p><code>' +feature.get('ID') + '</code>';
-          content.innerHTML= feature.get('type')+': '+feature.get('gewog_name')+"<br>Name: "+feature.get('name')+"<br>Contact: "+feature.get('contact');
+          content.innerHTML= feature.get('type')+': '+feature.get('place_name')+"<br>Name: "+feature.get('name')+"<br>Contact: "+feature.get('contact');
           overlay.setPosition(coordinate);
               // console.log("ID: " + feature.get('ID'));
               // alert("You clicked on " + feature.get('ID'));
