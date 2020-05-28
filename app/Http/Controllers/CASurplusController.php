@@ -180,7 +180,7 @@ class CASurplusController extends Controller
                     ->where('dzongkhag_id','=',$user->dzongkhag_id)
                     ->where('refNumber', 'Like' , '%'.$refno.'%')
                     ->max('refNumber');
-                     dd($max);
+                    //  dd($max);
             $number = substr($max,1,12);
             $number=$number+1;
             $nextNumber = $type.$number;
