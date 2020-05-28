@@ -121,7 +121,7 @@
            <label><input type='checkbox' onclick='handleClickFG(this);'>&nbsp;Farmer's Group</label>&nbsp;&nbsp;&nbsp;
            <label><input type='checkbox' onclick='handleClickLUC(this);'>&nbsp;Land User Certificate</label>&nbsp;&nbsp;&nbsp;
            <label><input type='checkbox' onclick='handleClickCA(this);'>&nbsp;Commercial Aggregator</label>&nbsp;&nbsp;&nbsp;
-           <label><input type='checkbox' onclick='handleClickVSC(this);'>&nbsp;Vegetable Supply Company</label>&nbsp;&nbsp;&nbsp;
+           <!--<label><input type='checkbox' onclick='handleClickVSC(this);'>&nbsp;Vegetable Supply Company</label>&nbsp;&nbsp;&nbsp; -->
         </div> 
       </div>
     
@@ -187,6 +187,8 @@
 
           var gewog_extension_layer; //Gewog Extension Layer 
           var luc_layer; // Land User Certificate Layer
+          var fg_layer; //Farmer Group Layer
+          var ca_layer; //Commercial Aggregator Layer
 
           //Extension Map
           function show_gewog_extension_layer() {
@@ -199,7 +201,8 @@
                 json.data.forEach(function(value, index, array){
                   feature = new ol.Feature({
                     geometry: new ol.geom.Point(ol.proj.fromLonLat([array[index].longitude, array[index].latitude])),
-                    type: 'Gewog',
+                    type: 'Gewog Extension',
+                    place_type: 'Gewog',
                     place_name: array[index].gewog,
                     name: array[index].name,
                     contact: array[index].contact_number,
@@ -244,7 +247,8 @@
                 json.data.forEach(function(value, index, array){
                   feature = new ol.Feature({
                     geometry: new ol.geom.Point(ol.proj.fromLonLat([array[index].longitude, array[index].latitude])),
-                    type: 'Gewog',
+                    type: 'Land User Certificate',
+                    place_type: 'Gewog',
                     place_name: array[index].gewog,
                     name: array[index].name,
                     contact: array[index].contact_number,
@@ -277,6 +281,96 @@
             }
           }
 
+          //FG Map
+          function show_fg_layer() {
+            if(typeof fg_layer == 'undefined') {
+              var pointerFeatures = [];
+
+              const create_fg_layer = async () => {
+                const response = await fetch('fg_map');
+                const json = await response.json();
+                json.data.forEach(function(value, index, array){
+                  feature = new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([array[index].longitude, array[index].latitude])),
+                    type: 'Farmer Group',
+                    place_type: 'Gewog',
+                    place_name: array[index].gewog,
+                    name: array[index].name,
+                    contact: array[index].contact_number,
+                    surplus_quantity: array[index].surplus_quantity
+                  });
+                  pointerFeatures.push(feature);
+                })                
+                var iconStyle = new ol.style.Style({
+                  image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+                    anchor: [0.5, 46],
+                    anchorXUnits: 'fraction',
+                    anchorYUnits: 'pixels',
+                    //opacity: 0.75,
+                    src: '../../images/fg.png'
+                  }))
+                });
+                fg_layer = new ol.layer.Vector({
+                  name: 'FG',
+                  source: new ol.source.Vector({
+                    features: pointerFeatures,
+                  }),
+                  style: iconStyle
+                });
+                map.addLayer(fg_layer);
+              }
+              create_fg_layer();
+            }
+            else {
+              map.addLayer(fg_layer);
+            }
+          }
+
+          //CA Map
+          function show_ca_layer() {
+            if(typeof ca_layer == 'undefined') {
+              var pointerFeatures = [];
+
+              const create_ca_layer = async () => {
+                const response = await fetch('ca_map');
+                const json = await response.json();
+                json.data.forEach(function(value, index, array){
+                  feature = new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([array[index].longitude, array[index].latitude])),
+                    type: 'Commercial Aggregator',
+                    place_type: 'Dzongkhag',
+                    place_name: array[index].dzongkhag,
+                    name: array[index].name,
+                    contact: array[index].contact_number,
+                    surplus_quantity: array[index].surplus_quantity
+                  });
+                  pointerFeatures.push(feature);
+                })                
+                var iconStyle = new ol.style.Style({
+                  image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+                    anchor: [0.5, 46],
+                    anchorXUnits: 'fraction',
+                    anchorYUnits: 'pixels',
+                    //opacity: 0.75,
+                    src: '../../images/ca.png'
+                  }))
+                });
+                ca_layer = new ol.layer.Vector({
+                  name: 'CA',
+                  source: new ol.source.Vector({
+                    features: pointerFeatures,
+                  }),
+                  style: iconStyle
+                });
+                map.addLayer(ca_layer);
+              }
+              create_ca_layer();
+            }
+            else {
+              map.addLayer(ca_layer);
+            }
+          }
+
 
 
         //popup
@@ -291,9 +385,10 @@
         map.on('click', function(event) {
           map.forEachFeatureAtPixel(event.pixel, function(feature,layer) {
             var coordinate = event.coordinate;
-            content.innerHTML = feature.get('type')+": "+feature.get('place_name')+
-                                "<br>Name: "+feature.get('name')+
-                                "<br>Contact: "+feature.get('contact')+
+            content.innerHTML = "<center><b><u>" + feature.get('type') + "</u></b></center>" + 
+                                feature.get('place_type') + ": " + feature.get('place_name') +
+                                "<br>Name: " + feature.get('name') +
+                                "<br>Contact: " + feature.get('contact') +
                                 "<br>Surplus Quantity: " + feature.get('surplus_quantity') + " units. <small><i>Login to check surplus details.</i></small>";
             overlay.setPosition(coordinate);
 
@@ -323,6 +418,24 @@
           }
           else {
             remove_layer('LUC');
+          }
+        }
+
+        function handleClickFG(status) {
+          if(status.checked) {
+            show_fg_layer();
+          }
+          else {
+            remove_layer('FG');
+          }
+        }
+
+        function handleClickCA(status) {
+          if(status.checked) {
+            show_ca_layer();
+          }
+          else {
+            remove_layer('CA');
           }
         }
 

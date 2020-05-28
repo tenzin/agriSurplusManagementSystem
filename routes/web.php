@@ -27,6 +27,8 @@ Route::get('/', function ()
 //Map routes
 Route::get('/gewog_extension_map','MapController@gewog_extension_map');
 Route::get('/luc_map','MapController@luc_map');
+Route::get('/fg_map','MapController@fg_map');
+Route::get('/ca_map','MapController@ca_map');
 
 
 Route::group(['middleware' => 'auth'], function () {
