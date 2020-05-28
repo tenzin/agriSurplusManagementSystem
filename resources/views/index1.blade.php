@@ -117,12 +117,11 @@
        
        <div class="row align-items-center justify-content-center text-center"> 
          <div class="align-self-baseline">
-           <label><input type='checkbox' onclick='handleClickGewog(this);'>&nbsp;Gewog Extension</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickGewogExtension(this);'>&nbsp;Gewog Extension</label>&nbsp;&nbsp;&nbsp;
            <label><input type='checkbox' onclick='handleClickFG(this);'>&nbsp;Farmer's Group</label>&nbsp;&nbsp;&nbsp;
-           <label><input type='checkbox' onclick='handleClickLUC(this);'>&nbsp;LUC</label>&nbsp;&nbsp;&nbsp;
+           <label><input type='checkbox' onclick='handleClickLUC(this);'>&nbsp;Land User Certificate</label>&nbsp;&nbsp;&nbsp;
            <label><input type='checkbox' onclick='handleClickCA(this);'>&nbsp;Commercial Aggregator</label>&nbsp;&nbsp;&nbsp;
-           <label><input type='checkbox' onclick='handleClickVSC(this);'>&nbsp;VSC</label>&nbsp;&nbsp;&nbsp;
-           <label><input type='checkbox' onclick='handleClickDzongkhag(this);'>&nbsp;Dzongkhag</label>&nbsp;&nbsp;&nbsp;
+           <!--<label><input type='checkbox' onclick='handleClickVSC(this);'>&nbsp;Vegetable Supply Company</label>&nbsp;&nbsp;&nbsp; -->
         </div> 
       </div>
     
@@ -170,6 +169,7 @@
 
   <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
     <script type="text/javascript">
+          //Start of Map
           var map = new ol.Map({
               target: 'map',
               layers: [
@@ -185,75 +185,31 @@
               interactions: []
           });
 
-          var gewog_layer;
-          var dzongkhag_layer;
-          function show_dzongkhag_layer() {
-            if(typeof dzongkhag_layer == 'undefined') {
-              //alert('dzongkhag_layer not defined');
-              var dzongkhag_name = ['Thimphu', 'Bumthang', 'Trashiyangtse', 'Samtse'];
-              var long = [89.64191, 90.7525, 91.498, 89.09951];
-              var lat = [27.46609, 27.54918, 27.6116, 26.89903];
+          var gewog_extension_layer; //Gewog Extension Layer 
+          var luc_layer; // Land User Certificate Layer
+          var fg_layer; //Farmer Group Layer
+          var ca_layer; //Commercial Aggregator Layer
+
+          //Extension Map
+          function show_gewog_extension_layer() {
+            if(typeof gewog_extension_layer == 'undefined') {
               var pointerFeatures = [];
 
-              dzongkhag_name.forEach(createFeatures);
-              function createFeatures(value, index, array) {
-                feature = new ol.Feature({
-                  geometry: new ol.geom.Point(ol.proj.fromLonLat([long[index],lat[index]])),
-                  type: 'Dzongkhag',
-                  place_name: dzongkhag_name[index]
-                });
-                console.log(feature.get('gewog_name'));
-                pointerFeatures.push(feature);
-              }
-              // create the marker stylesheet
-              var iconStyle = new ol.style.Style({
-                image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
-                  anchor: [0.5, 46],
-                  anchorXUnits: 'fraction',
-                  anchorYUnits: 'pixels',
-                  //opacity: 0.75,
-                  src: '../../images/dzongkhag.png'
-                }))
-              });
-              dzongkhag_layer = new ol.layer.Vector({
-                name: 'Dzongkhag',
-                source: new ol.source.Vector({
-                  features: pointerFeatures,
-                }),
-                style: iconStyle
-              });
-            }
-            //Now add the layer
-            map.addLayer(dzongkhag_layer);
-          }
-
-          function show_gewog_layer() {
-            if(typeof gewog_layer == 'undefined') {
-              var pointerFeatures = [];
-
-              const create_gewog_layer = async () => {
-                const response = await fetch('gewog_map');
+              const create_gewog_extension_layer = async () => {
+                const response = await fetch('gewog_extension_map');
                 const json = await response.json();
-                console.log(json);
-                console.log('after json');
-                json.gewogs.forEach(function(value, index, array){
-                  var lat = array[index].latitude;
-                  var long = array[index].longitude;
+                json.data.forEach(function(value, index, array){
                   feature = new ol.Feature({
-                    geometry: new ol.geom.Point(ol.proj.fromLonLat([long, lat])),
-                    type: 'Gewog',
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([array[index].longitude, array[index].latitude])),
+                    type: 'Gewog Extension',
+                    place_type: 'Gewog',
                     place_name: array[index].gewog,
                     name: array[index].name,
-                    contact: array[index].contact_number
+                    contact: array[index].contact_number,
+                    surplus_quantity: array[index].surplus_quantity
                   });
-                  console.log('feature: ' + feature.getGeometry().getCoordinates());
-                  console.log("gewog: " + array[index].gewog);
-                  console.log("lat: " + lat);
-                  console.log("long: " + long);
                   pointerFeatures.push(feature);
-                })
-                //console.log(pointerFeatures);
-                
+                })                
                 var iconStyle = new ol.style.Style({
                   image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
                     anchor: [0.5, 46],
@@ -263,25 +219,161 @@
                     src: '../../images/extension.png'
                   }))
                 });
-                gewog_layer = new ol.layer.Vector({
-                  name: 'Gewog',
+                gewog_extension_layer = new ol.layer.Vector({
+                  name: 'Gewog Extension',
                   source: new ol.source.Vector({
                     features: pointerFeatures,
                   }),
                   style: iconStyle
                 });
                 console.log('adding layer');
-                map.addLayer(gewog_layer);
+                map.addLayer(gewog_extension_layer);
               }
-              create_gewog_layer();
+              create_gewog_extension_layer();
             }
-
             else {
-              map.addLayer(gewog_layer);
+              map.addLayer(gewog_extension_layer);
             }
           }
 
-        //trypopup
+          //LUC Map
+          function show_luc_layer() {
+            if(typeof luc_layer == 'undefined') {
+              var pointerFeatures = [];
+
+              const create_luc_layer = async () => {
+                const response = await fetch('luc_map');
+                const json = await response.json();
+                json.data.forEach(function(value, index, array){
+                  feature = new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([array[index].longitude, array[index].latitude])),
+                    type: 'Land User Certificate',
+                    place_type: 'Gewog',
+                    place_name: array[index].gewog,
+                    name: array[index].name,
+                    contact: array[index].contact_number,
+                    surplus_quantity: array[index].surplus_quantity
+                  });
+                  pointerFeatures.push(feature);
+                })                
+                var iconStyle = new ol.style.Style({
+                  image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+                    anchor: [0.5, 46],
+                    anchorXUnits: 'fraction',
+                    anchorYUnits: 'pixels',
+                    //opacity: 0.75,
+                    src: '../../images/luc.png'
+                  }))
+                });
+                luc_layer = new ol.layer.Vector({
+                  name: 'LUC',
+                  source: new ol.source.Vector({
+                    features: pointerFeatures,
+                  }),
+                  style: iconStyle
+                });
+                map.addLayer(luc_layer);
+              }
+              create_luc_layer();
+            }
+            else {
+              map.addLayer(luc_layer);
+            }
+          }
+
+          //FG Map
+          function show_fg_layer() {
+            if(typeof fg_layer == 'undefined') {
+              var pointerFeatures = [];
+
+              const create_fg_layer = async () => {
+                const response = await fetch('fg_map');
+                const json = await response.json();
+                json.data.forEach(function(value, index, array){
+                  feature = new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([array[index].longitude, array[index].latitude])),
+                    type: 'Farmer Group',
+                    place_type: 'Gewog',
+                    place_name: array[index].gewog,
+                    name: array[index].name,
+                    contact: array[index].contact_number,
+                    surplus_quantity: array[index].surplus_quantity
+                  });
+                  pointerFeatures.push(feature);
+                })                
+                var iconStyle = new ol.style.Style({
+                  image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+                    anchor: [0.5, 46],
+                    anchorXUnits: 'fraction',
+                    anchorYUnits: 'pixels',
+                    //opacity: 0.75,
+                    src: '../../images/fg.png'
+                  }))
+                });
+                fg_layer = new ol.layer.Vector({
+                  name: 'FG',
+                  source: new ol.source.Vector({
+                    features: pointerFeatures,
+                  }),
+                  style: iconStyle
+                });
+                map.addLayer(fg_layer);
+              }
+              create_fg_layer();
+            }
+            else {
+              map.addLayer(fg_layer);
+            }
+          }
+
+          //CA Map
+          function show_ca_layer() {
+            if(typeof ca_layer == 'undefined') {
+              var pointerFeatures = [];
+
+              const create_ca_layer = async () => {
+                const response = await fetch('ca_map');
+                const json = await response.json();
+                json.data.forEach(function(value, index, array){
+                  feature = new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([array[index].longitude, array[index].latitude])),
+                    type: 'Commercial Aggregator',
+                    place_type: 'Dzongkhag',
+                    place_name: array[index].dzongkhag,
+                    name: array[index].name,
+                    contact: array[index].contact_number,
+                    surplus_quantity: array[index].surplus_quantity
+                  });
+                  pointerFeatures.push(feature);
+                })                
+                var iconStyle = new ol.style.Style({
+                  image: new ol.style.Icon(/** @type {olx.style.IconOptions} */ ({
+                    anchor: [0.5, 46],
+                    anchorXUnits: 'fraction',
+                    anchorYUnits: 'pixels',
+                    //opacity: 0.75,
+                    src: '../../images/ca.png'
+                  }))
+                });
+                ca_layer = new ol.layer.Vector({
+                  name: 'CA',
+                  source: new ol.source.Vector({
+                    features: pointerFeatures,
+                  }),
+                  style: iconStyle
+                });
+                map.addLayer(ca_layer);
+              }
+              create_ca_layer();
+            }
+            else {
+              map.addLayer(ca_layer);
+            }
+          }
+
+
+
+        //popup
         var container = document.getElementById('popup');
         var content = document.getElementById('popup-content');
         var closer = document.getElementById('popup-closer');
@@ -293,51 +385,57 @@
         map.on('click', function(event) {
           map.forEachFeatureAtPixel(event.pixel, function(feature,layer) {
             var coordinate = event.coordinate;
-          //  var content = document.getElementById('popup');
-          //  content.innerHTML = '<p>Position:'+coordinate+'</p><code>' +feature.get('ID') + '</code>';
-          //content = '<p>Position:'+coordinate+'</p><code>' +feature.get('ID') + '</code>';
-          content.innerHTML= feature.get('type')+': '+feature.get('place_name')+"<br>Name: "+feature.get('name')+"<br>Contact: "+feature.get('contact');
-          overlay.setPosition(coordinate);
-              // console.log("ID: " + feature.get('ID'));
-              // alert("You clicked on " + feature.get('ID'));
+            content.innerHTML = "<center><b><u>" + feature.get('type') + "</u></b></center>" + 
+                                feature.get('place_type') + ": " + feature.get('place_name') +
+                                "<br>Name: " + feature.get('name') +
+                                "<br>Contact: " + feature.get('contact') +
+                                "<br>Surplus Quantity: " + feature.get('surplus_quantity') + " units. <small><i>Login to check surplus details.</i></small>";
+            overlay.setPosition(coordinate);
 
-            });
+          });
         });
         closer.onclick = function() {
           overlay.setPosition(undefined);
           closer.blur();
           return false;
         };
+        //end popup
 
-        //end trypopup
+        //Handle ckecbox clicks
 
-        function changeLayer(value){
-          if (value == 'Gewogs') {
-            show_gewog_layer();
+        function handleClickGewogExtension(status) {
+          if(status.checked) {
+            show_gewog_extension_layer();
           }
-          else if (value == 'CAs') {
+          else {
+            remove_layer('Gewog Extension');
+          }
+        }
+
+        function handleClickLUC(status) {
+          if(status.checked) {
+            show_luc_layer();
+          }
+          else {
+            remove_layer('LUC');
+          }
+        }
+
+        function handleClickFG(status) {
+          if(status.checked) {
+            show_fg_layer();
+          }
+          else {
+            remove_layer('FG');
+          }
+        }
+
+        function handleClickCA(status) {
+          if(status.checked) {
             show_ca_layer();
           }
-          else if (value == 'Dzongkhags') {
-            show_dzongkhag_layer();
-          }
-        }
-
-        function handleClickGewog(status) {
-          if(status.checked) {
-            show_gewog_layer();
-          }
           else {
-            remove_layer('Gewog');
-          }
-        }
-
-        function handleClickDzongkhag(status) {
-          if(status.checked) {
-            show_dzongkhag_layer();
-          }
-          else {
-            remove_layer('Dzongkhag');
+            remove_layer('CA');
           }
         }
 
@@ -346,7 +444,7 @@
              .filter(layer => layer.get('name') === layer_name)
              .forEach(layer => map.removeLayer(layer));
         }
-        </script>
+      </script>
 
 </body>
 
