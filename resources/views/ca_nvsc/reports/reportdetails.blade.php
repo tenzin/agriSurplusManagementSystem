@@ -12,10 +12,7 @@
       </div>
       <div class="row">
         <div class="col text-left">
-          <strong>Details of Surplus Submitted
-          @isset($gewogname)
-            for the Gewog: {{$gewogname->gewog}}
-          @endisset
+          <strong>Active - Surplus submitted by Gewog(s) based on harvest date.
           </strong>
         </div>
         <div class="col text-right">
@@ -33,10 +30,10 @@
             <th>Product</th>
             <th>Harvest</th>          
             <th>Rate</th>
-            @if(empty($gewogname))           
-              <th>Gewog</th>
-            @endif
-            <th>Quantity</th>
+            <th>Gewog</th>
+            <th>Balance</th>
+            <th>Taken</th>
+            <th>Total Quantity</th>
           </tr>
         </thead>
         <tbody>
@@ -47,23 +44,20 @@
             <td>{{$report->product}}</td>
             <td class="text-right col-md-1">{{date('d/m/Y',strtotime($report->harvestDate))}}</td> 
             <td class="text-right col-md-1">{{$report->price}}</td>
-            @if(empty($gewogname))           
-              <td>{{$report->gewog}}</td>
-            @endif 
-            <td class="text-right col-md-1">{{$report->quantity}} {{$report->unit}}</td>                                                  
+            <td>{{$report->gewog}}</td>
+            <td class="text-right col-md-1">{{$report->quantity}}</td>  
+            <td class="text-right col-md-1">{{$report->taken}}</td>
+            <td class="text-right col-md-1">{{$report->quantity+$report->taken}} {{$report->unit}}</td>                                                
           </tr>
           @endforeach 
           
         </tbody>
         <tfoot>
           <tr>
-            @if(empty($gewogname)) 
               <th class="text-right" colspan="6">Total</th>
-            @endif
-            @if(!empty($gewogname)) 
-              <th class="text-right" colspan="5">Total</th>
-            @endif
-            <th><input class="form-control col-auto text-right" type="text" id="total" name="total" readonly/></th>  
+              <th class="text-right"><div id="btotal"></div></th>
+              <th class="text-right"><div id="ttotal"></div></th>
+              <th class="text-right"><div id="gtotal"></div></th>
           </tr>
         </tfoot>
       </table>
@@ -141,6 +135,8 @@
               {
                   extend: 'pdfHtml5',
                   title: 'Details of Surplus',
+                  orientation: 'landscape',
+                  pageSize: 'A4',
                   
               }
           ],
@@ -150,20 +146,15 @@
 
       //  },
        drawCallback: function () {
-        var sum = $('#example3').DataTable().column(6).data().sum();
+        var bsum = $('#example3').DataTable().column(6).data().sum();
+        var tsum = $('#example3').DataTable().column(7).data().sum();
+        var gsum = $('#example3').DataTable().column(8).data().sum();
        // console.log('sum:'+sum);
-        document.getElementById('total').value = sum;
+        document.getElementById('btotal').innerHTML = '<div id="btotal">'+bsum+'</di>';
+        document.getElementById('ttotal').innerHTML = '<div id="btotal">'+tsum+'</di>';
+        document.getElementById('gtotal').innerHTML = '<div id="btotal">'+gsum+'</di>';
        },
-          //get sum of quantity.
-          // drawCallback: function () 
-          //   {
-          //   var api = this.api();
-          //   $( api.table().footer() ).html
-          //     (
-          //       api.column( 3, {page:'current'} ).data().sum()
-          //     );
-              
-          //   },
+          
     });
  });
 

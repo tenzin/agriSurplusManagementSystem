@@ -8,7 +8,7 @@
             @csrf
         <div class="card card">
                   <div class="card-header">
-                    <h3 class="card-title">Search details of surplus by:</h3>
+                    <h3 class="card-title">View surplus submitted by Gewog(s):</h3>
                     
                   </div>
                   <!-- /.card-header -->
@@ -31,13 +31,27 @@
                   <div class="col col-md-auto">
                       <label for="gewog">Gewog:</label>
                   </div>
-                  <div class="col-md-4"> 
+                  <div class="col-md-3"> 
                       <select class="form-control" id="gewog" name="gewog">
                         <option value="All">All</option>
                         @foreach($gewogs as $gewog)
                                 <option value="{{ $gewog->id }}">{{$gewog->gewog}}</option>
                         @endforeach                    
                       </select>
+                  </div>
+                  <div class="col col-md-auto">
+                    <label for="tyear">Year:</label>
+                  </div>
+                  <div class="col-md-1">
+                    <select name="tyear" id="tyear">
+                    @foreach($years as $year)
+                      @if($year->year == date('Y'))
+                        <option value="{{$year->year}}" selected>{{$year->year}}</option>
+                      @else  
+                      <option value="{{$year->year}}">{{$year->year}}</option>
+                      @endif
+                    @endforeach
+                    </select>
                   </div>
                 </div></br>
 
@@ -77,7 +91,7 @@
             @csrf
         <div class="card card">
                   <div class="card-header">
-                    <h3 class="card-title center">View summary of surplus by:</h3>
+                    <h3 class="card-title center">View summary of surplus submitted by Gewog(s):</h3>
                   </div>
                   <!-- /.card-header -->
          
@@ -85,21 +99,33 @@
 <!-- supply/demand report and transaction date range. -->
                 <div class="row mb-1">               
                   <div class="col col-md-auto">
-                    <label for="tyear">Year:</label>
+                    <label for="tsyear">Year:</label>
                   </div>
                   <div class="col-md-2">
-                    <select class="form-control" name="tyear" id ="tyear">
-                      <option value="All" selected>All</option>
-                      <option value="2020">2020<option>
+                  <select name="tyear" id="tsyear">
+                      <option value="All">All</option>
+                    @foreach($years as $year)
+                      @if($year->year == date('Y'))
+                        <option value="{{$year->year}}" selected>{{$year->year}}</option>
+                      @else  
+                      <option value="{{$year->year}}">{{$year->year}}</option>
+                      @endif
+                    @endforeach
                     </select>
                   </div>
                   <div class="col col-md-auto">
-                    <label for="tmonth">Month:</label>
+                    <label for="tsmonth">Month:</label>
                   </div>
                   <div class="col-md-2">
-                    <select class="form-control" name="tmonth" id ="tmonth">
-                      <option value="All" selected>All</option>
-                      <option value="5">May</option>
+                    <select class="form-control" name="tmonth" id ="tsmonth">
+                      <option value="All">All</option>
+                      @foreach($months as $key => $value)
+                        @if($key == date('n'))
+                        <option value="{{$key}}" selected>{{$value}}</option>
+                        @else
+                        <option value="{{$key}}">{{$value}}</option>
+                        @endif
+                      @endforeach
                     </select>
                   </div>
                   <div class="col col-md-auto">

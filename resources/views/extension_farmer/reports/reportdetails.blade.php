@@ -12,8 +12,7 @@
       </div>
       <div class="row">
         <div class="col text-left">
-          <strong>Details of {{$title}}
-          </strong>
+          <strong>Submitted Surplus(Based on harvest date)</strong>
         </div>
         <div class="col text-right">
           <i>@isset($fromdate) From: {{date('d/m/Y',strtotime($fromdate))}} @endisset 
@@ -30,7 +29,9 @@
             <th>Product</th>
             <th>Harvest</th>          
             <th>Rate</th>
-            <th>Quantity</th>
+            <th>Balance</th>
+            <th>Taken</th>
+            <th>Total Quantity</th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +42,9 @@
             <td>{{$report->product}}</td>
             <td class="text-right">{{date('d/m/Y',strtotime($report->harvestDate))}}</td> 
             <td class="text-right">{{$report->price}}</td>
-            <td class="text-right">{{$report->quantity}} {{$report->unit}}</td>                                                  
+            <td class="text-right">{{$report->quantity}} </td>
+            <td class="text-right">{{$report->taken}} </td>     
+            <td class="text-right">{{$report->quantity+$report->taken}}&nbsp; {{$report->unit}} </td>                                    
           </tr>
           @endforeach 
           
@@ -49,7 +52,9 @@
         <tfoot>
           <tr>
             <th class="text-right" colspan="5">Total</th>
-            <th><input class="form-control col-auto text-right" type="text" id="total" name="total" readonly/></th>  
+            <th class="text-right"><div id="btotalId"></div></th>
+            <th class="text-right"><div id="takentotalId"></div></th>
+            <th class="text-right"><div id="gtotalId"></div></th>
           </tr>
         </tfoot>
       </table>
@@ -109,7 +114,6 @@
       // "processing" : true,
     //  "serverSide" : true,
         dom: 'B<"clear">lfrtip',
-        //buttons: [ 'copy','print','excel','pdf']
         buttons: [
             {
                   extend: 'copy',
@@ -118,39 +122,38 @@
             },           
             {
                   extend: 'print',
+                  pageSize: 'A4',
                   
               },
             {
                   extend: 'excelHtml5',
                   title: 'Details of Surplus',
+                  orientation: 'landscape',
+                  pageSize: 'A4',
                   
               },
               {
                   extend: 'pdfHtml5',
                   title: 'Details of Surplus',
+                  orientation: 'landscape',
+                  pageSize: 'A4',
+                  pageMargins: [ 0, 0, 0, 0 ], // try #1 setting margins
+                  margin: [ 0, 0, 0, 0 ],
                   
               }
           ],
-      //  "ajax" : {
-
-      //     url: 
-
-      //  },
+     
        drawCallback: function () {
-        var sum = $('#example3').DataTable().column(5).data().sum();
-       // console.log('sum:'+sum);
-        document.getElementById('total').value = sum;
+        var balancetotol = $('#example3').DataTable().column(5).data().sum(); 
+        var takentotal = $('#example3').DataTable().column(6).data().sum();
+        var gtotalsum = $('#example3').DataTable().column(7).data().sum();
+        
+        document.getElementById('btotalId').innerHTML = '<div id="btotalId">'+balancetotol+'</div>';
+        document.getElementById('takentotalId').innerHTML = '<div id="takentotalId">'+takentotal+'</div>';
+        document.getElementById('gtotalId').innerHTML = '<div id="gtotalId">'+gtotalsum+'</div>';
+        
+
        },
-          //get sum of quantity.
-          // drawCallback: function () 
-          //   {
-          //   var api = this.api();
-          //   $( api.table().footer() ).html
-          //     (
-          //       api.column( 3, {page:'current'} ).data().sum()
-          //     );
-              
-          //   },
     });
  });
 

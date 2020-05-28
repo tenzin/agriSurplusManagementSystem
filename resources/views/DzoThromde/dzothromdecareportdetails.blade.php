@@ -28,7 +28,7 @@
             <th>Sl. #</th>
             <th>Type</th>
             <th>Product</th>
-            {{-- <th>Harvest</th>           --}}
+            <th>Submitted</th>
             <th>Rate</th>         
             <th>Quantity</th>
           </tr>
@@ -39,7 +39,7 @@
             <td>{{$loop->iteration}}</td>
             <td>{{$report->type}}</td>             
             <td>{{$report->product}}</td>
-            {{-- <td class="text-right col-md-1">{{date('d/m/Y',strtotime($report->harvestDate))}}</td>  --}}
+            <td class="text-right col-md-1">{{date('d/m/Y',strtotime($report->submittedDate))}}</td>
             <td class="text-right">{{$report->price}}</td>        
             <td class="text-right">{{$report->quantity}} {{$report->unit}}</td>                                                  
           </tr>
@@ -48,7 +48,7 @@
         </tbody>
         <tfoot>
           <tr>
-              <th class="text-right" colspan="4">Total</th>
+              <th class="text-right" colspan="5">Total</th>
             <th><input class="form-control col-auto text-right" type="text" id="total" name="total" readonly/></th>  
           </tr>
         </tfoot>
@@ -138,7 +138,7 @@
 
       //  },
        drawCallback: function () {
-        var sum = $('#example3').DataTable().column(4).data().sum();
+        var sum = $('#example3').DataTable().column(5).data().sum();
        // console.log('sum:'+sum);
         document.getElementById('total').value = sum;
        },
