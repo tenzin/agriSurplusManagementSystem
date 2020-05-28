@@ -5,8 +5,110 @@
       <div class="card-header">
          <h3 class="card-title">Edit User</h3>
       </div>
+      @include('Layouts.message') 
       <form role="form" method="POST" action="{{route('update-user')}}">
          @csrf
+
+@if($users->role->role == 'Super Admin' || $users->role->role == 'Headquarter')
+
+         <div class="card-body">
+            <div class="row">
+               <div class="col-md-3">
+                  <div class="form-group">
+                     <label>Sl.No:<small></small>&nbsp;</label>
+                     <input id="id" type="text" class="form-control" readonly value="{{$users->id}}" name="id"/>
+                  </div>
+                  <div class="form-group"> 
+                     <label>CID No:</label>
+                     <input  name="cid" id="cid" class="form-control" readonly value="{{$users->cid}}"/>
+                  </div>
+                  
+                     <div class="form-group">
+                        <label>latitude:<small></small>&nbsp;</label>
+                        <input id="longitude" type="text" class="form-control" name="longitude"  value="{{$users->latitude}}"/>
+                     </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="form-group">
+                     <label>Name:<small></small>&nbsp;</label>
+                     <input id="name" type="text" class="form-control" name="name" readonly value="{{$users->name}}" required/>
+                  </div>
+                  <div class="form-group">
+                     <label>Role:</label>
+                     <select  name="role" id="role" class="form-control" required>
+                        <!-- <option disabled selected>{{$users->role->role}}</option> -->
+                        @foreach($roles as $role)
+                           @if($users->role->id == $role->id)
+                           <option value="{{$role->id}}" selected>{{$role->role}}</option>
+                           @else
+                           <option value="{{$role->id}}">{{$role->role}}</option>
+                           @endif
+                        @endforeach
+                     </select>
+                  </div>
+                     <div class="form-group">
+                        <label>longitude:<small></small>&nbsp;</label>
+                        <input id="latitude" type="text" class="form-control" name="latitude" value="{{$users->longitude}}"/>
+                     </div>
+                 
+               </div>
+               <div class="col-md-4">
+                  <div class="form-group">
+                     <label>Address:<small></small>&nbsp;</label>
+                     <input id="address" type="text" class="form-control" name="address" value="{{$users->address}}"/>
+                  </div>
+                  <div class="form-group">
+                     <label>Contact Number:<small></small>&nbsp;</label>
+                     <input id="number" type="text" class="form-control" name="number" value="{{$users->contact_number}}"/>
+                  </div>
+                  <div class="form-group">
+                     <label>Is_Admin:<small></small>&nbsp;</label>
+                     @if($users->isAdmin=="1")
+                     <input type="radio" name="admin" id="admin" value="1" checked> : TRUE</input>
+                     <input type="radio" name="admin" id="admin1" value="0"> : FALSE</input>
+                     @else
+                     <input type="radio" name="admin" id="admin" value="1" > : TRUE</input>
+                     <input type="radio" name="admin" id="admin1" value="0" checked> : FALSE</input>
+                     @endif
+                  </div>
+                  <div class="form-group">
+                     <label>Is_Active:<small></small>&nbsp;</label>
+                     @if($users->isActive=="1")
+                     <input type="radio" name="active" id="active" value="1" checked> : TRUE</input>
+                     <input type="radio" name="active" id="active1" value="0"> : FALSE</input>
+                     @else
+                     <input type="radio" name="active" id="active" value="1" > : TRUE</input>
+                     <input type="radio" name="active" id="adtive1" value="0" checked> : FALSE</input>
+                     @endif        
+                  </div>
+                  <div class="form-group">
+                     <label>Is_Staff:<small></small>&nbsp;</label>
+                     @if($users->isStaff=="1")
+                     <input type="radio" name="staff" id="staff" value="1" checked> : TRUE</input>
+                     <input type="radio" name="staff" id="staff1" value="0"> : FALSE</input>
+                     @else
+                     <input type="radio" name="staff" id="staff" value="1" > : TRUE</input>
+                     <input type="radio" name="staff" id="staff1" value="0" checked> : FALSE</input>
+                     @endif
+                  </div>
+               </div>
+
+              
+               </div>
+               
+            </div>
+         </div>
+         <div class="form-group row mb-0">
+            <div class="col-md-6 offset-md-4">
+              <button type="submit"class="btn btn-success btn-sm">Submit</button>
+                <a class="btn btn-primary btn-sm" href="{{ route('system-user')}}">Go back</a>
+               </div>
+            </div>
+
+
+
+@elseif($users->role->role == 'Gewog Extension officer'|| $users->role->role == 'Land User Certificate' || $users->role->role == 'Farmer Group')
+
          <div class="card-body">
             <div class="row">
                <div class="col-md-3">
@@ -21,6 +123,10 @@
                   <div class="form-group">
                      <label>Name:<small></small>&nbsp;</label>
                      <input id="name" type="text" class="form-control" name="name" readonly value="{{$users->name}}" required/>
+                  </div>
+                  <div class="form-group">
+                     <label>latitude:<small></small>&nbsp;</label>
+                     <input id="longitude" type="text" class="form-control" name="longitude"  value="{{$users->latitude}}"/>
                   </div>
                </div>
                <div class="col-md-4">
@@ -63,6 +169,10 @@
                         @endforeach
                      </select>
                   </div>
+                  <div class="form-group">
+                     <label>longitude:<small></small>&nbsp;</label>
+                     <input id="latitude" type="text" class="form-control" name="latitude" value="{{$users->longitude}}"/>
+                  </div>
                </div>
                <div class="col-md-4">
                   <div class="form-group">
@@ -104,6 +214,7 @@
                      @endif
                   </div>
                </div>
+               
             </div>
          </div>
          <div class="form-group row mb-0">
@@ -112,6 +223,113 @@
                 <a class="btn btn-primary btn-sm" href="{{ route('system-user')}}">Go back</a>
                </div>
             </div>
+
+ @elseif($users->role->role == 'Dzongkhag Agriculture Officer' || $users->role->role == 'Commercial Aggregator' || $users->role->role == 'Vegetable Supply Company' || $users->role->role == 'Agriculture Research Development Center'  )
+
+            <div class="card-body">
+               <div class="row">
+                  <div class="col-md-3">
+                     <div class="form-group">
+                        <label>Sl.No:<small></small>&nbsp;</label>
+                        <input id="id" type="text" class="form-control" readonly value="{{$users->id}}" name="id"/>
+                     </div>
+                     <div class="form-group"> 
+                        <label>CID No:</label>
+                        <input  name="cid" id="cid" class="form-control" readonly value="{{$users->cid}}"/>
+                     </div>
+                     <div class="form-group">
+                        <label>Name:<small></small>&nbsp;</label>
+                        <input id="name" type="text" class="form-control" name="name" readonly value="{{$users->name}}" required/>
+                     </div>
+                     <div class="form-group">
+                        <label>latitude:<small></small>&nbsp;</label>
+                        <input id="longitude" type="text" class="form-control" name="longitude"  value="{{$users->latitude}}"/>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <label>Dzongkhag:</label>
+                        <select  name="dzongkhag" id="dzongkhag" class="form-control" required>
+                          
+                           @foreach($dzongkhags as $dzongkhag)
+                              @if($users->dzongkhag->id == $dzongkhag->id)
+                              <option value="{{$dzongkhag->id}}" selected>{{$dzongkhag->dzongkhag}}</option>
+                              @else
+                              <option value="{{$dzongkhag->id}}">{{$dzongkhag->dzongkhag}}</option>
+                              @endif
+                           @endforeach
+                        </select>
+                     </div>
+                     
+                     <div class="form-group">
+                        <label>Role:</label>
+                        <select  name="role" id="role" class="form-control" required>
+                           <!-- <option disabled selected>{{$users->role->role}}</option> -->
+                           @foreach($roles as $role)
+                              @if($users->role->id == $role->id)
+                              <option value="{{$role->id}}" selected>{{$role->role}}</option>
+                              @else
+                              <option value="{{$role->id}}">{{$role->role}}</option>
+                              @endif
+                           @endforeach
+                        </select>
+                     </div>
+                     <div class="form-group">
+                        <label>longitude:<small></small>&nbsp;</label>
+                        <input id="latitude" type="text" class="form-control" name="latitude" value="{{$users->longitude}}"/>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="form-group">
+                        <label>Address:<small></small>&nbsp;</label>
+                        <input id="address" type="text" class="form-control" name="address" value="{{$users->address}}"/>
+                     </div>
+                     <div class="form-group">
+                        <label>Contact Number:<small></small>&nbsp;</label>
+                        <input id="number" type="text" class="form-control" name="number" value="{{$users->contact_number}}"/>
+                     </div>
+                     <div class="form-group">
+                        <label>Is_Admin:<small></small>&nbsp;</label>
+                        @if($users->isAdmin=="1")
+                        <input type="radio" name="admin" id="admin" value="1" checked> : TRUE</input>
+                        <input type="radio" name="admin" id="admin1" value="0"> : FALSE</input>
+                        @else
+                        <input type="radio" name="admin" id="admin" value="1" > : TRUE</input>
+                        <input type="radio" name="admin" id="admin1" value="0" checked> : FALSE</input>
+                        @endif
+                     </div>
+                     <div class="form-group">
+                        <label>Is_Active:<small></small>&nbsp;</label>
+                        @if($users->isActive=="1")
+                        <input type="radio" name="active" id="active" value="1" checked> : TRUE</input>
+                        <input type="radio" name="active" id="active1" value="0"> : FALSE</input>
+                        @else
+                        <input type="radio" name="active" id="active" value="1" > : TRUE</input>
+                        <input type="radio" name="active" id="adtive1" value="0" checked> : FALSE</input>
+                        @endif        
+                     </div>
+                     <div class="form-group">
+                        <label>Is_Staff:<small></small>&nbsp;</label>
+                        @if($users->isStaff=="1")
+                        <input type="radio" name="staff" id="staff" value="1" checked> : TRUE</input>
+                        <input type="radio" name="staff" id="staff1" value="0"> : FALSE</input>
+                        @else
+                        <input type="radio" name="staff" id="staff" value="1" > : TRUE</input>
+                        <input type="radio" name="staff" id="staff1" value="0" checked> : FALSE</input>
+                        @endif
+                     </div>
+                  </div>
+                  
+               </div>
+            </div>
+            <div class="form-group row mb-0">
+               <div class="col-md-6 offset-md-4">
+                 <button type="submit"class="btn btn-success btn-sm">Submit</button>
+                   <a class="btn btn-primary btn-sm" href="{{ route('system-user')}}">Go back</a>
+                  </div>
+               </div>
+
+            @endif
       </form>
    </div>
 </div>
