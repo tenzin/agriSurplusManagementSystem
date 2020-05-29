@@ -473,6 +473,8 @@ class CASurplusController extends Controller
         if($request->input('status') =='T')
         { 
             DB::table('tbl_history_ca_supply')->insert([
+                
+                'ca_surplus_id' =>$id,
                 'refNumber' => $request->input('refno'),
                 'trans_id' => $request->input('trans_id'),
                 'productType_id' => $request->input('producttype'),

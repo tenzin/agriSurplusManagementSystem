@@ -118,19 +118,19 @@
                         <p>View Surplus</p>
                     </a>
                 </li>
-              </li>
-              @endcan
-              @can('aggregator_view_report')
+                </li>
+                 @endcan
+                  
+              @can('aggregator_view_report_individual')
               <li class="nav-item">
-                <a href="{{route('aggregator_report')}}" class="nav-link">
+                <a href="{{route('report')}}" class="nav-link">
                   <i class="nav-icon far fa-calendar-alt"></i>
                   <p>View Report</p>
                 </a>
               </li>  
-              @endcan     
-              
+              @endcan
+
                 @can('aggregator_supply_history')
-            
                   <li class="nav-item">
                     <a href="{{route('supply-history')}}" class="nav-link">
                     <i class="fas fa-shopping-cart"> </i> &nbsp;
@@ -139,7 +139,7 @@
                   </li>
                  @endcan
 
-                 @can('view_surplus_nation')
+                @can('view_surplus_nation')
                  <li class="nav-item">
                    <a href="{{route('view-surplus-nation')}}" class="nav-link">
                    <i class="far fa-chart-bar"></i> 
@@ -147,6 +147,15 @@
                    </a>
                  </li>
                 @endcan
+
+            @can('aggregator_view_report')
+              <li class="nav-item">
+                <a href="{{route('aggregator_report')}}" class="nav-link">
+                  <i class="far fa-calendar-alt"></i>
+                  <p>View Report of Extension</p>
+                </a>
+              </li>  
+              @endcan
 
             @can('aggregator_demand_surplus')
             
@@ -258,6 +267,13 @@
             <a href="{{route('view_cultivation_details')}}" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>View Area Under Cultivation </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('cultivation-report')}}" class="nav-link">
+              <i class="nav-icon far fa-calendar-alt"></i>
+              <p>View Report </p>
             </a>
           </li>
           @endcan

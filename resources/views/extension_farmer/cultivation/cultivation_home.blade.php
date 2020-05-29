@@ -48,8 +48,8 @@
                 <a href="{{route('cultivation-view',$c->id)}}">
                     <i class="fa fa-eye" aria-hidden="true"></i>View</a>
                      &nbsp;
-                 <a onclick="return confirm('Are you sure want do Delete Permanently?')" href="{{route('cultivation-delete',$c->id)}}" class="text-danger">
-                   <i class="fa fa-trash" aria-hidden="true"> </i> Remove</a>
+                 {{-- <a onclick="return confirm('Are you sure want do Delete Permanently?')" href="{{route('cultivation-delete',$c->id)}}" class="text-danger">
+                   <i class="fa fa-trash" aria-hidden="true"> </i> Remove</a> --}}
                 @endif
              </td>
                    

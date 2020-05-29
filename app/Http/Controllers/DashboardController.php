@@ -54,13 +54,7 @@ class DashboardController extends Controller
      // $this->adminDashboard();
    } elseif($role=='Headquarter' || $role =='Agriculture Research Development Center') {
 
-      $date = Carbon::now()->format('Y-m-d');
-
-      Transaction::where('expiryDate', '<', $date)
-         ->where('status','=', 'S')
-         ->update([
-           'status' => 'E'
-        ]);
+     
 
         $producttype = ProductType::all();
         $product = Product::all();
