@@ -91,8 +91,8 @@
               
               <input type="text" value="{{ $demand->quantity}}"  class="form-control" name="quantity" id="quantity" required>
               <div class="invalid-feedback">
-                  Please enter Quantity.
-              </div>
+                Please provide a valid Quantity.
+               </div>
           </div>
           <div class="col-md-4 mb-3">
               <label for="unit">Unit*</label>
@@ -114,16 +114,11 @@
       <div class="row">
         <div class="col-md-4 mb-3">
           <label for="unit">Harvest Date</label>
-          <div class="input-group">
-             
+          <div class="input-group">             
               <input type="text" value="{{ $demand->harvestDate}}" class="form-control" name="harvestDate" id="harvestDate" readonly required>
-              
           </div>
       </div>
       </div>
-
-     
-
       <hr>
       <div class="form-group row mb-0">
           <div class="col-md-6 offset-md-4">
@@ -180,7 +175,6 @@
           }
           document.getElementById("price").style.color = "black";
       });
-      
     });
     function myFunction() {
       var refNo = document.getElementById("refnumber").value,

@@ -31,7 +31,7 @@
                   <div class="col col-md-auto">
                       <label for="gewog">Gewog:</label>
                   </div>
-                  <div class="col-md-4"> 
+                  <div class="col-md-3"> 
                       <select class="form-control" id="gewog" name="gewog">
                         <option value="All">All</option>
                         @foreach($gewogs as $gewog)
@@ -63,7 +63,7 @@
                     <div class="col col-md-auto">
                        <label for="product_type_id">Product Type:</label>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <select  name="product_type" id="product_type_id" class="form-control">
                             <option value="">All</option>
                             @foreach($ptypes as $ptype)
@@ -79,12 +79,12 @@
                             <option value="">All</option>
                         </select>
                     </div>  
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                       <label>Type:&nbsp;</label>
-                      <input id="ex" type="radio" name="rtype" value="ex" checked><label for="ex">Ext.</label>
+                      <input id="ex" type="radio" name="rtype" value="ex" checked><label for="ex">Extention/LUC/Farmer Group</label>
                       <input id="ca" type="radio" name="rtype" value="ca"><label for="ex">CA</label>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-0">
                       <button type="submit" class="btn btn-primary">Search</button>
                     </div>                                                                  
               </div> <!--- row ends -->

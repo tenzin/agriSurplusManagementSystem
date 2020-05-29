@@ -104,6 +104,7 @@ class DashboardController extends Controller
                   ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
                   ->join('tbl_transactions','tmpSurplus.trans_id','=','tbl_transactions.id')
                   ->SUM('quantity');
+              // dd($allveg_count);
 
           $allfruit_count=DB::table('tmpSurplus')
                   ->join('tbl_transactions','tbl_transactions.id','=','tmpSurplus.trans_id')

@@ -50,7 +50,7 @@
           </div>
       </div>
         <div class="row">
-           <div class="col-md-2">
+           <div class="col-md-3">
              <div class="form-group">
                <label>Estimated Output:&nbsp;<font color="red">*</font></label>
                 <input type="text" class="form-control"id="output"  name="output"  maxlength="5" placeholder="Enter Output" required>
@@ -67,7 +67,7 @@
                 </select>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
               <label>Sowing Date:&nbsp;<font color="red">*</font></label>
               <input type="date" name="sowing_date" id="sowingdate" class="form-control" required>
           </div>

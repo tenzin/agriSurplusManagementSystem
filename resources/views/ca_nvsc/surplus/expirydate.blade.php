@@ -56,7 +56,7 @@
           <hr> 
           <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-6">
-              <button type="submit" onclick="onClick(document.form1)" class="btn btn-primary">Save</button>
+              <button type="submit" class="btn btn-primary">Save</button>
             </div>
              </div>
          </div>
