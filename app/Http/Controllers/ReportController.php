@@ -75,38 +75,95 @@ class ReportController extends Controller
                     $sql = $sql.$column. "<= '".$todate."'"; 
                 }
             }
+
+            if($ptype != "All")
+            {
+                $sql = $sql." and tbl_ex_surplus.productType_id = ".$request->product_type;
+            }
+    
+            if($product != "All")
+            {
+                $sql = $sql." and tbl_ex_surplus.product_id = ".$request->product;
+            }
+            
+            //check if dzongkhag and gewog selected.
+            if($dzongkhag != "All")
+            {
+                $sql = $sql." and tbl_transactions.dzongkhag_id = ".$dzongkhag;
+            }
+            if($gewog != "All") 
+            {
+                $sql = $sql. " and tbl_transactions.gewog_id=".$gewog;
+            }
+    
         }
         else
         {
-            $sql = "";
-        }
-            //    dd($sql);
+            $sql = "select tbl_product_types.type,tbl_products.product,tbl_gewogs.gewog,tbl_dzongkhags.dzongkhag,tbl_cultivations.quantity,tbl_cultivationunits.unit as `cunit`,
+            tbl_cultivations.sowing_date,tbl_cultivations.estimated_output,tbl_cultivations.actual_output,tbl_units.unit as `eaunit`
+            from tbl_cultivations
+            join tbl_product_types on tbl_product_types.id = tbl_cultivations.productType_id
+            join tbl_products on tbl_products.id=tbl_cultivations.product_id
+            join tbl_cultivationunits on tbl_cultivationunits.id=tbl_cultivations.c_units
+            join tbl_units on tbl_units.id=tbl_cultivations.e_units
+            join tbl_gewogs on tbl_gewogs.id = tbl_cultivations.gewog_id
+            join tbl_dzongkhags on tbl_dzongkhags.id = tbl_cultivations.dzongkhag_id ";
 
-        if($ptype != "All")
-        {
-            $sql = $sql." and tbl_ex_surplus.productType_id = ".$request->product_type;
-        }
+            if(!empty($fromdate) && !empty($todate))
+            {
+                $sql = $sql." where tbl_cultivations.sowing_date between '".$fromdate."' and '".$todate."'";  
+            } 
+            elseif(!empty($fromdate))
+            {  
+                $sql = $sql. " where tbl_cultivations.sowing_date >= '".$fromdate."'";   
+            }
+            else
+            {
+                if(!empty($todate)) {   //only $todate is set.
+                    $sql = $sql." where tbl_cultivations.sowing_date <= '".$todate."'"; 
+                }
+            //     else
+            //    {
+            //        //default year.
+            //   //   $sql = $sql." where year(tbl_cultivations.sowing_date)= ".date('Y'); 
+            //    }
+            }
 
-        if($product != "All")
-        {
-            $sql = $sql." and tbl_ex_surplus.product_id = ".$request->product;
+            if($ptype != "All")
+            {
+                $sql = $sql." and tbl_cultivations.productType_id = ".$request->product_type;
+            }
+    
+            if($product != "All")
+            {
+                $sql = $sql." and tbl_cultivations.product_id = ".$request->product;
+            }
+            
+            //check if dzongkhag and gewog selected.
+            if($dzongkhag != "All")
+            {
+                $sql = $sql." and tbl_cultivations.dzongkhag_id = ".$dzongkhag;
+            }
+            if($gewog != "All") 
+            {
+                $sql = $sql. " and tbl_cultivations.gewog_id=".$gewog;
+            }
         }
-        
-        //check if dzongkhag and gewog selected.
-        if($dzongkhag != "All")
-        {
-            $sql = $sql." and tbl_transactions.dzongkhag_id = ".$dzongkhag;
-        }
-        if($gewog != "All") 
-        {
-            $sql = $sql. " and tbl_transactions.gewog_id=".$gewog;
-        }
+             //  dd($sql);
 
+       
         
     
         $details = DB::select($sql);
-
-        return view("reports.reportdetails",compact("details","type"));
+        
+        if($type=="Surplus")
+        {
+            return view("reports.reportdetails",compact("details","type"));
+        }
+        else 
+        { 
+            return view("reports.cultivationdetails",compact("details","type"));
+        }
     }
     
 }

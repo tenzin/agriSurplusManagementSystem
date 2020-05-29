@@ -18,73 +18,73 @@ class CultivationReportController extends Controller
     public function search(){
 
         $user = auth()->user();
-
-        $month = DB::table('tbl_cultivations')
-        ->select(DB::raw('Month(sowing_date) as month'))
-        ->distinct()
-        ->get();
-
-        $years = DB::table('tbl_cultivations')
-        ->select(DB::raw('Year(sowing_date) as month'))
-        ->distinct()
-        ->get();
         
+        $gewogs = DB::table('tbl_gewogs')
+                        ->where('dzongkhag_id','=',$user->dzongkhag_id)                
+                        ->get();
+        $years = DB::table('tbl_cultivations')
+                ->select(DB::raw('year(sowing_date) as year'))
+                ->distinct()
+                ->get();
 
         $json_months_data = Months::getMonths();
         $months = $json_months_data->getData();
 
         $ptypes = DB::table('tbl_product_types')->get();
         
-        return view('extension_farmer.reports.cultivationreport',compact('ptypes','years','month','months'));
+        return view('extension_farmer.reports.cultivationreport',compact('ptypes','years','months','gewogs'));
         
     }
 
 
-    public function esult(Request $request)
+    public function return_search(Request $request)
     {
         $user = auth()->user();
         $gewog = $request->gewog;
-        $fromdate = $request->fromdate;
+        $tmonth = $request->tmonth;
        
-        $sql = "select tbl_ex_surplus.status,tbl_product_types.type,tbl_products.product,
-        tbl_ex_surplus.quantity,IFNULL((select sum(quantity) from tbl_ex_surplus_history where tbl_ex_surplus_history.ex_surplus_id=tbl_ex_surplus.id),0) as taken,
-        tbl_units.unit,tbl_ex_surplus.harvestDate,tbl_ex_surplus.price,tbl_gewogs.gewog from tbl_ex_surplus 
-        join tbl_transactions on tbl_transactions.id = tbl_ex_surplus.trans_id
-        join tbl_product_types on tbl_ex_surplus.productType_id = tbl_product_types.id
-        join tbl_products on tbl_ex_surplus.product_id = tbl_products.id 
-        join tbl_units on tbl_ex_surplus.unit_id = tbl_units.id
-        join tbl_gewogs on tbl_ex_surplus.gewog_id = tbl_gewogs.id
-        where tbl_transactions.status ='S' and tbl_transactions.dzongkhag_id=".$user->dzongkhag_id;
-        
-       
-       //date between.         
-       
-       if(!empty($fromdate)){
-            $sql = $sql. " and tbl_transactions.submittedDate >= '".$fromdate."'";   
+        $sql = "select tbl_product_types.type,tbl_products.product,tbl_cultivations.quantity,tbl_cultivationunits.unit as `cunit`,
+        tbl_cultivations.sowing_date,tbl_cultivations.estimated_output,tbl_cultivations.actual_output,tbl_units.unit as `eaunit`
+        from tbl_cultivations
+        join tbl_product_types on tbl_product_types.id = tbl_cultivations.productType_id
+        join tbl_products on tbl_products.id=tbl_cultivations.product_id
+        join tbl_cultivationunits on tbl_cultivationunits.id=tbl_cultivations.c_units
+        join tbl_units on tbl_units.id=tbl_cultivations.e_units
+        join tbl_gewogs on tbl_gewogs.id = tbl_cultivations.gewog_id
+        where tbl_cultivations.gewog_id=".$user->gewog_id;
 
-       }
-       else {
-        //when dates are not selected. then year should be selected. default is current year.
-        $sql = $sql. " and year(tbl_transactions.submittedDate) = ".$request->tyear; 
+    
+        //report type either harvested or area under cultivation.
+
+        if($request->report_type == "harvested")
+        {
+            $sql = $sql." and tbl_cultivations.status=1";
         }
-       
- 
+        else{
+            $sql = $sql." and tbl_cultivations.status=0";
+        }
+        
+       //clause if month is selected.
+       if($tmonth != "All")
+       {
+           $sql = $sql. " and month(sowing_date) = ".$tmonth;
+       }
        
         if(!empty($request->product_type))
         {
-            $sql = $sql." and tbl_ex_surplus.productType_id = ".$request->product_type;
+            $sql = $sql." and tbl_cultivations.productType_id = ".$request->product_type;
         }
 
         if(!empty($request->product))
         {
-            $sql = $sql." and tbl_ex_surplus.product_id = ".$request->product;
+            $sql = $sql." and tbl_cultivations.product_id = ".$request->product;
         }
 
        // dd($sql);
         
-        $surplus = DB::select($sql);
+        $cultivations = DB::select($sql);
 
-        return view('ca_nvsc.reports.reportdetails',compact('surplus','fromdate','todate'));
+        return view('extension_farmer.reports.cultivationdetails',compact('cultivations','tmonth'));
     }
 
 

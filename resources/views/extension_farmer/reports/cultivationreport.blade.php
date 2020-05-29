@@ -4,7 +4,8 @@
 
     <!-- Content Header (Page header) -->
 <div class="content-header">
-  <form class="form-horizontal" method="POST" action = "{{route('extension_dreport')}}">
+  <form class="form-horizontal" method="POST" action = "{{route('ext_cultivation_report')}}">
+  <input type="hidden" name="report_type" value="areaundercultivation">
             @csrf
         <div class="card card">
                   <div class="card-header">
@@ -16,23 +17,28 @@
 <!-- supply/demand report and transaction date range. -->
                 <div class="row">               
                   <div class="col col-md-auto">
-                    <label for="fromdate">Date:</label>
+                    <label for="tmonth">Month:</label>
                   </div>
                   <div class="col-md-3">
-                    <input type="date" class="form-control" name="fromdate" id ="fromdate" value="">
+                    <select name="tmonth" id="tmonth" class="form-control">
+                      <option value="All">All</option>
+                      @foreach($months as $key => $value)
+                      <option value="{{$key}}">{{$value}}</option>
+                      @endforeach
+                    </select>
                   </div>
                   <div class="col col-md-auto">
                     <label for="tyear">Year:</label>
                   </div>
                   <div class="col-md-3">
                     <select name="tyear" id="tyear" class="form-control">
-                            {{-- @foreach($years as $y)
+                            @foreach($years as $y)
                                 @if($y->year == date('Y'))
-                                    <option value="{{$year->year}}" selected>{{$year->year}}</option>
+                                    <option value="{{$y->year}}" selected>{{$y->year}}</option>
                                 @else  
-                                    <option value="{{$year->year}}">{{$year->year}}</option>
+                                    <option value="{{$y->year}}">{{$y->year}}</option>
                                 @endif
-                            @endforeach --}}
+                            @endforeach
                     </select>
                   </div>
                 </div></br>
@@ -68,7 +74,8 @@
 </div>
 
 <div class="content-header">
-    <form class="form-horizontal" method="POST" action = "{{route('extension_dreport')}}">
+    <form class="form-horizontal" method="POST" action = "{{route('ext_cultivation_report')}}">
+      <input type="hidden" name="report_type" value="harvested">
               @csrf
           <div class="card card">
                     <div class="card-header">
@@ -80,10 +87,15 @@
   <!-- supply/demand report and transaction date range. -->
                   <div class="row">               
                     <div class="col col-md-auto">
-                      <label for="fromdate">Date:</label>
+                      <label for="tmonth">Month:</label>
                     </div>
                     <div class="col-md-3">
-                      <input type="date" class="form-control" name="fromdate" id ="fromdate" value="">
+                    <select name="tmonth" id="tmonth" class="form-control">
+                      <option value="All">All</option>
+                      @foreach($months as $key => $value)
+                      <option value="{{$key}}">{{$value}}</option>
+                      @endforeach
+                    </select>
                     </div>
                     
                     <div class="col col-md-auto">
@@ -91,13 +103,13 @@
                     </div>
                     <div class="col-md-3">
                       <select name="tyear" id="tyear" class="form-control">
-                      {{-- @foreach($years as $year)
+                      @foreach($years as $year)
                         @if($year->year == date('Y'))
                           <option value="{{$year->year}}" selected>{{$year->year}}</option>
                         @else  
                         <option value="{{$year->year}}">{{$year->year}}</option>
                         @endif
-                      @endforeach --}}
+                      @endforeach
                       </select>
                     </div>
                   </div></br>
