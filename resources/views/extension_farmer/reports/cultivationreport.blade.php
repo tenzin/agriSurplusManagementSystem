@@ -16,10 +16,10 @@
 <!-- supply/demand report and transaction date range. -->
                 <div class="row">               
                   <div class="col col-md-auto">
-                    <label for="fromdate">Month:</label>
+                    <label for="fromdate">Date:</label>
                   </div>
                   <div class="col-md-3">
-                    {{-- <input type="date" class="form-control" name="fromdate" id ="fromdate" value=""> --}}
+                    <input type="date" class="form-control" name="fromdate" id ="fromdate" value="">
                   </div>
                   <div class="col col-md-auto">
                     <label for="tyear">Year:</label>
@@ -80,10 +80,10 @@
   <!-- supply/demand report and transaction date range. -->
                   <div class="row">               
                     <div class="col col-md-auto">
-                      <label for="fromdate">Month:</label>
+                      <label for="fromdate">Date:</label>
                     </div>
                     <div class="col-md-3">
-                      {{-- <input type="date" class="form-control" name="fromdate" id ="fromdate" value=""> --}}
+                      <input type="date" class="form-control" name="fromdate" id ="fromdate" value="">
                     </div>
                     
                     <div class="col col-md-auto">
