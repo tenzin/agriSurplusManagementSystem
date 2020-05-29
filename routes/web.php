@@ -86,7 +86,9 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
 
       //Area Under Cultivation Reports Route.
       Route::get('cultivation-report',['as'=>'cultivation-report','uses'=>'CultivationReportController@search']);
-      // Route::post('extension_treport',['as'=>'extension_treport','uses'=>'EXReportController@search_totalresult']);
+      Route::post('ext_cultivation_report',['as'=>'ext_cultivation_report','uses'=>'CultivationReportController@return_search']);
+     
+      
 
       //Summary surplus reports.
       Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
