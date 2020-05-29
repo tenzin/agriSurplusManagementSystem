@@ -43,34 +43,33 @@
                   </div>
                   <div class="col-md-3">
                     <select name="report_type" id="report_type" required>
-                      <option value="">Select type</option>
                       <option value="Surplus" selected>Surplus</option>
-                      <!-- <option value="Demand">Demand</option> -->
+                      <option value="Cultivation">Area Under Cultivation</option>
                     </select>
                   </div>
 
                   <div class="col-sm-1">
                     <label for="fromdate">From:<font color="red">*</font></label>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                   <input type="date" class="form-control" name="fromdate" id ="fromdate" value="{{ date('Y-m-d') }}" required>
                   </div>
                   <div class="col-sm-1">
                     <label for="report_type">To:</label>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-2">
                   <input type="date" class="form-control" name="todate" id ="fromdate" value="{{ date('Y-m-d') }}">
                   </div>
 
                 </div></br>
 
                 <div class="row">
-                    <div class="col-sm-1">
+                    <div class="col-sm-auto">
                        <label for="product_type_id">Product Type:</label>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <select  name="product_type" id="product_type_id" class="form-control">
-                            <option value="">All</option>
+                            <option value="All">All</option>
                             @foreach($ptypes as $ptype)
                             <option value="{{ $ptype->id }}">{{$ptype->type}}</option>
                             @endforeach
@@ -79,9 +78,9 @@
                     <div class="col-sm-1">
                        <label for="product">Product:</label>
                     </div>   
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <select class="custom-select" id="product" name="product">
-                            <option value="">All</option>
+                            <option value="All">All</option>
                         </select>
                     </div>  
                           <div class="invalid-feedback">
@@ -91,28 +90,37 @@
 
                   <!-- Selection of Dzongkhag and Gewog. -->
             <div class="row">
-              <div class="col-sm-1">
+              <div class="col-sm-auto">
                   <label for="dzongkhag">Dzongkhag:</label>
               </div>
 
-              <div class="col-md-5">    
+              <div class="col-md-4">    
                   <select class="form-control" id="dzongkhag" name="dzongkhag">
-                     <option value="">All</option>
+                     <option value="All">All</option>
                      @foreach($dzongkhags as $row)
                          <option value="{{$row->id}}">{{$row->dzongkhag}}</option>
                      @endforeach
                    </select>
               </div>       
                
-              <div class="col-sm-1">
+              <div class="col-sm-auto">
                 <label for="gewog">Gewog:</label>
               </div>
 
-              <div class="col-md-5"> 
+              <div class="col-md-4"> 
                   <select class="form-control" id="gewog" name="gewog">
-                     <option value="">All</option>
+                     <option value="All">All</option>
                    </select>
                </div>
+            </div>
+            <div class="row mt-2">
+               <div class="col-sm-auto">
+                <label for="dates">Date Selection:</label>
+              </div>
+              <div class="col-md-4" id="dates"> 
+                <input id="hdate" type="radio" name="sdate" value="harvestDate" checked>&nbsp;<label for="hdate">Harvested</label>&nbsp;
+                <input id="subdate" type="radio" name="sdate" value="submittedDate">&nbsp;<label for="hdate">Submitted</label>
+              </div>
               
             </div>   
                   @csrf
@@ -141,7 +149,7 @@
             $.get('/json-product_type?product_type=' + id, function(data){
                 console.log(data);
                 $('#product').empty();
-                $('#product').append('<option value="">All</option>');
+                $('#product').append('<option value="All">All</option>');
                 $.each(data, function(index, ageproductObj){
                     $('#product').append('<option value="'+ ageproductObj.id +'">'+ ageproductObj.product + '</option>');
                 })
@@ -155,7 +163,7 @@
             $.get('/json-dzongkhag?dzongkhag=' + dzid, function(data){
                 console.log(data);
                 $('#gewog').empty();
-                $('#gewog').append('<option value="">All</option>');
+                $('#gewog').append('<option value="All">All</option>');
                 $.each(data, function(index, gewogObj){
                     $('#gewog').append('<option value="'+ gewogObj.id +'">'+ gewogObj.gewog + '</option>');
                 })

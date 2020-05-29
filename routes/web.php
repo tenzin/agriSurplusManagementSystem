@@ -238,7 +238,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
       Route::get('user-view/{id}',['as'=>'user-view','uses'=>'AccessControlListController@userView']);
       Route::get('add-user',['as'=>'add-user','uses'=>'AccessControlListController@add']);
       Route::post('new-user',['as'=>'new-user','uses'=>'AccessControlListController@insert']);
-      Route::get('/json-dzongkhag','AccessControlListController@dzongkhag');
+     
       
       Route::get('edit-user/{id}',['as'=>'edit-user','uses'=>'AccessControlListController@edit']);
       Route::post('update-user',['as'=>'update-user','uses'=>'AccessControlListController@update']);
@@ -302,9 +302,13 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
      Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
      Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
      Route::post('dzosummaryreport',['as'=>'dzosummaryreport','uses'=>'DzoThromdeReportController@dzosummaryreport']);
-
+     
+     
+     Route::get('/json-dzongkhag','AccessControlListController@dzongkhag');
 
 });
+
+
 
      
      

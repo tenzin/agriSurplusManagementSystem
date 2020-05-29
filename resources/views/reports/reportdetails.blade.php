@@ -39,26 +39,28 @@
                         <thead>                  
                             <tr>
                                 <th>Sl. No.</th>
-                                <th>Type</th>
+                                <!-- <th>Type</th> -->
                                 <th>Product</th>
-                                <th>Quantity(unit)</th>
                                 <th>Expected Prize(Nu.)</th>
                                 <th>Gewog</th>
                                 <th>Dzongkhag</th>
-                                <th>Date</th>
+                                <th>Harvest</th>
+                                <th>Submitted</th>
+                                <th>Quantity</th>
                               </tr>
                         </thead>
                         <tbody>
                            @foreach($details as $report)
                             <tr>
                               <td>{{$loop->iteration}}</td>
-                              <td>{{$report->type}}</td> 
-                              <td>{{$report->product}}</td> 
-                              <td>{{$report->quantity}} {{$report->unit}}</td> 
+                              <!-- <td>{{$report->type}}</td>  -->
+                              <td>{{$report->product}}</td>                             
                               <td>{{$report->price}}</td> 
                               <td>{{$report->gewog}}</td>
                               <td>{{$report->dzongkhag}}</td>
-                              <td>{{$report->date}}</td>                   
+                              <td>{{$report->harvestDate}}</td>  
+                              <td>{{$report->submittedDate}}</td>          
+                              <td>{{$report->quantity}} {{$report->unit}}</td>          
                             </tr>
                            @endforeach 
                         </tbody>
