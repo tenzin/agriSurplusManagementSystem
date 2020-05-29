@@ -89,8 +89,8 @@
               
               <input type="text" value="{{ $demand->quantity}}" class="form-control" name="quantity" id="quantity" required>
               <div class="invalid-feedback">
-                  Please enter Quantity.
-              </div>
+                Please provide a valid Quantity.
+               </div>
           </div>
           <div class="col-md-4 mb-3">
               <label for="unit">Unit*</label>
@@ -113,15 +113,10 @@
         <div class="col-md-4 mb-3">
           <label for="unit">Hravest Date</label>
           <div class="input-group">
-             
-              <input type="text" value="{{ $demand->harvestDate}}" class="form-control" name="harvestDate" id="harvestDate" required>
-              
+              <input type="text" value="{{ $demand->harvestDate}}" class="form-control" name="harvestDate" id="harvestDate" required>   
           </div>
       </div>
       </div>
-
-     
-
       <hr>
       <div class="form-group row mb-0">
           <div class="col-md-6 offset-md-4">
@@ -134,6 +129,7 @@
   </div>
 </div>
 @endsection
+
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -177,30 +173,7 @@
           }
           document.getElementById("price").style.color = "black";
       });
-      
     });
-    function myFunction() {
-      var refNo = document.getElementById("refnumber").value,
-      $this = this; //aliased so we can use in ajax success function
-      $.ajax({
-          type: 'POST',
-          url: '/json-product-exist',
-          data: {refNo: refNo},
-          success: function(data){
-            
-            if(data == null){
-                alert('Unsuccessful: To submit the demand you need at least onr or more product!');
-            } else {
-                //show some type of message to the user
-                if (confirm('ssAre you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
-                var id = document.getElementById("refnumber").value;
-                $.get('/json-submit-demand?ref_number=' + id, function(data){
-                });
-              }
-            }
-          } 
-      });
-      
-    }
+ }
     
 </script>

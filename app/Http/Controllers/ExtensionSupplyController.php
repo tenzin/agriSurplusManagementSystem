@@ -486,9 +486,7 @@ class ExtensionSupplyController extends Controller
     }
 
     //Surplus Submitted Edit and Update 
-    public function edit_submitted($id)
-
-    {      
+    public function edit_submitted($id) {
         $surplus = DB::table('tbl_ex_surplus')
                     ->where('tbl_ex_surplus.id','=', $id)
                     ->get(); 
@@ -499,6 +497,8 @@ class ExtensionSupplyController extends Controller
         $unit=DB::table('tbl_units')->get();
         $product=DB::table('tbl_products')->get();
 
+       
+
         return view('extension_farmer.supply.edit-submitted')->with('products',$product_type)
                                                             ->with('units',$unit)
                                                             ->with('demands',$surplus)
@@ -508,7 +508,7 @@ class ExtensionSupplyController extends Controller
     public function update_submitted(Request $request, $id)
     {
         $user = auth()->user();
-
+ 
         $qty=floatval($request->input('hqty')) -floatval($request->input('quantity'));
 
         // dd($qty);

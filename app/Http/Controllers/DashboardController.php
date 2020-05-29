@@ -91,21 +91,22 @@ class DashboardController extends Controller
            $sqlex="INSERT INTO tmpSurplus(refNumber,productType_id,product_id,quantity,submittedDate) 
                   select tbl_ex_surplus.refNumber,productType_id,product_id,quantity,submittedDate from tbl_ex_surplus
                   join tbl_transactions on tbl_transactions.id = tbl_ex_surplus.trans_id";
-
+            //dd($sqlex);
            DB::statement($sqlex);
 
            $sqlca="INSERT INTO tmpSurplus(refNumber,productType_id,product_id,quantity,submittedDate) 
            select tbl_cssupply.refNumber,productType_id,product_id,quantity,submittedDate from tbl_cssupply
            join tbl_transactions on tbl_transactions.id = tbl_cssupply.trans_id";
-
+           //dd($sqlca);
            DB::statement($sqlca);
 
           $allveg_count=DB::table('tmpSurplus')
-                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpSurplus.id')
                   ->where('productType_id','=',1)
                   ->where('tbl_transactions.status','=','S')
                   ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
                   ->SUM('quantity');
+              // dd($allveg_count);
 
           $allfruit_count=DB::table('tmpSurplus')
                   ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
