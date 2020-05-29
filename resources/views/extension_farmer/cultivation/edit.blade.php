@@ -16,8 +16,8 @@
   <div class="row">
         <div class="col-md-4">
           <div class="form-group">
-            <label>Crop Name:</label>
-              <select  name="crop" id="crop" class="form-control select2bs4">
+            <label>Product:</label>
+              <select  disabled name="crop" id="crop" class="form-control select2bs4" >
                 @foreach($product as $p)
                 <option value="{{ $p->id }}"
                  {{($cultivation->product_id == $p->id) ? 'selected' : '' }}>
@@ -28,7 +28,11 @@
           </div> 
           <div class="form-group">
             <label>Estimated Output:&nbsp;</label>
-            <input id="output" type="text" class="form-control" value="{{$cultivation->estimated_output}}" name="output">
+            <input id="output" type="text" class="form-control" value="{{$cultivation->estimated_output}}" name="output" readonly>
+          </div>
+          <div class="form-group">
+            <label>Actual Output:&nbsp;</label>
+            <input id="output" type="text" class="form-control" value="{{$cultivation->actual_output}}" name="actualoutput">
           </div>
         </div>
         
@@ -64,8 +68,8 @@
               </select>
             </div>
             <div class="form-group">
-              <label>Sowing_date:&nbsp;</label>
-              <input id="date" type="month" class="form-control" name="date" value="{{$cultivation->sowing_date}}"/>
+              <label>Sowing Date:&nbsp;</label>
+              <input id="date" type="date" class="form-control" name="sowing_date" value="{{$cultivation->sowing_date}}"/>
             </div>
           </div>
 

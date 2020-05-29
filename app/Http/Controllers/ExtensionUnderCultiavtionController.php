@@ -7,25 +7,29 @@ use App\Unit;
 use App\Cultivation;
 use Auth;
 use Illuminate\Http\Request;
+use App\ProductType;
 
 class ExtensionUnderCultiavtionController extends Controller
 {
     public function extension_cultivation(){
-        $product = Product::with('productType')->get();
+        $types = ProductType::where('type','Vegetable')->orWhere('type','Fruit')->orWhere('type','Cereal')->get();
         $c_unit = Cunit::get();
         $e_unit = Unit::get();
-        return view('extension_farmer.cultivation.create',compact('product','c_unit','e_unit'));
+
+
+        return view('extension_farmer.cultivation.create',compact('types','c_unit','e_unit'));
     }
 
 
     public function submit_cultivation_details(Request  $request){            //save second table
 
         $cultivation= new Cultivation;
-        $cultivation->product_id=$request->crop;
+        $cultivation->productType_id = $request->ctype;
+        $cultivation->product_id=$request->product;
         $cultivation->c_units = $request->unit;
         $cultivation->e_units=$request->e_unit;
         $cultivation->quantity=$request->quantity;
-        $cultivation->sowing_date=$request->pickup_date;
+        $cultivation->sowing_date=$request->sowing_date;
         $cultivation->estimated_output=$request->output;
         $cultivation->remarks=$request->remarks;
         $cultivation->user_id=Auth::user()->id;
@@ -72,12 +76,12 @@ public function cultivation_update(Request $request, $id){
     //dd($id);
     $cultivation = Cultivation::find($id);
 // dd($cultivation);
-    $cultivation->product_id=$request->input('crop');
+    // $cultivation->product_id=$request->input('crop');
     $cultivation->c_units = $request->input('unit');
     $cultivation->e_units=$request->input('e_unit');
     $cultivation->quantity=$request->input('quantity');
-    $cultivation->sowing_date=$request->input('date');
-    $cultivation->estimated_output=$request->input('output');
+    $cultivation->sowing_date=$request->input('sowing_date');
+    $cultivation->actual_output=$request->input('actualoutput');
     $cultivation->remarks=$request->input('remarks');
     $cultivation->user_id=Auth::user()->id;
     $cultivation->dzongkhag_id=Auth::user()->dzongkhag_id;

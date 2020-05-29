@@ -70,10 +70,13 @@ class DashboardController extends Controller
          $ardc = User::where('role_id','6')->count();
          $vsc = User::where('role_id', '5')->count();
          $ca_usres = User::where('role_id', '4')->count();
-          
+
+         
+        
           //Over all Surplus by producttype
          $surplustemp = DB::statement("CREATE TEMPORARY TABLE IF NOT EXISTS tmpSurplus(
                         id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                        trans_id int(12),
                         refNumber varchar(50),
                         productType_id varchar(5),
                         product_id varchar(10),
@@ -82,62 +85,63 @@ class DashboardController extends Controller
            )");
           //INSERT INTO tmpSurplus
 
-           $sqlex="INSERT INTO tmpSurplus(refNumber,productType_id,product_id,quantity,submittedDate) 
-                  select tbl_ex_surplus.refNumber,productType_id,product_id,quantity,submittedDate from tbl_ex_surplus
+           $sqlex="INSERT INTO tmpSurplus(refNumber,trans_id,productType_id,product_id,quantity,submittedDate) 
+                  select tbl_ex_surplus.refNumber,tbl_transactions.id,productType_id,product_id,quantity,submittedDate from tbl_ex_surplus
                   join tbl_transactions on tbl_transactions.id = tbl_ex_surplus.trans_id";
+               //   dd($sqlex);
 
            DB::statement($sqlex);
 
-           $sqlca="INSERT INTO tmpSurplus(refNumber,productType_id,product_id,quantity,submittedDate) 
-           select tbl_cssupply.refNumber,productType_id,product_id,quantity,submittedDate from tbl_cssupply
+           $sqlca="INSERT INTO tmpSurplus(refNumber,trans_id,productType_id,product_id,quantity,submittedDate) 
+           select tbl_cssupply.refNumber,tbl_transactions.id,productType_id,product_id,quantity,submittedDate from tbl_cssupply
            join tbl_transactions on tbl_transactions.id = tbl_cssupply.trans_id";
-
+           // dd($sqlca);
            DB::statement($sqlca);
 
           $allveg_count=DB::table('tmpSurplus')
-                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
                   ->where('productType_id','=',1)
                   ->where('tbl_transactions.status','=','S')
                   ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
+                  ->join('tbl_transactions','tmpSurplus.trans_id','=','tbl_transactions.id')
                   ->SUM('quantity');
 
           $allfruit_count=DB::table('tmpSurplus')
-                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpSurplus.trans_id')
                   ->where('productType_id','=',2)
                   ->where('tbl_transactions.status','=','S')
                   ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
                   ->SUM('quantity');
 
           $alldairy_count=DB::table('tmpSurplus')
-                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpSurplus.trans_id')
                   ->where('productType_id','=',3)
                   ->where('tbl_transactions.status','=','S')
                   ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
                   ->SUM('quantity');
 
           $alllivestock_count=DB::table('tmpSurplus')
-                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpSurplus.trans_id')
                   ->where('productType_id','=',4)
                   ->where('tbl_transactions.status','=','S')
                   ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
                   ->SUM('quantity');
 
          $allnwfp_count=DB::table('tmpSurplus')
-                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpSurplus.trans_id')
                   ->where('productType_id','=',5)
                   ->where('tbl_transactions.status','=','S')
                   ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
                   ->SUM('quantity');
 
         $allmaps_count=DB::table('tmpSurplus')
-                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpSurplus.trans_id')
                   ->where('productType_id','=',6)
                   ->where('tbl_transactions.status','=','S')
                   ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))
                   ->SUM('quantity');
 
        $allcereal_count=DB::table('tmpSurplus')
-                  ->join('tbl_transactions','tbl_transactions.id','=','tmpsurplus.id')
+                  ->join('tbl_transactions','tbl_transactions.id','=','tmpSurplus.trans_id')
                   ->where('productType_id','=',7)
                   ->where('tbl_transactions.status','=','S')
                   ->where(DB::raw('month(tbl_transactions.submittedDate)'), '=',date('n'))

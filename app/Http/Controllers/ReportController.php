@@ -23,357 +23,90 @@ class ReportController extends Controller
     public function report()
     {
         $ptypes = ProductType::all();
-        $details = Demand::all();
+        // $details = Demand::all();
         $dzongkhags = Dzongkhag::all();
 
-        return view("reports.report",compact("ptypes","details","dzongkhags"));
+        return view("reports.report",compact("ptypes","dzongkhags"));
     }
 
     //search with parameters.
     public function search(Request $request)
     {
        $type = $request->report_type;
-       
+       $fromdate = $request->fromdate;
+       $todate = $request->todate;
+       $ptype = $request->product_type;
+       $product = $request->product;
+       $dzongkhag = $request->dzongkhag;
+       $gewog=$request->gewog;
+       $dateSelected = $request->sdate;
 
-        if($request->report_type == "Surplus")
+
+        //type of report and query.
+        if($type == "Surplus")
         {
-            //filtering of details.
-            if(!empty($request->product_type)) //product type = selected.
+            $sql = "select tbl_product_types.type,tbl_products.product,tbl_ex_surplus.quantity,
+            IFNULL((select sum(quantity) from tbl_ex_surplus_history where tbl_ex_surplus_history.ex_surplus_id=tbl_ex_surplus.id),0) as taken,
+            tbl_units.unit,tbl_ex_surplus.harvestDate,tbl_transactions.submittedDate,tbl_ex_surplus.price,tbl_gewogs.gewog,tbl_dzongkhags.dzongkhag
+            from tbl_ex_surplus 
+            join tbl_transactions on tbl_transactions.id = tbl_ex_surplus.trans_id
+            join tbl_product_types on tbl_ex_surplus.productType_id = tbl_product_types.id
+            join tbl_products on tbl_ex_surplus.product_id = tbl_products.id 
+            join tbl_units on tbl_ex_surplus.unit_id = tbl_units.id
+            join tbl_gewogs on tbl_transactions.gewog_id = tbl_gewogs.id
+            join tbl_dzongkhags on tbl_transactions.dzongkhag_id = tbl_dzongkhags.id
+            where tbl_transactions.status in ('S','E')";
+
+            //based on selected date of either harvest or submitted. change column.
+            if($dateSelected == "harvestDate") {  $column = " and tbl_ex_surplus.harvestDate "; }
+            else {  $column = " and tbl_transactions.submittedDate "; }
+              //date between.         
+            if(!empty($fromdate) && !empty($todate))
             {
-                if(!empty($request->product)) //product = selected.
-                {
-                    if(!empty($request->dzongkhag)) //dzongkhag = selected
-                    {
-                        if(!empty($request->gewog)) //gewog = selected.
-                        {
-                            //when t=1,p=1,d=1,g=1
-                           $details = SurplusView::where('type_id','=',$request->product_type)
-                                                ->where('product_id','=',$request->product)
-                                                ->where('dzongkhag_id','=',$request->dzongkhag)
-                                                ->where('gewog_id','=',$request->gewog)
-                                                ->get();                          
-                        }
-                        else
-                        {
-                           //when t=1,p=1,d=1,g=0
-                           $details = SurplusView::where('type_id','=',$request->product_type)
-                           ->where('product_id','=',$request->product)
-                           ->where('dzongkhag_id','=',$request->dzongkhag)
-                           ->get();
-                        }
-
-                    }
-                    else //dzongkhag = all.
-                    {
-                        if(!empty($request->gewog)) //gewog = selected.
-                        {
-                           //when t=1,p=1,d=0,g=1
-                           $details = SurplusView::where('type_id','=',$request->product_type)
-                                                ->where('product_id','=',$request->product)                                               
-                                                ->where('gewog_id','=',$request->gewog)
-                                                ->get();  
-                        }
-                        else
-                        {
-                          //when t=1,p=1,d=0,g=0
-                          $details = SurplusView::where('type_id','=',$request->product_type)
-                          ->where('product_id','=',$request->product)                                                   
-                          ->get();  
-                        }
-
-                    }
-                } 
-                else // type = selected, product = all.
-                {
-                    if(!empty($request->dzongkhag)) //dzongkhag = selected
-                    {
-                        if(!empty($request->gewog)) //gewog = selected.
-                        {
-                          //when t=1,p=0,d=1,g=1
-                          $details = SurplusView::where('type_id','=',$request->product_type)                    
-                          ->where('dzongkhag_id','=',$request->dzongkhag)
-                          ->where('gewog_id','=',$request->gewog)
-                          ->get();  
-                        }
-                        else
-                        {
-                         //when t=1,p=0,d=1,g=0
-                         $details = SurplusView::where('type_id','=',$request->product_type)                        
-                         ->where('dzongkhag_id','=',$request->dzongkhag)                        
-                         ->get();  
-                        }
-                    }
-                    else
-                    {
-                        if(!empty($request->gewog)) //gewog = selected.
-                        {
-                         //when t=1,p=0,d=0,g=1
-                         $details = SurplusView::where('type_id','=',$request->product_type)                                         
-                         ->where('gewog_id','=',$request->gewog)
-                         ->get();  
-                        }
-                        else
-                        {
-                         //when t=1,p=0,d=0,g=0
-                         $details = SurplusView::where('type_id','=',$request->product_type)                                                                     
-                         ->get();  
-                        }
-
-                    }
-                }
-              //  $details = EXSurplus::where('productType_id','=',$request->product_type)->get();
+                $sql = $sql. $column ."between '".$fromdate."' and '".$todate."'";  
+            } 
+            elseif(!empty($fromdate))
+            {  
+                $sql = $sql. $column. ">= '".$fromdate."'";   
             }
-            else //product type = all.
+            else
             {
-                if(!empty($request->product)) //product = selected.
-                {
-                    if(!empty($request->dzongkhag)) //dzongkhag = selected
-                    {
-                        if(!empty($request->gewog)) //gewog = selected.
-                        {
-                           //when t=0,p=1,d=1,g=1
-                           $details = SurplusView::where('product_id','=',$request->product)
-                                                ->where('dzongkhag_id','=',$request->dzongkhag)
-                                                ->where('gewog_id','=',$request->gewog)
-                                                ->get(); 
-                        }
-                        else 
-                        {
-                            //when t=0,p=1,d=1,g=0
-                           $details = SurplusView::where('product_id','=',$request->product)
-                           ->where('dzongkhag_id','=',$request->dzongkhag)                         
-                           ->get(); 
-                        }
-
-                    }
-                    else  //type=all, dzongkhag=all
-                    {
-                        if(!empty($request->gewog)) //gewog = selected.
-                        {
-                            //when t=0,p=1,d=0,g=1
-                           $details = SurplusView::where('product_id','=',$request->product)                          
-                           ->where('gewog_id','=',$request->gewog)
-                           ->get(); 
-                        }
-                        else
-                        {
-                             //when t=0,p=1,d=0,g=0
-                           $details = SurplusView::where('product_id','=',$request->product)                                                    
-                           ->get(); 
-                        }
-
-                    }
-
-                } 
-                else //type=all,product=all.
-                {
-                    if(!empty($request->dzongkhag)) //dzongkhag = selected
-                    {
-                        if(!empty($request->gewog)) //gewog = selected.
-                        {
-                             //when t=0,p=0,d=1,g=1
-                           $details = SurplusView::where('dzongkhag_id','=',$request->dzongkhag)                          
-                           ->where('gewog_id','=',$request->gewog)
-                           ->get(); 
-                        }
-                        else
-                        {
-                           //when t=0,p=0,d=1,g=0
-                           $details = SurplusView::where('dzongkhag_id','=',$request->dzongkhag)                                                     
-                           ->get(); 
-                        }
-
-                    }
-                    else //type=all, product=all, dzongkhag=all.
-                    {
-                        if(!empty($request->gewog)) //gewog = selected.
-                        {
-                             //when t=0,p=0,d=0,g=1
-                           $details = SurplusView::where('gewog_id','=',$request->gewog)
-                           ->get(); 
-                        }
-                        else
-                        {
-                           //when t=0,p=0,d=0,g=0
-                           $details = SurplusView::all(); 
-                        }
-
-                    }
+                if(!empty($todate)) {   //only $todate is set.
+                    $sql = $sql.$column. "<= '".$todate."'"; 
                 }
-                
             }
-           
         }
         else
-        { //in demand.
-           //filtering of details.
-           if(!empty($request->product_type)) //product type = selected.
-           {
-               if(!empty($request->product)) //product = selected.
-               {
-                   if(!empty($request->dzongkhag)) //dzongkhag = selected
-                   {
-                       if(!empty($request->gewog)) //gewog = selected.
-                       {
-                           //when t=1,p=1,d=1,g=1
-                          $details = DemandView::where('type_id','=',$request->product_type)
-                                               ->where('product_id','=',$request->product)
-                                               ->where('dzongkhag_id','=',$request->dzongkhag)
-                                               ->where('gewog_id','=',$request->gewog)
-                                               ->get();                          
-                       }
-                       else
-                       {
-                          //when t=1,p=1,d=1,g=0
-                          $details = DemandView::where('type_id','=',$request->product_type)
-                          ->where('product_id','=',$request->product)
-                          ->where('dzongkhag_id','=',$request->dzongkhag)
-                          ->get();
-                       }
+        {
+            $sql = "";
+        }
+            //    dd($sql);
 
-                   }
-                   else //dzongkhag = all.
-                   {
-                       if(!empty($request->gewog)) //gewog = selected.
-                       {
-                          //when t=1,p=1,d=0,g=1
-                          $details = DemandView::where('type_id','=',$request->product_type)
-                                               ->where('product_id','=',$request->product)                                               
-                                               ->where('gewog_id','=',$request->gewog)
-                                               ->get();  
-                       }
-                       else
-                       {
-                         //when t=1,p=1,d=0,g=0
-                         $details = DemandView::where('type_id','=',$request->product_type)
-                         ->where('product_id','=',$request->product)                                                   
-                         ->get();  
-                       }
-
-                   }
-               } 
-               else // type = selected, product = all.
-               {
-                   if(!empty($request->dzongkhag)) //dzongkhag = selected
-                   {
-                       if(!empty($request->gewog)) //gewog = selected.
-                       {
-                         //when t=1,p=0,d=1,g=1
-                         $details = DemandView::where('type_id','=',$request->product_type)                    
-                         ->where('dzongkhag_id','=',$request->dzongkhag)
-                         ->where('gewog_id','=',$request->gewog)
-                         ->get();  
-                       }
-                       else
-                       {
-                        //when t=1,p=0,d=1,g=0
-                        $details = DemandView::where('type_id','=',$request->product_type)                        
-                        ->where('dzongkhag_id','=',$request->dzongkhag)                        
-                        ->get();  
-                       }
-                   }
-                   else
-                   {
-                       if(!empty($request->gewog)) //gewog = selected.
-                       {
-                        //when t=1,p=0,d=0,g=1
-                        $details = DemandView::where('type_id','=',$request->product_type)                                         
-                        ->where('gewog_id','=',$request->gewog)
-                        ->get();  
-                       }
-                       else
-                       {
-                        //when t=1,p=0,d=0,g=0
-                        $details = DemandView::where('type_id','=',$request->product_type)                                                                     
-                        ->get();  
-                       }
-
-                   }
-               }
-             //  $details = EXSurplus::where('productType_id','=',$request->product_type)->get();
-           }
-           else //product type = all.
-           {
-               if(!empty($request->product)) //product = selected.
-               {
-                   if(!empty($request->dzongkhag)) //dzongkhag = selected
-                   {
-                       if(!empty($request->gewog)) //gewog = selected.
-                       {
-                          //when t=0,p=1,d=1,g=1
-                          $details = DemandView::where('product_id','=',$request->product)
-                                               ->where('dzongkhag_id','=',$request->dzongkhag)
-                                               ->where('gewog_id','=',$request->gewog)
-                                               ->get(); 
-                       }
-                       else 
-                       {
-                           //when t=0,p=1,d=1,g=0
-                          $details = DemandView::where('product_id','=',$request->product)
-                          ->where('dzongkhag_id','=',$request->dzongkhag)                         
-                          ->get(); 
-                       }
-
-                   }
-                   else  //type=all, dzongkhag=all
-                   {
-                       if(!empty($request->gewog)) //gewog = selected.
-                       {
-                           //when t=0,p=1,d=0,g=1
-                          $details = DemandView::where('product_id','=',$request->product)                          
-                          ->where('gewog_id','=',$request->gewog)
-                          ->get(); 
-                       }
-                       else
-                       {
-                            //when t=0,p=1,d=0,g=0
-                          $details = DemandView::where('product_id','=',$request->product)                                                    
-                          ->get(); 
-                       }
-
-                   }
-
-               } 
-               else //type=all,product=all.
-               {
-                   if(!empty($request->dzongkhag)) //dzongkhag = selected
-                   {
-                       if(!empty($request->gewog)) //gewog = selected.
-                       {
-                            //when t=0,p=0,d=1,g=1
-                          $details = DemandView::where('dzongkhag_id','=',$request->dzongkhag)                          
-                          ->where('gewog_id','=',$request->gewog)
-                          ->get(); 
-                       }
-                       else
-                       {
-                          //when t=0,p=0,d=1,g=0
-                          $details = DemandView::where('dzongkhag_id','=',$request->dzongkhag)                                                     
-                          ->get(); 
-                       }
-
-                   }
-                   else //type=all, product=all, dzongkhag=all.
-                   {
-                       if(!empty($request->gewog)) //gewog = selected.
-                       {
-                            //when t=0,p=0,d=0,g=1
-                          $details = DemandView::where('gewog_id','=',$request->gewog)
-                          ->get(); 
-                       }
-                       else
-                       {
-                          //when t=0,p=0,d=0,g=0
-                          $details = DemandView::all(); 
-                       }
-
-                   }
-               }
-               
-           }
+        if($ptype != "All")
+        {
+            $sql = $sql." and tbl_ex_surplus.productType_id = ".$request->product_type;
         }
 
-        return view("reports.reportdetails",compact("details","type"));
+        if($product != "All")
+        {
+            $sql = $sql." and tbl_ex_surplus.product_id = ".$request->product;
+        }
+        
+        //check if dzongkhag and gewog selected.
+        if($dzongkhag != "All")
+        {
+            $sql = $sql." and tbl_transactions.dzongkhag_id = ".$dzongkhag;
+        }
+        if($gewog != "All") 
+        {
+            $sql = $sql. " and tbl_transactions.gewog_id=".$gewog;
+        }
 
+        
+    
+        $details = DB::select($sql);
+
+        return view("reports.reportdetails",compact("details","type"));
     }
+    
 }

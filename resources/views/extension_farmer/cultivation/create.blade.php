@@ -10,28 +10,36 @@
   @csrf
 <div class="card-body">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="form-group">
-            <label>Crop Name:<font color="red">*</font></label>
-              <select  name="crop" id="crop" class="form-control" required>
+            <label>Type:<font color="red">*</font></label>
+              <select  name="ctype" id="ctype" class="form-control" required>
                 <option disabled selected value="">Select Product Type</option>
-                @foreach($product as $p)
-                <option value="{{ $p->id }}">{{$p->product.' - '. $p->productType->type}}</option>
+                @foreach($types as $t)
+                <option value="{{ $t->id }}">{{$t->type}}</option>
                 @endforeach
               </select>
           </div> 
         </div>
-        
-          <div class="col-md-4">
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Product:<font color="red">*</font></label>
+              <select  name="product" id="product" class="form-control" required>
+                <option value="">Select Product</option>
+              </select>
+          </div> 
+        </div>
+          <div class="col-md-2">
             <div class="form-group">
-              <label>Quantity/Acerage:<small>(Should be in Acres or number)</small>&nbsp;<font color="red">*</font></label>
+              <label>Acres/Number:<font color="red">*</font></label>
                <input id="quantity" type="text" class="form-control" name="quantity" maxlength="5" placeholder="Enter the Quantity" required>
             </div>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-2">
             <div class="form-group">
-              <label>Units:&nbsp;<font color="red">*</font></label>
+              <label>Cultivation Units:&nbsp;<font color="red">*</font></label>
               <select  name="unit" id="unit" class="form-control" required>
               <option disabled selected value="">Select Units</option>
               @foreach($c_unit as $c)
@@ -42,13 +50,13 @@
           </div>
       </div>
         <div class="row">
-           <div class="col-md-4">
+           <div class="col-md-2">
              <div class="form-group">
                <label>Estimated Output:&nbsp;<font color="red">*</font></label>
-                <input type="text" class="form-control"id="output"  name="output"  maxlength="5" placeholder="Enter Estimated Output" required>
+                <input type="text" class="form-control"id="output"  name="output"  maxlength="5" placeholder="Enter Output" required>
               </div> 
             </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
            <div class="form-group">
               <label>Estimated Output Unit:&nbsp;<font color="red">*</font></label>
               <select  name="e_unit" id="e_unit" class="form-control" required>
@@ -59,11 +67,9 @@
                 </select>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label>Sowing_Month:&nbsp;<font color="red">*</font></label>
-              <input id="pickup_date" type="month" class="form-control" name="pickup_date" required>
-            </div>
+          <div class="col-md-2">
+              <label>Sowing Date:&nbsp;<font color="red">*</font></label>
+              <input type="date" name="sowing_date" id="sowingdate">
           </div>
         </div>
           <div class="row">
@@ -79,6 +85,30 @@
    </form>
 </div>
 </section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+          $(window).on('load', function() {
+        console.log('All assets are loaded')
+    })
+    $(document).ready(function () {
+      //alert('hi');
+        $("#ctype").on('change',function(e){
+            console.log(e);
+            var id = e.target.value;
+            //alert(id);
+            $.get('/json-product_type?product_type=' + id, function(data){
+                console.log(data);
+                $('#product').empty();
+                $('#product').append('<option disabled value="">Select Products</option>');
+                $.each(data, function(index, ageproductObj){
+                    $('#product').append('<option value="'+ ageproductObj.id +'">'+ ageproductObj.product + '</option>');
+                })
+            });
+        });
+    });
+</script>
+
 @endsection
 
    
