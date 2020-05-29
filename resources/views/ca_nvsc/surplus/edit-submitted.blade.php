@@ -14,9 +14,9 @@
     <h5>Ref. No: <b>{{$supply->refNumber}}</b></h5>
     <hr>
  @endforeach
- @include('Layouts.message') 
 </div>
 <div class="row justify-content-center">
+  @include('Layouts.message')
 <form method="POST" action="{{route('update_submited',$supply->id)}}" >
 @csrf
 <div class="form-group row">

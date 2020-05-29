@@ -14,7 +14,9 @@
   <hr>
   @endforeach
 </div>
+
 <div class="row justify-content-center">
+  @include('Layouts.message')
 <form method="POST" action="{{route('update-submitted',$demand->id)}}" >
 @csrf
 <div class="form-group row">
@@ -87,7 +89,7 @@
               <label for="qty">Taken Quantity:<font color="red">*</font></label>
               <input type="hidden" id="hqty" name="hqty" value="{{$demand->quantity}}"/>
               
-              <input type="text" value="{{ $demand->quantity}}" class="form-control" name="quantity" id="quantity" required>
+              <input type="text" value="{{ $demand->quantity}}"  class="form-control" name="quantity" id="quantity" required>
               <div class="invalid-feedback">
                   Please enter Quantity.
               </div>
@@ -125,7 +127,7 @@
       <hr>
       <div class="form-group row mb-0">
           <div class="col-md-6 offset-md-4">
-              <button type="submit" class="btn btn-success btn-sm">Update</button>
+              <button type="submit" class="btn btn-success btn-sm" >Update</button>
                  <a class="btn btn-primary btn-sm" href="{{ route('view_supply_details')}}">Go back</a>
             </div>
       </div>
@@ -134,6 +136,7 @@
   </div>
 </div>
 @endsection
+
 <script src="{{ asset('js/app.js') }}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -199,8 +202,6 @@
               }
             }
           } 
-      });
-      
+      }); 
     }
-    
 </script>

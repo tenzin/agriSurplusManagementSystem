@@ -69,7 +69,7 @@
           </div>
           <div class="col-md-2">
               <label>Sowing Date:&nbsp;<font color="red">*</font></label>
-              <input type="date" name="sowing_date" id="sowingdate" required>
+              <input type="date" name="sowing_date" id="sowingdate" class="form-control" required>
           </div>
         </div>
           <div class="row">

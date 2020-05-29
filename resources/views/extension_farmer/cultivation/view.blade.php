@@ -21,8 +21,8 @@
           <tr>
             <td>{{$cultivation->id}}</td>
             <td>{{$cultivation->product->product}}</td> 
-            <td>{{$cultivation->quantity.' - '.$cultivation->c_unit->unit}}</td>
-            <td>{{$cultivation->estimated_output.' - '. $cultivation->e_unit->unit}}</td> 
+            <td>{{$cultivation->quantity.' '.$cultivation->c_unit->unit}}</td>
+            <td>{{$cultivation->estimated_output.' '. $cultivation->e_unit->unit}}</td> 
             <td>{{$cultivation->sowing_date}}</td> 
             <td> @if($cultivation->status == '1')<span class="label">Harvested</span>
                 @else<span class="label">Under Cultivation</span>@endif 

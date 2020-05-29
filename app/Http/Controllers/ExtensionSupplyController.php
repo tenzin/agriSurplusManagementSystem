@@ -507,11 +507,16 @@ class ExtensionSupplyController extends Controller
     
     public function update_submitted(Request $request, $id)
     {
+        if(($request->input('hqty'))<=($request->input('quantity'))){
+
+            return redirect()->back()->with('error', 'Taken Quantity Cannot Be Greater Than Existing Quantity');
+        }
+        else
         $user = auth()->user();
 
         $qty=floatval($request->input('hqty')) -floatval($request->input('quantity'));
 
-        // dd($qty);
+        
         if($request->input('status') =='T'){
             
             DB::table('tbl_ex_surplus_history')->insert([

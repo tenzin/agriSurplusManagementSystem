@@ -3,7 +3,7 @@
 @section('content')
 <section class="content">
 <div class="container-fluid"> 
-<div class="card card-info">
+
   <div class="card-header">
     <h2 class="text-center mt-1 mb-1 alert aqua">Edit Area Under Cultivation Form</h2>
   </div>
@@ -54,6 +54,10 @@
                 @endforeach
                 </select>
             </div>
+            <div class="form-group">
+              <label>Remarks:&nbsp;<small>(Please mention location or address)</small></label>
+              <textarea class="form-control" rows="3" cols = "2" name="remarks">{{$cultivation->remarks}}</textarea>
+            </div>
           </div>
 
           <div class="col-md-4">
@@ -72,24 +76,15 @@
               <input id="date" type="date" class="form-control" name="sowing_date" value="{{$cultivation->sowing_date}}"/>
             </div>
           </div>
-
-            <div class="col-md-12">
-            <div class="form-group">
-              <label>Remarks:&nbsp;<small>(Please mention location or address)</small></label>
-              <textarea class="form-control" rows="3" name="remarks">{{$cultivation->remarks}}</textarea>
-            </div>
-          </div>
         </div>            
         </div>
-
-        <div class="card-footer">
         <div class="form-group row mb-0">
           <div class="col-md-6 offset-md-4">
               <button type="submit" class="btn btn-success btn-sm">Update</button>
                  <a class="btn btn-primary btn-sm" href="{{ route('view_cultivation_details')}}">Go back</a>
             </div>
       </div>
-    </div>
+   
 </form>
 </div>
 </div>

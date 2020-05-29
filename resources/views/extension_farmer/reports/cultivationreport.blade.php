@@ -26,13 +26,13 @@
                   </div>
                   <div class="col-md-3">
                     <select name="tyear" id="tyear" class="form-control">
-                    @foreach($years as $year)
-                      @if($year->year == date('Y'))
-                        <option value="{{$year->year}}" selected>{{$year->year}}</option>
-                      @else  
-                      <option value="{{$year->year}}">{{$year->year}}</option>
-                      @endif
-                    @endforeach
+                            {{-- @foreach($years as $y)
+                                @if($y->year == date('Y'))
+                                    <option value="{{$year->year}}" selected>{{$year->year}}</option>
+                                @else  
+                                    <option value="{{$year->year}}">{{$year->year}}</option>
+                                @endif
+                            @endforeach --}}
                     </select>
                   </div>
                 </div></br>
@@ -91,13 +91,13 @@
                     </div>
                     <div class="col-md-3">
                       <select name="tyear" id="tyear" class="form-control">
-                      @foreach($years as $year)
+                      {{-- @foreach($years as $year)
                         @if($year->year == date('Y'))
                           <option value="{{$year->year}}" selected>{{$year->year}}</option>
                         @else  
                         <option value="{{$year->year}}">{{$year->year}}</option>
                         @endif
-                      @endforeach
+                      @endforeach --}}
                       </select>
                     </div>
                   </div></br>

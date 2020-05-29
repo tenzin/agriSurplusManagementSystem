@@ -75,7 +75,7 @@ public function cultivation_update(Request $request, $id){
 
     //dd($id);
     $cultivation = Cultivation::find($id);
-// dd($cultivation);
+
     // $cultivation->product_id=$request->input('crop');
     $cultivation->c_units = $request->input('unit');
     $cultivation->e_units=$request->input('e_unit');

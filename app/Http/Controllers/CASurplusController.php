@@ -469,7 +469,15 @@ class CASurplusController extends Controller
     public function ca_update_submitted(Request $request, $id)
 
     {
-        $qty=floatval($request->input('hqty')) -floatval($request->input('quantity'));
+
+        if(($request->input('hqty'))<=($request->input('quantity'))){
+
+            return redirect()->back()->with('error', 'Taken Quantity Cannot Be Greater Than Existing Quantity');
+        }
+
+        else
+
+        $qty=floatval($request->input('hqty'))-floatval($request->input('quantity'));
         if($request->input('status') =='T')
         { 
             DB::table('tbl_history_ca_supply')->insert([
@@ -497,7 +505,7 @@ class CASurplusController extends Controller
         return redirect('view_surplus_details')->with('msg','Saved successfully!!');
         
     }
-
+    
     // View Submitted Details
     public function ca_view_surplus_details()
 
