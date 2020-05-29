@@ -2,16 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 //Login Route
 Route::get('login', 'AuthController@loginForm')->name('login');
@@ -38,6 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
 
       //CA route for view the EX surplus
       Route::get('exsurplus-view/{id}',['as'=>'exsurplus-view','uses'=>'DashboardController@view']);
+      
       //National report
       Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
       Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
@@ -92,9 +84,11 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       Route::get('extension_report',['as'=>'extension_report','uses'=>'EXReportController@searchby'])->middleware('can:extension_view_report,Auth::user()');
       Route::post('extension_dreport',['as'=>'extension_dreport','uses'=>'EXReportController@search_result']);
 
-      //Total surplus reports.
-      // Route::get('extension_total',['as'=>'extension_total','uses'=>'EXReportController@searchtotalby']);
-      // Route::post('extension_treport',['as'=>'extension_treport','uses'=>'EXReportController@search_totalresult']);
+      //Area Under Cultivation Reports Route.
+      Route::get('cultivation-report',['as'=>'cultivation-report','uses'=>'CultivationReportController@search']);
+      Route::post('ext_cultivation_report',['as'=>'ext_cultivation_report','uses'=>'CultivationReportController@return_search']);
+     
+      
 
       //Summary surplus reports.
       Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
@@ -117,7 +111,6 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('supply-history','CASurplusController@ca_show_history')->name('supply-history')->middleware('can:aggregator_supply_history,Auth::user()');
       Route::get('showe/{id}','CASurplusController@ca_show')->name('showe');
 
-       
       //Batch Update and Edit Route
       Route::get('batch-editi/{id}',['as'=>'batch-editi','uses'=>'CASurplusController@batch_edit']);
       Route::post('batch-updatee/{id}',['as'=>'batch-updatee','uses'=>'CASurplusController@update_batch']);
@@ -134,11 +127,16 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::post('update_submited/{id}',['as'=>'update_submited','uses'=>'CASurplusController@ca_update_submitted']);
       Route::get('view-details/{id}',['as'=>'view-details','uses'=>'CASurplusController@ca_view_detail'])->middleware('can:aggregator_view_surplus_details,Auth::user()');
 
-      //report for aggregator.
+      //Report to view surplus Submitted by exetnsion of his/her dzongkhag Route.
       Route::get('aggregator_report',['as'=>'aggregator_report','uses'=>'CAReportController@searchby'])->middleware('can:aggregator_view_report,Auth()::user()');
       Route::post('aggregator_dreport',['as'=>'aggregator_dreport','uses'=>'CAReportController@search_result']);
       Route::get('aggregator_summary',['as'=>'aggregator_summary','uses'=>'CAReportController@searchsummaryby']);
       Route::post('aggregator_summaryreport',['as'=>'aggregator_summaryreport','uses'=>'CAReportController@summaryreport']);
+
+      //Individual Report Route
+      Route::get('report',['as'=>'report','uses'=>'CAReportController@search'])->middleware('can:aggregator_view_report_individual,Auth()::user()');
+      Route::post('aggregator_report',['as'=>'aggregator_report','uses'=>'CAReportController@result']);
+
 
       //Commercial Aggregator Demand Surplus Information Route
       Route::get('demand-date',['as'=>'demand-date','uses'=>'CADemandController@expriydate'])->middleware('can:aggregator_demand_surplus,Auth::user()');
@@ -157,7 +155,6 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('/json-transaction-exist','TransactionController@transaction_exists');
       Route::get('/json-dimport-exist/{id}','TransactionController@import_demand');
 
-      // Route::get('/data_show', 'CADemandController@data_show')->name('data_show');
       
       //Commercial Aggregator Demand View Surplus Information 
       Route::get('view_surplus_demand_details',['as'=>'view_surplus_demand_details','uses'=>'CADemandController@view_surplus_demand_details'])->middleware('can:aggregator_view_demand_surplus,Auth::user()');
@@ -238,7 +235,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
       Route::get('user-view/{id}',['as'=>'user-view','uses'=>'AccessControlListController@userView']);
       Route::get('add-user',['as'=>'add-user','uses'=>'AccessControlListController@add']);
       Route::post('new-user',['as'=>'new-user','uses'=>'AccessControlListController@insert']);
-      Route::get('/json-dzongkhag','AccessControlListController@dzongkhag');
+     
       
       Route::get('edit-user/{id}',['as'=>'edit-user','uses'=>'AccessControlListController@edit']);
       Route::post('update-user',['as'=>'update-user','uses'=>'AccessControlListController@update']);
@@ -302,9 +299,13 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
      Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
      Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
      Route::post('dzosummaryreport',['as'=>'dzosummaryreport','uses'=>'DzoThromdeReportController@dzosummaryreport']);
-
+     
+     
+     Route::get('/json-dzongkhag','AccessControlListController@dzongkhag');
 
 });
+
+
 
      
      

@@ -5,7 +5,7 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
            
-      <h2 class="text-center mt-1 mb-1 alert aqua">Details of {{ $type }}</h2>
+      <h2 class="text-center mt-1 mb-1 alert aqua">Area Under Cultivation</h2>
                   
                   <!-- /.card-header -->
                   <div class="card-body">
@@ -39,28 +39,22 @@
                         <thead>                  
                             <tr>
                                 <th>Sl. No.</th>
-                                <!-- <th>Type</th> -->
                                 <th>Product</th>
-                                <th>Expected Prize(Nu.)</th>
-                                <th>Gewog</th>
-                                <th>Dzongkhag</th>
-                                <th>Harvest</th>
-                                <th>Submitted</th>
-                                <th>Quantity</th>
+                                <th>Sowing Date</th>
+                                <th>Cultivation</th>
+                                <th>Estimated</th>
+                                <th>Output</th>
                               </tr>
                         </thead>
                         <tbody>
-                           @foreach($details as $report)
+                           @foreach($cultivations as $report)
                             <tr>
                               <td>{{$loop->iteration}}</td>
-                              <!-- <td>{{$report->type}}</td>  -->
-                              <td>{{$report->product}}</td>                             
-                              <td>{{$report->price}}</td> 
-                              <td>{{$report->gewog}}</td>
-                              <td>{{$report->dzongkhag}}</td>
-                              <td>{{$report->harvestDate}}</td>  
-                              <td>{{$report->submittedDate}}</td>          
-                              <td>{{$report->quantity}} {{$report->unit}}</td>          
+                              <td>{{$report->product}}</td>                                             
+                              <td>{{date('d/m/Y',strtotime($report->sowing_date))}}</td>  
+                              <td>{{$report->quantity}} {{$report->cunit}}</td>          
+                              <td>{{$report->estimated_output}}</td>
+                              <td>{{$report->actual_output}} {{$report->eaunit}}</td>          
                             </tr>
                            @endforeach 
                         </tbody>

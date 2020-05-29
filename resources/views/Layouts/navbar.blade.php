@@ -18,7 +18,7 @@
 
           {{Auth()->user()->name.' - '.Auth()->user()->role->role.' - '.Auth()->user()->gewog->gewog}} 
 
-          @elseif(Auth()->user()->role->role == 'Commercial Aggregator' || Auth()->user()->role->role == 'Vegetable Supply Company' || Auth()->user()->role->role == 'Agriculture Research Development Center'  )
+          @elseif(Auth()->user()->role->role == 'Commercial Aggregator' || Auth()->user()->role->role == 'Vegetable Supply Company' || Auth()->user()->role->role == 'Agriculture Research Development Center' || Auth()->user()->role->role == 'Dzongkhag Agriculture Officer')
 
           {{Auth()->user()->name.' - '.Auth()->user()->role->role.' - '.Auth()->user()->dzongkhag->dzongkhag}}
 

@@ -139,7 +139,10 @@ class EXReportController extends Controller
        }
        else {
            //when dates are not selected. then year should be selected. default is current year.
-           $sql = $sql. " and year(tbl_ex_surplus.harvestDate) = ".$request->tyear; 
+           if($request->tyear != "All")
+            {
+                $sql = $sql. " and year(tbl_ex_surplus.harvestDate) = ".$request->tyear; 
+            }
        }
        
        // dd($sql);

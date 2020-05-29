@@ -39,6 +39,7 @@ class DzoThromdeReportController extends Controller
         $fromdate = $request->fromdate;
         $todate = $request->todate;
         $tyear = $request->tyear;
+        $gewog = $request->gewog;
 
 
         //surplus based on extension/farmer.
@@ -70,7 +71,10 @@ class DzoThromdeReportController extends Controller
     
             }
             else {
-                $sql = $sql. " and year(tbl_ex_surplus.harvestDate) = ".$tyear; 
+                if($tyear != "All")
+                {
+                    $sql = $sql. " and year(tbl_ex_surplus.harvestDate) = ".$tyear;
+                }
             }
     
             //    dd($sql);
@@ -110,10 +114,13 @@ class DzoThromdeReportController extends Controller
     
             }
             else {
+                if($tyear != "All")
+                {
                 $sql = $sql. " and year(tbl_transactions.submittedDate) = ".$tyear;
+                }
             }
             //    dd($sql);
-    
+
             if(!empty($request->product_type))
             {
                 $sql = $sql." and tbl_cssupply.productType_id = ".$request->product_type;
@@ -125,6 +132,12 @@ class DzoThromdeReportController extends Controller
             }
         }
 
+         //filter by gewog if selected.
+         if($gewog != "All")
+         {
+             $sql = $sql . " and tbl_transactions.gewog_id=".$gewog;
+         }
+
        // dd($sql);
         $surplus = DB::select($sql);
 
@@ -135,7 +148,7 @@ class DzoThromdeReportController extends Controller
         else
         {
           
-        return view('DzoThromde.dzothromdecareportdetails',compact('surplus','fromdate','todate','title'));   
+            return view('DzoThromde.dzothromdecareportdetails',compact('surplus','fromdate','todate','title'));   
         }
 
     }

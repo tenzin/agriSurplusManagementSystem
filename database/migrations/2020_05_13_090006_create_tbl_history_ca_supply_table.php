@@ -21,7 +21,7 @@ class CreateTblHistoryCaSupplyTable extends Migration
             $table->foreignId('product_id')->constrained()->references('id')->on('tbl_products')->onDelete('cascade');
             $table->float('quantity');
             $table->foreignId('unit_id')->constrained()->references('id')->on('tbl_units')->onDelete('cascade');
-            // $table->date('harvestDate');
+            $table->foreignId('ca_surplus_id')->constrained()->references('id')->on('tbl_cssupply')->onDelete('cascade');
             $table->float('price');
             $table->char('status', 1);
             $table->longText('remarks')->nullable();
