@@ -111,10 +111,10 @@
       </div>
       <div class="row">
         <div class="col-md-4 mb-3">
-          <label for="unit">Hravest Date</label>
+          <label for="unit">Harvest Date</label>
           <div class="input-group">
              
-              <input type="text" value="{{ $demand->harvestDate}}" class="form-control" name="harvestDate" id="harvestDate" required>
+              <input type="text" value="{{ $demand->harvestDate}}" class="form-control" name="harvestDate" id="harvestDate" readonly required>
               
           </div>
       </div>
