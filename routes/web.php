@@ -139,13 +139,15 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       //Report to view surplus Submitted by exetnsion of his/her dzongkhag Route.
       Route::get('aggregator_report',['as'=>'aggregator_report','uses'=>'CAReportController@searchby'])->middleware('can:aggregator_view_report,Auth()::user()');
       Route::post('aggregator_dreport',['as'=>'aggregator_dreport','uses'=>'CAReportController@search_result']);
+      Route::get('aggregator_dreport',['as'=>'aggregator_dreport','uses'=>'CAReportController@search_result']);
       Route::get('aggregator_summary',['as'=>'aggregator_summary','uses'=>'CAReportController@searchsummaryby']);
       Route::post('aggregator_summaryreport',['as'=>'aggregator_summaryreport','uses'=>'CAReportController@summaryreport']);
+      Route::get('aggregator_summaryreport',['as'=>'aggregator_summaryreport','uses'=>'CAReportController@summaryreport']);
 
       //Individual Report Route
       Route::get('report',['as'=>'report','uses'=>'CAReportController@search'])->middleware('can:aggregator_view_report_individual,Auth()::user()');
       Route::post('aggregator_report',['as'=>'aggregator_report','uses'=>'CAReportController@result']);
-
+      Route::get('aggregator_report',['as'=>'aggregator_report','uses'=>'CAReportController@result']);
 
       //Commercial Aggregator Demand Surplus Information Route
       Route::get('demand-date',['as'=>'demand-date','uses'=>'CADemandController@expriydate'])->middleware('can:aggregator_demand_surplus,Auth::user()');
