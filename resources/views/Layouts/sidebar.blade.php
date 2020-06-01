@@ -230,7 +230,7 @@
                 <li class="nav-item">
                   <a href="{{route('extension_report')}}" class="nav-link">
                     <i class="nav-icon far fa-calendar-alt"></i>
-                    <p>View Report</p>
+                    <p>View Surplus Report</p>
                   </a>
                 </li>
                 
@@ -265,7 +265,7 @@
           <li class="nav-item">
             <a href="{{route('cultivation-report')}}" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
-              <p>View Report </p>
+              <p>View Cultivation Report </p>
             </a>
           </li>
           @endcan
