@@ -30,14 +30,14 @@
               </select>
           </div> 
         </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
               <label>Acres/Number:<font color="red">*</font></label>
-               <input id="quantity" type="text" class="form-control" name="quantity" maxlength="5" placeholder="Enter the Quantity" required>
+               <input id="quantity" type="number" class="form-control" name="quantity" placeholder="Enter the Quantity" required>
             </div>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="form-group">
               <label>Cultivation Units:&nbsp;<font color="red">*</font></label>
               <select  name="unit" id="unit" class="form-control" required>
@@ -50,13 +50,13 @@
           </div>
       </div>
         <div class="row">
-           <div class="col-md-3">
+           <div class="col-md-4">
              <div class="form-group">
                <label>Estimated Output:&nbsp;<font color="red">*</font></label>
-                <input type="text" class="form-control"id="output"  name="output"  maxlength="5" placeholder="Enter Output" required>
+                <input type="number" class="form-control"id="output"  name="output"  maxlength="5" placeholder="Enter Output" required>
               </div> 
             </div>
-          <div class="col-md-3">
+          <div class="col-md-4">
            <div class="form-group">
               <label>Estimated Output Unit:&nbsp;<font color="red">*</font></label>
               <select  name="e_unit" id="e_unit" class="form-control" required>
@@ -67,10 +67,11 @@
                 </select>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-4">
               <label>Sowing Date:&nbsp;<font color="red">*</font></label>
               <input type="date" name="sowing_date" id="sowingdate" class="form-control" required>
           </div>
+          
         </div>
           <div class="row">
             <div class="col-md-12">

@@ -9,30 +9,7 @@
                   
                   <!-- /.card-header -->
                   <div class="card-body">
-                    @if ($errors->any())
-                      <div class="col-sm-12">
-                          <div class="alert  alert-warning alert-dismissible fade show" role="alert">
-                              @foreach ($errors->all() as $error)
-                                  <span><p>{{ $error }}</p></span>
-                              @endforeach
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                  </button>
-                          </div>
-                      </div>
-                  @endif
-
-                  @if (session('success'))
-                      <div class="col-sm-12">
-                          <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                              {{ session('success') }}
-                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                  </button>
-                          </div>
-                      </div>
-                  @endif
-              
+           
             <div class="card">                
                 <div class="card-body">
                       <table id="example3" class="display table table-bordered">
@@ -53,7 +30,7 @@
                               <td>{{$report->product}}</td>                                             
                               <td>{{date('d/m/Y',strtotime($report->sowing_date))}}</td>  
                               <td>{{$report->quantity}} {{$report->cunit}}</td>          
-                              <td>{{$report->estimated_output}}</td>
+                              <td>{{$report->estimated_output}} {{$report->eaunit}}</td>
                               <td>{{$report->actual_output}} {{$report->eaunit}}</td>          
                             </tr>
                            @endforeach 
@@ -61,47 +38,7 @@
                       </table>
                 </div>
             </div>
-                 
-    
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-          $(window).on('load', function() {
-        console.log('All data are loaded')
-    })
-    $(document).ready(function () {
-        $("#product_type_id").on('change',function(e){
-            console.log(e);
-            var id = e.target.value;
-            //alert(id);
-            $.get('/json-product_type?product_type=' + id, function(data){
-                console.log(data);
-                $('#product').empty();
-                $('#product').append('<option value="0">All</option>');
-                $.each(data, function(index, ageproductObj){
-                    $('#product').append('<option value="'+ ageproductObj.id +'">'+ ageproductObj.product + '</option>');
-                })
-            });
-        });
-
-        $("#dzongkhag").on('change',function(e){
-            console.log(e);
-            var dzid = e.target.value;
-            //alert(id);
-            $.get('/json-dzongkhag?dzongkhag=' + dzid, function(data){
-                console.log(data);
-                $('#gewog').empty();
-                $('#gewog').append('<option value="0">All</option>');
-                $.each(data, function(index, gewogObj){
-                    $('#gewog').append('<option value="'+ gewogObj.id +'">'+ gewogObj.gewog + '</option>');
-                })
-            });
-        })
-
-    });
-
-</script>
+                
     
 @endsection
 @section('custom_scripts')
@@ -115,7 +52,6 @@
         buttons: [
             {
                   extend: 'copy',
-                  
                   title:'Product List',
                   exportOptions: {
                     columns: [ 0, 1, 2, 3, 4, 5, 6, 7]
@@ -130,16 +66,12 @@
             {
                   extend: 'excelHtml5',
                   title: 'Data export',
-                  exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7]
-                }
+                 
               },
               {
                   extend: 'pdfHtml5',
                   title: 'Data export',
-                  exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7]
-                }
+                  
               }
           ]
     });

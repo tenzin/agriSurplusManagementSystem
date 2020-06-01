@@ -7,9 +7,7 @@
 <div class="content-header">
   <div class="card card-info">
     <div class="card-header">
-      <div class="card-tools">
-        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
-      </div>
+      
       <div class="row">
         <div class="col text-left">
           <strong>Submitted Surplus(Based on harvest date)</strong>
@@ -62,47 +60,6 @@
    
   </div>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-          $(window).on('load', function() {
-        console.log('All data are loaded')
-    })
-    $(document).ready(function () {
-
-        $("#product_type_id").on('change',function(e){
-            console.log(e);
-            var id = e.target.value;
-            //alert(id);
-            $.get('/json-product_type?product_type=' + id, function(data){
-                console.log(data);
-                $('#product').empty();
-                $('#product').append('<option value="0">All</option>');
-                $.each(data, function(index, ageproductObj){
-                    $('#product').append('<option value="'+ ageproductObj.id +'">'+ ageproductObj.product + '</option>');
-                })
-            });
-        });
-
-        $("#dzongkhag").on('change',function(e){
-            console.log(e);
-            var dzid = e.target.value;
-            //alert(id);
-            $.get('/json-dzongkhag?dzongkhag=' + dzid, function(data){
-                console.log(data);
-                $('#gewog').empty();
-                $('#gewog').append('<option value="0">All</option>');
-                $.each(data, function(index, gewogObj){
-                    $('#gewog').append('<option value="'+ gewogObj.id +'">'+ gewogObj.gewog + '</option>');
-                })
-            });
-        })
-
-
-    });
-
-</script>
     
 @endsection
 @section('custom_scripts')
@@ -111,8 +68,8 @@
   $(document).ready( function () 
   {
     $("#example3").DataTable({
-      // "processing" : true,
-    //  "serverSide" : true,
+
+     
         dom: 'B<"clear">lfrtip',
         buttons: [
             {
@@ -137,8 +94,7 @@
                   title: 'Details of Surplus',
                   orientation: 'landscape',
                   pageSize: 'A4',
-                  pageMargins: [ 0, 0, 0, 0 ], // try #1 setting margins
-                  margin: [ 0, 0, 0, 0 ],
+                  align: 'center',
                   
               }
           ],

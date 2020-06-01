@@ -9,7 +9,7 @@
             @csrf
         <div class="card card">
                   <div class="card-header">
-                    <h3 class="card-title">Report of Area Under Cultivations:</h3>
+                    <h3 class="text-center">Report of Area Under Cultivations:</h3>
                   </div>
                   <!-- /.card-header -->
          
@@ -74,12 +74,12 @@
 </div>
 
 <div class="content-header">
-    <form class="form-horizontal" method="POST" action = "{{route('ext_cultivation_report')}}">
+    <form class="form-horizontal" method="POST" action = "{{route('ext_harvest_report')}}">
       <input type="hidden" name="report_type" value="harvested">
               @csrf
           <div class="card card">
                     <div class="card-header">
-                      <h3 class="card-title">Report of Harvested:</h3>
+                      <h3 class="text-center">Report of Harvested:</h3>
                     </div>
                     <!-- /.card-header -->
            

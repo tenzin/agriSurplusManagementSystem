@@ -23,13 +23,18 @@ class DzoThromdeReportController extends Controller
                         ->distinct()
                         ->get();
 
+        $c_years = DB::table('tbl_cultivations')
+                ->select(DB::raw('year(sowing_date) as year'))
+                ->distinct()
+                ->get();
+
         $json_months_data = Months::getMonths();
         $months = $json_months_data->getData();
 
         $ptypes = DB::table('tbl_product_types')->get();
         $gewogs = DB::table('tbl_gewogs')->where('dzongkhag_id','=',$user->dzongkhag_id)->get();
 
-        return view('DzoThromde.dzothromdereport',compact('ptypes','gewogs','years','months'));
+        return view('DzoThromde.dzothromdereport',compact('ptypes','gewogs','years','months','c_years'));
     }
 
     public function searchdreport(Request $request)
@@ -197,4 +202,117 @@ class DzoThromdeReportController extends Controller
             
         return view('ca_nvsc.reports.summaryreportdetails',compact('summary','tyear','tmonth'));
     }
+
+    public function c_dzongkhag(Request $request){
+
+        $user = auth()->user();
+        $gewog = $request->gewog;
+        $tmonth = $request->tmonth;
+       
+        $sql = "select tbl_product_types.type,tbl_products.product,tbl_cultivations.quantity,tbl_cultivationunits.unit as `cunit`,
+        tbl_cultivations.sowing_date,tbl_cultivations.estimated_output,tbl_cultivations.actual_output,tbl_units.unit as `eaunit`
+        from tbl_cultivations
+        join tbl_product_types on tbl_product_types.id = tbl_cultivations.productType_id
+        join tbl_products on tbl_products.id=tbl_cultivations.product_id
+        join tbl_cultivationunits on tbl_cultivationunits.id=tbl_cultivations.c_units
+        join tbl_units on tbl_units.id=tbl_cultivations.e_units
+        join tbl_dzongkhags on tbl_dzongkhags.id = tbl_cultivations.dzongkhag_id
+        where tbl_cultivations.dzongkhag_id=".$user->dzongkhag_id;
+
+    
+        //report type either harvested or area under cultivation.
+
+        if($request->report_type == "harvested")
+        {
+            $sql = $sql." and tbl_cultivations.status=1";
+        }
+        else{
+            $sql = $sql." and tbl_cultivations.status=0";
+        }
+        
+       //clause if month is selected.
+       if($tmonth != "All")
+       {
+           $sql = $sql. " and month(sowing_date) = ".$tmonth;
+       }
+       
+        if(!empty($request->product_type))
+        {
+            $sql = $sql." and tbl_cultivations.productType_id = ".$request->product_type;
+        }
+
+        if(!empty($request->product))
+        {
+            $sql = $sql." and tbl_cultivations.product_id = ".$request->product;
+        }
+
+        if($gewog != "All")
+         {
+             $sql = $sql . " and tbl_cultivations.gewog_id=".$gewog;
+         }
+
+
+       // dd($sql);
+        
+        $cultivations = DB::select($sql);
+
+        return view('DzoThromde.dzo_under_cultivation',compact('cultivations','tmonth'));
+    }
+
+    public function h_dzongkhag(Request $request){
+
+        $user = auth()->user();
+        $gewog = $request->gewog;
+        $tmonth = $request->tmonth;
+       
+        $sql = "select tbl_product_types.type,tbl_products.product,tbl_cultivations.quantity,tbl_cultivationunits.unit as `cunit`,
+        tbl_cultivations.sowing_date,tbl_cultivations.estimated_output,tbl_cultivations.actual_output,tbl_units.unit as `eaunit`
+        from tbl_cultivations
+        join tbl_product_types on tbl_product_types.id = tbl_cultivations.productType_id
+        join tbl_products on tbl_products.id=tbl_cultivations.product_id
+        join tbl_cultivationunits on tbl_cultivationunits.id=tbl_cultivations.c_units
+        join tbl_units on tbl_units.id=tbl_cultivations.e_units
+        join tbl_dzongkhags on tbl_dzongkhags.id = tbl_cultivations.dzongkhag_id
+        where tbl_cultivations.dzongkhag_id=".$user->dzongkhag_id;
+
+    
+        //report type either harvested or area under cultivation.
+
+        if($request->report_type == "harvested")
+        {
+            $sql = $sql." and tbl_cultivations.status=1";
+        }
+        else{
+            $sql = $sql." and tbl_cultivations.status=0";
+        }
+        
+       //clause if month is selected.
+       if($tmonth != "All")
+       {
+           $sql = $sql. " and month(sowing_date) = ".$tmonth;
+       }
+       
+        if(!empty($request->product_type))
+        {
+            $sql = $sql." and tbl_cultivations.productType_id = ".$request->product_type;
+        }
+
+        if(!empty($request->product))
+        {
+            $sql = $sql." and tbl_cultivations.product_id = ".$request->product;
+        }
+
+        if($gewog != "All")
+         {
+             $sql = $sql . " and tbl_cultivations.gewog_id=".$gewog;
+         }
+
+
+       // dd($sql);
+        
+        $cultivations = DB::select($sql);
+
+        return view('DzoThromde.dzo_hravested',compact('cultivations','tmonth'));
+    }
+
 }

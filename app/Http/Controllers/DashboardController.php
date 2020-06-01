@@ -52,7 +52,7 @@ class DashboardController extends Controller
   
 
      // $this->adminDashboard();
-   } elseif($role=='Headquarter' || $role =='Agriculture Research Development Center') {
+   } elseif($role=='Headquarter' || $role =='Agriculture Research Development Center' ) {
 
      
 
@@ -404,8 +404,22 @@ elseif($role=='Commercial Aggregator' || $role=='Vegetable Supply Company' ) {
                            ->where('role_id', '=', 4)->get(); 
             $exuser = User::where('dzongkhag_id', '=', $d)
                            ->where('role_id', '=', 7)->get(); 
+
+            $farmersgroup = User::where('dzongkhag_id', '=', $d)
+                           ->where('role_id','9')->get();
+
+            $landusers = User::where('dzongkhag_id', '=', $d)
+                     ->where('role_id','8')->get();
+
+            $farmer = User::where('dzongkhag_id', '=', $d)
+                     ->where('role_id','9')->count();
+            $ex = User::where('dzongkhag_id', '=', $d)
+                     ->where('role_id','7')->count();
+            $luc = User::where('dzongkhag_id', '=', $d)
+                     ->where('role_id','8')->count();
+            $ca = User::where('dzongkhag_id', '=', $d)->where('role_id', '4')->count();
       
-         return view('dashboard.daodashboard',compact('causer','exuser'));
+         return view('dashboard.daodashboard',compact('causer','exuser','farmer','ex','luc','ca','farmersgroup','landusers'));
     }
   }
 }

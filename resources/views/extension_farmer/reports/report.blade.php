@@ -8,7 +8,7 @@
             @csrf
         <div class="card card">
                   <div class="card-header">
-                    <h3 class="card-title">Search submitted surplus based on harvest date:</h3>
+                    <h3 class="text-center">Search submitted surplus based on harvest date:</h3>
                   </div>
                   <!-- /.card-header -->
          
@@ -82,7 +82,7 @@
             @csrf
         <div class="card card">
                   <div class="card-header">
-                    <h3 class="card-title">View summary of surplus by:</h3>
+                    <h3 class="text-center">View summary of surplus by:</h3>
                     
                   </div>
                   <!-- /.card-header -->

@@ -149,7 +149,7 @@ class CASurplusController extends Controller
     public function ca_store_transcation(Request $request)
     
     {
-        // $this->validate($request, $this->trans_rule);
+        
 
         $user = auth()->user();
         // $user_dzo = auth()->user()->dzongkhag_id;

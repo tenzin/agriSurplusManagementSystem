@@ -39,7 +39,10 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
 
       //Extension Supply Information Route
       Route::get('ex-day',['as'=>'ex-day','uses'=>'ExtensionSupplyController@ex_expiryday'])->middleware('can:extension_add_surplus,Auth::user()');
+
       Route::post('ex-store',['as'=>'ex-store','uses'=>'ExtensionSupplyController@ex_store_transaction']);
+      
+      Route::get('ex-store',['as'=>'ex-store','uses'=>'ExtensionSupplyController@ex_store_transaction']);
       Route::get('surplus-view',['as'=>'surplus-view','uses'=>'ExtensionSupplyController@ex_store_transaction']);
       Route::post('ex-supply-store',['as'=>'ex-supply-store','uses'=>'ExtensionSupplyController@ex_store']);
       Route::get('ex-supply-edit/{id}',['as'=>'ex-supply-edit','uses'=>'ExtensionSupplyController@ex_edit']);
@@ -83,11 +86,15 @@ Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
       //Extension reports.
       Route::get('extension_report',['as'=>'extension_report','uses'=>'EXReportController@searchby'])->middleware('can:extension_view_report,Auth::user()');
       Route::post('extension_dreport',['as'=>'extension_dreport','uses'=>'EXReportController@search_result']);
+      Route::get('extension_dreport',['as'=>'extension_dreport','uses'=>'EXReportController@search_result']);
 
       //Area Under Cultivation Reports Route.
       Route::get('cultivation-report',['as'=>'cultivation-report','uses'=>'CultivationReportController@search']);
       Route::post('ext_cultivation_report',['as'=>'ext_cultivation_report','uses'=>'CultivationReportController@return_search']);
-     
+      Route::get('ext_cultivation_report',['as'=>'ext_cultivation_report','uses'=>'CultivationReportController@return_search']);
+
+      Route::post('ext_harvest_report',['as'=>'ext_harvest_report','uses'=>'CultivationReportController@harvest_search']);
+      Route::get('ext_harvest_report',['as'=>'ext_harvest_report','uses'=>'CultivationReportController@harvest_search']);
 
       //Summary surplus reports.
       Route::get('extension-summary',['as'=>'extension-summary','uses'=>'EXReportController@searchby_summary']);
@@ -100,6 +107,9 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       //Commercial Aggregator Supply Surplus Information Route
       Route::get('date',['as'=>'date','uses'=>'CASurplusController@ca_expriydate'])->middleware('can:aggregator_add_surplus,Auth::user()');
       Route::post('store',['as'=>'store','uses'=>'CASurplusController@ca_store_transcation']);
+     
+      Route::get('store',['as'=>'store','uses'=>'CASurplusController@ca_store_transcation']);
+     
       Route::get('ca-view',['as'=>'ca-view','uses'=>'CASurplusController@ca_store_transcation']);
       Route::post('supply-store',['as'=>'supply-store','uses'=>'CASurplusController@ca_store']);
       Route::get('supply-edit/{id}',['as'=>'supply-edit','uses'=>'CASurplusController@ca_edit']);
@@ -211,6 +221,7 @@ Route::group(['middleware' => 'can:master_data, Auth::user()'], function() {
       Route::post('region-update/{id}',['as'=>'region-update','uses'=>'RegionController@regionUpdate']);
       Route::get('region-delete/{id}',['as'=>'region-delete','uses'=>'RegionController@regionDelete']);
 });
+
 Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function() {
 
       //Role Route
@@ -290,15 +301,20 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
             return redirect()->back();
       })->name('read');
 
-      // //Dzongkhag Reports.
-      // Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
-      // Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
-
-       //Dzongkhag Reports.
+     //Dzongkhag Reports.
      Route::get('dzongkhagreport',['as'=>'dzongkhagreport','uses'=>'DzoThromdeReportController@search']);
+
      Route::post('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
+     Route::get('dzothromdedreport',['as'=>'dzothromdedreport','uses'=>'DzoThromdeReportController@searchdreport']);
+
      Route::post('dzosummaryreport',['as'=>'dzosummaryreport','uses'=>'DzoThromdeReportController@dzosummaryreport']);
-     
+     Route::get('dzosummaryreport',['as'=>'dzosummaryreport','uses'=>'DzoThromdeReportController@dzosummaryreport']);
+    
+     Route::post('dzongkhag_cultivations',['as'=>'dzongkhag_cultivations','uses'=>'DzoThromdeReportController@c_dzongkhag']);
+     Route::get('dzongkhag_cultivations',['as'=>'dzongkhag_cultivations','uses'=>'DzoThromdeReportController@c_dzongkhag']);
+
+     Route::post('dzongkhag_cultivations_harvested',['as'=>'dzongkhag_cultivations_harvested','uses'=>'DzoThromdeReportController@h_dzongkhag']);
+     Route::get('dzongkhag_cultivations_harvested',['as'=>'dzongkhag_cultivations_harvested','uses'=>'DzoThromdeReportController@h_dzongkhag']);
      
      Route::get('/json-dzongkhag','AccessControlListController@dzongkhag');
 

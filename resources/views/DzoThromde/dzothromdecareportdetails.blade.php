@@ -57,48 +57,7 @@
    
   </div>
 </div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-          $(window).on('load', function() {
-        console.log('All data are loaded')
-    })
-    $(document).ready(function () {
-
-        $("#product_type_id").on('change',function(e){
-            console.log(e);
-            var id = e.target.value;
-            //alert(id);
-            $.get('/json-product_type?product_type=' + id, function(data){
-                console.log(data);
-                $('#product').empty();
-                $('#product').append('<option value="0">All</option>');
-                $.each(data, function(index, ageproductObj){
-                    $('#product').append('<option value="'+ ageproductObj.id +'">'+ ageproductObj.product + '</option>');
-                })
-            });
-        });
-
-        $("#dzongkhag").on('change',function(e){
-            console.log(e);
-            var dzid = e.target.value;
-            //alert(id);
-            $.get('/json-dzongkhag?dzongkhag=' + dzid, function(data){
-                console.log(data);
-                $('#gewog').empty();
-                $('#gewog').append('<option value="0">All</option>');
-                $.each(data, function(index, gewogObj){
-                    $('#gewog').append('<option value="'+ gewogObj.id +'">'+ gewogObj.gewog + '</option>');
-                })
-            });
-        })
-
-
-    });
-
-</script>
-    
+  
 @endsection
 @section('custom_scripts')
   @include('Layouts.addscripts')
@@ -119,6 +78,7 @@
             },           
             {
                   extend: 'print',
+                  title: 'Details of Surplus',
                   
               },
             {
@@ -129,29 +89,16 @@
               {
                   extend: 'pdfHtml5',
                   title: 'Details of Surplus',
-                  
+                  orientation: 'landscape',
+                  pageSize: 'A4',
               }
           ],
-      //  "ajax" : {
-
-      //     url: 
-
-      //  },
+      
        drawCallback: function () {
         var sum = $('#example3').DataTable().column(5).data().sum();
        // console.log('sum:'+sum);
         document.getElementById('total').value = sum;
        },
-          //get sum of quantity.
-          // drawCallback: function () 
-          //   {
-          //   var api = this.api();
-          //   $( api.table().footer() ).html
-          //     (
-          //       api.column( 3, {page:'current'} ).data().sum()
-          //     );
-              
-          //   },
     });
  });
 

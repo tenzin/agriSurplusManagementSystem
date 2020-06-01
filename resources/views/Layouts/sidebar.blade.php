@@ -100,9 +100,6 @@
                       </a>
                     </li>
                 @endcan
-
-           
-
                 @can('aggregator_add_surplus')
                 <li class="nav-item">
                   <a href="{{route('date')}}" class="nav-link">
@@ -190,14 +187,14 @@
     </ul>
   </nav>
 @endcan
-
+{{-- <hr> --}}
 @can('extension_level')
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!--  Add icons to the links using the .nav-icon class
             with font-awesome or any other icon font library -->
         <li class="nav-item has-treeview menu-open">
-          <a href="">
+          <a href="#">
             <p>Extension/LUC/Farmers Group</p>
           </a>
           <ul class="nav nav-treeview">
@@ -236,12 +233,7 @@
                     <p>View Report</p>
                   </a>
                 </li>
-                {{-- <li class="nav-item">
-                  <a href="{{route('extension_total')}}" class="nav-link">
-                    <i class="nav-icon far fa-calendar-alt"></i>
-                      <p>Total Surplus</p>
-                  </a>
-                </li> --}}
+                
             </li>
           @endcan
           <li class="nav-item">
@@ -295,7 +287,7 @@
           <li class="nav-item">
             <a href="{{route('dzongkhag-list')}}" class="nav-link">
               <i class="nav-icon fas fa-fw fa-city"></i>
-              <p>Dzongkhag and Thromde</p>
+              <p>Dzongkhag To Regional</p>
             </a>
           </li>
           <li class="nav-item">
