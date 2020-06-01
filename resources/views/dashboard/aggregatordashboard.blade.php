@@ -5,7 +5,7 @@
    <div class="row">
       <!-- CA info-->
       <div class="col-lg-3 col-6">
-         <div class="small-box btn-outline-info">
+         <div class="small-box btn-outline-info bg-info">
             <div class="inner">
                <p>Commercial Aggregator</p>
                <h3>{{$ca}}</h3>
@@ -17,7 +17,7 @@
       </div>
       <!-- LUC info-->
       <div class="col-lg-3 col-6">
-         <div class="small-box btn-outline-primary">
+         <div class="small-box btn-outline-primary bg-primary">
             <div class="inner">
                <p>Land User Certificate</p>
                <h3>{{$luc}}</h3>
@@ -29,7 +29,7 @@
       </div>
        <!-- EO info-->
        <div class="col-lg-3 col-6">
-         <div class="small-box btn-outline-secondary">
+         <div class="small-box btn-outline-secondary bg-success">
             <div class="inner">
                <p>Extension Officer</p>
                <h3>{{$ex}}</h3>
@@ -41,7 +41,7 @@
       </div>
       <!-- Farmer group info-->
       <div class="col-lg-3 col-6">
-         <div class="small-box btn-outline-dark">
+         <div class="small-box btn-outline-dark bg-warning">
             <div class="inner">
                <p>Farmer Groups</p>
                <h3>{{$farmer}}</h3>
