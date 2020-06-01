@@ -11,26 +11,13 @@ use App\ProductType;
 
 class ExtensionUnderCultiavtionController extends Controller
 {
-
     public function __construct() {
       
         $this->middleware('auth');
         
     }
 
-    private $ca_rule = [
-
-        'productType_id' => 'required',
-        'product_id' => 'required',
-        'c_units' => 'required',
-        'e_units' => 'required',
-        'quantity' => 'required',
-        'sowing_date' => 'required',
-        'estimated_output' => 'required'
-        
-
-    ];
-
+    
     public function extension_cultivation(){
         $types = ProductType::where('type','Vegetable')->orWhere('type','Fruit')->orWhere('type','Cereal')->get();
         $c_unit = Cunit::get();
@@ -43,9 +30,7 @@ class ExtensionUnderCultiavtionController extends Controller
 
     public function submit_cultivation_details(Request  $request){            //save second table
 
-
-        $this->validate($request, $this->ca_rule);
-
+        
         $cultivation= new Cultivation;
         $cultivation->productType_id = $request->ctype;
         $cultivation->product_id=$request->product;
@@ -59,7 +44,7 @@ class ExtensionUnderCultiavtionController extends Controller
         $cultivation->dzongkhag_id=Auth::user()->dzongkhag_id;
         $cultivation->gewog_id=Auth::user()->gewog_id;
         $cultivation->status=0;
-        // dd($cultivation);
+       
         $cultivation->save();  
         
         return redirect('view_cultivation_details')->with('success','You have successfully entered cultivation deltails.');

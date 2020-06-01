@@ -187,7 +187,7 @@ class AccessControlListController extends Controller
         $roles = Role::all();
        $gewogs = Gewog::all();
         // $gewogs = Gewog::where('dzongkhag_id',$users->dzongkhag->id)->get();
-        // dd($gewogs);
+        // dd($gewogs->latitude);
         return view('acl.user.useredit',compact('users','dzongkhags','roles','gewogs'));
   
     }
