@@ -32,6 +32,7 @@
                   </div>
                   <div class="col-md-1">
                     <select name="tyear" id="tyear">
+                      <option value="All">All</option>
                     @foreach($years as $year)
                       @if($year->year == date('Y'))
                         <option value="{{$year->year}}" selected>{{$year->year}}</option>

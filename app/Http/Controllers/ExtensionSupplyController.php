@@ -371,20 +371,26 @@ class ExtensionSupplyController extends Controller
     public function ex_edit($id)
 
     {
+        $user = Auth::user();
         $nextNumber =session('NextNumber');
         $individual = EXSurplus::find($id);
         
         $surplus = DB::table('tbl_ex_surplus')
                 ->where('refNumber', '=', $nextNumber)
+                ->where('gewog_id', '=', $user->gewog_id)
+                ->where('user_id', '=' , $user->id)
                 ->join('tbl_product_types','tbl_ex_surplus.productType_id', '=', 'tbl_product_types.id')
                 ->join('tbl_products','tbl_ex_surplus.product_id', '=', 'tbl_products.id')
                 ->select('tbl_ex_surplus.quantity','tbl_product_types.type','tbl_products.product', 'tbl_ex_surplus.price',
                 'tbl_ex_surplus.id')
                 ->get();
+        
 
         $count = DB::table('tbl_ex_surplus')
-                ->where('refNumber', '=', $nextNumber)
-                ->count();
+                    ->where('refNumber', '=', $nextNumber)
+                    ->where('gewog_id', '=', $user->gewog_id)
+                    ->where('user_id', '=' , $user->id)
+                    ->count();
                 
         $product_type=DB::table('tbl_product_types')->get();
         $unit=DB::table('tbl_units')->get();

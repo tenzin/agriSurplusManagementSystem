@@ -44,6 +44,7 @@ class CAReportController extends Controller
         $gewog = $request->gewog;
         $fromdate = $request->fromdate;
         $todate = $request->todate;
+        $tyear = $request->tyear;
         
         $sql = "select tbl_ex_surplus.status,tbl_product_types.type,tbl_products.product,
         tbl_ex_surplus.quantity,IFNULL((select sum(quantity) from tbl_ex_surplus_history where tbl_ex_surplus_history.ex_surplus_id=tbl_ex_surplus.id),0) as taken,
@@ -70,8 +71,13 @@ class CAReportController extends Controller
 
        }
        else {
+
+        if($tyear != "All")
+            {
+            $sql = $sql. " and year(tbl_transactions.submittedDate) = ".$request->tyear; 
+            }
         //when dates are not selected. then year should be selected. default is current year.
-        $sql = $sql. " and year(tbl_transactions.submittedDate) = ".$request->tyear; 
+        // $sql = $sql. " and year(tbl_transactions.submittedDate) = ".$request->tyear; 
         }
        
     //    dd($sql);
@@ -180,6 +186,7 @@ class CAReportController extends Controller
         $fromdate = $request->fromdate;
         // dd($fromdate);
         $todate = $request->todate;
+        $tyear = $request->tyear;
         
         $sql = "select  tbl_cssupply.status,tbl_product_types.type,tbl_products.product,
         tbl_cssupply.quantity,IFNULL((select sum(quantity) from tbl_history_ca_supply where tbl_history_ca_supply.ca_surplus_id= tbl_cssupply.id),0) as taken,
@@ -208,7 +215,10 @@ class CAReportController extends Controller
        }
        else {
         //when dates are not selected. then year should be selected. default is current year.
-        $sql = $sql. " and year(tbl_transactions.submittedDate) = ".$request->tyear; 
+            if($tyear != "All")
+            {
+            $sql = $sql. " and year(tbl_transactions.submittedDate) = ".$request->tyear; 
+            }
         }
      
 

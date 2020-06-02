@@ -33,7 +33,7 @@
                               <td>{{$loop->iteration}}</td>
                               <!-- <td>{{$report->type}}</td>  -->
                               <td>{{$report->product}}</td>                             
-                              <td>{{$report->price}}</td> 
+                              <td>Nu.{{$report->price}}</td> 
                               <td>{{$report->gewog}}</td>
                               <td>{{$report->dzongkhag}}</td>
                               <td>{{$report->harvestDate}}</td>  

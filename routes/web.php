@@ -33,7 +33,10 @@ Route::group(['middleware' => 'auth'], function () {
       //National report
       Route::get('reports',['as'=>'reports', 'uses'=>'ReportController@report']);
       Route::post('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
+      Route::get('report-details',['as'=>'report-details', 'uses'=>'ReportController@search']);
 
+      Route::post('ca-report',['as'=>'ca-report', 'uses'=>'ReportController@cultivation']);
+      Route::get('ca-report',['as'=>'ca-report', 'uses'=>'ReportController@cultivation']);
 
 Route::group(['middleware' => 'can:extension_level, Auth::user()'], function() {
 
@@ -137,7 +140,7 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('view-details/{id}',['as'=>'view-details','uses'=>'CASurplusController@ca_view_detail'])->middleware('can:aggregator_view_surplus_details,Auth::user()');
 
       //Report to view surplus Submitted by exetnsion of his/her dzongkhag Route.
-      Route::get('aggregator_report',['as'=>'aggregator_report','uses'=>'CAReportController@searchby'])->middleware('can:aggregator_view_report,Auth()::user()');
+      Route::get('aggregator_reports',['as'=>'aggregator_reports','uses'=>'CAReportController@searchby'])->middleware('can:aggregator_view_report,Auth()::user()');
       Route::post('aggregator_dreport',['as'=>'aggregator_dreport','uses'=>'CAReportController@search_result']);
       Route::get('aggregator_dreport',['as'=>'aggregator_dreport','uses'=>'CAReportController@search_result']);
       Route::get('aggregator_summary',['as'=>'aggregator_summary','uses'=>'CAReportController@searchsummaryby']);

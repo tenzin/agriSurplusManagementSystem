@@ -374,12 +374,15 @@ class CASurplusController extends Controller
     public function ca_edit($id)
 
     {
+        $user = Auth::user();
         
         $nextNumber =session('NextNumber');
         $individual = CASupply::find($id);
         
         $supply = DB::table('tbl_cssupply')
                     ->where('refNumber', '=', $nextNumber)
+                    ->where('dzongkhag_id', '=', $user->dzongkhag_id)
+                    ->where('user_id', '=' , $user->id)
                     ->join('tbl_product_types','tbl_cssupply.productType_id', '=', 'tbl_product_types.id')
                     ->join('tbl_products','tbl_cssupply.product_id', '=', 'tbl_products.id')
                     ->select('tbl_cssupply.quantity','tbl_product_types.type','tbl_products.product', 'tbl_cssupply.price',
@@ -388,6 +391,8 @@ class CASurplusController extends Controller
 
         $count = DB::table('tbl_cssupply')
                     ->where('refNumber', '=', $nextNumber)
+                    ->where('dzongkhag_id', '=', $user->dzongkhag_id)
+                    ->where('user_id', '=' , $user->id)
                     ->count();
                 
         $product_type=DB::table('tbl_product_types')->get();

@@ -144,33 +144,5 @@
       </form>                             
   </div>
   
-
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-          $(window).on('load', function() {
-        console.log('All data are loaded')
-    })
-    $(document).ready(function () {
-        $("#product_type_id").on('change',function(e){
-            console.log(e);
-            var id = e.target.value;
-            //alert(id);
-            $.get('/json-product_type?product_type=' + id, function(data){
-                console.log(data);
-                $('#product').empty();
-                $('#product').append('<option value="">All</option>');
-                $.each(data, function(index, ageproductObj){
-                    $('#product').append('<option value="'+ ageproductObj.id +'">'+ ageproductObj.product + '</option>');
-                })
-            });
-        });
-
-    });
-
-</script>
     
 @endsection

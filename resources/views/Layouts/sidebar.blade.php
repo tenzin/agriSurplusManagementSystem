@@ -147,7 +147,7 @@
 
             @can('aggregator_view_report')
               <li class="nav-item">
-                <a href="{{route('aggregator_report')}}" class="nav-link">
+                <a href="{{route('aggregator_reports')}}" class="nav-link">
                   <i class="far fa-calendar-alt"></i>
                   <p>View Report of Extension</p>
                 </a>
