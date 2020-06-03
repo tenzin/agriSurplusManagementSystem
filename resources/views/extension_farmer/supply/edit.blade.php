@@ -38,7 +38,7 @@
     <h4 class="mb-3">Product details</h4>
     <form class="needs-validation" novalidate>
     <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label for="country">Product Type*</label>
           <select class="custom-select d-block w-100" id="producttype" name="producttype" required>
             <option value="">Choose...</option>
@@ -51,7 +51,7 @@
             Please select a valid country.
           </div>
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label for="state">Product*</label>
           <select class="custom-select d-block w-100" id="product" name="product" required>
             <option value="">Choose...</option>
@@ -65,6 +65,16 @@
             Please provide a valid state.
           </div>
         </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="unit">HarvestDate<font color="red">*</font></label>
+          <input type="date" value="{{$individuals->harvestDate}}" class="form-control" name="date" id="date" required>
+          <div class="input-group">
+              <div class="invalid-feedback" style="width: 100%;">
+              Price is required.
+              </div>
+          </div>
+      </div>
       </div>
 
       <div class="row">
@@ -103,33 +113,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-md-6 mb-3">
-              <label for="unit">HarvestDate<font color="red">*</font></label>
-              <input type="date" value="{{$individuals->harvestDate}}" class="form-control" name="date" id="date" required>
-              <div class="input-group">
-                  <div class="invalid-feedback" style="width: 100%;">
-                  Price is required.
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-6 mb-3">
-              <label for="qty">tentativePickupDate*</label>
-              <input type="date" value="{{$individuals->tentativePickupDate}}" class="form-control" name="date" id="date" required>
-              <div class="invalid-feedback">
-                  Please enter date of requirement.
-              </div>
-          </div>
-      </div>
-
-      <div class="row">
-          <div class="col-md-12 mb-3">
-              <label for="unit">Remarks</label>
-              <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" 
-              id="remarks" placeholder="If any ....">{{$individuals->remarks}}</textarea>
-                  <div class="invalid-feedback" style="width: 100%;">
-                  Price is required.
-                  </div>
-          </div>
+         
       </div>
 
       <hr class="mb-4">

@@ -2,14 +2,14 @@
 @section('content')
 <div class="container">
     <h3 class="text-primary text-center">Surplus List</h3>
-    <table class="table table-bordered table-striped table-sm">
+    <table id="example1" class="table table-bordered table-striped table-sm">
     <thead>
         <tr>
-        <th scope="col">#</th>
+        <th scope="col">SL.No</th>
         <th scope="col">Product Type</th>
         <th scope="col">Product</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Price</th>
+        {{-- <th scope="col">Quantity</th>
+        <th scope="col">Price</th> --}}
         </tr>
     </thead>
     <tbody>
@@ -18,8 +18,8 @@
             <td>{{$loop->index+1}}</td>
             <td>{{$row->type}}</td>
             <td>{{$row->product}}</td>
-            <td>{{$row->quantity.' '.$row->unit}}</td>
-            <td>{{$row->price}}</td>
+            {{-- <td>{{$row->quantity.' '.$row->unit}}</td>
+            <td>{{$row->price}}</td> --}}
         </tr>
         @endforeach
     </tbody>

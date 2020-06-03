@@ -18,6 +18,8 @@ class CreateTblDzongkhagsTable extends Migration
             $table->integer('code')->unique();
             $table->string('dzongkhag')->unquie();
             $table->foreignId('region_id')->nullable()->references('id')->on('tbl_regions')->OnDelete('cascade');
+            //$table->string('latitude')->nullable();
+           // $table->string('longitude')->nunable();
             $table->timestamps();
         });
     }

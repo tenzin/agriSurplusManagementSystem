@@ -1,7 +1,7 @@
 @extends('master')
 @section('content')
 <section class="content">
-   <div class="card card-info">
+   <div class="card card">
       <div class="card-header">
          <h3 class="card-title"> View User List</h3>
       </div>
@@ -35,12 +35,11 @@
             </tbody>
          </table>
       </div>
-      <div class="form-group row mb-4">
-         <div class="col-md-6 offset-md-6">
-            <a class="btn btn-primary btn-xx" href="{{route('system-user')}}">Back</a>
-         </div>
+      <div class="form-group row mb-0">
+         <div class="col-md-6 offset-md-5">
+            <a class="btn btn-primary btn-sm" href="{{ route('system-user')}}">Go back</a>
+         </div><hr>
       </div>
    </div>
- </div>
 </section>
 @endsection

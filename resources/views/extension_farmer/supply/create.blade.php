@@ -2,15 +2,21 @@
 
 @section('content')
 <div class="container">
-        <div class="py-2 text-center">
-              <h1>Supply Form </h1>
-                  <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
-                  <p class="lead">Enter the Product Supply from Your Gewog.</p>
-              <hr>
+        <div class="text-center">
+            <h1>Supply Form </h1>
+            <h5>Ref. No:&nbsp;<b>{{$nextNumber}}</b></h5>
+                  <p class="lead">Enter the Product Surplus from Your Gewog.</p>
+
+        <a href="{{route('batch-edit',$table->id)}}">
+          <h5>
+            <i class="fa fa-edit"> </i>Batch Info:&nbsp;&nbsp;</h5></a><h6>Phone:&nbsp;<b>{{$table->phone}}</b>&nbsp;&nbsp;Expiry_Date:&nbsp;<b>{{$table->expiryDate}}</b>&nbsp;&nbsp;Locations:&nbsp;<b>{{$table->location}}</b>&nbsp;&nbsp;PickupDate:&nbsp;<b>{{$table->pickupdate}}</b></h6>
+          <hr>
         </div>
       <form method="POST" action = "{{route('ex-supply-store')}}">
       <input type="hidden" name="refnumber" id="refnumber" value="{{ $nextNumber}}">
+      <input type="hidden" name="trans" id="trans" value="{{ $trans}}">
 @csrf
+@include('Layouts.message') 
 <div class="row">
   <div class="col-md-4 order-md-2 mb-4">
     <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -44,19 +50,19 @@
     <h4 class="mb-3">Product Details</h4>
     <form class="needs-validation" novalidate>
     <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label for="producttype">Product Type<font color="red">*</font></label>
           <select class="custom-select d-block w-100" id="producttype" name="producttype" required>
             <option value="">Choose...</option>
-            @foreach($product_type as $row)
+              @foreach($product_type as $row)
                 <option value="{{$row->id}}">{{$row->type}}</option>
-            @endforeach
+              @endforeach
           </select>
           <div class="invalid-feedback">
             Please select a valid country.
           </div>
         </div>
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
           <label for="product">Product<font color="red">*</font></label>
           <select class="custom-select d-block w-100" id="product" name="product" required>
             <option value="">Choose...</option>
@@ -65,12 +71,22 @@
             Please provide a valid state.
           </div>
         </div>
+
+        <div class="col-md-4 mb-3">
+          <label for="unit">Harvest Date<font color="red">*</font></label>
+          <div class="input-group">
+           <input type="date" class="form-control" name="harvestdate" id ="harvestdate" placeholder ="Required Date" required>
+              <div class="invalid-feedback" style="width: 100%;">
+              Harvest date is required.
+              </div>
+          </div>
+        </div>
       </div>
 
       <div class="row">
           <div class="col-md-4 mb-3">
               <label for="qty">Quantity<font color="red">*</font></label>
-              <input type="text" class="form-control" name="quantity" id ="quantity" placeholder ="Quantity">
+              <input type="text" class="form-control" name="quantity" id ="quantity" placeholder ="Quantity" required>
               <div class="invalid-feedback">
                   Please enter Quantity.
               </div>
@@ -78,63 +94,27 @@
           <div class="col-md-4 mb-3">
               <label for="unit">Unit<font color="red">*</font></label>
               <div class="input-group">
-                  <select class="custom-select d-block w-100" id="unit" name="unit" required>
-                  <option value="">Choose...</option>
-                  @foreach($unit as $data)
-                      <option value="{{$data->id}}">{{$data->unit}}</option>
-                  @endforeach
-                  </select>
+                <select name="unit" id="unit" class="custom-select" required>
+                </select>
                   <div class="invalid-feedback" style="width: 100%;">
-                  Unit is required.
+                     Unit is required.
                   </div>
               </div>
           </div>
           <div class="col-md-4 mb-3">
-              <label for="unit">Price<font color="red">*</font> (tentative)</label>
+              <label for="unit">Farmgate Price Per Unit<font color="red">*</font><small>(tentative)</small></label>
               <div class="input-group">
                   <div class="input-group-prepend">
                       <span class="input-group-text">Nu.</span>
                   </div>
-                  <input type="text" class="form-control" name="price" id ="price" placeholder ="Price">
+                  <input type="text" class="form-control" name="price" id ="price" placeholder ="Price" required>
                   <div class="invalid-feedback" style="width: 100%;">
                    Price is required.
                   </div>
               </div>
           </div> 
       </div>
-      <div class="row">
-          <div class="col-md-6 mb-3">
-              <label for="unit">HarvestDate<font color="red">*</font></label>
-              <div class="input-group">
-               <input type="date" class="form-control" name="harvestdate" id ="harvestdate" placeholder ="Required Date">
-                  <div class="invalid-feedback" style="width: 100%;">
-                  Price is required.
-                  </div>
-              </div>
-          </div>
-          <div class="col-md-6 mb-3">
-              <label for="unit">PickupDate(Tentative)<font color="red">*</font></label>
-              <div class="input-group">
-                  <input type="date" class="form-control" name="pickupdate" id ="pickupdate" placeholder ="Required Date">
-                  <div class="invalid-feedback" style="width: 100%;">
-                  Price is required.
-                  </div>
-              </div>
-          </div>
-      </div>
-
-
-      <div class="row">
-          <div class="col-md-12 mb-3">
-              <label for="unit">Remarks</label>
-              <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" id="remarks" placeholder="If any ...."></textarea>
-                  <div class="invalid-feedback" style="width: 100%;">
-                     Remark is required.
-                  </div>
-          </div>
-      </div>
       
-
       <hr class="mb-4">
       <button class="btn btn-primary btn-lg btn-block" type="submit">ADD NEW</button><br>
       <div class="jumbotron py-3" style="background-color: orange">
@@ -169,6 +149,20 @@
                 })
             });
         });
+
+        $("#product").on('change',function(e){
+            console.log(e);
+            var id = e.target.value;
+            //alert(id);
+            $.get('/json-farmer-unit_product?product=' + id, function(data){
+                console.log(data);
+                $('#unit').empty();              
+                $.each(data, function(index, ageproductObj){
+                    $('#unit').append('<option value="'+ ageproductObj.unit_id +'">'+ ageproductObj.unit + '</option>');
+                })
+            });
+        });
+
         $("#quantity").keypress(function (e) {
           if (e.which != 46)
           {
@@ -210,35 +204,19 @@
      // alert(refNo);
       $.get('/json-surplus-exist?refNo=' + refNo, function(data){
         if(data == null || data ==''){
-            alert('Unsuccessful: To submit the demand you need at least one or more product!');
+            alert('Unsuccessful: To submit the Surplus you need at least one or more product!');
         } else {
             //show some type of message to the user
-            if (confirm('Are you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
+            if (confirm('Are you sure you want to submit your Surplus list?'))  {
               var id = document.getElementById("refnumber").value;
               $.get('/json-submit-surplus?ref_number=' + id, function(data){
-                window.location = "/national/";
+                window.location = "/ex-day/";
               });
             }
         }
       });
       }
 
-    // function myFunction() {
-    //   var refNo = document.getElementById("refnumber").value;
-    //   $.get('/json-surplus_exists?refNo=' + refNo, function(data){
-    //     if(data == null || data ==''){
-    //         alert('Unsuccessful: To submit the demand you need at least one or more product!');
-    //     } else {
-
-    //   if (confirm('Are you sure you want to your demand list?. Once you submit, you cannot add or delete or update.'))  {
-    //     var id = document.getElementById("refnumber").value;
-    //     $.get('/json-submit-surplus?ref_number=' + id, function(data){
-    //       window.location = "/national/";
-    //     });
-    //   }
-    //   }
-    //   });
-    // }
     function deletFn() {
       if (confirm('Are you sure you want delete permanently?'))  {
         $.ajax({

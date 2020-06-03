@@ -1,84 +1,117 @@
 @extends('master')
 
 @section('content')
-{{-- @include('flash-message') --}}
 <section class="content">
 <div class="container-fluid"> 
-<div class="card card-info">
-<div class="card-header">
-<h3 class="card-title">Area Under Cultivation Form</h3>
-</div>
+  <div class="card-header">
+      <h2 class="text-center mt-1 mb-1 alert aqua">Area Under Cultivation Form</h2>
+  </div>
 <form role="form" method="POST" action="{{route('submit_cultivation_details')}}">
-{{-- <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}"> --}}
-@csrf
+  @csrf
 <div class="card-body">
-  <div class="row">
-        <div class="col-md-6">
+    <div class="row">
+        <div class="col-md-3">
           <div class="form-group">
-            <label>Crop Name:<font color="red">*</font></label>
-              <select  name="crop" id="crop" class="form-control select2bs4" required>
+            <label>Type:<font color="red">*</font></label>
+              <select  name="ctype" id="ctype" class="form-control" required>
                 <option disabled selected value="">Select Product Type</option>
-                @foreach($product as $p)
-                <option value="{{ $p->id }}">{{$p->product.' - '. $p->productType->type}}</option>
+                @foreach($types as $t)
+                <option value="{{ $t->id }}">{{$t->type}}</option>
                 @endforeach
               </select>
           </div> 
+        </div>
+
+        <div class="col-md-3">
           <div class="form-group">
-            <label>Quantity/Acerage:<small>(Should be in Acres or number)</small>&nbsp;<font color="red">*</font></label>
-            <input id="quantity" type="text" class="form-control" name="quantity" maxlength="5" placeholder="Enter the Quantity" required/>
+            <label>Product:<font color="red">*</font></label>
+              <select  name="product" id="product" class="form-control" required>
+                <option value="">Select Product</option>
+              </select>
+          </div> 
+        </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Acres/Number:<font color="red">*</font></label>
+               <input id="quantity" type="number" class="form-control" name="quantity" placeholder="Enter the Quantity" required>
+            </div>
           </div>
 
-          <div class="form-group">
-            <label>Estimated Output:&nbsp;<font color="red">*</font></label>
-            <input id="output" type="text" class="form-control" name="output"  maxlength="5" placeholder="Enter the Price Per Kg" required/>
-          </div>
-        </div>
-        
-          <div class="col-md-6">
+          <div class="col-md-3">
             <div class="form-group">
-              <label>units:&nbsp;<font color="red">*</font></label>
-              <select  name="unit" id="unit" class="form-control select2bs4" required>
-              <option disabled selected>Select Units</option>
+              <label>Cultivation Units:&nbsp;<font color="red">*</font></label>
+              <select  name="unit" id="unit" class="form-control" required>
+              <option disabled selected value="">Select Units</option>
               @foreach($c_unit as $c)
                 <option value="{{ $c->id }}">{{$c->unit}}</option>
                 @endforeach
               </select>
             </div>
-
-            <div class="form-group">
-              <label>Sowing_date:&nbsp;<font color="red">*</font></label>
-              <input id="pickup_date" type="month" class="form-control" name="pickup_date" required/>
+          </div>
+      </div>
+        <div class="row">
+           <div class="col-md-4">
+             <div class="form-group">
+               <label>Estimated Output:&nbsp;<font color="red">*</font></label>
+                <input type="number" class="form-control"id="output"  name="output"  maxlength="5" placeholder="Enter Output" required>
+              </div> 
             </div>
-            <div class="form-group">
-              <label>Estimated Output unit:&nbsp;<font color="red">*</font></label>
-              <select  name="e_unit" id="e_unit" class="form-control select2bs4" required>
-                <option disabled selected>Select Estimated Units</option>
+          <div class="col-md-4">
+           <div class="form-group">
+              <label>Estimated Output Unit:&nbsp;<font color="red">*</font></label>
+              <select  name="e_unit" id="e_unit" class="form-control" required>
+                <option disabled selected value="">Select Estimated Units</option>
                 @foreach($e_unit as $e)
                 <option value="{{ $e->id }}">{{$e->unit}}</option>
                 @endforeach
                 </select>
             </div>
           </div>
-            <div class="col-md-6">
+          <div class="col-md-4">
+              <label>Sowing Date:&nbsp;<font color="red">*</font></label>
+              <input type="date" name="sowing_date" id="sowingdate" class="form-control" required>
+          </div>
+          
+        </div>
+          <div class="row">
+            <div class="col-md-12">
             <div class="form-group">
               <label>Remarks:&nbsp;<small>(Please mention location or address)</small></label>
-              <textarea class="form-control" rows="3" placeholder="Enter Remarks if Any" name="remarks"></textarea>
+              <textarea class="form-control" rows="3" placeholder="Enter Remarks if Any" name="remarks" required></textarea>
             </div>
           </div>
-        </div>    
-               
+        </div>            
         </div>
-        <div class="card-footer">
-        <button type="submit" class="btn btn-info float-right">Submit</button>
-        </div>
-</form>
-</div>
+       <center> <button type="submit" class="btn btn-info">Submit</button></center>
+   </form>
 </div>
 </section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+          $(window).on('load', function() {
+        console.log('All assets are loaded')
+    })
+    $(document).ready(function () {
+      //alert('hi');
+        $("#ctype").on('change',function(e){
+            console.log(e);
+            var id = e.target.value;
+            //alert(id);
+            $.get('/json-product_type?product_type=' + id, function(data){
+                console.log(data);
+                $('#product').empty();
+                $('#product').append('<option disabled value="">Select Products</option>');
+                $.each(data, function(index, ageproductObj){
+                    $('#product').append('<option value="'+ ageproductObj.id +'">'+ ageproductObj.product + '</option>');
+                })
+            });
+        });
+    });
+</script>
 
-</div>
-</div>
 @endsection
+
    
      
 

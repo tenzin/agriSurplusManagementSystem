@@ -36,11 +36,11 @@ class ContactUsController extends Controller
        ), function($message)
    {
 
-
-       $message->to(env('MAIL_USERNAME'), 'Admin')->subject('help desk');
+//dd($message);
+       $message->to('tnorbu@dit.gov.bt', 'Admin')->subject('help desk');
    });
   //  return back()->with('success', 'Thanks for contacting us!');
-  return redirect('/#contact')->with('success','Thank you for contacting us');
+  return redirect('/contact')->with('success','Thank you for contacting us');
 
 
    }

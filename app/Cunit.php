@@ -9,4 +9,6 @@ class Cunit extends Model
     //
     protected $table = 'tbl_cultivationunits';
     protected $primaryKey = 'id';
+    protected $fillable= ['unit'];
+
 }

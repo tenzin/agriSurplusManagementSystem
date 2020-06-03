@@ -8,16 +8,7 @@
                 <div class="card-header">{{ __('Edit Permission form') }}</div>
 
                 <div class="card-body">
-                 @if ($errors->any())
-                 <div class="alert alert-danger" id="session_message">
-                 <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                 </ul>
-                </div>
-                 <br />
-                     @endif
+                    @include('Layouts.message') 
                     <form method="POST" action="{{ route('update-permission')}}">
                    @csrf
 

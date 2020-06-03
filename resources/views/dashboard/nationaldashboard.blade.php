@@ -1,156 +1,277 @@
 @extends('master')
+
+@section('custom_css')
+@include('includes/chart-css')
+
+@endsection
 @section('content')
+
 <div class="container-fluid">
    <div class="row">
       <!-- CA info-->
-      <div class="col-lg-4 col-6">
-         <div class="small-box bg-info">
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-info bg-info">
             <div class="inner">
-               <p>Aggregator And Veg.Supply Company</p>
-               <h3>140</h3>
+               <p>Commercial Aggregator</p>
+               <h3>{{$ca_usres}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-bag"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
-      <!-- EO info-->
       <div class="col-lg-2 col-6">
-         <div class="small-box bg-success">
+         <div class="small-box btn-outline-success bg-success">
             <div class="inner">
-               <p>Extension Officer</p>
-               <h3>205</h3>
+               <p>Vegetable Supply Company</p>
+               <h3>{{$vsc}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-stats-bars"></i>
+               <i class="fas fa-users nav-icon"></i>
+            </div>
+         </div>
+      </div>
+     
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-warning bg-warning">
+            <div class="inner">
+               <p>Reginal Office</p>
+               <h3>{{$ardc}}</h3>
+            </div>
+            <div class="icon">
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
       <!-- LUC info-->
-      <div class="col-lg-3 col-6">
-         <div class="small-box bg-warning">
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-primary bg-primary">
             <div class="inner">
-               <p>Land User Certificate and ARDC</p>
-               <h3>10</h3>
+               <p>Land User Certificate</p>
+               <h3>{{$luc_users}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-person-add"></i>
+               <i class="fas fa-users nav-icon"></i>
+            </div>
+         </div>
+      </div>
+       <!-- EO info-->
+       <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-secondary bg-secondary">
+            <div class="inner">
+               <p>Extension Officer</p>
+               <h3>{{$extions}}</h3>
+            </div>
+            <div class="icon">
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
       <!-- Farmer group info-->
-      <div class="col-lg-3 col-6">
-         <div class="small-box bg-primary">
+      <div class="col-lg-2 col-6">
+         <div class="small-box btn-outline-dark bg-danger">
             <div class="inner">
                <p>Farmer Groups</p>
-               <h3>100</h3>
+               <h3>{{$farmers}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-pie-graph"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
    </div>
-   <!-- Graph Part---->
-   <section class="content">
-      <div class="container-fluid">
-         <div class="row">
-            <div class="col-md-6">
-               <!-- Supply VS. Product Type -->
-               <div class="card card-primary">
-                  <div class="card-header">
-                     <h3 class="card-title">Supply VS. Product Type</h3>
-                  </div>
-                  <div class="card-body">
-                     <div class="chart">
-                        <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                     </div>
-                  </div>
-               </div>
-               <!-- Supply Demand Graph -->
-               <div class="card card-success">
-                  <div class="card-header">
-                     <h3 class="card-title">Supply VS. Demand</h3>
-                  </div>
-                  <div class="card-body">
-                     <canvas id="donutChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+
+<!-- Surplus info -->
+<div class="content">
+  <div class="row center">
+  <div class="col-lg-6">
+      <div class="card card-chart">
+        <div class="card-header">
+          <h5 class="card-category">Surplus Vs. Product-Type</h5>
+          <label>It is Based on Monthly</label>
+        </div>
+        <div class="card-body chart">
+          <canvas id="productStats" height="130px"></canvas>
+        </div>
+      </div>
+   </div>
+   
+   <!-- EO Vs CA -->
+
+   <div class="col-lg-6">
+      <div class="card  card-tasks">
+         <div class="card-header ">
+            <h5 class="card-category">Extension-Level VS. Aggregrator</h5>
+         </div>
+        <div class="card-body ">
+            <canvas id="surplusStats" height="150px"></canvas>
+        </div>
+      </div>
+   </div>
+         <div class="col-lg-6"> 
+              <div class="card card-chart">
+                <div class="card-header">
+                   <h5 class="card-category">Surplus VS. Month</h5>
+                    <label>Total Surplus Entry in the System</label>
+                </div>
+                  <div class="card-body chart">
+                     <canvas id="wholesurplus" height="130px"></canvas>
                   </div>
                </div>
             </div>
-            <!-- Demand VS. Product Type -->
             <div class="col-md-6">
-               <div class="card card-info">
+               <div class="card productinfo">
                   <div class="card-header">
-                     <h3 class="card-title">Demand VS. Product Type</h3>
-                  </div>
-                  <div class="card-body">
-                     <div class="chart">
-                        <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                     </div>
-                  </div>
-               </div>
-               <!-- Area Of Cultivation -->
-               <div class="card card-success">
-                  <div class="card-header">
-                     <h3 class="card-title">Area Of Cultivation</h3>
+                     <h3 class="card-title">Recent Surplus From Extension</h3>
                   </div>
                   <div class="card-body">
                      <table class="table table-bordered">
-                        <div class="form-group row">
-                           <div class="col-md-6">
-                              ProductName:
-                              <select class="form-control" name="agency_code" id="agency" >
-                                 <option disabled>Please select your ProductName</option>
-                              </select>
-                           </div>
-                           <div class="col-md-6">
-                              Dzongkhag:
-                              <select class="form-control" name="date" id="agency" >
-                                 <option disabled>Please select your Dzongkhag</option>
-                              </select>
-                           </div>
-                        </div>
                         <thead>
-                           <tr>
-                              <th style="width: 10px">#</th>
-                              <th>Product Name</th>
-                              <th>Quantity</th>
-                              <th>Dzongkhag</th>
-                              <th>Geog</th>
+                          <tr>
+                           <th>Sl.No</th>
+                           <th>Product Name</th>
+                           <th>Quantity</th>
+                           <th>Dzongkhag</th>
+                           <th>Gewog</th>
                            </tr>
                         </thead>
                         <tbody>
+                           @foreach($last_row as $last)
                            <tr>
-                              <td>1</td>
-                              <td>Potatoes</td>
-                              <td>20 Acres</td>
-                              <td>Lhuntse</td>
-                              <td>Khoma</td>
-                           </tr>
-                           <tr>
-                              <td>2</td>
-                              <td>Chilli</td>
-                              <td>10 Acres</td>
-                              <td>Thimphu</td>
-                              <td>Thimphu</td>
-                           </tr>
-                           <tr>
-                              <td>3</td>
-                              <td>Bringle</td>
-                              <td>2 Acres</td>
-                              <td>Paro</td>
-                              <td>Paro</td>
-                           </tr>
+                           <td>{{$loop->iteration}}</td>
+                           <td>{{$last->product->product}}</td>
+                           <td>{{$last->quantity.' '.$last->unit->unit}}</td>
+                           <td>{{$last->gewog->dzongkhag->dzongkhag}}</td>
+                           <td>{{$last->gewog->gewog}}</td>
+                             </tr>
+                           @endforeach
+                          
                         </tbody>
                      </table>
                   </div>
                </div>
             </div>
-         </div>
-      </div>
-   </section>
-   <!-- Surplus Info-->
-   <section class="content">
+ <!-- Area of cultivation info -->
+           <div class="col-md-6">
+               <div class="card cultinfo">
+                  <div class="card-header">
+                     <h3 class="card-title">Area Under Cultivation</h3>
+                  </div>
+                  <div class="card-body">
+                     <table id="area_uc" class="table table-bordered">
+                        <div class="row">
+                           <div class="col col-md-auto">
+                            <label for="product">Products:</label>
+                        </div>
+                            <div class="col-md-6 mb-3">
+                            <select class="custom-select d-block w-100" id="product" name="product" required>
+                              <option>Select Product</option>
+                                @foreach($product as $pro)
+                                  <option value="{{$pro->id}}">{{$pro->product}}</option>
+                                  @endforeach
+                            </select>  
+                          </div>
+                        </div>
+                        </div>
+                        <thead>
+                           <tr>
+                           <th>Sl.No</th>
+                           <th>Product Name</th>
+                           <th>Quantity</th>
+                           </tr>
+                        </thead>
+                        <tbody> 
+                           @foreach($area_uc as $a)
+                           <tr>
+                           <td>{{$loop->iteration}}</td>
+                           <td>{{$a->product->product}}</td>
+                           <td>{{$a->quantity}}</td>
+                           </tr>
+                           @endforeach
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+
+            <div class="col-md-6">
+               <div class="card cultinfo">
+                  <div class="card-header">
+                     <h3 class="card-title">Cultivation Harvested</h3>
+                  </div>
+                  <div class="card-body">
+                     <table id = "area_hv" class="table table-bordered">
+                        <div class="row">
+                           <div class="col col-md-auto">
+                            <label for="product">Products:</label>
+                        </div>
+                            <div class="col-md-6 mb-3">
+                            <select class="custom-select d-block w-100" id="product" name="product" required>
+                              <option>Select Product</option>
+                                @foreach($product as $pro)
+                                  <option value="{{$pro->id}}">{{$pro->product}}</option>
+                                  @endforeach
+                            </select>  
+                          </div>
+                        </div>
+                        </div>
+                        <thead>
+                          <tr>
+                           <th>Sl.No</th>
+                           <th>Product Name</th>
+                           <th>Quantity</th>
+                           <th>Actual Production</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           @foreach($area_hravested as $hv)
+                           <tr>
+                           <td>{{$loop->iteration}}</td>
+                           <td>{{$hv->product->product}}</td>
+                           <td>{{$hv->quantity}}</td>
+                           <td>{{$hv->estimated_output.' '.$hv->e_unit->unit}}</td>
+                           </tr>
+                           @endforeach
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
+            </div>
+       </div>       
+</div>
+@endsection
+@section('custom_scripts')
+
+<script>
+   $(document).ready(function() {
+  var table = $('#area_uc').DataTable();
+  $('#product_name').on('change', function () {
+              table.columns(1).search( this.value ).draw();
+          });
+ 
+    var table = $('#area_hv').DataTable();
+  $('#product').on('change', function () {
+              table.columns(1).search( this.value ).draw();
+          });
+   });
+  
+  </script>
+
+<script>
+   $(document).ready(function() {
+
+    var table = $('#area_hv').DataTable();
+  $('#product').on('change', function () {
+              table.columns(1).search( this.value ).draw();
+          });
+   });
+  
+  </script>
+@include('includes/chart-js')
+@include('includes/n-dashboard-stats')
+@endsection
+ <!-- Surplus Info-->
+{{--<section class="content">
       <div class="card card-success">
          <div class="card-header">
             <h3 class="card-title">Surplus Vs Dzongkhags</h3>
@@ -220,4 +341,4 @@
       </div>
    </section>
 </div>
-@endsection
+@endsection--}}

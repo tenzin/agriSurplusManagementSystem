@@ -8,6 +8,7 @@
   <div class="row">
       <div class="col-md">
           <div class="card">
+            @include('Layouts.message') 
               <div class="card-header"><center><p class="text-muted">{{$msg}}</p></center>
                 {{-- <hr/>
               <a class="btn btn-primary" href="{{route('add-permission')}}">Add a new Product</a> --}}
@@ -32,8 +33,6 @@
                           <th scope="col">Product</th>
                           <th scope="col">Quantity</th>
                           <th scope="col">Price</th>
-                          <th scope="col">Required Date</th>
-                          <th scope="col">Harvest Date</th>
                           <th>Action</th>
                           </tr>
                       </thead>
@@ -46,9 +45,6 @@
                 <td>{{$row->product}}</td>
                 <td>{{$row->quantity.' '.$row->unit}}</td>
                 <td>Nu. {{$row->price}}</td>
-                <td>{{$row->tentativePickupDate}}</td>
-                <td>{{$row->harvestDate}}</td>
-                
                   <td>
                     
 
@@ -61,7 +57,7 @@
                     
                     <a onclick="return confirm('Are you sure want do delete permanently?')" href="/supply-delete/{{$row->id}}" class="text-danger">
                     <i class="fa fa-trash" aria-hidden="true"> </i> Remove</a>
-                    @endcan
+                  
                   </td>
                 
                 </tr>
@@ -92,10 +88,10 @@
             alert('Unsuccessful: To submit the demand you need at least one or more product!');
         } else {
             //show some type of message to the user
-            if (confirm('Are you sure you want to submit your demand list?. Once you submit, you cannot add or delete or update.'))  {
+            if (confirm('Are you sure you want to submit your Surplus list?'))  {
               var id = document.getElementById("refnumber").value;
               $.get('/json-submit-supply?ref_number=' + id, function(data){
-                window.location = "/national/";
+                window.location = "/date/";
               });
             }
         }
