@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="{{asset("/bower_components/admin-lte/dist/css/adminlte.min.css")}}">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="shortcut icon"  href="{{asset('images/logo.jpg')}}"/>
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
