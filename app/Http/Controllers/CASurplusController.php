@@ -97,9 +97,9 @@ class CASurplusController extends Controller
     
     {
         $user = auth()->user();
-        // $user_dzo = auth()->user()->dzongkhag_id;
+       
         $date = date('Ym');
-        $type = "S"; //Transaction type D: Demand; S: Supply
+        $type = "S";         //Transaction type D: Demand; S: Supply
         $refno = $type.$date;
 
         //--------Check transaction not submitted
@@ -152,7 +152,6 @@ class CASurplusController extends Controller
         
 
         $user = auth()->user();
-        // $user_dzo = auth()->user()->dzongkhag_id;
         $date = date('Ym');
         $type = "S"; //Transaction type D: Demand; S: Supply
         $refno = $type.$date;
@@ -197,7 +196,7 @@ class CASurplusController extends Controller
                     ->where('dzongkhag_id','=',$user->dzongkhag_id)
                     ->where('refNumber', 'Like' , '%'.$refno.'%')
                     ->max('refNumber');
-                    //  dd($max);
+                    
             $number = substr($max,1,12);
             $number=$number+1;
             $nextNumber = $type.$number;
@@ -224,7 +223,7 @@ class CASurplusController extends Controller
         $data->dzongkhag_id = $user->dzongkhag_id;
         $data->gewog_id = $user->gewog_id;
         $data->save();
-        // dd($data);
+        
 
         $product_type= ProductType::all();
         $unit=Unit::all();
@@ -234,7 +233,7 @@ class CASurplusController extends Controller
                 ->where('refNumber', 'Like' , '%'.$nextNumber.'%')
                 ->first();
         $trans = $data->id;
-        // dd($trans);
+       
         Session::put('View_status', 'A');
         return view('ca_nvsc.surplus.create',compact('nextNumber','product_type','unit','ref','trans')); 
         
@@ -342,13 +341,12 @@ class CASurplusController extends Controller
         $data->product_id = $request->input('product');
         $data->quantity = $request->input('quantity');
         $data->unit_id = $request->input('ut');
-        // $data->harvestDate = $request->input('harvestdate');
         $data->price = $request->input('price');
         $data->status = 'A';
         $data->user_id = $user->id;
         $data->dzongkhag_id = $user->dzongkhag_id;
         $data->trans_id =$request->input('trans');
-        // dd($data);
+        
         $data->save();
         
         return redirect('/ca_supply_temp')->with('nextNumber');
@@ -363,7 +361,6 @@ class CASurplusController extends Controller
         DB::table('tbl_transactions')
             ->where('refNumber', $id)
             ->where('user_id', $user->id)
-            // ->where('dzongkhag_id', '=' , $user->dzongkhag_id)
             ->update([
                 'status' => 'S',
                 'submittedDate' => $current
@@ -569,14 +566,7 @@ class CASurplusController extends Controller
                     ->select('phone','location','remark','pickupdate','users.contact_number')
                     ->first();
 
-            
-        // $table = DB::table('tbl_transactions')
-        //             ->where('tbl_transactions.user_id', '=', $user->id)
-        //             ->join('users','tbl_transactions.user_id', '=','users.id')
-        //             ->groupBy('users.id')
-        //             ->select('users.contact_number')->get();
-
-        // $rows = Demand::with('dzongkhag')->get();
+        
 
         return view('ca_nvsc.surplus.view-details', compact('row','table'));
     }
@@ -646,13 +636,14 @@ class CASurplusController extends Controller
 
     public function zero(Request $request, $id){
 
+     
 
         $data = DB::table('tbl_cssupply')
                     ->where('id', '=', $id)
                     ->select('refNumber','quantity','productType_id','product_id', 'price',
                     'id','unit_id','status','dzongkhag_id','trans_id')
                     ->first();
-
+                    
         $inserts = [];
 
         $inserts[] =  [
@@ -664,7 +655,8 @@ class CASurplusController extends Controller
             'price' => $data->price,
             'trans_id' => $data->trans_id,
             'status' => 'T',
-            'dzongkhag_id' => $data->dzongkhag_id
+            'dzongkhag_id' => $data->dzongkhag_id,
+            'ca_surplus_id'=> $data->id
             ]; 
 
         DB::table('tbl_history_ca_supply')->insert($inserts);
