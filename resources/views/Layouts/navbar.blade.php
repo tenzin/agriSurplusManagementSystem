@@ -4,74 +4,82 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
-       <img class="img-responsive" src="{{URL::asset('/images/rgoblogo.png')}}"style="height:40px;width:40px;">
-       <h5><b>&nbsp;&nbsp;Ministry of Agriculture and Forests</b></h5>
     </ul>
+       {{-- <img class="img-responsive" src="{{URL::asset('/images/logo.jpg')}}"style="height:40px;width:40px;"> --}}
+       <h5><b>&nbsp;&nbsp;Vegetable Market Information System</b></h5>
+    
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <li>
         <a class="nav-link">
-          {{Auth()->user()->name.'  '.Auth()->user()->role->role.' - '.Auth()->user()->gewog->gewog}} 
+
+          @if(Auth()->user()->role->role == 'Gewog Extension officer' || Auth()->user()->role->role == 'Land User Certificate' || Auth()->user()->role->role == 'Farmer Group' )
+
+          {{Auth()->user()->name.' - '.Auth()->user()->role->role.' - '.Auth()->user()->gewog->gewog}} 
+
+          @elseif(Auth()->user()->role->role == 'Commercial Aggregator' || Auth()->user()->role->role == 'Vegetable Supply Company' || Auth()->user()->role->role == 'Agriculture Research Development Center' || Auth()->user()->role->role == 'Dzongkhag Agriculture Officer')
+
+          {{Auth()->user()->name.' - '.Auth()->user()->role->role.' - '.Auth()->user()->dzongkhag->dzongkhag}}
+
+          @else
+
+          {{Auth()->user()->name.' - '.Auth()->user()->role->role}}
+          
+          @endif
+
         </a> 
       </li>
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell mr-2"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
+        @if(auth()->user()->unreadNotifications->count() >= 1)
+        <span class="badge badge-danger navbar-badge">{{auth()->user()->unreadnotifications->count()}}</span>
+        @else
+        <span class="badge badge-danger navbar-badge"></span>
+        @endif
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
+        @if(auth()->user()->unreadNotifications->isEmpty())
+        {{-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> --}}
+              <div class="media">
+                  <div class="body">
+                    <h3 class="dropdown-item-title">
+                      No Notification 
+                    </h3>
+        
+                  </div>
+              </div>
+        @else
+       
+        {{-- <a href="" class="dropdown-item"> --}}
+        @foreach(Auth::User()->unreadNotifications as $notification)
+        {{-- <a href="{{route('read')}}" class="dropdown-item"> --}}
+        {{-- {{$notification->markAsRead()}} --}}
+        <a class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="{{asset('images/user1-128x128.jpg')}}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    {{$notification->data['dzongkhag']}}-&nbsp;{{$notification->data['Gewog']}}
+                  </h3>
+                   <p class="text-sm">
+                        {{$notification->data['product']}}&nbsp;
+                        Qty:&nbsp;{{$notification->data['quantity']}}&nbsp;
+                        @&nbsp;Nu.{{$notification->data['price']}}&nbsp;
+                   </p>
+                </div>
             </div>
             <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="{{asset('images/user8-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="{{asset('images/user3-128x128.jpg')}}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-        </div>
+            @endforeach
+        </a>
+            <div class="dropdown-divider"></div>
+            <a href="{{route('read')}}" class="dropdown-item dropdown-footer">Mark all To read</a>
+          </div>
+        @endif
+         
+          
       </li>
       
       <li class="nav-item dropdown">

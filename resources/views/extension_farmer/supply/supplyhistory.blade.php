@@ -8,8 +8,9 @@
   <div class="row">
       <div class="col-md">
           <!-- <div class="card"> -->
-          <h3 class="text-primary text-center">Surplus List</h3>
-              <!-- </div> -->
+          <h3 class="text-primary text-center">Expired Surplus List</h3>
+ 
+          <!-- </div> -->
               <div class="card-body">
                 <div class="card-body">
                   @if (session('success'))
@@ -25,7 +26,7 @@
                   <table id="example1" class="table table-bordered table-striped">
                       <thead>
                         <tr>
-                          <th scope="col">#</th>
+                          <th scope="col">Sl.No</th>
                           <th scope="col">Referance Number</th>
                           <th scope="col">Submitted Date</th>
                           <th scope="col">Expired Date</th>
@@ -33,10 +34,11 @@
                       </thead>
                       <tbody>
                           
-                        @foreach($supply as $row)
+                       @foreach($supply as $row)
                         <tr>
-                        <th scope="row">{{$loop->index+1}}</th>
-                        <td><a href="{{route('showii',$row->refNumber)}}">
+
+                        <td scope="row">{{$loop->index+1}}</td>
+                        <td><a href="{{route('show-surplus',$row->refNumber)}}">
                         <i class="fas fa-eye"></i>
                           {{$row->refNumber}}
                         </td>
@@ -44,8 +46,8 @@
                         <td>{{$row->expiryDate}}</td>
 
                         </tr>
-                        @endforeach
-                       </tbody>           
+                       </tbody>  
+                       @endforeach          
                         
                     </table>
               </div>

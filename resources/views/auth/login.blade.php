@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>V-MIS</title>
+  <title>V-MIS Login</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,13 +22,14 @@
 <div class="login-box">
   <div class="login-logo">
   <img class="img-responsive" src="{{URL::asset('/images/rgoblogo.png')}}"style="height:80px;width:80px; "></img><br>
-    <a href="../../index2.html"><b>Ministry of Agriculture and Forests</b></a>
+    <b><strong>Vegetable Market Information System</strong></b>
   </div>
   <!-- /.login-logo -->
+  <div id="login">
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to V-MIS</p>
-      {{-- @include('flash-message') --}}
+
     <form method="POST" action="{{url('login')}}">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <div class="input-group mb-3">
@@ -49,12 +50,12 @@
         </div>
         <div class="row">
           <div class="col-8">
-            <div class="icheck-primary">
+            {{-- <div class="icheck-primary">
               <input type="checkbox" id="remember">
               <label for="remember">
                 Remember Me
               </label>
-            </div>
+            </div> --}}
           </div>
           <!-- /.col -->
           <div class="col-4">
@@ -73,6 +74,9 @@
     </div>
     <!-- /.login-card-body -->
   </div>
+  <div class="col-6">
+  <a href="{{ url('/') }}">BACK TO HOME</a>         
+   </div>
 </div>
 <!-- /.login-box -->
 

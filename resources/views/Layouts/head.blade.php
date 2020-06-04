@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>V-MIS</title>
+    <title>Vegetable Management Information System</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -35,7 +35,7 @@
      <!-- Select2 -->
     <link rel="stylesheet" href="{{URL::asset('bower_components/admin-lte/plugins/select2/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{URL::asset('bower_components/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
-
+    <link rel="shortcut icon"  href="{{asset('images/logo.jpg')}}"/>
     <style>
       img {
         border-radius: 60%;

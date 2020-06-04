@@ -8,20 +8,12 @@
   <div class="row">
       <div class="col-md">
           {{-- <div class="card"> --}}
-          <h3 class="text-primary text-center">Surplus List</h3>
+          <h3 class="text-primary text-center"> Expired Surplus List</h3>
+          
               {{-- </div> --}}
               <div class="card-body">
                 <div class="card-body">
-                  @if (session('success'))
-                  <div class="alert alert-success" id="session_message">
-                      {{ session('success') }}
-                  </div>
-                  @endif
-                  @if (session('error'))
-                  <div class="alert alert-warning" id="session_message">
-                      {{ session('error') }}
-                  </div>
-                  @endif
+                  @include('Layouts.message') 
                   <table id="example1" class="table table-bordered table-striped">
                       <thead>
                         <tr>

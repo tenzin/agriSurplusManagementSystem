@@ -1,0 +1,44 @@
+
+
+
+.card.card-chart {
+    text-align: center;
+}
+
+.card.type {
+    overflow-y: scroll;
+    height: 300px;
+}
+.card.product {
+    overflow-y: scroll;
+    height: 300px;
+}
+/* aggregator dashboard */
+.card.contact {
+    overflow-y: scroll;
+    height: 300px;
+}
+
+/* extension level */
+
+.card.cultivation {
+    overflow-y: scroll;
+    height: 340px;
+}
+.card.info {
+    overflow-y: scroll;
+    height: 340px;
+}
+
+/* national level */
+
+.card.cultinfo {
+    overflow-y: scroll;
+    height: 340px;
+}
+.card.productinfo {
+    overflow-y: scroll;
+    height: 340px;
+}
+
+

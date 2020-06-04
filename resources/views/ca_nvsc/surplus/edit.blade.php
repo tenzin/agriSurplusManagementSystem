@@ -7,7 +7,7 @@
   <h5>Ref. No: <b>{{$nextNumber}}</b></h5>
   <hr>
 </div>
-{{-- {!! Form::open(['action' => ['DemandController@update',$individuals->id],'method' => 'POST','enctype'=>'multipart/form-data']) !!} --}}
+@include('Layouts.message') 
 <form method="POST" action={{route('ca-update',$individuals->id)}}  >
     @csrf
 <div class="row">
@@ -69,7 +69,7 @@
       </div>
 
       <div class="row">
-          <div class="col-md-3 mb-3">
+          <div class="col-md-4 mb-3">
               <label for="qty">Quantity*</label>
               <input type="text" value="{{ $individuals->quantity}}" class="form-control" name="quantity" id="quantity" required>
               {{-- {{Form::text('quantity',$demand->quantity,['class'=>'form-control','id'=>'quantity', 'placeholder' =>'Quantity'])}} --}}
@@ -77,7 +77,7 @@
                   Please enter Quantity.
               </div>
           </div>
-          <div class="col-md-3 mb-3">
+          <div class="col-md-4 mb-3">
               <label for="unit">Unit*</label>
               <div class="input-group">
                   <select class="custom-select d-block w-100" id="unit" name="unit" required>
@@ -93,7 +93,7 @@
                   </div>
               </div>
           </div>
-          <div class="col-md-3 mb-3">
+          <div class="col-md-4 mb-3">
               <label for="unit">Price* (tentative)</label>
               <div class="input-group">
                   <div class="input-group-prepend">
@@ -106,33 +106,9 @@
                   </div>
               </div>
           </div>
-          
-          <div class="col-md-3 mb-3">
-              <label for="qty">Tentative Pickup Date*</label>
-              <input type="date" value="{{$individuals->tentativePickupDate}}" class="form-control" name="date" id="date" required>
-              {{-- {{Form::date('date',$individuals->tentativeRequiredDate,['class'=>'form-control','id'=>'date', 'placeholder' =>'Required Date'])}} --}}
-              <div class="invalid-feedback">
-                  Please enter date of requirement.
-              </div>
-          </div>
-      </div>
-      <div class="row">
-      <div class="col-md-6 mb-3">
-        <label for="qty">Harvest Date<font color="red">*</font></label>
-        <input type="date" value="{{$individuals->harvestDate}}" class="form-control" name="harvestdate" id="harvestdate" required>
-        {{-- <input type="date" class="form-control" name="harvestdate" id ="harvestdate" placeholder ="Required Date"> --}}
-        <div class="invalid-feedback">
-            Please enter date of requirement.
-        </div>
-      </div>
-      <div class="col-md-6 mb-3">
-          <label for="unit">Remarks</label>
-          <textarea class="form-control" id="remarks" name="remarks" cols="50" rows="2" 
-              id="remarks" placeholder="If any ....">{{$individuals->remarks}}</textarea>
-                  <div class="invalid-feedback" style="width: 100%;">
-                  Price is required.
-                  </div>
-      </div>
+         
+      
+      
       </div>
     
       <hr class="mb-4">

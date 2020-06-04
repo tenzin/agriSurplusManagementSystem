@@ -3,11 +3,12 @@
 <div class="container normal-page">
    <div class="row justify-content-center">
       <div class="col-md-12">
-         <div class="card card-info">
+         <div class="card card">
             <div class="card-header">Password Reset List
             </div>
             <!--card header-->
             <div class="card-body">
+               @include('Layouts.message') 
                <table id="example1" class="table table-bordered table-striped">
                   <thead>
                      <tr>
@@ -30,12 +31,17 @@
                         <td>{{$user->email}}</td>
                         <td>{{$user->Role['role']}}</td>
                         <td>
-                           <a href="{{route('user-resetpassword', $user['id'])}}" class="btn btn-success btn-xs"></span>Reset</a>
+                           <a href="{{route('user-resetpassword', $user['id'])}}" class="btn btn-success btn-sm"></span>Reset</a>
                         </td>
                      </tr>
                      @endforeach
                   </tbody>
                </table>
+            <div class="form-group row mb-0">
+               <div class="col-md-6 offset-md-4">
+                <a class="btn btn-primary btn-sm" href="{{ route('system-user')}}">Go back</a>
+               </div>
+            </div>
             </div>
          </div>
       </div>

@@ -1,26 +1,30 @@
 1,access_control_list,Access Control List
-2,view_national_dashboard,National Dashboard
-3,view_extension_dashboard,Extension Dashboard
-4,view_aggregator_dashboard,Aggregator Dashboard
-5,extension_level,extension_level
-6,extension_add_surplus,Add Surplus Information-Extension
-7,view_extension_surplus,View Surplus Information-Extension
-8,extension_add_under_cultivation,Area Under Cultivation
-9,extension_view_under_cultivation,View Area Under Cultivation
-10,aggregator_level,Aggregator Sidebar
-11,aggregator_add_surplus,Add Surplus Information-Aggregator
-12,aggregator_view_surplus,View Surplus Information-Aggregator
-13,aggregator_demand_surplus,Add Demand Information-Aggregator
-14,aggregator_view_demand_surplus,View Demand Information-Aggregator
-15,aggregator_search_surplus,Search Surplus-Aggregator
-16,aggregator_view_search_surplus,View Search Information-Aggregator
-17,master_data,View Master Data
-18,aggregator_demand_history,Demand History-Aggregator
-19,aggregator_supply_history,Supply History-Aggregator
-20,aggregator_view_surplus_details,ViewSurplus Details-Aggregator
-21,aggregator_edit_surplus_details,Edit Surplus Detail-Aggregator
-22,aggregator_edit_demand_details,Edit Demand Details
-23,aggregator_view_demand_details,View Demand Details
-24,extension_supply_history,Extension-History
-25,extension_edit_surplus_details,Extension-Edit_Surplus
-26,extension_view_surplus_details,Extension-View Surplus
+2,master_data,View Master Data
+3,view_admin_dashboard,Admin Dashboard
+4,view_national_dashboard,National Dashboard
+5,view_extension_dashboard,Extension Dashboard
+6,view_aggregator_dashboard,Aggregator Dashboard
+7,extension_level,Extension Sidebar
+8,extension_add_surplus,Add Surplus Information-Extension
+9,view_extension_surplus,View Surplus Information-Extension
+10,extension_add_under_cultivation,Area Under Cultivation-Extension
+11,extension_view_under_cultivation,View Area Under Cultivation-Extension
+12,extension_supply_history,Surplus History-Extension
+13,extension_edit_surplus_details,Edit Surplus Detail-Extension
+14,extension_view_surplus_details,View Surplus Details-Extension
+15,aggregator_level,Aggregator Sidebar
+16,aggregator_add_surplus,Add Surplus Information-Aggregator
+17,aggregator_view_surplus,View Surplus Information-Aggregator
+18,aggregator_demand_surplus,Add Demand Information-Aggregator
+19,aggregator_view_demand_surplus,View Demand Information-Aggregator
+20,aggregator_demand_history,Demand History-Aggregator
+21,aggregator_supply_history,Surplus History-Aggregator
+22,aggregator_view_surplus_details,View Surplus Details-Aggregator
+23,aggregator_edit_surplus_details,Edit Surplus Detail-Aggregator
+24,aggregator_edit_demand_details,Edit Demand Details-Aggregator
+25,aggregator_view_demand_details,View Demand Details-Aggregator
+26,view_surplus_nation,View CA Surplus National
+27,aggregator_view_report,View Report-Aggregator
+28,extension_view_report,View Report-Extension
+29,view_dao_dashboard,DAO Dashboard
+30,aggregator_view_report_individual,Report Aggregator

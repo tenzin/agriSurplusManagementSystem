@@ -28,8 +28,24 @@ class CASupply extends Model
 
 }
 
+public function transaction()
+{
+    return $this->belongsTo(Transaction::class,'refNumber','refNumber');
+}
+
 // public function user()
 //     {
 //         return $this->belongsToMany('App\User','user');
 //     }
+
+public function scopeSearch($q, $request)
+    {
+        if ($request->query('date') && $request->has('date')) {
+            $q->where('tentativePickupDate', $request->query('date'));
+        }
+
+        if ($request->query('location') && $request->has('location')) {
+            $q->where('gewog_id', $request->query('location'));
+        }
+    }
 }

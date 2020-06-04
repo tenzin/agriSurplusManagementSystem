@@ -81,6 +81,7 @@ class CADemandController extends Controller
         $date = date('Ym');
         $type = "D"; //Transaction type D: Demand; S: Supply
         $refno = $type.$date;
+        
     //--------Check transaction not submitted
         $checkno = DB::table('tbl_transactions')
         ->where('user_id', '=' , $user->id)
@@ -391,7 +392,22 @@ class CADemandController extends Controller
                     $data->refNumber,
                 );
             }
-        $demand = DB::table('tbl_demands')
+        if($user->role_id==4 || $user->role_id==5){
+            $demand = DB::table('tbl_demands')
+                //->where('tbl_transactions.user_id', '=', $user->id)
+                ->where('tbl_transactions.status', '=', 'S')
+                ->where('tbl_transactions.type', '=', 'D')
+                ->where('tbl_demands.quantity', '>', 0)
+                //->where('tbl_demands.dzongkhag_id', '=', $user->dzongkhag_id)
+                ->join('tbl_transactions','tbl_demands.refNumber', '=', 'tbl_transactions.refNumber')
+                ->join('tbl_product_types','tbl_demands.productType_id', '=', 'tbl_product_types.id')
+                ->join('tbl_products','tbl_demands.product_id', '=', 'tbl_products.id')
+                ->join('tbl_units','tbl_demands.unit_id', '=', 'tbl_units.id')
+                ->select('tbl_demands.refNumber','tbl_demands.quantity','tbl_product_types.type','tbl_products.product', 'tbl_demands.price',
+                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate')
+                ->get();
+        } else {
+            $demand = DB::table('tbl_demands')
                 ->where('tbl_transactions.user_id', '=', $user->id)
                 ->where('tbl_transactions.status', '=', 'S')
                 ->where('tbl_transactions.type', '=', 'D')
@@ -404,6 +420,8 @@ class CADemandController extends Controller
                 ->select('tbl_demands.refNumber','tbl_demands.quantity','tbl_product_types.type','tbl_products.product', 'tbl_demands.price',
                 'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate')
                 ->get();
+        }
+        
         Session::put('View_status', 'VS');
         return view('ca_nvsc.demand.view-submitted')->with('demands',$demand)
                                 ->with('msg','Submitted product list.');
@@ -416,6 +434,25 @@ class CADemandController extends Controller
         $row = Demand::find($id);
         // $rows = Demand::with('dzongkhag')->get();
         return view('ca_nvsc.demand.view-details', compact('row'));
+    }
+    public function view_surplus_nation()
+    {
+
+            $demand = DB::table('tbl_demands')
+                //->where('tbl_transactions.user_id', '=', $user->id)
+                ->where('tbl_transactions.status', '=', 'S')
+                ->where('tbl_transactions.type', '=', 'D')
+                ->where('tbl_demands.quantity', '>', 0)
+                //->where('tbl_demands.dzongkhag_id', '=', $user->dzongkhag_id)
+                ->join('tbl_transactions','tbl_demands.refNumber', '=', 'tbl_transactions.refNumber')
+                ->join('tbl_product_types','tbl_demands.productType_id', '=', 'tbl_product_types.id')
+                ->join('tbl_products','tbl_demands.product_id', '=', 'tbl_products.id')
+                ->join('tbl_units','tbl_demands.unit_id', '=', 'tbl_units.id')
+                ->select('tbl_demands.refNumber','tbl_demands.quantity','tbl_product_types.type','tbl_products.product', 'tbl_demands.price',
+                'tbl_demands.id', 'tbl_units.unit', 'tbl_demands.tentativeRequiredDate')
+                ->get();       
+        Session::put('View_status', 'VS');
+        return view('ca_nvsc.demand.view-all')->with('demands',$demand);
     }
 }
 

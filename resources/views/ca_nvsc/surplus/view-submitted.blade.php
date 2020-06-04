@@ -13,8 +13,11 @@
         <th scope="col">Product</th>
         <th scope="col">Quantity</th>
         <th scope="col">Price</th>
-        {{-- <th scope="col">Required Date</th> --}}
+        <th scope="col">Pick Up Location</th>
+        <th scope="col">Pick Date</th>
         <th>Action</th>
+        <th>Update</th>
+        
         </tr>
     </thead>
     <tbody>
@@ -25,8 +28,9 @@
             <td>{{$row->type}}</td>
             <td>{{$row->product}}</td>
             <td>{{$row->quantity.' '.$row->unit}}</td>
-            <td>{{$row->price}}</td>
-            {{-- <td>{{$row->tentativeRequiredDate}}</td> --}}
+            <td>Nu. {{$row->price}}</td>
+            <td>{{$row->location}}</td>
+            <td>{{$row->pickupdate}}</td>
             <td>
                 @can('aggregator_edit_surplus_details')
               <a href="/edit_submited/{{$row->id}}">
@@ -38,6 +42,14 @@
                 <i class="fa fa-eye" aria-hidden="true"> </i> View</a>
               </a>
               @endcan
+            </td>
+            <td>
+                <button type="button" class="btn btn-block bg-gradient-warning btn-xs" style="width:2cm;" onclick="return confirm('Are you sure all Quantity are Taken??');">
+                    <a href="{{route('update',$row->id)}}" >All Taken</a>
+                    </button>
+                {{-- <a href="{{route('update',$row->id)}}">
+                    <i class="fa fa-eye" aria-hidden="true"> </i> To Zero</a>
+                 </a> --}}
             </td>
         </tr>
         @endforeach

@@ -31,7 +31,7 @@
                           <th scope="col">Quantity</th>
                           <th scope="col">Price</th>
                           <th scope="col">Harvest Date</th>
-                          <th scope="col">TentativePickupDate Date</th>
+                          
                           <th scope="col">Actions</th>
                         </tr>
                       </thead>
@@ -45,7 +45,7 @@
                 <td>{{$row->quantity.' '.$row->unit}}</td>
                 <td>Nu. {{$row->price}}</td>
                 <td>{{$row->harvestDate}}</td>
-                <td>{{$row->tentativePickupDate}}</td>
+                {{-- <td>{{$row->tentativePickupDate}}</td> --}}
                 <td><a href="/ex-supply-edit/{{$row->id}}">
                   <i class="fa fa-edit" aria-hidden="true"> </i> Edit</a>
                  &nbsp;
@@ -74,7 +74,7 @@
       if (confirm('Are you sure you want to submit your Surplus list?.'))  {
         var id = document.getElementById("refnumber").value;
         $.get('/json-submit-surplus?ref_number=' + id, function(data){
-          window.location = "/national";
+          window.location = "/ex-day/";
         });
       }
       else {
