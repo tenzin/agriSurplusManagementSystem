@@ -8,8 +8,9 @@
   <div class="row">
       <div class="col-md">
           <!-- <div class="card"> -->
-          <h3 class="text-primary text-center">Surplus List</h3>
-              <!-- </div> -->
+          <h3 class="text-primary text-center">Expired Surplus List</h3>
+ 
+          <!-- </div> -->
               <div class="card-body">
                 <div class="card-body">
                   @if (session('success'))

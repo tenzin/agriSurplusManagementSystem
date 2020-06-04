@@ -33,7 +33,7 @@
           <div class="col-md-3">
             <div class="form-group">
               <label>Acres/Number:<font color="red">*</font></label>
-               <input id="quantity" type="number" class="form-control" name="quantity" placeholder="Enter the Quantity" required>
+               <input id="quantity" type="text" class="form-control" name="quantity" placeholder="Enter the Quantity" required>
             </div>
           </div>
 
@@ -107,10 +107,30 @@
                 })
             });
         });
+
+        $("#quantity").keypress(function (e) {
+            if (e.which != 46)
+            {
+              if(isNaN(document.getElementById("quantity").value))
+              {
+                alert('Invalid number!!!!');
+                document.getElementById("quantity").style.color = "red";
+                return false;
+              }
+              if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                    return false;
+              }
+            }
+            document.getElementById("quantity").style.color = "black";
+        });
+        
     });
 </script>
 
 @endsection
+
+
 
    
      

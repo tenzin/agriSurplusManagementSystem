@@ -18,20 +18,20 @@
                   <div class="col col-md-auto">
                     <label for="fromdate">From:</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <input type="date" class="form-control" name="fromdate" id ="fromdate" value="">
                   </div>
                   <div class="col col-md-auto">
                     <label for="todate">To:</label>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <input type="date" class="form-control" name="todate" id ="todate" value="">
                   </div>
                   <div class="col col-md-auto">
                     <label for="tyear">Year:</label>
                   </div>
-                  <div class="col-md-1">
-                    <select name="tyear" id="tyear">
+                  <div class="col-md-3">
+                    <select name="tyear" id="tyear" class="form-control">
                       <option value="All">All</option>
                     @foreach($years as $year)
                       @if($year->year == date('Y'))

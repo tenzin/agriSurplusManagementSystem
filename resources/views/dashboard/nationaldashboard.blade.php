@@ -164,10 +164,10 @@
                             <label for="product">Products:</label>
                         </div>
                             <div class="col-md-6 mb-3">
-                            <select class="custom-select d-block w-100" id="product" name="product" required>
+                            <select class="custom-select d-block w-100" id="product_name" name="product_name" required>
                               <option>Select Product</option>
                                 @foreach($product as $pro)
-                                  <option value="{{$pro->id}}">{{$pro->product}}</option>
+                                  <option value="{{$pro->product}}">{{$pro->product}}</option>
                                   @endforeach
                             </select>  
                           </div>
@@ -200,7 +200,7 @@
                      <h3 class="card-title">Cultivation Harvested</h3>
                   </div>
                   <div class="card-body">
-                     <table id = "area_hv" class="table table-bordered">
+                     <table id ="hv" class="table table-bordered">
                         <div class="row">
                            <div class="col col-md-auto">
                             <label for="product">Products:</label>
@@ -209,7 +209,7 @@
                             <select class="custom-select d-block w-100" id="product" name="product" required>
                               <option>Select Product</option>
                                 @foreach($product as $pro)
-                                  <option value="{{$pro->id}}">{{$pro->product}}</option>
+                                  <option value="{{$pro->product}}">{{$pro->product}}</option>
                                   @endforeach
                             </select>  
                           </div>
@@ -248,11 +248,7 @@
   $('#product_name').on('change', function () {
               table.columns(1).search( this.value ).draw();
           });
- 
-    var table = $('#area_hv').DataTable();
-  $('#product').on('change', function () {
-              table.columns(1).search( this.value ).draw();
-          });
+
    });
   
   </script>
@@ -260,7 +256,7 @@
 <script>
    $(document).ready(function() {
 
-    var table = $('#area_hv').DataTable();
+    var table = $('#hv').DataTable();
   $('#product').on('change', function () {
               table.columns(1).search( this.value ).draw();
           });

@@ -11,7 +11,7 @@
                <h3>{{$ca}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-person-add"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
@@ -23,7 +23,7 @@
                <h3>{{$luc}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-person-add"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
@@ -35,7 +35,7 @@
                <h3>{{$ex}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-person-add"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>
@@ -47,7 +47,7 @@
                <h3>{{$farmer}}</h3>
             </div>
             <div class="icon">
-               <i class="ion ion-person-add"></i>
+               <i class="fas fa-users nav-icon"></i>
             </div>
          </div>
       </div>

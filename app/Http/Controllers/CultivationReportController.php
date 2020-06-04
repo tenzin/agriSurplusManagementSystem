@@ -20,14 +20,16 @@ class CultivationReportController extends Controller
         $user = auth()->user();
         
         $gewogs = DB::table('tbl_gewogs')
-                        ->where('dzongkhag_id','=',$user->dzongkhag_id)                
-                        ->get();
+                    ->where('dzongkhag_id','=',$user->dzongkhag_id)                
+                    ->get();
+
         $years = DB::table('tbl_cultivations')
-                ->select(DB::raw('year(sowing_date) as year'))
-                ->distinct()
-                ->get();
+                    ->select(DB::raw('year(sowing_date) as year'))
+                    ->distinct()
+                    ->get();
 
         $json_months_data = Months::getMonths();
+        
         $months = $json_months_data->getData();
 
         $ptypes = DB::table('tbl_product_types')->get();

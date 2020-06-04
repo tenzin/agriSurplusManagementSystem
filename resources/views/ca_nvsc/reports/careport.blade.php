@@ -31,7 +31,7 @@
                   <div class="col col-md-auto">
                       <label for="gewog">Gewog:</label>
                   </div>
-                  <div class="col-md-3"> 
+                  <div class="col-md-2"> 
                       <select class="form-control" id="gewog" name="gewog">
                         <option value="All">All</option>
                         @foreach($gewogs as $gewog)
@@ -42,8 +42,8 @@
                   <div class="col col-md-auto">
                     <label for="tyear">Year:</label>
                   </div>
-                  <div class="col-md-1">
-                    <select name="tyear" id="tyear">
+                  <div class="col-md-2">
+                    <select name="tyear" id="tyear" class="form-control">
                       <option value="All">All</option>
                     @foreach($years as $year)
                       @if($year->year == date('Y'))
@@ -101,7 +101,7 @@
                     <label for="tsyear">Year:</label>
                   </div>
                   <div class="col-md-2">
-                  <select name="tyear" id="tsyear">
+                  <select name="tyear" id="tsyear" class="form-control">
                       <option value="All">All</option>
                     @foreach($years as $year)
                       @if($year->year == date('Y'))

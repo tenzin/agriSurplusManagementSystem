@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 
-
 //Login Route
 Route::get('login', 'AuthController@loginForm')->name('login');
 Route::post('login', 'AuthController@login');

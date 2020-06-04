@@ -8,7 +8,7 @@
             @csrf
         <div class="card card">
                   <div class="card-header">
-                    <h3 class="text-center">Search submitted surplus based on harvest date:</h3>
+                    <h3 class="text-center">Report for Surplus:</h3>
                   </div>
                   <!-- /.card-header -->
          
@@ -31,7 +31,7 @@
                     <label for="tyear">Year:</label>
                   </div>
                   <div class="col-md-3">
-                    <select name="tyear" id="tyear">
+                    <select name="tyear" id="tyear" class="form-control">
                       <option value="All">All</option>
                     @foreach($years as $year)
                       @if($year->year == date('Y'))
@@ -70,8 +70,6 @@
               </div> <!--- row ends -->
           </div> 
                   <!-- /.card-body -->
-          <div class="card-footer">                               
-          </div>
       </div>
     </form>                             
 </div>
@@ -94,7 +92,7 @@
                     <label for="tyear">Year:</label>
                   </div>
                   <div class="col-md-2">                                      
-                    <select name="tyear" id="tyear">
+                    <select name="tyear" id="tyear" class="form-control">
                       <option value="All">All</option>
                       @foreach($years as $year)
                         @if($year->year == date('Y'))
@@ -122,9 +120,7 @@
                   </div>  
                 </div>
           </div> 
-                  <!-- /.card-body -->
-          <div class="card-footer">                               
-          </div>
+         
       </div>
     </form>                             
 </div>

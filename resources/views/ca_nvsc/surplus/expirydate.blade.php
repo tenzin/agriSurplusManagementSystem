@@ -18,14 +18,14 @@
               <!-- text input -->
               <div class="form-group">
                 <label for="expiryday">Expiry Day(s)<font color="red">*</font>:</label>
-                <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" class="form-control" name="expiryday" id ="expiryday" required/>
+                <input type="text"  class="form-control" name="expiryday" id ="expiryday" maxlength= 2 required/>
                 
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="phone">Phone<small>(Contact number)</small><font color="red">*</font>:</label>
-                <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==8) return false;" class="form-control" name="phone" id="phone"  required/>
+                <input type="text"  class="form-control" name="phone" id="phone" maxlength=8 required/>
               </div>
             </div>
           </div>
@@ -66,4 +66,49 @@
       <!-- /.card-body -->
     </div>
  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+          $(window).on('load', function() {
+        console.log('All assets are loaded')
+    })
+    $(document).ready(function () {
+      
+        $("#expiryday").keypress(function (e) {
+          if (e.which != 46)
+          {
+            if(isNaN(document.getElementById("expiryday").value))
+            {
+              alert('Invalid number!!!!');
+              document.getElementById("expiryday").style.color = "red";
+              return false;
+            }
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+              $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                  return false;
+            }
+          }
+          document.getElementById("expiryday").style.color = "black";
+          
+      });
+      $("#phone").keypress(function (e) {
+          if (e.which != 46)
+          {
+            if(isNaN(document.getElementById("phone").value))
+            {
+              alert('Invalid number!!!!');
+              document.getElementById("phone").style.color = "red";
+              return false;
+            }
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+              $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                  return false;
+            }
+          }
+          document.getElementById("phone").style.color = "black";
+      });
+      
+    }); 
+</script>
 @endsection
+

@@ -9,13 +9,13 @@
         <center><p class="text-muted">{{$msg}} From Extensions/Land User/Farmers Group</p></center>
     <br>
 
-    <div class="row" >
+    <div class="row justify-content-center" >
          
-        <div class="col-md-6">
+        <div class="col-md-4">
             {{-- Date:<input placeholder="Date" class="form-control" type="text" id="date" name="date"> --}}
-            Date:<input type="date" class="form-control" name="date" id="date" >
+            Pick Up Date:<input type="date" class="form-control" name="date" id="date" >
         </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             Gewog:<select class= "form-control select2bs4" name="location" id="location" >
                 <option disabled>Please select location</option>
                 <option selected value="">All</option>
