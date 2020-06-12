@@ -28,7 +28,7 @@ class EXReportController extends Controller
 
         $json_months_data = Months::getMonths();
         $months = $json_months_data->getData();
-       // dd($months); 
+       
         return view('extension_farmer.reports.report',compact('ptypes','years','months'));
 
     }
@@ -78,7 +78,6 @@ class EXReportController extends Controller
 
        }
        
-    //    dd($sql);
 
         if(!empty($request->product_type))
         {
@@ -89,8 +88,6 @@ class EXReportController extends Controller
         {
             $sql = $sql." and tbl_ex_surplus.product_id = ".$request->product;
         }
-
-        //dd($sql);
         
         $surplus = DB::select($sql);
 
@@ -118,8 +115,6 @@ class EXReportController extends Controller
         join tbl_gewogs on tbl_ex_surplus.gewog_id = tbl_gewogs.id
         where tbl_transactions.status in ('S','E')";
       
-
-       // dd($sql);
      
        //status of submission. 'S'.
        $sql = $sql." and tbl_ex_surplus.gewog_id=".$user->gewog_id; 
@@ -145,7 +140,6 @@ class EXReportController extends Controller
             }
        }
        
-       // dd($sql);
 
         if(!empty($request->product_type))
         {
@@ -156,8 +150,6 @@ class EXReportController extends Controller
         {
             $sql = $sql." and tbl_ex_surplus.product_id = ".$request->product;
         }
-
-        //dd($sql);
         
         $surplus = DB::select($sql);
 

@@ -1,13 +1,11 @@
 @extends('master')
 
 @section('content')
-
     <!-- Content Header (Page header) -->
     <!-- Extension-Farmer report details -->
 <div class="content-header">
   <div class="card card-info">
     <div class="card-header">
-      
       <div class="row">
         <div class="col text-left">
           <strong>Submitted Surplus(Based on harvest date)</strong>
@@ -60,7 +58,6 @@
    
   </div>
 </div>
-    
 @endsection
 @section('custom_scripts')
   @include('Layouts.addscripts')
@@ -69,7 +66,6 @@
   {
     $("#example3").DataTable({
 
-     
         dom: 'B<"clear">lfrtip',
         buttons: [
             {

@@ -164,11 +164,9 @@ Route::group(['middleware' => 'can:aggregator_level, Auth::user()'], function() 
       Route::get('/demand_temp', 'CADemandController@demand_temp')->name('demand_temp');
       Route::get('/demand_view', 'CADemandController@demand_view')->name('demand_view');
       
-
       Route::get('/json-transaction-exist','TransactionController@transaction_exists');
       Route::get('/json-dimport-exist/{id}','TransactionController@import_demand');
 
-      
       //Commercial Aggregator Demand View Surplus Information 
       Route::get('view_surplus_demand_details',['as'=>'view_surplus_demand_details','uses'=>'CADemandController@view_surplus_demand_details'])->middleware('can:aggregator_view_demand_surplus,Auth::user()');
       Route::get('/edit_submitted/{id}','CADemandController@edit_submitted')->name('edit-submitted')->middleware('can:aggregator_edit_demand_details,Auth::user()');;
@@ -262,6 +260,7 @@ Route::group(['middleware' => 'can:access_control_list, Auth::user()'], function
             
 
   }); // end of acl group list
+
 
       //User profile Route
       Route::get('profile',['as'=>'profile','uses'=>'ProfileController@userprofile']);

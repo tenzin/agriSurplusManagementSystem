@@ -12,7 +12,6 @@
     <div class="row justify-content-center" >
          
         <div class="col-md-4">
-            {{-- Date:<input placeholder="Date" class="form-control" type="text" id="date" name="date"> --}}
             Pick Up Date:<input type="date" class="form-control" name="date" id="date" >
         </div>
           <div class="col-md-4">
@@ -26,7 +25,7 @@
           </div>
     </div>
       <br>
-    <table id= "example1" class="table table-bordered table-striped table-sm">
+    <table id= "example4" class="table table-bordered table-striped table-sm">
     <thead>
         <tr>
         <th scope="col">Sl.No</th>
@@ -120,7 +119,13 @@
 <script>
  $(document).ready(function() {
 
-var table =  $('#example1').DataTable();
+$("#example4").DataTable({
+      "dom": 'lrtip',
+      "lengthChange": false
+   });
+   
+var table =  $('#example4').DataTable();
+
 $('#location').on('change', function () {
             table.columns(6).search( this.value ).draw();
         });
@@ -128,9 +133,14 @@ $('#location').on('change', function () {
 $('#date').on('change', function () {
   table.columns(5).search( this.value ).draw();
 });
+ 
+ 
  });
 
 </script>
+
+
+
 @endsection
 
 
